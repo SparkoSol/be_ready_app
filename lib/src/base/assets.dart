@@ -8,6 +8,8 @@ class AppAssets {
   static const facebook = '$_path/facebook_logo.png';
   static const google = '$_path/google_logo.png';
   static const profileIcon = '$_path/profile_icon.png';
+  static const journeyHome = '$_path/journey.png';
+  static const playButton = '$_path/play.png';
   static const skullIcon = '$_path/skull.png';
   static const heartyIcon = '$_path/hearty.png';
   static const graphIcon = '$_path/graph.png';
