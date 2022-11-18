@@ -1,8 +1,11 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/auth/reset_password_page.dart';
 import 'package:be_ready_app/src/components/auth/sign_up_page.dart';
+import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
+import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
@@ -70,7 +73,9 @@ class _SignInPageState extends State<SignInPage> {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        AppNavigation.to(context, const ResetPasswordPage());
+                      },
                       child: Text(
                         'Forgot Password?',
                         style: GoogleFonts.poppins(),
@@ -82,48 +87,9 @@ class _SignInPageState extends State<SignInPage> {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                   },
-                  child: Stack(clipBehavior: Clip.none, children: [
-                    const Center(
-                      child: Text(
-                        'SIGN IN',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      right: 16,
-                      child: Container(
-                        height: 34,
-                        width: 34,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xFFDA8B6D),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.white.withOpacity(0.3),
-                              Colors.white.withOpacity(0.0),
-                            ],
-                          ),
-                        ),
-                        child: const Icon(Icons.arrow_forward_sharp),
-                      ),
-                    ),
-                  ]),
+                  child: const AuthButtonTitleWidget(title: 'SIGN IN'),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32),
-                  child: Text(
-                    'OR',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      color: const Color(0xFF9D9898),
-                    ),
-                  ),
-                ),
+                const OrWidget(),
                 SocialAuthButton(
                   onTap: () {},
                   platformImage: AppAssets.google,

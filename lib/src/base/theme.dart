@@ -4,7 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
         textTheme: GoogleFonts.oswaldTextTheme(),
-        appBarTheme: const AppBarTheme(centerTitle: true, elevation: 0),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+          color: Colors.transparent,
+        ),
       );
 }
 

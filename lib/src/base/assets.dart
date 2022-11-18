@@ -7,4 +7,5 @@ class AppAssets {
   static const passwordIcon = '$_path/password_icon.png';
   static const facebook = '$_path/facebook_logo.png';
   static const google = '$_path/google_logo.png';
+  static const profileIcon = '$_path/profile_icon.png';
 }
