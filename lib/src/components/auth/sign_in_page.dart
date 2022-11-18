@@ -1,5 +1,7 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/auth_title_widget.dart';
+import 'package:be_ready_app/src/components/home/home_page.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -74,7 +76,7 @@ class _SignInPageState extends State<SignInPage> {
                   ]),
                 ),
                 AppButtonWidget(
-                  onPressed: () {},
+                  onPressed: () => AppNavigation.to(context, const HomePage()),
                   child: Stack(
                     children: [
                       const Center(
@@ -89,9 +91,9 @@ class _SignInPageState extends State<SignInPage> {
                       Positioned(
                         right: 16,
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: const Color(0xFFDA8B6D),
+                            color: Color(0xFFDA8B6D),
                             boxShadow: [
                               BoxShadow(
                                 offset: Offset(-2, -2),
