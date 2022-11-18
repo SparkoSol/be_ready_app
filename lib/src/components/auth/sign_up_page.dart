@@ -1,6 +1,7 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
+import 'package:be_ready_app/src/components/auth/otp_page.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
@@ -31,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(elevation: 0),
+      appBar: AppBar(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -40,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(33, 33, 22, 28),
+            padding: const EdgeInsets.fromLTRB(33, 22, 33, 28),
             child: Column(children: [
               const AuthTitleWidget(title: 'Sign up'),
               const SizedBox(height: 24),
@@ -67,6 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
               AppButtonWidget(
                 onPressed: () {
                   FocusScope.of(context).unfocus();
+                  AppNavigation.to(context, const OtpPage());
                 },
                 gradiant: AppColors.inverseButtonGradient,
                 child: const AuthButtonTitleWidget(title: 'SIGN UP'),
