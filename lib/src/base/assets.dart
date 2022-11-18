@@ -12,7 +12,7 @@ class AppAssets {
   static const heartyIcon = '$_path/hearty.png';
   static const graphIcon = '$_path/graph.png';
   static const calenderIcon = '$_path/calendar.png';
-  static const profileIcon = '$_path/profile.png';
+  static const userIcon = '$_path/profile.png';
   static const buddIcon = '$_path/budd.png';
   static const atomIcon = '$_path/atom.png';
   static const deltaIcon = '$_path/delta.png';

@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
             //     MainMenuWidget(
             //       onPressed: () {},
             //       text: 'Be Connected',
-            //       path: AppAssets.profileIcon,
+            //       path: AppAssets.userIcon,
             //     ),
             //   ],
             // ),
