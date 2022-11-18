@@ -163,11 +163,13 @@ class AppPasswordField extends StatefulWidget {
     this.textInputAction,
     this.onSaved,
     this.onChanged,
+    this.prefix,
   }) : super(key: key);
 
   final FormFieldSetter<String>? onSaved;
   final IconData? icon;
   final String? hint;
+  final Widget? prefix;
   final bool? iconBool;
   final String? label;
   final BuildContext? context;
@@ -201,6 +203,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
         },
         scrollPadding: const EdgeInsets.all(100),
         decoration: InputDecoration(
+          prefixIcon: widget.prefix,
           contentPadding: const EdgeInsets.symmetric(
             vertical: 23,
             horizontal: 12,

@@ -1,7 +1,7 @@
+import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
 import 'package:flutter/material.dart';
 
 import 'base/theme.dart';
-import 'components/home/home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Be Ready',
       theme: AppTheme.lightTheme,
-      home: const HomePage(),
+      home: const SignInPage(),
     );
   }
 }

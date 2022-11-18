@@ -24,8 +24,8 @@ class AppButtonWidget extends StatelessWidget {
         gradient: LinearGradient(
           colors: gradiant ??
               [
-                const Color(0xFFDA8B6D),
                 const Color(0xFFF0D781),
+                const Color(0xFFDA8B6D),
               ],
         ),
       ),
