@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TextSpanWidget extends StatelessWidget {
-  const TextSpanWidget({
+class AuthTextSpanWidget extends StatelessWidget {
+  const AuthTextSpanWidget({
     Key? key,
     required this.message,
     required this.buttonTitle,

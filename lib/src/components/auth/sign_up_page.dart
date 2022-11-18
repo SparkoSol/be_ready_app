@@ -84,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 platformImage: AppAssets.facebook,
                 platformName: 'Facebook',
               ),
-              TextSpanWidget(
+              AuthTextSpanWidget(
                 message: 'Already have an account?',
                 buttonTitle: ' Sign in',
                 action: () {

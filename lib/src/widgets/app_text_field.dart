@@ -38,6 +38,8 @@ class AppTextField extends StatelessWidget {
     this.maxLength,
     this.prefixText,
     this.prefixStyle,
+    this.textAlign,
+    this.focusNode,
   }) : super(key: key);
 
   final int? maxLength;
@@ -70,12 +72,16 @@ class AppTextField extends StatelessWidget {
   final Color? borderColor;
   final String? prefixText;
   final TextStyle? prefixStyle;
+  final TextAlign? textAlign;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomPadding ?? 21),
       child: TextFormField(
+        focusNode: focusNode,
+        textAlign: textAlign ?? TextAlign.start,
         onTap: onTap,
         onSaved: onSaved,
         onChanged: onChanged,

@@ -100,7 +100,7 @@ class _SignInPageState extends State<SignInPage> {
                   platformImage: AppAssets.facebook,
                   platformName: 'Facebook',
                 ),
-                TextSpanWidget(
+                AuthTextSpanWidget(
                   message: 'Don’t have an account?',
                   buttonTitle: ' Sign up',
                   action: () {
