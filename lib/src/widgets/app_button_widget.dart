@@ -1,3 +1,4 @@
+import 'package:be_ready_app/src/base/theme.dart';
 import 'package:flutter/material.dart';
 
 class AppButtonWidget extends StatelessWidget {
@@ -22,11 +23,7 @@ class AppButtonWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius ?? 16),
         gradient: LinearGradient(
-          colors: gradiant ??
-              [
-                const Color(0xFFF0D781),
-                const Color(0xFFDA8B6D),
-              ],
+          colors: gradiant ?? AppColors.buttonGradient,
         ),
       ),
       child: ElevatedButton(
@@ -37,7 +34,7 @@ class AppButtonWidget extends StatelessWidget {
           backgroundColor: Colors.transparent,
           minimumSize: const Size.fromHeight(66),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
         onPressed: onPressed,

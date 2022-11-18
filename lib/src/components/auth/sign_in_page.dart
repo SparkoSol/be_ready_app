@@ -1,9 +1,13 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/components/auth/auth_title_widget.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/auth/sign_up_page.dart';
+import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
+import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
+import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:be_ready_app/src/widgets/custom_switch_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +27,8 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -32,7 +38,6 @@ class _SignInPageState extends State<SignInPage> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(33, 58, 33, 28),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const AuthTitleWidget(title: 'Sign in'),
                 const SizedBox(height: 24),
@@ -74,78 +79,73 @@ class _SignInPageState extends State<SignInPage> {
                   ]),
                 ),
                 AppButtonWidget(
-                  onPressed: () {},
-                  child: Stack(
-                    children: [
-                      const Center(
-                        child: Text(
-                          'SIGN IN',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: Stack(clipBehavior: Clip.none, children: [
+                    const Center(
+                      child: Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
                         ),
                       ),
-                      Positioned(
-                        right: 16,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: const Color(0xFFDA8B6D),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(-2, -2),
-                                // color: const Color(0xFFDA8B6D).withOpacity(0.1),
-                              ),
+                    ),
+                    Positioned(
+                      right: 16,
+                      child: Container(
+                        height: 34,
+                        width: 34,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFFDA8B6D),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.white.withOpacity(0.3),
+                              Colors.white.withOpacity(0.0),
                             ],
                           ),
-                          child: const Icon(Icons.arrow_forward_sharp),
                         ),
+                        child: const Icon(Icons.arrow_forward_sharp),
                       ),
-                    ],
+                    ),
+                  ]),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  child: Text(
+                    'OR',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: const Color(0xFF9D9898),
+                    ),
                   ),
+                ),
+                SocialAuthButton(
+                  onTap: () {},
+                  platformImage: AppAssets.google,
+                  platformName: 'Google',
+                ),
+                SocialAuthButton(
+                  onTap: () {},
+                  platformImage: AppAssets.facebook,
+                  platformName: 'Facebook',
+                ),
+                TextSpanWidget(
+                  message: 'Don’t have an account?',
+                  buttonTitle: ' Sign up',
+                  action: () {
+                    AppNavigation.to(context, const SignUpPage());
+                  },
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class SwitchWidget extends StatefulWidget {
-  const SwitchWidget({
-    Key? key,
-    required this.value,
-    required this.callback,
-  }) : super(key: key);
-
-  final bool value;
-  final void Function(bool) callback;
-
-  @override
-  State<SwitchWidget> createState() => _SwitchWidgetState();
-}
-
-class _SwitchWidgetState extends State<SwitchWidget> {
-  late bool _value;
-
-  @override
-  void initState() {
-    _value = widget.value;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoSwitch(
-      value: _value,
-      onChanged: (_) {
-        _value = _;
-        widget.callback(_value);
-        setState(() {});
-      },
     );
   }
 }
