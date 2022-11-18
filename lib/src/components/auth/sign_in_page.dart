@@ -1,6 +1,5 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/auth/reset_password_page.dart';
 import 'package:be_ready_app/src/components/auth/sign_up_page.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
@@ -30,8 +29,6 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      extendBody: true,
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -73,9 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
                       ),
-                      onPressed: () {
-                        AppNavigation.to(context, const ResetPasswordPage());
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Forgot Password?',
                         style: GoogleFonts.poppins(),
