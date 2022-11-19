@@ -6,6 +6,7 @@ import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.da
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
+import 'package:be_ready_app/src/components/home/journey_page.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -86,7 +87,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 const OrWidget(),
                 SocialAuthButton(
-                  onTap: () {},
+                  onTap: () {AppNavigation.to(context, JourneyHomePage());},
                   platformImage: AppAssets.google,
                   platformName: 'Google',
                 ),

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Be Ready',
       theme: AppTheme.lightTheme,
-      home: const JourneyHomePage(),
+      home: const SignInPage(),
     );
   }
 }

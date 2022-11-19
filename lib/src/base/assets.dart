@@ -19,4 +19,6 @@ class AppAssets {
   static const atomIcon = '$_path/atom.png';
   static const deltaIcon = '$_path/delta.png';
   static const starIcon = '$_path/star.png';
+  static const user = '$_path/user.png';
+  static const bellIcon = '$_path/bell_icon.png';
 }
