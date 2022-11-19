@@ -1,4 +1,6 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/journey/journey_detail_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,26 +72,12 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
               fit: StackFit.expand,
               clipBehavior: Clip.none,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      Color(0xff43355C),
-                      Color(0xff57538E),
-                    ]),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(100),
-                    ),
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  height: positionScale * 2,
-                  padding:
-                      EdgeInsets.only(left: 35, top: (positionScale - 17) / 2),
-                  child: const Text(
-                    'Actions vs outcomes',
-                    style: TextStyle(
-                        color: Color(0xffA29CB1), fontWeight: FontWeight.w400),
-                  ),
-                ),
+                _buildContainer(
+                    colorStart: const Color(0xff43355C),
+                    colorEnd: const Color(0xff57538E),
+                    top: 0,
+                    text: 'Actions vs outcomes',
+                    height: positionScale),
                 _buildContainer(
                     height: positionScale,
                     colorStart: const Color(0xff7390D5),
@@ -137,22 +125,26 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
   }) {
     return Positioned(
       top: top,
-      child: Container(
-        // height: MediaQuery.of(context).size.height,
-        height: height * 10,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(left: 35, top: (height - 17) / 2),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [colorStart, colorEnd]),
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(100),
+      child: GestureDetector(
+        child: Container(
+          height: height * 10,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.only(left: 35, top: (height - 17) / 2),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [colorStart, colorEnd]),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(100),
+            ),
+          ),
+          child: Text(
+            text,
+            style: GoogleFonts.poppins(
+                color: const Color(0xffA29CB1), fontWeight: FontWeight.w400),
           ),
         ),
-        child: Text(
-          text,
-          style: GoogleFonts.poppins(
-              color: const Color(0xffA29CB1), fontWeight: FontWeight.w400),
-        ),
+        onTap: () {
+          AppNavigation.to(context, JourneyDetailPage(pageTitle: text,));
+        },
       ),
     );
   }

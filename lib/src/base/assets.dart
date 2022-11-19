@@ -10,6 +10,7 @@ class AppAssets {
   static const profileIcon = '$_path/profile_icon.png';
   static const journeyHome = '$_path/journey.png';
   static const playButton = '$_path/play.png';
+  static const playYellowButton = '$_path/play_yellow.png';
   static const skullIcon = '$_path/skull.png';
   static const heartyIcon = '$_path/hearty.png';
   static const graphIcon = '$_path/graph.png';

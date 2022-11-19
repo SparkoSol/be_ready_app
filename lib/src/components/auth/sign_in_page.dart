@@ -88,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 const OrWidget(),
                 SocialAuthButton(
-                  onTap: () {},
+                  onTap: () {AppNavigation.to(context, JourneyHomePage());},
                   platformImage: AppAssets.google,
                   platformName: 'Google',
                 ),
