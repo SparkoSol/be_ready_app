@@ -2,6 +2,7 @@ import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
+import 'package:be_ready_app/src/components/journey/journey_page.dart';
 import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/components/main_menu/events.dart';
@@ -99,69 +100,74 @@ class HomePage extends StatelessWidget {
             ),
             const SliverPadding(padding: EdgeInsets.all(10)),
             SliverToBoxAdapter(
-              child: Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        const Color(0xFFF0D781).withOpacity(0.25),
-                        const Color(0xFFF0D781).withOpacity(0),
-                      ],
-                    ),
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(18),
+              child: GestureDetector(
+                onTap: () {
+                  AppNavigation.to(context, const JourneyHomePage());
+                },
+                child: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF0D781).withOpacity(0.20),
-                      shape: BoxShape.circle,
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          const Color(0xFFF0D781),
+                          const Color(0xFFF0D781).withOpacity(0.25),
                           const Color(0xFFF0D781).withOpacity(0),
                         ],
                       ),
+                      shape: BoxShape.circle,
                     ),
-                    child: GradientProgressIndicator(
-                      value: 50,
-                      radius: 62,
-                      duration: 2,
-                      strokeWidth: 6,
-                      gradientStops: const [0.1, 1.0],
-                      gradientColors: const [
-                        Color(0xFFE0DFA3),
-                        Color(0xFF7391D4),
-                      ],
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 26,
-                          horizontal: 18,
-                        ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: const LinearGradient(
-                            colors: AppColors.buttonGradient,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0, 7),
-                              blurRadius: 9,
-                              spreadRadius: 0,
-                              color: Colors.black.withOpacity(0.25),
-                            ),
+                    padding: const EdgeInsets.all(18),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF0D781).withOpacity(0.20),
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0xFFF0D781),
+                            const Color(0xFFF0D781).withOpacity(0),
                           ],
                         ),
-                        child: const Text(
-                          'YOUR\nJOURNEY',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 19,
+                      ),
+                      child: GradientProgressIndicator(
+                        value: 50,
+                        radius: 62,
+                        duration: 2,
+                        strokeWidth: 6,
+                        gradientStops: const [0.1, 1.0],
+                        gradientColors: const [
+                          Color(0xFFE0DFA3),
+                          Color(0xFF7391D4),
+                        ],
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 26,
+                            horizontal: 18,
+                          ),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: const LinearGradient(
+                              colors: AppColors.buttonGradient,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(0, 7),
+                                blurRadius: 9,
+                                spreadRadius: 0,
+                                color: Colors.black.withOpacity(0.25),
+                              ),
+                            ],
+                          ),
+                          child: const Text(
+                            'YOUR\nJOURNEY',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 19,
+                            ),
                           ),
                         ),
                       ),
