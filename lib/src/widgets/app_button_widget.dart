@@ -124,3 +124,70 @@ class AppButtonWidget extends StatelessWidget {
     );
   }
 }
+
+class AppCourseButtonWidget extends StatelessWidget {
+  const AppCourseButtonWidget({
+    Key? key,
+    required this.title,
+    required this.onTap,
+    this.isShadowed = false,
+  }) : super(key: key);
+
+  final bool isShadowed;
+  final String title;
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(120),
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFF728FD6),
+            Color(0xFFD8D9A3),
+          ],
+        ),
+        boxShadow: isShadowed
+            ? [
+          BoxShadow(
+            color: const Color(0xFFD8D9A3).withOpacity(0.25),
+            offset: const Offset(6, 2),
+            spreadRadius: 5,
+            blurRadius: 10,
+          ),
+        ]
+            : null,
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(120),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 17),
+          disabledForegroundColor: Colors.transparent,
+          disabledBackgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+        ),
+        onPressed: onTap,
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              color: const Color(0xFF140D36),
+            ),
+          ),
+          const SizedBox(width: 18),
+          const Icon(
+            Icons.keyboard_double_arrow_right,
+            color: Color(0xFF140D36),
+          )
+        ]),
+      ),
+    );
+  }
+}
