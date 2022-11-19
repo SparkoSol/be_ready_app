@@ -54,8 +54,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
               AppButtonWidget(
                 onPressed: () {},
-                gradiant: AppColors.inverseButtonGradient,
-                child: const AuthButtonTitleWidget(title: 'SEND'),
+                title: 'SEND',
               ),
             ]),
           ),

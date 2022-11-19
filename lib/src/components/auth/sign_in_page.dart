@@ -83,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                   },
-                  child: const AuthButtonTitleWidget(title: 'SIGN IN'),
+                 title: 'SIGN IN',
                 ),
                 const OrWidget(),
                 SocialAuthButton(

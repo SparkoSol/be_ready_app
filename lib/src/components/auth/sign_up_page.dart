@@ -70,8 +70,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   FocusScope.of(context).unfocus();
                   AppNavigation.to(context, const OtpPage());
                 },
-                gradiant: AppColors.inverseButtonGradient,
-                child: const AuthButtonTitleWidget(title: 'SIGN UP'),
+                title: 'SIGN UP',
               ),
               const OrWidget(),
               SocialAuthButton(

@@ -190,9 +190,10 @@ class _OtpPageState extends State<OtpPage> {
                 AppButtonWidget(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    AppNavigation.navigateRemoveUntil(context, const HomePage());
+                    AppNavigation.navigateRemoveUntil(
+                        context, const HomePage());
                   },
-                  child: const AuthButtonTitleWidget(title: 'CONTINUE'),
+                  title: 'CONTINUE',
                 ),
                 const SizedBox(height: 28),
                 TimedWidget(
