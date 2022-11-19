@@ -85,7 +85,8 @@ class _SignInPageState extends State<SignInPage> {
                 AppButtonWidget(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    AppNavigation.navigateRemoveUntil(context, const HomePage());
+                    AppNavigation.navigateRemoveUntil(
+                        context, const HomePage());
                   },
                   title: 'SIGN IN',
                 ),
