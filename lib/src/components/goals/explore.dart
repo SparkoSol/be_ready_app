@@ -25,24 +25,32 @@ class _ExplorePageState extends State<ExplorePage> {
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
-          padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
-              bottom: 20,
-              top: MediaQuery.of(context).viewPadding.top + 56),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GoalsPageTitle(text: 'Explore'),
-              const GoalsPageDescription(text: 'Additional Courses'),
-        SizedBox(height: 50,),
-              RedText(text: 'Mind'),
-                const Spacer(),
-              AppButtonWidget(onPressed: () {}, title: 'See results')
-            ],
-          ),
-        ),
+            padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
+                top: MediaQuery
+                    .of(context)
+                    .viewPadding
+                    .top + 56),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                const GoalsPageTitle(text: 'Explore'),
+            const GoalsPageDescription(text: 'Additional Courses'),
+            SizedBox(height: 50,),
+            RedText(text: 'Mind'),
+            AppCourseButtonWidget(onTap: () {},),
+            RedText(text: 'Body'),
+            AppCourseButtonWidget( onTap: () {},),
+            RedText(text: 'Spirit'),
+            AppCourseButtonWidget( onTap: () {},),
+             const Spacer(),
+        AppButtonWidget(onPressed: () {}, title: 'SUPPORTIVE ACTIVITIES')
+        ],
       ),
+    ),)
+    ,
     );
   }
 }
