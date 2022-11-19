@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/widgets/app_bar_widget.dart';
 import 'package:be_ready_app/src/widgets/beUniverse_tile_widget.dart';
 import 'package:be_ready_app/src/widgets/custom_slider_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff0b002a),
-      appBar: AppBar(
-        title: const Text('DashBoard'),
-        backgroundColor: const Color(0xFF4F2A98),
-      ),
+      appBar: AppBarWidget(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

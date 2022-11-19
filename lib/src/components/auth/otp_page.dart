@@ -1,7 +1,9 @@
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/timed_widget.dart';
+import 'package:be_ready_app/src/components/home/home_page.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -47,9 +49,7 @@ class _OtpPageState extends State<OtpPage> {
     FocusNode current,
     FocusNode? next,
   ) {
-    print('Handling');
     return (String? val) {
-      print('Handling Inner');
       if (val != null && val.isNotEmpty) {
         if (_isCodeValid([
           _controller1.text,
@@ -73,14 +73,13 @@ class _OtpPageState extends State<OtpPage> {
         // widget.controller.canVerify = false;
         prev?.requestFocus();
       }
+      setState(() {});
     };
   }
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final padding = mediaQuery.padding;
-    final width = mediaQuery.size.width;
+    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -114,12 +113,12 @@ class _OtpPageState extends State<OtpPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _OtpFieldBorder(
+                    _getGradientContainer(
                       isFocused: _digit1.hasFocus,
                       child: AppTextField(
                         bottomPadding: 0,
                         keyboardType: TextInputType.number,
-                        onChanged: (_) => _digitInputHandler(
+                        onChanged: _digitInputHandler(
                           null,
                           _digit1,
                           _digit2,
@@ -132,12 +131,12 @@ class _OtpPageState extends State<OtpPage> {
                         hint: '-',
                       ),
                     ),
-                    _OtpFieldBorder(
+                    _getGradientContainer(
                       isFocused: _digit2.hasFocus,
                       child: AppTextField(
                         bottomPadding: 0,
                         keyboardType: TextInputType.number,
-                        onChanged: (_) => _digitInputHandler(
+                        onChanged: _digitInputHandler(
                           _digit1,
                           _digit2,
                           _digit3,
@@ -150,12 +149,12 @@ class _OtpPageState extends State<OtpPage> {
                         textEditingController: _controller2,
                       ),
                     ),
-                    _OtpFieldBorder(
+                    _getGradientContainer(
                       isFocused: _digit3.hasFocus,
                       child: AppTextField(
                         bottomPadding: 0,
                         keyboardType: TextInputType.number,
-                        onChanged: (_) => _digitInputHandler(
+                        onChanged: _digitInputHandler(
                           _digit2,
                           _digit3,
                           _digit4,
@@ -168,12 +167,12 @@ class _OtpPageState extends State<OtpPage> {
                         textEditingController: _controller3,
                       ),
                     ),
-                    _OtpFieldBorder(
+                    _getGradientContainer(
                       isFocused: _digit4.hasFocus,
                       child: AppTextField(
                         bottomPadding: 0,
                         keyboardType: TextInputType.number,
-                        onChanged: (_) => _digitInputHandler(
+                        onChanged: _digitInputHandler(
                           _digit3,
                           _digit4,
                           null,
@@ -191,6 +190,7 @@ class _OtpPageState extends State<OtpPage> {
                 AppButtonWidget(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
+                    AppNavigation.navigateRemoveUntil(context, HomePage());
                   },
                   child: const AuthButtonTitleWidget(title: 'CONTINUE'),
                 ),
@@ -220,47 +220,18 @@ class _OtpPageState extends State<OtpPage> {
     if (secondsStr.length == 1) secondsStr = '0$secondsStr';
     return '$minutes:$secondsStr';
   }
-}
 
-class _OtpFieldBorder extends StatefulWidget {
-  const _OtpFieldBorder({
-    Key? key,
-    required this.child,
-    required this.isFocused,
-  }) : super(key: key);
-
-  final bool isFocused;
-  final Widget child;
-
-  @override
-  State<_OtpFieldBorder> createState() => _OtpFieldBorderState();
-}
-
-class _OtpFieldBorderState extends State<_OtpFieldBorder> {
-  late bool _isFocused;
-
-  @override
-  void initState() {
-    _isFocused = widget.isFocused;
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant _OtpFieldBorder oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _isFocused = widget.isFocused;
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _getGradientContainer({
+    required bool isFocused,
+    required Widget child,
+  }) {
     return Container(
       width: 62,
       margin: const EdgeInsets.only(bottom: 25),
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        gradient: _isFocused
+        gradient: isFocused
             ? const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -271,7 +242,7 @@ class _OtpFieldBorderState extends State<_OtpFieldBorder> {
               )
             : null,
       ),
-      child: widget.child,
+      child: child,
     );
   }
 }

@@ -20,6 +20,7 @@ class AuthButtonTitleWidget extends StatelessWidget {
       ),
       Positioned(
         right: 16,
+        bottom: -3.3,
         child: Container(
           height: 34,
           width: 34,
