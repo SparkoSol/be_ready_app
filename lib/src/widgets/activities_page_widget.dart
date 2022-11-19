@@ -16,63 +16,61 @@ class FeelingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(20),
-          gradient: const LinearGradient(
-              stops: [0.1, 0.8],
-              end: Alignment.bottomRight,
-              begin: Alignment.centerLeft,
-              colors: [
-                Color(0xFFD7886C),
-                Color(0xff513071),
-                // Color(0xff56528E),
-              ]),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Image.asset(path, width: 50, height: 50),
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  text,
-                  style: GoogleFonts.poppins(
-                      fontSize: 13, color: Colors.white, letterSpacing: 1),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.watch_later,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      duration,
-                      style: GoogleFonts.poppins(
-                          fontSize: 10, color: Colors.white, letterSpacing: 1),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+            stops: [0.1, 0.8],
+            end: Alignment.bottomRight,
+            begin: Alignment.centerLeft,
+            colors: [
+              Color(0xFFD7886C),
+              Color(0xff513071),
+              // Color(0xff56528E),
+            ]),
+      ),
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Image.asset(path, width: 50, height: 50),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style: GoogleFonts.poppins(
+                    fontSize: 13, color: Colors.white, letterSpacing: 1),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.watch_later,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    duration,
+                    style: GoogleFonts.poppins(
+                        fontSize: 10, color: Colors.white, letterSpacing: 1),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
