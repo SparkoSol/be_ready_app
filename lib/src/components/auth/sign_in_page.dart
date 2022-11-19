@@ -1,21 +1,19 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/auth/reset_password_page.dart';
 import 'package:be_ready_app/src/components/auth/sign_up_page.dart';
-import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
+import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_ready_app/src/components/home/home_page.dart';
 import 'package:be_ready_app/src/components/journey/journey_page.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/custom_switch_widget.dart';
-import 'package:be_ready_app/src/widgets/thank_you_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'widget/social_auth_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -75,7 +73,7 @@ class _SignInPageState extends State<SignInPage> {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
-                        $showBottomSheet(context, const ThankYouWidget());
+                        AppNavigation.to(context, const ResetPasswordPage());
                       },
                       child: Text(
                         'Forgot Password?',
@@ -87,9 +85,9 @@ class _SignInPageState extends State<SignInPage> {
                 AppButtonWidget(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    AppNavigation.to(context, const HomePage());
+                    AppNavigation.navigateRemoveUntil(context, const HomePage());
                   },
-                  child: const AuthButtonTitleWidget(title: 'SIGN IN'),
+                  title: 'SIGN IN',
                 ),
                 const OrWidget(),
                 SocialAuthButton(

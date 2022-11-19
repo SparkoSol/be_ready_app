@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'dart:ui' as ui;
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider(
@@ -33,6 +35,9 @@ class _CustomSliderState extends State<CustomSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(
+          height: 50,
+        ),
         Text(
           widget.text,
           style: GoogleFonts.poppins(
@@ -51,32 +56,39 @@ class _CustomSliderState extends State<CustomSlider> {
             const SizedBox(
               width: 10,
             ),
-            Container(
-              width: 270,
-              height: 40,
-              decoration: BoxDecoration(
-                  color: const Color(0xFF2E2340),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10)),
-              child: SliderTheme(
-                data: SliderThemeData(
-                  overlayColor: const Color(0xFF7390D6).withOpacity(0.7),
-                  thumbColor: Colors.black,
-                  inactiveTrackColor: Colors.white,
-                  trackShape: GradientRectSliderTrackShape(
-                    gradient: gradient,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+                // width: 270,
+                decoration: BoxDecoration(
+                    color: const Color(0xFF2E2340),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10)),
+                child: SliderTheme(
+                  data: SliderThemeData(
+                    overlayShape: SliderComponentShape.noOverlay,
+                    // overlayColor: Colors.pink[50],
+                    // overlayColor: const Color(0xFF7390D6).withOpacity(0.7),
+                    // thumbColor: Colors.black,
+                    // thumbColor: Colors.green,
+                    thumbShape: const CircleThumbShape(thumbRadius: 10),
+                    inactiveTrackColor: Colors.white,
+                    trackShape: GradientRectSliderTrackShape(
+                      gradient: gradient,
+                    ),
+                    // disabledThumbColor: Colors.grey,
+                    // overlappingShapeStrokeColor: Colors.brown,
                   ),
+                  child: Slider(
+                      min: 0.0,
+                      max: 10.0,
+                      value: value,
+                      onChanged: (d) {
+                        value = d;
+                        widget.callback(d);
+                        setState(() {});
+                      }),
                 ),
-                child: Slider(
-                    inactiveColor: Colors.grey,
-                    min: 0.0,
-                    max: 10.0,
-                    value: value,
-                    onChanged: (d) {
-                      value = d;
-                      widget.callback(d);
-                      setState(() {});
-                    }),
               ),
             ),
             const SizedBox(
@@ -93,6 +105,77 @@ class _CustomSliderState extends State<CustomSlider> {
         ),
       ],
     );
+  }
+}
+
+class CircleThumbShape extends SliderComponentShape {
+  final double thumbRadius;
+
+  const CircleThumbShape({
+    this.thumbRadius = 6.0,
+  });
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
+    return Size.fromRadius(thumbRadius);
+  }
+
+  @override
+  void paint(PaintingContext context, Offset center,
+      {required Animation<double> activationAnimation,
+      required Animation<double> enableAnimation,
+      required bool isDiscrete,
+      required TextPainter labelPainter,
+      required RenderBox parentBox,
+      required SliderThemeData sliderTheme,
+      required TextDirection textDirection,
+      required double value,
+      required double textScaleFactor,
+      required Size sizeWithOverflow}) {
+    final Canvas canvas = context.canvas;
+
+    final fillPaint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.fill;
+
+    final borderPaint = Paint();
+    borderPaint.strokeWidth = 4;
+    borderPaint.style = PaintingStyle.fill;
+    // borderPaint.shader = ui.Gradient.radial(
+    //   Offset(-1, 1),
+    //   10,
+    //   [
+    //     Colors.yellow,
+    //     Colors.brown,
+    //   ],
+    // );
+    borderPaint.shader = ui.Gradient.radial(
+      const Offset(0, 0),
+      51,
+      [
+        Colors.black,
+        Colors.blue,
+      ],
+    );
+
+    final paint5 = Paint()
+      ..shader = const RadialGradient(
+        colors: [
+          Colors.yellow,
+          Colors.blue,
+        ],
+      ).createShader(
+        Rect.fromCircle(
+          center: const Offset(1, 1),
+          radius: 10,
+        ),
+      )
+      ..strokeWidth = 4
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(center, thumbRadius, fillPaint);
+    canvas.drawCircle(center, thumbRadius, paint5);
+    // TODO: implement paint
   }
 }
 
