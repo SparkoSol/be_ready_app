@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/components/main_menu/stack_images.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class EventsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+    margin: EdgeInsets.only(bottom: 20),  padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20),
@@ -79,22 +80,7 @@ class EventsTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ...participants.map((e) {
-                    return Container(
-                      width: 20,
-                      height: 25,
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        image: DecorationImage(
-                          image: AssetImage(
-                            AppAssets.contactUsIcon,
-                          ),
-                        ),
-                      ),
-                    );
-                  })
+StackImages(),
                 ],
               )
             ],
