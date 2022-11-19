@@ -1,4 +1,3 @@
-import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
 import 'package:be_ready_app/src/components/goals/daily_check_in_page.dart';
 import 'package:flutter/material.dart';
 

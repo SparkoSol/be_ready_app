@@ -117,46 +117,9 @@ class AppButtonWidget extends StatelessWidget {
                       child: const Icon(Icons.arrow_forward_sharp),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     const Expanded(child: SizedBox()),
-        //     const Expanded(child: SizedBox()),
-        //     const Text(
-        //       'SUPPORTIVE ACTIVITIES',
-        //       style: TextStyle(
-        //         fontSize: 18,
-        //         color: Colors.black,
-        //       ),
-        //       textAlign: TextAlign.center,
-        //     ),
-        //     const Expanded(child: SizedBox()),
-        //     const SizedBox(
-        //       width: 20,
-        //     ),
-        //     Container(
-        //       margin: const EdgeInsets.only(right: 5),
-        //       height: 30,
-        //       width: 30,
-        //       decoration: BoxDecoration(
-        //         shape: BoxShape.circle,
-        //         color: const Color(0xFFDA8B6D),
-        //         gradient: LinearGradient(
-        //           begin: Alignment.topCenter,
-        //           end: Alignment.bottomCenter,
-        //           colors: [
-        //             Colors.white.withOpacity(0.3),
-        //             Colors.white.withOpacity(0.0),
-        //           ],
-        //         ),
-        //       ),
-        //       child: const Icon(Icons.arrow_forward_sharp),
-        //     )
-        //   ],
-        // ),
       ),
     );
   }

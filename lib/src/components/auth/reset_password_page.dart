@@ -1,6 +1,4 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/theme.dart';
-import 'package:be_ready_app/src/components/auth/widget/auth_button_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
