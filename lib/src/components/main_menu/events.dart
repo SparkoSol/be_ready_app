@@ -25,8 +25,8 @@ class _EventsPageState extends State<EventsPage> {
       body: BackgroundImageWidget(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
+              left: 33,
+              right: 33,
               bottom: 20,
               top: MediaQuery.of(context).viewPadding.top + 56),
           child: Column(
@@ -113,7 +113,7 @@ class _EventsPageState extends State<EventsPage> {
               const SizedBox(
                 height: 10,
               ),
-              for (int i = 0; i < 100; i++)
+              for (int i = 0; i < 10; i++)
                 const EventsTile(
                     title: 'Brasil Game Show',
                     date: 'Oct 12th',

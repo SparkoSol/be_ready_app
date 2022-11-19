@@ -30,6 +30,8 @@ class MainMenuWidget extends StatelessWidget {
               colors: [
                 const Color(0xFF916DDD).withOpacity(0.12),
                 const Color(0xFF512E73).withOpacity(0.12),
+                // Colors.yellow,
+                // Colors.pink,
               ],
             ),
           ),

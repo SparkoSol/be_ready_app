@@ -25,8 +25,8 @@ class _BeConnectedState extends State<BeConnected> {
       body: BackgroundImageWidget(
         child: SingleChildScrollView(
           padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
+              left: 52,
+              right: 52,
               bottom: 20,
               top: MediaQuery.of(context).viewPadding.top + 56),
           child: Column(

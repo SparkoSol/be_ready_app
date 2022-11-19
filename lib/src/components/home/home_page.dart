@@ -1,11 +1,16 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
+import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
+import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
+import 'package:be_ready_app/src/components/main_menu/events.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
 import 'package:be_ready_app/src/widgets/main_page_widget.dart';
+import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +21,50 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+        drawer: const AppDrawer(),
+        resizeToAvoidBottomInset: false,
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        appBar: AppBarWidget(),
+        body: BackgroundImageWidget(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
+                top: MediaQuery.of(context).viewPadding.top + 56),
+            child: CustomScrollView(
+              slivers: [
+                const SliverToBoxAdapter(
+                  child: GoalsPageTitle(text: 'Resources'),
+                ),
+                const SliverToBoxAdapter(
+                  child:
+                      GoalsPageDescription(text: 'Absorb. Digest. Integrate.'),
+                ),
+                SliverPadding(padding: EdgeInsets.only(bottom: 20)),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                      (context, index) => MainMenuWidget(
+                            onPressed: () {
+                              AppNavigation.to(context, DailyCheckInPage());
+                            },
+                            text: 'Daily check-In',
+                            path: AppAssets.graphIcon,
+                          )),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 30,
+                    crossAxisSpacing: 10,
+                    // childAspectRatio: 0.8,
+                    // mainAxisExtent: 200,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+    Scaffold(
       drawer: const AppDrawer(),
       resizeToAvoidBottomInset: false,
       extendBody: true,
@@ -59,7 +108,9 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MainMenuWidget(
-                        onPressed: () {},
+                        onPressed: () {
+                          AppNavigation.to(context, DailyCheckInPage());
+                        },
                         text: 'Daily check-In',
                         path: AppAssets.graphIcon,
                       ),
@@ -75,12 +126,16 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     MainMenuWidget(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppNavigation.to(context, EventsPage());
+                      },
                       text: 'Events',
                       path: AppAssets.calenderIcon,
                     ),
                     MainMenuWidget(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppNavigation.to(context, BeConnected());
+                      },
                       text: 'Be Connected',
                       path: AppAssets.userIcon,
                     ),
