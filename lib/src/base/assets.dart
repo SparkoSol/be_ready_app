@@ -22,6 +22,8 @@ class AppAssets {
   static const starIcon = '$_path/star.png';
   static const bellIcon = '$_path/bell_icon.png';
   static const user = '$_path/user.png';
+  static const starsIcon = '$_path/stars.png';
+  static const thumbIcon = '$_path/thumbs_up.png';
   static const shareIcon = '$_path/share_icon.png';
   static const faqIcon = '$_path/faq_icon.png';
   static const contactUsIcon = '$_path/contact_up_icon.png';
