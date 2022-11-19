@@ -128,19 +128,20 @@ class AppButtonWidget extends StatelessWidget {
 class AppCourseButtonWidget extends StatelessWidget {
   const AppCourseButtonWidget({
     Key? key,
-this.title,
+    this.title,
     required this.onTap,
     this.isShadowed = false,
   }) : super(key: key);
 
   final bool isShadowed;
-final   String? title;
+  final String? title;
 
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(margin: EdgeInsets.symmetric(vertical:20),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(120),
         gradient: const LinearGradient(
@@ -151,13 +152,13 @@ final   String? title;
         ),
         boxShadow: isShadowed
             ? [
-          BoxShadow(
-            color: const Color(0xFFD8D9A3).withOpacity(0.25),
-            offset: const Offset(6, 2),
-            spreadRadius: 5,
-            blurRadius: 10,
-          ),
-        ]
+                BoxShadow(
+                  color: const Color(0xFFD8D9A3).withOpacity(0.25),
+                  offset: const Offset(6, 2),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                ),
+              ]
             : null,
       ),
       child: ElevatedButton(
@@ -174,7 +175,7 @@ final   String? title;
         onPressed: onTap,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            title??"Go to Coursework",
+            title ?? "Go to Coursework",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
               fontSize: 13,

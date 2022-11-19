@@ -29,8 +29,8 @@ class _ActivitesPageState extends State<ActivitesPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
+              left: 58,
+              right: 58,
               bottom: 20,
               top: MediaQuery.of(context).viewPadding.top + 56),
           child: Column(
