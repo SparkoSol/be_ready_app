@@ -7,13 +7,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
-      body: BackgroundImageWidget(child: Text('')),
+      body: const BackgroundImageWidget(child: Text('')),
     );
   }
 }

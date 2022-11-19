@@ -41,8 +41,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
         Padding(
             padding: const EdgeInsets.only(right: 20, left: 10),
             child: CircleAvatar(
-              child: Image.asset(AppAssets.user),
               radius: 15,
+              child: Image.asset(AppAssets.user),
             )),
       ],
     );
