@@ -1,5 +1,6 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/theme.dart';
+import 'package:be_ready_app/src/components/home/drawer_widget.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+      drawer: const AppDrawer(),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
