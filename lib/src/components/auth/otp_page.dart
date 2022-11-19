@@ -112,10 +112,9 @@ class _OtpPageState extends State<OtpPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _getGradientContainer(
-                      isFocused: _digit1.hasFocus,
+                    SizedBox(
+                      width: 62,
                       child: AppTextField(
-                        bottomPadding: 0,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           null,
@@ -130,28 +129,27 @@ class _OtpPageState extends State<OtpPage> {
                         hint: '-',
                       ),
                     ),
-                    _getGradientContainer(
-                      isFocused: _digit2.hasFocus,
+                    SizedBox(
+                      width: 62,
                       child: AppTextField(
-                        bottomPadding: 0,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           _digit1,
                           _digit2,
                           _digit3,
                         ),
-                        focusNode: _digit2,
                         hint: '-',
                         textAlign: TextAlign.center,
                         maxLength: 1,
                         hintColor: Colors.white,
+                        focusNode: _digit2,
                         textEditingController: _controller2,
                       ),
                     ),
-                    _getGradientContainer(
-                      isFocused: _digit3.hasFocus,
+                    SizedBox(
+                      width: 62,
                       child: AppTextField(
-                        bottomPadding: 0,
+                        focusNode: _digit3,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           _digit2,
@@ -161,15 +159,13 @@ class _OtpPageState extends State<OtpPage> {
                         textAlign: TextAlign.center,
                         maxLength: 1,
                         hint: '-',
-                        focusNode: _digit3,
                         hintColor: Colors.white,
                         textEditingController: _controller3,
                       ),
                     ),
-                    _getGradientContainer(
-                      isFocused: _digit4.hasFocus,
+                    SizedBox(
+                      width: 62,
                       child: AppTextField(
-                        bottomPadding: 0,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           _digit3,
@@ -179,9 +175,9 @@ class _OtpPageState extends State<OtpPage> {
                         hintColor: Colors.white,
                         maxLength: 1,
                         hint: '-',
-                        focusNode: _digit4,
                         textAlign: TextAlign.center,
                         textEditingController: _controller4,
+                        focusNode: _digit4,
                       ),
                     ),
                   ],
@@ -219,30 +215,5 @@ class _OtpPageState extends State<OtpPage> {
 
     if (secondsStr.length == 1) secondsStr = '0$secondsStr';
     return '$minutes:$secondsStr';
-  }
-
-  Widget _getGradientContainer({
-    required bool isFocused,
-    required Widget child,
-  }) {
-    return Container(
-      width: 62,
-      margin: const EdgeInsets.only(bottom: 25),
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: isFocused
-            ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF7491D4),
-                  Color(0xFFDFDFA3),
-                ],
-              )
-            : null,
-      ),
-      child: child,
-    );
   }
 }

@@ -2,7 +2,7 @@ import 'package:be_ready_app/src/base/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTextField extends StatelessWidget {
+class AppTextField extends StatefulWidget {
   const AppTextField({
     this.borderColor,
     Key? key,
@@ -76,47 +76,83 @@ class AppTextField extends StatelessWidget {
   final FocusNode? focusNode;
 
   @override
+  State<AppTextField> createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    focusNode = widget.focusNode ?? FocusNode();
+    focusNode.addListener(_listener);
+    super.initState();
+  }
+
+  void _listener() => setState(() {});
+
+  @override
+  void dispose() {
+    focusNode.removeListener(_listener);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: bottomPadding ?? 21),
+    return Container(
+      margin: EdgeInsets.only(bottom: widget.bottomPadding ?? 21),
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+        gradient: (focusNode.hasFocus)
+            ? const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF7491D4),
+                  Color(0xFFDFDFA3),
+                ],
+              )
+            : null,
+      ),
       child: TextFormField(
         focusNode: focusNode,
-        textAlign: textAlign ?? TextAlign.start,
-        onTap: onTap,
-        onSaved: onSaved,
-        onChanged: onChanged,
-        textInputAction: textInputAction,
-        keyboardType: keyboardType,
-        initialValue: value,
-        maxLines: maxLines,
-        readOnly: readonly,
-        maxLength: maxLength,
+        textAlign: widget.textAlign ?? TextAlign.start,
+        onTap: widget.onTap,
+        onSaved: widget.onSaved,
+        onChanged: widget.onChanged,
+        textInputAction: widget.textInputAction,
+        keyboardType: widget.keyboardType,
+        initialValue: widget.value,
+        maxLines: widget.maxLines,
+        readOnly: widget.readonly,
+        maxLength: widget.maxLength,
         //minLines: minLines,
-        validator: validator,
-        obscureText: obscure ?? false,
-        controller: textEditingController,
+        validator: widget.validator,
+        obscureText: widget.obscure ?? false,
+        controller: widget.textEditingController,
         scrollPadding: const EdgeInsets.all(100),
         cursorColor: Colors.white,
-        style: style ??
+        style: widget.style ??
             GoogleFonts.poppins(
               fontWeight: FontWeight.w400,
               fontSize: 14,
-              color: hintColor ?? Colors.white,
+              color: widget.hintColor ?? Colors.white,
             ),
         decoration: InputDecoration(
           counterText: '',
-          prefixText: prefixText,
-          prefixStyle: prefixStyle,
-          contentPadding: contentPadding,
-          prefixIcon: prefix,
-          labelText: label,
-          hintText: hint ?? '',
-          suffixIcon: suffix,
-          hintStyle: hintStyle ??
+          prefixText: widget.prefixText,
+          prefixStyle: widget.prefixStyle,
+          contentPadding: widget.contentPadding,
+          prefixIcon: widget.prefix,
+          labelText: widget.label,
+          hintText: widget.hint ?? '',
+          suffixIcon: widget.suffix,
+          hintStyle: widget.hintStyle ??
               GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
-                color: hintColor ?? const Color(0xFF747688),
+                color: widget.hintColor ?? const Color(0xFF747688),
               ),
           enabledBorder: OutlineInputBorder(
             // borderSide: BorderSide(
@@ -125,7 +161,7 @@ class AppTextField extends StatelessWidget {
             //       : Colors.transparent,
             //   width: 1,
             // ),
-            borderRadius: BorderRadius.circular(borderRadius ?? 12),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
           ),
           border: OutlineInputBorder(
             // borderSide: BorderSide(
@@ -134,7 +170,7 @@ class AppTextField extends StatelessWidget {
             //       : Colors.transparent,
             //   width: 1,
             // ),
-            borderRadius: BorderRadius.circular(borderRadius ?? 12),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
           ),
           focusedBorder: OutlineInputBorder(
             // borderSide: BorderSide(
@@ -145,10 +181,10 @@ class AppTextField extends StatelessWidget {
             //       : Colors.transparent,
             //   width: 1,
             // ),
-            borderRadius: BorderRadius.circular(borderRadius ?? 12),
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
           ),
           filled: true,
-          fillColor: fillColor ?? const Color(0xFF2E2340),
+          fillColor: widget.fillColor ?? const Color(0xFF2E2340),
         ),
       ),
     );
@@ -191,14 +227,44 @@ class AppPasswordField extends StatefulWidget {
 
 class _AppPasswordFieldState extends State<AppPasswordField> {
   bool _show = true;
+  final focusNode = FocusNode();
+
+  @override
+  void initState() {
+    focusNode.addListener(_listener);
+    super.initState();
+  }
+
+  void _listener() => setState(() {});
+
+  @override
+  void dispose() {
+    focusNode.removeListener(_listener);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: widget.padding ?? const EdgeInsets.only(bottom: 21),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 21),
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: (focusNode.hasFocus)
+            ? const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF7491D4),
+                  Color(0xFFDFDFA3),
+                ],
+              )
+            : null,
+      ),
       child: TextFormField(
         onSaved: widget.onSaved,
         validator: widget.validator,
+        focusNode: focusNode,
         cursorColor: Colors.white,
         obscureText: _show,
         onChanged: widget.onChanged,
