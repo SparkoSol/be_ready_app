@@ -88,7 +88,7 @@ class AppButtonWidget extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                title,
+                title.toUpperCase(),
                 style: GoogleFonts.oswald(
                     fontSize: 18,
                     color: Colors.black,
