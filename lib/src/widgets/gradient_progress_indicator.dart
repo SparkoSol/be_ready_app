@@ -143,21 +143,30 @@ class _GradientCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: -pi / 2,
-      child: CustomPaint(
-        size: Size.fromRadius(radius),
-        painter: _GradientCircularProgressPainter(
-          strokeWidth: strokeWidth,
-          strokeRound: strokeRound,
-          backgroundColor: backgroundColor,
-          gradientColors: gradientColors,
-          value: value,
-          radius: radius,
-          gradientStops: gradientStops,
+    return Stack(children: [
+      Transform.rotate(
+        angle: -pi / 2,
+        child: CustomPaint(
+          size: Size.fromRadius(radius),
+          painter: _GradientCircularProgressPainter(
+            strokeWidth: strokeWidth,
+            strokeRound: strokeRound,
+            backgroundColor: backgroundColor,
+            gradientColors: gradientColors,
+            value: value,
+            radius: radius,
+            gradientStops: gradientStops,
+          ),
         ),
       ),
-    );
+      Transform.rotate(
+        angle: -pi / 2,
+        child: CustomPaint(
+          size: Size.fromRadius(radius),
+          painter: _DrawCircle(),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -230,10 +239,9 @@ class _DrawCircle extends CustomPainter {
       ..color = const Color(0xFFEAB471)
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
-    final offset = Offset(0, 0);
-    canvas.drawCircle(offset, 8, circlePaint);
+    canvas.drawCircle(Offset.zero, 8, circlePaint);
     canvas.drawCircle(
-      offset,
+      Offset.zero,
       13,
       circlePaint..color = Colors.white.withOpacity(0.2),
     );

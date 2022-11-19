@@ -22,4 +22,8 @@ class AppAssets {
   static const starIcon = '$_path/star.png';
   static const bellIcon = '$_path/bell_icon.png';
   static const user = '$_path/user.png';
+  static const shareIcon = '$_path/share_icon.png';
+  static const faqIcon = '$_path/faq_icon.png';
+  static const contactUsIcon = '$_path/contact_up_icon.png';
+  static const termsAndCondIcon = '$_path/terms_and_cond_icon.png';
 }
