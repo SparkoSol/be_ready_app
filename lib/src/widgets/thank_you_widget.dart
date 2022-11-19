@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,6 @@ class ThankYouWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 500,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
@@ -73,8 +73,9 @@ class ThankYouWidget extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15),
-                child:
-                    Image.asset(AppAssets.thumbIcon, width: 100, height: 120),
+                child: Image.asset(
+                  AppAssets.thumbIcon,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
@@ -96,13 +97,14 @@ class ThankYouWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: AppButtonWidget(
-                  onPressed: () => Navigator.of(context).pop(),
                   title: 'Back To HomePage',
+                  onPressed: () {
+                    AppNavigation.pop(context);
+                  },
                 ),
-              ),
+              )
             ],
           ),
         ));

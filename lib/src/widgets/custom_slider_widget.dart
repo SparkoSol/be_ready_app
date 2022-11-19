@@ -1,3 +1,4 @@
+import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -38,10 +39,8 @@ class _CustomSliderState extends State<CustomSlider> {
         const SizedBox(
           height: 50,
         ),
-        Text(
-          widget.text,
-          style: GoogleFonts.poppins(
-              fontSize: 15, color: const Color(0xFFD3896F), letterSpacing: 1),
+        RedText(
+          text: widget.text,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +57,8 @@ class _CustomSliderState extends State<CustomSlider> {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
                 // width: 270,
                 decoration: BoxDecoration(
                     color: const Color(0xFF2E2340),
@@ -159,10 +159,10 @@ class CircleThumbShape extends SliderComponentShape {
     );
 
     final paint5 = Paint()
-      ..shader = const RadialGradient(
+      ..shader = RadialGradient(
         colors: [
           Colors.yellow,
-          Colors.blue,
+          Colors.blue.withOpacity(0.7),
         ],
       ).createShader(
         Rect.fromCircle(

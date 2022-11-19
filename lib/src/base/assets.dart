@@ -26,4 +26,8 @@ class AppAssets {
   static const thumbIcon = '$_path/thumbs_up.png';
   static const resourcesIcon = '$_path/resources.png';
   static const videoIcon = '$_path/video.png';
+  static const shareIcon = '$_path/share_icon.png';
+  static const faqIcon = '$_path/faq_icon.png';
+  static const contactUsIcon = '$_path/contact_up_icon.png';
+  static const termsAndCondIcon = '$_path/terms_and_cond_icon.png';
 }

@@ -1,7 +1,10 @@
+import 'package:be_ready_app/src/components/goals/explore.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/custom_slider_widget.dart';
+import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_ready_app/src/widgets/thank_you_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,7 +31,10 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
               left: 20,
               right: 20,
               bottom: 20,
-              top: MediaQuery.of(context).viewPadding.top + 56),
+              top: MediaQuery
+                  .of(context)
+                  .viewPadding
+                  .top + 56),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,46 +62,13 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                   },
                   text: 'My Spirit Feels'),
               const Spacer(),
-              AppButtonWidget(onPressed: () {}, title: 'See results')
+              AppButtonWidget(
+                  onPressed:(){$showBottomSheet(context, ThankYouWidget());} ,
+                  title: 'See results')
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class GoalsPageTitle extends StatelessWidget {
-  final String text;
-
-  const GoalsPageTitle({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: GoogleFonts.oswald(
-        fontSize: 33,
-        color: Colors.white,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-}
-
-class GoalsPageDescription extends StatelessWidget {
-  final String text;
-
-  const GoalsPageDescription({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: GoogleFonts.poppins(
-          fontSize: 18,
-          color: Colors.white.withOpacity(0.6),
-          fontWeight: FontWeight.w300),
     );
   }
 }
