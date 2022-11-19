@@ -38,7 +38,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
             ],
           ),
         ),
-        Image.asset(AppAssets.user),
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: Image.asset(AppAssets.user),
+        ),
       ],
     );
   }
