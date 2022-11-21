@@ -33,4 +33,6 @@ class AppAssets {
   static const otherEvents = '$_path/other_events.png';
   static const homeIcon = '$_path/home_icon.png';
   static const chatIcon = '$_path/chat_icon.png';
+  static const visaIcon = '$_path/visa_icon.png';
+  static const stripeIcon = '$_path/stripe_icon.png';
 }
