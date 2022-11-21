@@ -1,13 +1,10 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/widgets/activities_page_widget.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/custom_slider_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ActivitesPage extends StatefulWidget {
   const ActivitesPage({Key? key}) : super(key: key);
@@ -29,10 +26,11 @@ class _ActivitesPageState extends State<ActivitesPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-              left: 58,
-              right: 58,
-              bottom: 20,
-              top: MediaQuery.of(context).viewPadding.top + 56),
+            left: 58,
+            right: 58,
+            bottom: 20,
+            top: MediaQuery.of(context).padding.top + 56,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -159,13 +159,13 @@ class _GradientCircularProgressIndicator extends StatelessWidget {
           ),
         ),
       ),
-      Transform.rotate(
-        angle: -pi / 2,
-        child: CustomPaint(
-          size: Size.fromRadius(radius),
-          painter: _DrawCircle(),
-        ),
-      ),
+      // Transform.rotate(
+      //   angle: -pi / 2,
+      //   child: CustomPaint(
+      //     size: Size.fromRadius(radius),
+      //     painter: _DrawCircle(),
+      //   ),
+      // ),
     ]);
   }
 }

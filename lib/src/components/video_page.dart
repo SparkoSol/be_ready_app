@@ -19,25 +19,30 @@ class _VideoPageState extends State<VideoPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
-          child: SingleChildScrollView(
+          child: Padding(
         padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + 56,
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(
             left: 55,
             right: 55,
             bottom: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GoalsPageTitle(text: 'Videos'),
-            SizedBox(
-              height: 20,
-            ),
-            for (int i = 0; i < 10; i++)
-              Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: VideoWidget(path: AppAssets.backgroundImage),
-              )
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const GoalsPageTitle(text: 'Videos'),
+              const SizedBox(
+                height: 20,
+              ),
+              for (int i = 0; i < 10; i++)
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: VideoWidget(path: AppAssets.backgroundImage),
+                )
+            ],
+          ),
         ),
       )),
     );

@@ -2,7 +2,7 @@ import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/timed_widget.dart';
-import 'package:be_ready_app/src/components/home/home_page.dart';
+import 'package:be_ready_app/src/components/home/home_view.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -186,7 +186,7 @@ class _OtpPageState extends State<OtpPage> {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                     AppNavigation.navigateRemoveUntil(
-                        context, const HomePage());
+                        context, const HomeView());
                   },
                   title: 'CONTINUE',
                 ),

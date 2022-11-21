@@ -2,11 +2,12 @@ import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/be_universe_view.dart';
-import 'package:be_ready_app/src/components/journey/journey_page.dart';
+import 'package:be_ready_app/src/components/home/drawer_widget.dart';
 import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/components/main_menu/events.dart';
 import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
+import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
@@ -26,12 +27,17 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+      drawer: const AppDrawer(),
+      resizeToAvoidBottomInset: false,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
             left: 20,
             right: 20,
-            top: padding.top,
+            top: padding.top + 56,
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
@@ -107,9 +113,7 @@ class _HomeViewState extends State<HomeView> {
                 onTap: () {
                   AppNavigation.to(
                     context,
-                    const JourneyHomePage(
-                      therapy: TherapyType.body,
-                    ),
+                    const BeUniverseView(),
                   );
                 },
                 child: Center(
