@@ -118,11 +118,11 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             const SizedBox(
               height: 25,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+            InkWell(
+              onTap: () {},
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 70, vertical: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.fromLTRB(79, 36, 79, 30),
                 decoration: const BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -133,15 +133,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     ],
                   ),
                 ),
-                child: TextButton(
-                  child: Text(
-                    'Try Free & Subscribe',
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  onPressed: () {},
+                child: Text(
+                  'Try Free & Subscribe',
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),

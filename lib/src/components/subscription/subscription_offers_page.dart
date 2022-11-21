@@ -162,8 +162,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
               ),
               child: Stack(fit: StackFit.loose, children: [
                 Positioned(
-                  left: 293,
-                  bottom: 105,
+                  right: 10,
                   child: Container(
                     width: 120,
                     height: 25,
@@ -172,17 +171,18 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                       color: Colors.white,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(35),
+                        topRight: Radius.circular(35),
                       ),
                     ),
                     child: Text(
                       'Best Value',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: const Color(0Xff9A6170),
-                          fontWeight: FontWeight.w600),
+                        fontSize: 11,
+                        color: const Color(0Xff9A6170),
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
