@@ -26,8 +26,6 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   var _rememberMe = false;
-  final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -55,24 +53,34 @@ class _SignInPageState extends State<SignInPage> {
                   prefix: Image.asset(AppAssets.passwordIcon),
                   hint: 'Your password',
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  child: Row(children: [
-                    SwitchWidget(
-                      value: _rememberMe,
-                      callback: (_) => _rememberMe = _,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
+                Row(children: [
+                  SwitchWidget(
+                    value: _rememberMe,
+                    callback: (_) => _rememberMe = _,
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
                       'Remember Me',
                       style: GoogleFonts.poppins(
                         color: Colors.white.withOpacity(0.6),
                       ),
                     ),
-                    const Spacer(),
-                    TextButton(
+                  ),
+                ]),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
+                        minimumSize: Size.zero,
+                        visualDensity: const VisualDensity(
+                          vertical: -4,
+                          horizontal: -4,
+                        ),
+                        padding: EdgeInsets.zero,
                       ),
                       onPressed: () {
                         AppNavigation.to(context, const ResetPasswordPage());
@@ -82,7 +90,7 @@ class _SignInPageState extends State<SignInPage> {
                         style: GoogleFonts.poppins(),
                       ),
                     ),
-                  ]),
+                  ),
                 ),
                 AppButtonWidget(
                   onPressed: () {

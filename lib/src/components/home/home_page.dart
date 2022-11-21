@@ -1,247 +1,108 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
-import 'package:be_ready_app/src/components/journey/journey_page.dart';
-import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
-import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
-import 'package:be_ready_app/src/components/main_menu/events.dart';
-import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
+import 'package:be_ready_app/src/components/home/home_view.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
-import 'package:be_ready_app/src/widgets/main_page_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late List<Map<String, Widget>> _pages;
+  int _selectedPageIndex = 0;
+
+  void _selectPage(int index) {
+    _selectedPageIndex = index;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _pages = [
+      {'page': const HomeView()},
+      /// TODO : Add Second View Here
+      {'page': const Text('Second View')},
+    ];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       drawer: const AppDrawer(),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56,
-          ),
-          child: CustomScrollView(slivers: [
-            const SliverToBoxAdapter(
-              child: Text(
-                'Welcome, Laurie',
-                style: TextStyle(fontSize: 33, color: Colors.white),
-              ),
+      body: _pages[_selectedPageIndex]['page'],
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(top: 24),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _getBottomBarItem(
+              onTap: () => _selectPage(0),
+              icon: AppAssets.homeIcon,
+              color: _selectedPageIndex == 0 ? null : Colors.grey,
+              showContainer: _selectedPageIndex == 0,
             ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 2, bottom: 28),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'We’re glad you’re here.',
-                  style: GoogleFonts.poppins(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
+            _getBottomBarItem(
+              onTap: () => _selectPage(1),
+              icon: AppAssets.chatIcon,
+              color: _selectedPageIndex == 1 ? null : Colors.grey,
+              showContainer: _selectedPageIndex == 1,
             ),
-            SliverToBoxAdapter(
-              child: AppCourseButtonWidget(
-                title: 'Continue Coursework',
-                onTap: () {},
-                isShadowed: true,
-              ),
-            ),
-            SliverGrid(
-              delegate: SliverChildListDelegate([
-                MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const DailyCheckInPage());
-                  },
-                  text: 'Daily check-In',
-                  path: AppAssets.graphIcon,
-                ),
-                MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, ResourcePage());
-                  },
-                  text: 'Resources',
-                  path: AppAssets.graphIcon,
-                ),
-                MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const EventsPage());
-                  },
-                  text: 'Events',
-                  path: AppAssets.calenderIcon,
-                ),
-                MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const BeConnected());
-                  },
-                  text: 'Be Connected',
-                  path: AppAssets.userIcon,
-                ),
-              ]),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                crossAxisSpacing: 10,
-              ),
-            ),
-            const SliverPadding(padding: EdgeInsets.all(10)),
-            SliverToBoxAdapter(
-              child: GestureDetector(
-                onTap: () {
-                  AppNavigation.to(context, const JourneyHomePage());
-                },
-                child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          const Color(0xFFF0D781).withOpacity(0.25),
-                          const Color(0xFFF0D781).withOpacity(0),
-                        ],
-                      ),
-                      shape: BoxShape.circle,
-                    ),
-                    padding: const EdgeInsets.all(18),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF0D781).withOpacity(0.20),
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            const Color(0xFFF0D781),
-                            const Color(0xFFF0D781).withOpacity(0),
-                          ],
-                        ),
-                      ),
-                      child: GradientProgressIndicator(
-                        value: 50,
-                        radius: 62,
-                        duration: 2,
-                        strokeWidth: 6,
-                        gradientStops: const [0.1, 1.0],
-                        gradientColors: const [
-                          Color(0xFFE0DFA3),
-                          Color(0xFF7391D4),
-                        ],
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 26,
-                            horizontal: 18,
-                          ),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              colors: AppColors.buttonGradient,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(0, 7),
-                                blurRadius: 9,
-                                spreadRadius: 0,
-                                color: Colors.black.withOpacity(0.25),
-                              ),
-                            ],
-                          ),
-                          child: const Text(
-                            'YOUR\nJOURNEY',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 19,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ]),
+          ],
         ),
       ),
     );
-    Scaffold(
-      drawer: const AppDrawer(),
-      resizeToAvoidBottomInset: false,
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: padding.top + 56,
-            bottom: padding.bottom,
+  }
+
+  Widget _getBottomBarItem({
+    required Function() onTap,
+    required String icon,
+    Color? color,
+    required bool showContainer,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            icon,
+            height: 23,
+            width: 23,
+            color: color,
           ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(53, 40, 53, 0),
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 37, bottom: 35),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MainMenuWidget(
-                        onPressed: () {
-                          AppNavigation.to(context, const DailyCheckInPage());
-                        },
-                        text: 'Daily check-In',
-                        path: AppAssets.graphIcon,
-                      ),
-                      MainMenuWidget(
-                        onPressed: () {},
-                        text: 'Resources',
-                        path: AppAssets.graphIcon,
-                      ),
-                    ],
-                  ),
+          const SizedBox(height: 23),
+          if (showContainer)
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.elliptical(100, 50),
+                  topLeft: Radius.elliptical(100, 50),
+                  bottomRight: Radius.circular(25),
+                  bottomLeft: Radius.circular(25),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    MainMenuWidget(
-                      onPressed: () {
-                        AppNavigation.to(context, const EventsPage());
-                      },
-                      text: 'Events',
-                      path: AppAssets.calenderIcon,
-                    ),
-                    MainMenuWidget(
-                      onPressed: () {
-                        AppNavigation.to(context, const BeConnected());
-                      },
-                      text: 'Be Connected',
-                      path: AppAssets.userIcon,
-                    ),
-                  ],
+                gradient: LinearGradient(
+                  colors: AppColors.buttonGradient,
                 ),
-                const SizedBox(height: 15),
-              ],
-            ),
-          ),
-        ),
+              ),
+              height: 9,
+              width: 28,
+            )
+          else
+            const SizedBox(height: 9),
+        ],
       ),
     );
   }
