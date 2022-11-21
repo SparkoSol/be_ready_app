@@ -84,7 +84,7 @@ class _FAQPageState extends State<FAQPage> {
                         kLoremIpsum,
                         style: GoogleFonts.poppins(
                           fontSize: 13,
-                          color: Colors.white,
+                          color: Colors.white.withOpacity(0.6),
                         ),
                       ),
                     ),
