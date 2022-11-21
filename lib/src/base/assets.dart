@@ -37,5 +37,4 @@ class AppAssets {
   static const stripeIcon = '$_path/stripe_icon.png';
   static const attachmentIcon = '$_path/attachment_icon.png';
   static const temple = '$_path/temple.png';
-
 }
