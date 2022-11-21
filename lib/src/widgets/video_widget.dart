@@ -9,20 +9,18 @@ class VideoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 220,
+      padding: EdgeInsets.only(top: 51),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(35),
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage(path),
+            image: AssetImage(AppAssets.journeyHome),
           )),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 63,
+            height: 63,
             padding: const EdgeInsets.all(15),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -39,70 +37,47 @@ class VideoWidget extends StatelessWidget {
             child: Image.asset(
               AppAssets.videoIcon,
             ),
+          ),
+          SizedBox(
+            height: 43,
           ),
           Container(
-            width: 60,
-            height: 60,
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                  stops: [0.1, 0.8],
-                  end: Alignment.bottomRight,
-                  begin: Alignment.centerLeft,
-                  colors: [
-                    Color(0xFFF0D781),
-                    Color(0xFFDA8B6D),
-                    // Color(0xff56528E),
-                  ]),
+            padding: EdgeInsets.all(
+              21,
             ),
-            child: Image.asset(
-              AppAssets.videoIcon,
+            margin: const EdgeInsets.only(bottom: 1),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.7),
+              shape: BoxShape.rectangle,
+              borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(35),
+                  bottomLeft: Radius.circular(35)),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 60,
-              //padding: EdgeInsets.all(10),
-              margin: const EdgeInsets.only(bottom: 1),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
-                shape: BoxShape.rectangle,
-                borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(40),
-                    bottomLeft: Radius.circular(40)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Share with a Friend',
-                    style:
-                        GoogleFonts.poppins(fontSize: 11, color: Colors.white),
-                  ),
-                  Container(
-                    height: 60,
-                    width: 1,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        stops: const [0.5, 1],
-                        colors: [
-                          Colors.white.withOpacity(0.1),
-                          Colors.white,
-                        ],
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'Like',
-                    style:
-                        GoogleFonts.poppins(fontSize: 11, color: Colors.white),
-                  ),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Share with a Friend',
+                  style: GoogleFonts.poppins(fontSize: 11, color: Colors.white),
+                ), // Container(
+                Spacer(), //   width: 1,
+                //   decoration: BoxDecoration(
+                //     gradient: LinearGradient(
+                //       begin: Alignment.bottomCenter,
+                //       end: Alignment.topCenter,
+                //       stops: const [0.5, 1],
+                //       colors: [
+                //         Colors.white.withOpacity(0.1),
+                //         Colors.white,
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                Text(
+                  'Like',
+                  style: GoogleFonts.poppins(fontSize: 11, color: Colors.white),
+                ),
+              ],
             ),
           )
         ],
