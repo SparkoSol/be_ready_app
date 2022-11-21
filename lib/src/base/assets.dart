@@ -31,4 +31,10 @@ class AppAssets {
   static const contactUsIcon = '$_path/contact_up_icon.png';
   static const termsAndCondIcon = '$_path/terms_and_cond_icon.png';
   static const otherEvents = '$_path/other_events.png';
+  static const homeIcon = '$_path/home_icon.png';
+  static const chatIcon = '$_path/chat_icon.png';
+  static const visaIcon = '$_path/visa_icon.png';
+  static const stripeIcon = '$_path/stripe_icon.png';
+  static const attachmentIcon = '$_path/attachment_icon.png';
+  static const temple = '$_path/temple.png';
 }

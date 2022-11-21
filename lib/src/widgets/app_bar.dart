@@ -1,4 +1,6 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSize {
@@ -39,12 +41,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
               ),
           ],
         ),
-        Padding(
-            padding: const EdgeInsets.only(right: 20, left: 10),
-            child: CircleAvatar(
-              radius: 15,
-              child: Image.asset(AppAssets.user),
-            )),
+        GestureDetector(
+          onTap: () {
+            AppNavigation.to(context, const SettingPage());
+          },
+          child: Padding(
+              padding: const EdgeInsets.only(right: 20, left: 10),
+              child: CircleAvatar(
+                radius: 15,
+                child: Image.asset(AppAssets.user),
+              )),
+        ),
       ],
     );
   }

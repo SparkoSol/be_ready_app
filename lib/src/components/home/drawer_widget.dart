@@ -1,4 +1,9 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/home/drawer_actions/contact_us_page.dart';
+import 'package:be_ready_app/src/components/home/drawer_actions/faq_page.dart';
+import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
+import 'package:be_ready_app/src/components/home/drawer_actions/terms_and_conditions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,6 +41,9 @@ class AppDrawer extends StatelessWidget {
           padding: EdgeInsets.only(top: padding.top + 10),
           child: Column(mainAxisSize: MainAxisSize.max, children: [
             ListTile(
+              onTap: () {
+                AppNavigation.to(context, const SettingPage());
+              },
               leading: const CircleAvatar(
                 backgroundImage: AssetImage(
                   AppAssets.user,
@@ -69,20 +77,26 @@ class AppDrawer extends StatelessWidget {
             _getDrawerTile(
               title: 'FAQs',
               icon: AppAssets.faqIcon,
-              onTap: () {},
+              onTap: () {
+                AppNavigation.to(context, const FAQPage());
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 32),
               child: _getDrawerTile(
                 title: 'Terms and Conditions',
                 icon: AppAssets.termsAndCondIcon,
-                onTap: () {},
+                onTap: () {
+                  AppNavigation.to(context, const TermsAndConditionsPage());
+                },
               ),
             ),
             _getDrawerTile(
               title: 'Contact Us',
               icon: AppAssets.contactUsIcon,
-              onTap: () {},
+              onTap: () {
+                AppNavigation.to(context, const ContactUsPage());
+              },
             ),
           ]),
         ),

@@ -40,6 +40,7 @@ class AppTextField extends StatefulWidget {
     this.prefixStyle,
     this.textAlign,
     this.focusNode,
+    this.boxShadow,
   }) : super(key: key);
 
   final int? maxLength;
@@ -74,6 +75,7 @@ class AppTextField extends StatefulWidget {
   final TextStyle? prefixStyle;
   final TextAlign? textAlign;
   final FocusNode? focusNode;
+  final List<BoxShadow>? boxShadow;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -114,6 +116,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 ],
               )
             : null,
+        boxShadow: widget.boxShadow,
       ),
       child: TextFormField(
         focusNode: focusNode,
