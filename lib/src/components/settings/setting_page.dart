@@ -174,7 +174,7 @@ class _SettingPageState extends State<SettingPage> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
-                        Image.asset(AppAssets.stripIcon, width: 60, height: 40)
+                        Image.asset(AppAssets.stripeIcon, width: 60, height: 40)
                       ],
                     ),
                   ],
