@@ -1,6 +1,7 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/base/theme.dart';
+import 'package:be_ready_app/src/components/home/be_universe_view.dart';
 import 'package:be_ready_app/src/components/journey/journey_page.dart';
 import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
@@ -104,7 +105,12 @@ class _HomeViewState extends State<HomeView> {
             SliverToBoxAdapter(
               child: GestureDetector(
                 onTap: () {
-                  AppNavigation.to(context, const JourneyHomePage());
+                  AppNavigation.to(
+                    context,
+                    const JourneyHomePage(
+                      therapy: TherapyType.body,
+                    ),
+                  );
                 },
                 child: Center(
                   child: Container(

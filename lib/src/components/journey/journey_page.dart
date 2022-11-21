@@ -1,11 +1,17 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/home/be_universe_view.dart';
+import 'package:be_ready_app/src/utils/app_utils.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class JourneyHomePage extends StatefulWidget {
-  const JourneyHomePage({Key? key}) : super(key: key);
+  const JourneyHomePage({
+    Key? key,
+    required this.therapy,
+  }) : super(key: key);
+
+  final TherapyType therapy;
 
   @override
   State<JourneyHomePage> createState() => _JourneyHomePageState();
@@ -45,7 +51,7 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
               children: [
                 SizedBox(height: media.viewPadding.top),
                 Text(
-                  'Mind',
+                  AppUtils.getTherapy(therapy: widget.therapy),
                   style: GoogleFonts.oswald(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
