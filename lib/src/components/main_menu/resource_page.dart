@@ -1,3 +1,5 @@
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/video_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/resources_widget.dart';
@@ -31,7 +33,12 @@ class ResourcePage extends StatelessWidget {
                 SliverPadding(padding: EdgeInsets.only(bottom: 20)),
                 SliverGrid(
                   delegate: SliverChildBuilderDelegate((context, index) =>
-                      const ResourceWidget(quantity: 525, text: 'Articelss')),
+                      GestureDetector(
+                        child: ResourceWidget(quantity: 525, text: 'Articelss'),
+                        onTap: () {
+                          AppNavigation.to(context, VideoPage());
+                        },
+                      )),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 20,
