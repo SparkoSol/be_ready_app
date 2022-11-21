@@ -1,3 +1,4 @@
+import 'package:be_ready_app/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
 import 'package:be_ready_app/src/utils/const.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -32,16 +33,7 @@ class _FAQPageState extends State<FAQPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 35),
-                  child: Text(
-                    'FAQ’s',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                const DrawerActionTitleWidget(title: 'FAQ’s'),
                 for (int i = 0; i < _isExpanded.length; i++) ...[
                   GestureDetector(
                     onTap: () {
