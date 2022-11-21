@@ -28,8 +28,8 @@ class _ExplorePageState extends State<ExplorePage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-              left: 58,
-              right: 58,
+              left: 20,
+              right: 20,
               bottom: 20,
               top: MediaQuery.of(context).viewPadding.top + 56),
           child: Column(
