@@ -1,8 +1,11 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/be_universe_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../journey/journey_page.dart';
 
 class BeUniverseView extends StatefulWidget {
   const BeUniverseView({Key? key}) : super(key: key);
@@ -49,17 +52,32 @@ class _BeUniverseViewState extends State<BeUniverseView> {
               child: Image.asset(AppAssets.temple, width: 243, height: 270),
             ),
             UniverseTileWidget(
-              onPressed: () {},
+              onPressed: () {
+                AppNavigation.to(
+                  context,
+                  const JourneyHomePage(therapy: TherapyType.mind),
+                );
+              },
               text: 'Mind',
               path: AppAssets.skullIcon,
             ),
             UniverseTileWidget(
-              onPressed: () {},
+              onPressed: () {
+                AppNavigation.to(
+                  context,
+                  const JourneyHomePage(therapy: TherapyType.body),
+                );
+              },
               text: 'Body',
               path: AppAssets.heartyIcon,
             ),
             UniverseTileWidget(
-              onPressed: () {},
+              onPressed: () {
+                AppNavigation.to(
+                  context,
+                  const JourneyHomePage(therapy: TherapyType.spirit),
+                );
+              },
               text: 'Spirit',
               path: AppAssets.buddIcon,
             ),
@@ -72,3 +90,5 @@ class _BeUniverseViewState extends State<BeUniverseView> {
     );
   }
 }
+
+enum TherapyType { mind, body, spirit }
