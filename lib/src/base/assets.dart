@@ -35,4 +35,5 @@ class AppAssets {
   static const chatIcon = '$_path/chat_icon.png';
   static const visaIcon = '$_path/visa_icon.png';
   static const stripeIcon = '$_path/stripe_icon.png';
+  static const attachmentIcon = '$_path/attachment_icon.png';
 }

@@ -12,6 +12,7 @@ dependencies:
   syncfusion_flutter_sliders:
   reusables:
     git: https://github.com/SparkoSol/reusables.git
+  image_picker: ^0.8.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
