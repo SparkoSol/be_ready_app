@@ -30,7 +30,7 @@ class ArticlesPage extends StatelessWidget {
             const SizedBox(
               height: 160,
             ),
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 20; i++)
               GestureDetector(
                   onTap: () {
                     AppNavigation.to(context, const ExplorePage());
