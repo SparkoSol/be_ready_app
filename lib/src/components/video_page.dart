@@ -25,11 +25,13 @@ class _VideoPageState extends State<VideoPage> {
             right: 55,
             bottom: 20,
             top: MediaQuery.of(context).viewPadding.top + 56),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GoalsPageTitle(text: 'Videos'),
-
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             for (int i = 0; i < 10; i++)
               Padding(
                 padding: EdgeInsets.only(bottom: 20),
