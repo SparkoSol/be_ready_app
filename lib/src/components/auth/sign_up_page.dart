@@ -1,14 +1,18 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/modals/app_snackbar.dart';
+import 'package:be_ready_app/src/base/modals/error_dialog.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/otp_page.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
+import 'package:be_ready_app/src/services/auth_service.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -22,6 +26,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  var _autoValidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -40,58 +46,117 @@ class _SignUpPageState extends State<SignUpPage> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(33, 22, 33, 28),
-            child: Column(children: [
-              const AuthTitleWidget(title: 'Sign up'),
-              const SizedBox(height: 24),
-              AppTextField(
-                textEditingController: _fullNameController,
-                prefix: Image.asset(AppAssets.profileIcon),
-                hint: 'Full name',
-              ),
-              AppTextField(
-                textEditingController: _emailController,
-                prefix: Image.asset(AppAssets.messageIcon),
-                hint: 'abc@email.com',
-              ),
-              AppPasswordField(
-                textEditingController: _passwordController,
-                prefix: Image.asset(AppAssets.passwordIcon),
-                hint: 'Your password',
-              ),
-              AppPasswordField(
-                textEditingController: _confirmPasswordController,
-                prefix: Image.asset(AppAssets.passwordIcon),
-                hint: 'Confirm password',
-              ),
-              AppButtonWidget(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  AppNavigation.to(context, const OtpPage());
-                },
-                title: 'SIGN UP',
-              ),
-              const OrWidget(),
-              SocialAuthButton(
-                onTap: () {},
-                platformImage: AppAssets.google,
-                platformName: 'Google',
-              ),
-              SocialAuthButton(
-                onTap: () {},
-                platformImage: AppAssets.facebook,
-                platformName: 'Facebook',
-              ),
-              AuthTextSpanWidget(
-                message: 'Already have an account?',
-                buttonTitle: ' Sign in',
-                action: () {
-                  AppNavigation.pop(context);
-                },
-              ),
-            ]),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: _autoValidateMode,
+              child: Column(children: [
+                const AuthTitleWidget(title: 'Sign up'),
+                const SizedBox(height: 24),
+                AppTextField(
+                  textEditingController: _fullNameController,
+                  prefix: Image.asset(AppAssets.profileIcon),
+                  hint: 'Full name',
+                  keyboardType: TextInputType.text,
+                  validator:
+                      InputValidator.required(message: 'Name is required'),
+                ),
+                AppTextField(
+                  textEditingController: _emailController,
+                  prefix: Image.asset(AppAssets.messageIcon),
+                  hint: 'abc@email.com',
+                  keyboardType: TextInputType.emailAddress,
+                  validator: InputValidator.email(message: 'Email is required'),
+                ),
+                AppPasswordField(
+                  textEditingController: _passwordController,
+                  prefix: Image.asset(AppAssets.passwordIcon),
+                  hint: 'Your password',
+                  validator: InputValidator.multiple([
+                    InputValidator.required(message: 'Password is required')!,
+                    InputValidator.length(
+                      min: 5,
+                      minMessage: 'Password must be 5 characters long',
+                    )!,
+                  ]),
+                ),
+                AppPasswordField(
+                  textEditingController: _confirmPasswordController,
+                  prefix: Image.asset(AppAssets.passwordIcon),
+                  hint: 'Confirm password',
+                  validator: (value) {
+                    if (value != _passwordController.text.trim()) {
+                      return 'Password not same';
+                    }
+                    return null;
+                  },
+                ),
+                AppButtonWidget(
+                  onPressed: submit,
+                  title: 'SIGN UP',
+                ),
+                const OrWidget(),
+                SocialAuthButton(
+                  onTap: () {},
+                  platformImage: AppAssets.google,
+                  platformName: 'Google',
+                ),
+                SocialAuthButton(
+                  onTap: () {},
+                  platformImage: AppAssets.facebook,
+                  platformName: 'Facebook',
+                ),
+                AuthTextSpanWidget(
+                  message: 'Already have an account?',
+                  buttonTitle: ' Sign in',
+                  action: () {
+                    AppNavigation.pop(context);
+                  },
+                ),
+              ]),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void submit() async {
+    if (!_formKey.currentState!.validate()) {
+      _autoValidateMode = AutovalidateMode.onUserInteraction;
+      setState(() {});
+      return;
+    }
+    try {
+      await Awaiter.process(
+        future: signUp(),
+        context: context,
+        arguments: 'Creating account...',
+      );
+
+      if (!mounted) {
+        return;
+      }
+      $showSnackBar(context, 'Account created Successfully');
+      FocusScope.of(context).unfocus();
+      AppNavigation.to(context, const OtpPage());
+    } catch (e) {
+      if (e.toString() ==
+          'A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
+        const ErrorDialog(error: 'Internet Connection Error').show(context);
+      } else {
+        ErrorDialog(error: e.toString()).show(context);
+      }
+    }
+  }
+
+  Future<void> signUp() async {
+    try {
+      final user = await AuthService().signUp(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+    } catch (_) {
+      rethrow;
+    }
   }
 }
