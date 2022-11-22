@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "352649851509",
+    "project_id": "be-universe",
+    "storage_bucket": "be-universe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352649851509:android:08c623238f2c9222f77e3c",
+        "android_client_info": {
+          "package_name": "com.sparkosol.be_ready_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352649851509-1uped9v8hj6489lutp45u876qjpi0bdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbJFyBIr8WM_ROpTqArlaguDeYgFch17o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352649851509-1uped9v8hj6489lutp45u876qjpi0bdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

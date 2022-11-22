@@ -1,15 +1,38 @@
 import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
+import 'package:be_ready_app/src/utils/default_awaiter.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
 import 'base/theme.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp._() : super();
+
+  static Future<void> initializeAndRun() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    Awaiter.defaultBehaviour = AppAwaitBehaviour();
+    // AppData.initialize();
+
+    return runApp(const MyApp._());
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Be Ready',
+      debugShowCheckedModeBanner: false,
+      title: 'Be Universe',
       theme: AppTheme.lightTheme,
       home: const SignInPage(),
     );
