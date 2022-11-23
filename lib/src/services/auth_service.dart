@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService {
   static final _firebaseAuth = FirebaseAuth.instance;
@@ -105,36 +108,6 @@ class AuthService {
     }
   }
 
-  // Future<UserCredential> signInWithGoogle() async {
-  //   // Trigger the authentication flow
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //
-  //   // Obtain the auth details from the request
-  //   final GoogleSignInAuthentication? googleAuth =
-  //       await googleUser?.authentication;
-  //
-  //   // Create a new credential
-  //   final credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth?.accessToken,
-  //     idToken: googleAuth?.idToken,
-  //   );
-  //
-  //   // Once signed in, return the UserCredential
-  //   return await FirebaseAuth.instance.signInWithCredential(credential);
-  // }
-
-  // Future<UserCredential> signInWithFacebook() async {
-  //   // Trigger the sign-in flow
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
-  //
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential =
-  //       FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  //
-  //   // Once signed in, return the UserCredential
-  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  // }
-
   static Future<UserCredential> signInWithGoogle() async {
     try {
       final account = await GoogleSignIn().signIn();
@@ -157,12 +130,12 @@ class AuthService {
       final token = account.accessToken!.token;
       print(
           'Facebook token userID : ${account.accessToken!.grantedPermissions}');
-      // final graphResponse = await http.get(Uri.parse(
-      //     'https://graph.facebook.com/'
-      //     'v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
-      //
-      // final profile = jsonDecode(graphResponse.body);
-      // print("Profile is equal to $profile");
+      final graphResponse = await http.get(Uri.parse(
+          'https://graph.facebook.com/'
+          'v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
+
+      final profile = jsonDecode(graphResponse.body);
+      print("Profile is equal to $profile");
       if (account.status != LoginStatus.success) {
         throw account.message ?? 'Facebook Login Failed';
       }
@@ -189,9 +162,9 @@ class AuthService {
         accessToken: appleCredentials.authorizationCode,
       );
       appleCredentials.identityToken;
-      final _authResult =
+      final authResult =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      return _authResult;
+      return authResult;
     } catch (e) {
       throw 'Apple authorization cancelled';
     }

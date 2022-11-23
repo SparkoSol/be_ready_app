@@ -7,10 +7,11 @@ import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.da
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
-import 'package:be_ready_app/src/services/auth_service.dart';
+import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:reusables/reusables.dart';
 
@@ -140,20 +141,20 @@ class _SignUpPageState extends State<SignUpPage> {
       FocusScope.of(context).unfocus();
       AppNavigation.to(context, const OtpPage());
     } catch (e) {
-      if (e.toString() ==
-          'A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
-        const ErrorDialog(error: 'Internet Connection Error').show(context);
-      } else {
-        ErrorDialog(error: e.toString()).show(context);
-      }
+      ErrorDialog(error: e).show(context);
     }
   }
 
   Future<void> signUp() async {
     try {
-      final user = await AuthService().signUp(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
+      await AuthenticationService().signUp(
+        UserRegisterRequest(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+            name: _fullNameController.text.trim(),
+            username: _emailController.text.trim(),
+            role: 'User',
+            loginVia: 'Email'),
       );
     } catch (_) {
       rethrow;

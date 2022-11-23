@@ -8,11 +8,13 @@ import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_ready_app/src/components/home/home_view.dart';
+import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/services/auth_service.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/custom_switch_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -148,53 +150,39 @@ class _SignInPageState extends State<SignInPage> {
         context: context,
         arguments: 'Signing in...',
       );
+
       if (!mounted) return;
       FocusScope.of(context).unfocus();
       AppNavigation.navigateRemoveUntil(context, const HomeView());
     } catch (e) {
-      if (e.toString() ==
-          'A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
-        const ErrorDialog(error: 'Internet Connection Error').show(context);
-      } else {
-        ErrorDialog(error: e.toString()).show(context);
-      }
+      ErrorDialog(error: e).show(context);
     }
   }
 
   Future<void> signinigIn() async {
     try {
-      await AuthService().signIn(
-        _emailController.text.trim(),
-        _passwordController.text.trim(),
+      await AuthenticationService().signIn(
+        UserSignInRequest(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        ),
       );
     } catch (e) {
       rethrow;
     }
   }
 
-  // Future<void> googleSignIn() async {
-  //   try {
-  //     await Awaiter.process(
-  //       future: gSignIn(),
-  //       context: context,
-  //       arguments: 'Fetching accounts...',
-  //     );
-  //     if (!mounted) return;
-  //     FocusScope.of(context).unfocus();
-  //     AppNavigation.navigateRemoveUntil(context, const HomeView());
-  //   } catch (e) {
-  //     if (e.toString() ==
-  //         'A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
-  //       const ErrorDialog(error: 'Internet Connection Error').show(context);
-  //     } else {
-  //       ErrorDialog(error: e.toString()).show(context);
-  //     }
-  //   }
-  // }
-
   Future<void> googleSignIn() async {
     try {
-      await AuthService.signInWithGoogle();
+      final response = await AuthService.signInWithGoogle();
+      final token = await response.user!.getIdToken();
+      await AuthenticationService().socialSignIn(SocialSignInRequest(
+          username: response.user?.email ?? 'none',
+          idToken: token,
+          name: response.user?.displayName ?? 'default mail',
+          email: response.user?.email ?? 'default mail',
+          image: response.user?.photoURL ?? '',
+          loginVia: 'Google'));
       if (!mounted) return;
       AppNavigation.navigateRemoveUntil(context, const HomeView());
     } catch (e) {
@@ -204,7 +192,15 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<void> facebookSignIn() async {
     try {
-      await AuthService.signInWithFacebook();
+      final response = await AuthService.signInWithFacebook();
+      final token = await response.user!.getIdToken();
+      AuthenticationService().socialSignIn(SocialSignInRequest(
+          username: response.user?.email ?? 'none',
+          idToken: token,
+          name: response.user?.displayName ?? 'default mail',
+          email: response.user?.email ?? 'default mail',
+          image: response.user?.photoURL ?? '',
+          loginVia: 'Facebook'));
       if (!mounted) return;
       AppNavigation.navigateRemoveUntil(context, const HomeView());
     } catch (e) {

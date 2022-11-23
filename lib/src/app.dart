@@ -1,5 +1,6 @@
 import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
 import 'package:be_ready_app/src/utils/default_awaiter.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:reusables/reusables.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatefulWidget {
     await Firebase.initializeApp();
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
     // AppData.initialize();
-
+    Api.initialize();
     return runApp(const MyApp._());
   }
 

@@ -7,11 +7,13 @@ import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/components/main_menu/events.dart';
 import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
+import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
 import 'package:be_ready_app/src/widgets/main_page_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +25,19 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => getProfileData());
+    super.initState();
+  }
+
+  Future<void> getProfileData() async {
+    var accessToken = await Api.getAccessToken();
+    final profile = await AuthenticationService().getProfile(accessToken);
+    Api.saveProfileData(profile.userid, profile.username);
+  }
+
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
