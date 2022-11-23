@@ -17,65 +17,71 @@ class ArticlesPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
-          child: SingleChildScrollView(
-        padding: EdgeInsets.only(
+        child: Padding(
+          padding: EdgeInsets.only(
             left: 55,
             right: 55,
-            bottom: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const GoalsPageTitle(text: 'Articles '),
-            const SizedBox(
-              height: 160,
-            ),
-            for (int i = 0; i < 20; i++)
-              GestureDetector(
-                  onTap: () {
-                    AppNavigation.to(context, const ExplorePage());
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 20),
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
+            top: MediaQuery.of(context).padding.top + 56,
+          ),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 159),
+                  child: GoalsPageTitle(text: 'Articles'),
+                ),
+                for (int i = 0; i < 20; i++)
+                  GestureDetector(
+                    onTap: () {
+                      AppNavigation.to(context, const ExplorePage());
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 31),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: const Color(0xff2E2340)),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 12,
-                              child: Image.asset(AppAssets.user),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              'HR Ujjol',
-                              style: GoogleFonts.poppins(
+                        color: const Color(0xff2E2340),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 12,
+                                child: Image.asset(AppAssets.user),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'HR Ujjol',
+                                style: GoogleFonts.poppins(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xffF0D781)),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          lorem,
-                          maxLines: 3,
-                          style: GoogleFonts.poppins(
+                                  color: const Color(0xffF0D781),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            lorem,
+                            maxLines: 3,
+                            style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
-                              color: Colors.white),
-                        ),
-                      ],
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ))
-          ],
+                  ),
+              ],
+            ),
+          ),
         ),
-      )),
+      ),
     );
   }
 }

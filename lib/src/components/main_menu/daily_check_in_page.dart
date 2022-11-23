@@ -26,43 +26,38 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-              left: 58,
-              right: 58,
-              bottom: 20,
-              top: MediaQuery
-                  .of(context)
-                  .viewPadding
-                  .top + 56),
+            left: 58,
+            right: 58,
+            bottom: 20,
+            top: MediaQuery.of(context).viewPadding.top + 56,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const GoalsPageTitle(text: 'Daily Check-In'),
               const GoalsPageDescription(text: 'Aware. Acknowledge. Accept.'),
               CustomSlider(
-                  value: mindSliderValue,
-                  callback: (v) {
-                    mindSliderValue = v;
-                    setState(() {});
-                  },
-                  text: 'My Mind Feels'),
+                value: mindSliderValue,
+                callback: (v) => mindSliderValue = v,
+                text: 'My Mind Feels',
+              ),
               CustomSlider(
-                  value: bodySliderValue,
-                  callback: (v) {
-                    bodySliderValue = v;
-                    setState(() {});
-                  },
-                  text: 'My Body Feels'),
+                value: bodySliderValue,
+                callback: (v) => bodySliderValue = v,
+                text: 'My Body Feels',
+              ),
               CustomSlider(
-                  value: spiritValue,
-                  callback: (v) {
-                    spiritValue = v;
-                    setState(() {});
-                  },
-                  text: 'My Spirit Feels'),
+                value: spiritValue,
+                callback: (v) => spiritValue = v,
+                text: 'My Spirit Feels',
+              ),
               const Spacer(),
               AppButtonWidget(
-                  onPressed:(){$showBottomSheet(context, ThankYouWidget());} ,
-                  title: 'See results')
+                onPressed: () {
+                  $showBottomSheet(context, const ThankYouWidget());
+                },
+                title: 'See results',
+              )
             ],
           ),
         ),

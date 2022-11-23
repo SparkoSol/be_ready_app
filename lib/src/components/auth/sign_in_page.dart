@@ -32,12 +32,10 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: BackgroundImageWidget(
         child: Padding(
-          padding: EdgeInsets.only(
-            top: padding.top,
-            bottom: padding.bottom,
-          ),
+          padding: EdgeInsets.only(top: padding.top, bottom: padding.bottom),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(33, 57, 33, 28),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(30, 57, 30, 28),
             child: Column(
               children: [
                 const AuthTitleWidget(title: 'Sign in'),

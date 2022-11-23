@@ -35,16 +35,16 @@ class _EventsPageState extends State<EventsPage> {
               children: [
                 const GoalsPageTitle(text: 'Events'),
                 const GoalsPageDescription(
-                    text: 'Participate. Download. Attend.'),
-                const SizedBox(
-                  height: 30,
+                  text: 'Participate. Download. Attend.',
                 ),
+                const SizedBox(height: 30),
                 Text(
                   'Most Popular',
                   style: GoogleFonts.oswald(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white),
+                    fontSize: 19,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 5, bottom: 30),
@@ -53,7 +53,8 @@ class _EventsPageState extends State<EventsPage> {
                   decoration: BoxDecoration(
                     color: Colors.orange,
                     image: const DecorationImage(
-                        image: AssetImage(AppAssets.graphIcon)),
+                      image: AssetImage(AppAssets.graphIcon),
+                    ),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
@@ -76,26 +77,27 @@ class _EventsPageState extends State<EventsPage> {
                         Text(
                           'Mon, Apr 18 · 21:00 Pm ',
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 12),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           'La Rosalia',
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w700, fontSize: 16),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
                         ),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.location_on_outlined,
-                              size: 18,
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
+                            const Icon(Icons.location_on_outlined, size: 18),
+                            const SizedBox(width: 2),
                             Text(
                               'Palau Sant Jordi, Barcelona',
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400, fontSize: 12),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                              ),
                             )
                           ],
                         )
@@ -106,24 +108,24 @@ class _EventsPageState extends State<EventsPage> {
                 Text(
                   'Other Events',
                   style: GoogleFonts.oswald(
-                      height: 2,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white),
+                    height: 2,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 for (int i = 0; i < 10; i++)
                   const EventsTile(
-                      title: 'Brasil Game Show',
-                      date: 'Oct 12th',
-                      participants: [
-                        AppAssets.user,
-                        AppAssets.user,
-                        AppAssets.user,
-                      ],
-                      path: AppAssets.otherEvents)
+                    title: 'Brasil Game Show',
+                    date: 'Oct 12th',
+                    participants: [
+                      AppAssets.user,
+                      AppAssets.user,
+                      AppAssets.user,
+                    ],
+                    path: AppAssets.otherEvents,
+                  )
               ],
             ),
           ),

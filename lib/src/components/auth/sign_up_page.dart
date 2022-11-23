@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(33, 22, 33, 28),
+            padding: const EdgeInsets.fromLTRB(30, 22, 30, 28),
             child: Column(children: [
               const AuthTitleWidget(title: 'Sign up'),
               const SizedBox(height: 24),

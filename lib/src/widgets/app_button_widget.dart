@@ -90,9 +90,10 @@ class AppButtonWidget extends StatelessWidget {
               child: Text(
                 title.toUpperCase(),
                 style: GoogleFonts.oswald(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400),
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             isIcon == true
@@ -131,8 +132,10 @@ class AppCourseButtonWidget extends StatelessWidget {
     this.title,
     required this.onTap,
     this.isShadowed = false,
+    this.bottomPadding,
   }) : super(key: key);
 
+  final double? bottomPadding;
   final bool isShadowed;
   final String? title;
 
@@ -141,7 +144,7 @@ class AppCourseButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.only(top: 20, bottom: bottomPadding ?? 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(120),
         gradient: const LinearGradient(
