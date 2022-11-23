@@ -1,4 +1,6 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/payment_method/payment_method_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,176 +16,125 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
+        child: Padding(
+          padding: EdgeInsets.only(top: padding.top + 56),
           child: SingleChildScrollView(
-        padding:
-            EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 150),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Hello, Laurie!',
-              style: GoogleFonts.oswald(
-                fontSize: 30,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Image.asset(
-              fit: BoxFit.fill,
-              height: 110,
-              width: 110,
-              AppAssets.user,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 50),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  border:
-                      Border.all(color: const Color(0xFF444A88), width: 0.5),
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: 166),
+            child: Column(children: [
+              const Text(
+                'Hello, Laurie!',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
                 ),
-                child: Column(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 36),
+                child: Image.asset(
+                  AppAssets.user,
+                  fit: BoxFit.fill,
+                  height: 111,
+                  width: 111,
+                ),
+              ),
+              _ProfileDataContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '+79183754623',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Phone Number',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: Colors.white54,
-                          ),
-                        ),
-                      ],
-                    ),
+                    _getText(text: '+79183754623'),
+                    _getTrailing(text: 'Phone Number'),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  border:
-                      Border.all(color: const Color(0xFF444A88), width: 0.5),
-                ),
-                child: Column(
+              _ProfileDataContainer(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'address@address.com',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Email',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            color: Colors.white54,
-                          ),
-                        ),
-                      ],
-                    ),
+                    _getText(text: 'address@address.com'),
+                    _getTrailing(text: 'Email'),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  border:
-                      Border.all(color: const Color(0xFF444A88), width: 0.5),
+              _ProfileDataContainer(
+                onTap: () {},
+                child: Row(children: [
+                  _getText(text: 'Change Password'),
+                ]),
+              ),
+              _ProfileDataContainer(
+                onTap: () => AppNavigation.to(
+                  context,
+                  const PaymentMethodPage(),
                 ),
-                child: Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Change Password',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                    _getText(text: 'Update Payment Method'),
+                    Image.asset(AppAssets.stripeIcon, width: 62, height: 38),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, top: 30),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  border:
-                      Border.all(color: const Color(0xFF444A88), width: 0.5),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Update Payment Method',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Image.asset(AppAssets.stripeIcon, width: 60, height: 40)
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ]),
+          ),
         ),
-      )),
+      ),
+    );
+  }
+
+  Widget _getTrailing({required String text}) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(
+        fontSize: 12,
+        color: Colors.white.withOpacity(0.5),
+      ),
+    );
+  }
+
+  Widget _getText({required String text}) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(
+        fontSize: 16,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
+class _ProfileDataContainer extends StatelessWidget {
+  const _ProfileDataContainer({Key? key, required this.child, this.onTap})
+      : super(key: key);
+
+  final Widget child;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(24),
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(left: 52, right: 45, bottom: 29),
+        padding: const EdgeInsets.fromLTRB(31, 26, 24, 27),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          color: Colors.transparent,
+          shape: BoxShape.rectangle,
+          border: Border.all(
+            color: Colors.white.withOpacity(0.1),
+            width: 1.5,
+          ),
+        ),
+        child: child,
+      ),
     );
   }
 }
