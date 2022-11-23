@@ -1,5 +1,4 @@
 import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/timed_widget.dart';
 import 'package:be_ready_app/src/components/home/home_view.dart';
@@ -28,16 +27,6 @@ class _OtpPageState extends State<OtpPage> {
   final _controller2 = TextEditingController();
   final _controller3 = TextEditingController();
   final _controller4 = TextEditingController();
-  final _timerController = TimedWidgetController();
-
-  @override
-  void initState() {
-    _timerController.start(
-      const Duration(seconds: 1),
-      const Duration(seconds: 1200),
-    );
-    super.initState();
-  }
 
   bool _isCodeValid(List<String> digits) {
     return digits.fold(true, (v, e) => v && e.isNotEmpty && e != ' ');
@@ -207,29 +196,12 @@ class _OtpPageState extends State<OtpPage> {
                   title: 'CONTINUE',
                 ),
                 const SizedBox(height: 28),
-                TimedWidget(
-                  builder: (_, time) {
-                    return AuthTextSpanWidget(
-                      buttonTitle: _formatTime(time.inSeconds),
-                      action: () {},
-                      message: 'Re-send code in ',
-                    );
-                  },
-                  controller: _timerController,
-                ),
+                TimerWidget(context: context, seconds: 60),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  String _formatTime(int seconds) {
-    var minutes = seconds ~/ 60;
-    var secondsStr = (seconds % 60).toString();
-
-    if (secondsStr.length == 1) secondsStr = '0$secondsStr';
-    return '$minutes:$secondsStr';
   }
 }
