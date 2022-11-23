@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late List<Map<String, Widget>> _pages;
   int _selectedPageIndex = 0;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _selectPage(int index) {
     _selectedPageIndex = index;
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       {'page': const HomeView()},
+
       /// TODO : Add Second View Here
       {'page': const Text('Second View')},
     ];
@@ -34,11 +36,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
+      key: _scaffoldKey,
+      drawer: SizedBox(
+        width: 346,
+        child: AppDrawer(parentScaffoldKey: _scaffoldKey),
+      ),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(parentScaffoldKey: _scaffoldKey, hasDrawer: true),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(top: 24),

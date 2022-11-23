@@ -8,10 +8,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
     Key? key,
     this.showNotificationDot = true,
     this.isCenterTitle = true,
+    this.hasDrawer = false,
+    this.parentScaffoldKey,
   }) : super(key: key);
 
+  final GlobalKey<ScaffoldState>? parentScaffoldKey;
   final bool showNotificationDot;
   final bool isCenterTitle;
+  final bool hasDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,24 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
       leadingWidth: 50,
 
       centerTitle: isCenterTitle,
-      // leading: IconButton(icon: Icon(Icons.arrow_back),),
+      leading: hasDrawer
+          ? Padding(
+              padding: const EdgeInsets.only(left: 25),
+              child: GestureDetector(
+                onTap: () {
+                  if (parentScaffoldKey != null) {
+                    parentScaffoldKey?.currentState?.openDrawer();
+                  }
+                },
+                child: Image.asset(
+                  AppAssets.drawerIcon,
+                  width: 21,
+                  height: 14,
+                ),
+              ),
+            )
+          : null,
+      // IconButton(icon: Icon(Icons.arrow_back),),
       actions: [
         Stack(
           children: [
