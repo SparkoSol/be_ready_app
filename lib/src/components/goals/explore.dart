@@ -36,25 +36,25 @@ class _ExplorePageState extends State<ExplorePage> {
             children: [
               const GoalsPageTitle(text: 'Explore'),
               const GoalsPageDescription(text: 'Additional Courses'),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              RedText(text: 'Mind'),
+              const RedText(text: 'Mind'),
               AppCourseButtonWidget(
                 onTap: () {},
               ),
-              RedText(text: 'Body'),
+              const RedText(text: 'Body'),
               AppCourseButtonWidget(
                 onTap: () {},
               ),
-              RedText(text: 'Spirit'),
+              const RedText(text: 'Spirit'),
               AppCourseButtonWidget(
                 onTap: () {},
               ),
               const Spacer(),
               AppButtonWidget(
                   onPressed: () {
-                    AppNavigation.to(context, ActivitesPage());
+                    AppNavigation.to(context, const ActivitesPage());
                   },
                   title: 'SUPPORTIVE ACTIVITIES')
             ],

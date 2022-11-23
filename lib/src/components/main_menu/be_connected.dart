@@ -27,7 +27,7 @@ class _BeConnectedState extends State<BeConnected> {
             top: MediaQuery.of(context).padding.top + 56,
           ),
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 left: 52,
                 right: 52,
                 bottom: 20,
@@ -42,7 +42,7 @@ class _BeConnectedState extends State<BeConnected> {
                 for (int i = 0; i < 100; i++)
                   GestureDetector(
                       onTap: () {
-                        AppNavigation.to(context, ExplorePage());
+                        AppNavigation.to(context, const ExplorePage());
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 20),
@@ -93,7 +93,7 @@ class _BeConnectedState extends State<BeConnected> {
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(

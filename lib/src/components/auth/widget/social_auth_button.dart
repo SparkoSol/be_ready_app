@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,41 +15,39 @@ class SocialAuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: const Color.fromRGBO(255, 255, 255, 0.05),
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(15, 0),
-            blurRadius: 30,
-            spreadRadius: 0,
-            color: Color.fromRGBO(211, 212, 226, 0.25),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          // backgroundColor: const Color.fromRGBO(255, 255, 255, 0.05),
-          // backgroundColor: Colors.white.withOpacity(0.5),
-          backgroundColor: Colors.transparent,
-          minimumSize: const Size.fromHeight(66),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onPressed: onTap,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(platformImage),
-            const SizedBox(width: 22),
-            Text(
-              'Login with $platformName',
-              style: GoogleFonts.poppins(fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(15, 0),
+              blurRadius: 30,
+              spreadRadius: 0,
+              color: const Color(0xffd3d4d2).withOpacity(0.25),
             ),
           ],
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white.withOpacity(0.5),
+            minimumSize: const Size.fromHeight(66),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(platformImage),
+              const SizedBox(width: 22),
+              Text(
+                'Login with $platformName',
+                style: GoogleFonts.poppins(fontSize: 16),
+              ),
+            ],
+          ),
         ),
       ),
     );
