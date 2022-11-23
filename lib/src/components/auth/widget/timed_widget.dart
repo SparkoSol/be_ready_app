@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TimerWidget extends StatefulWidget {
   const TimerWidget({
@@ -57,14 +56,10 @@ class _TimerWidgetState extends State<TimerWidget> {
             action: () {},
             message: 'Re-send code in ',
           )
-        : GestureDetector(
-            child: Text(
-              'Re-send Code',
-              style: GoogleFonts.poppins(
-                color: Colors.white.withOpacity(0.6),
-              ),
-            ),
-            onTap: () => startTimeout(),
+        : AuthTextSpanWidget(
+            buttonTitle: 'Resend',
+            action: startTimeout,
+            message: 'Did not receive code ',
           );
   }
 }
