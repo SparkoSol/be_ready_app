@@ -20,10 +20,9 @@ class ResourceWidget extends StatelessWidget {
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
-          stops: const [0.5, 1],
           colors: [
-            const Color(0xFFD2876F).withOpacity(.8),
-            const Color(0xFF523072).withOpacity(.8),
+            const Color(0xFFD2876F).withOpacity(1),
+            const Color(0xFF523072).withOpacity(1),
           ],
         ),
       ),
