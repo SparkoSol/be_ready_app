@@ -196,7 +196,7 @@ class _OtpPageState extends State<OtpPage> {
                   title: 'CONTINUE',
                 ),
                 const SizedBox(height: 28),
-                TimerWidget(context: context, seconds: 60),
+                const TimerWidget(seconds: 60),
               ],
             ),
           ),
