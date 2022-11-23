@@ -37,12 +37,13 @@ class _SignInPageState extends State<SignInPage> {
             bottom: padding.bottom,
           ),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(33, 22, 33, 28),
+            padding: const EdgeInsets.fromLTRB(33, 57, 33, 28),
             child: Column(
               children: [
                 const AuthTitleWidget(title: 'Sign in'),
                 const SizedBox(height: 24),
                 AppTextField(
+                  keyboardType: TextInputType.emailAddress,
                   textEditingController: _emailController,
                   prefix: Image.asset(AppAssets.messageIcon),
                   hint: 'abc@email.com',

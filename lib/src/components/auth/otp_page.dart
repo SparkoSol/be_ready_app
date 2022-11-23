@@ -76,6 +76,14 @@ class _OtpPageState extends State<OtpPage> {
     };
   }
 
+  final boxShadow = [
+    BoxShadow(
+      offset: const Offset(18.59, 18.59),
+      blurRadius: 37.17,
+      color: const Color(0xFFD3D1D8).withOpacity(0.25),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
@@ -115,6 +123,7 @@ class _OtpPageState extends State<OtpPage> {
                     SizedBox(
                       width: 62,
                       child: AppTextField(
+                        boxShadow: boxShadow,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           null,
@@ -132,6 +141,7 @@ class _OtpPageState extends State<OtpPage> {
                     SizedBox(
                       width: 62,
                       child: AppTextField(
+                        boxShadow: boxShadow,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           _digit1,
@@ -149,6 +159,7 @@ class _OtpPageState extends State<OtpPage> {
                     SizedBox(
                       width: 62,
                       child: AppTextField(
+                        boxShadow: boxShadow,
                         focusNode: _digit3,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
@@ -166,6 +177,7 @@ class _OtpPageState extends State<OtpPage> {
                     SizedBox(
                       width: 62,
                       child: AppTextField(
+                        boxShadow: boxShadow,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(
                           _digit3,

@@ -50,6 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               AppTextField(
                 textEditingController: _emailController,
+                keyboardType: TextInputType.emailAddress,
                 prefix: Image.asset(AppAssets.messageIcon),
                 hint: 'abc@email.com',
               ),

@@ -116,7 +116,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 ],
               )
             : null,
-        boxShadow: widget.boxShadow,
+        boxShadow: focusNode.hasFocus ? widget.boxShadow : null,
       ),
       child: TextFormField(
         focusNode: focusNode,

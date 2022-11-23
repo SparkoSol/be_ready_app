@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: SizedBox(
-        width: 346,
+        width: mediaQuery.size.width - (mediaQuery.size.width * 0.19),
         child: AppDrawer(parentScaffoldKey: _scaffoldKey),
       ),
       resizeToAvoidBottomInset: false,
