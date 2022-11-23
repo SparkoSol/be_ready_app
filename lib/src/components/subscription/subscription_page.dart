@@ -133,14 +133,15 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 60,
+                  height: 83,
                 ),
-                GestureDetector(
-                  onTap: () =>
+                TextButton(
+                  onPressed: () =>
                       AppNavigation.to(context, const SubscriptionOffersPage()),
                   child: Text(
                     'View other plans',
