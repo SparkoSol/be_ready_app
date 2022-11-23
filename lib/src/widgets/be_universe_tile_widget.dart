@@ -16,59 +16,53 @@ class UniverseTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(20),
-            gradient: const LinearGradient(
-                stops: [0.1, 1],
-                end: Alignment.centerRight,
-                begin: Alignment.centerLeft,
-                colors: [
-                  Color(0xFF3A2E51),
-                  Color(0xff56528E),
-                  // Color(0xff56528E),
-                ]),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Image.asset(path, width: 40, height: 40),
+      child: Container(
+        padding: EdgeInsets.only(left: 40, top: 17, bottom: 19, right: 17),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(20),
+          gradient: const LinearGradient(
+              stops: [0.1, 1],
+              end: Alignment.centerRight,
+              begin: Alignment.centerLeft,
+              colors: [
+                Color(0xFF3A2E51),
+                Color(0xff56528E),
+                // Color(0xff56528E),
+              ]),
+        ),
+        margin: EdgeInsets.only(bottom: 17),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(path, width: 40, height: 40),
+
+            Text(
+              text,
+              style: GoogleFonts.poppins(
+                  fontSize: 18, color: Colors.white,fontWeight: FontWeight.w500),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 15),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(40),
+                gradient: const LinearGradient(
+                    stops: [0.2, 1],
+                    end: Alignment.centerRight,
+                    begin: Alignment.centerLeft,
+                    colors: [
+                      Color(0xffD2876F),
+                      Color(0xFF4F2A98),
+                    ]),
               ),
-              Text(
-                text,
-                style: GoogleFonts.poppins(
-                    fontSize: 18, color: Colors.white, letterSpacing: 1),
+              child: const Icon(
+                Icons.keyboard_double_arrow_right,
+                color: Colors.white,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                width: 80,
-                height: 40,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(40),
-                  gradient: const LinearGradient(
-                      stops: [0.2, 1],
-                      end: Alignment.centerRight,
-                      begin: Alignment.centerLeft,
-                      colors: [
-                        Color(0xffD2876F),
-                        Color(0xFF4F2A98),
-                      ]),
-                ),
-                child: const Icon(
-                  Icons.keyboard_double_arrow_right,
-                  color: Colors.white,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
