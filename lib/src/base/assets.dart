@@ -40,4 +40,6 @@ class AppAssets {
   static const attachmentIcon = '$_path/attachment_icon.png';
   static const temple = '$_path/temple.png';
   static const ratingStar = '$_path/rating_star.png';
+  static const settingsIcon = '$_path/settings_icon.png';
+  static const drawerIcon = '$_path/drawer_icon.png';
 }
