@@ -1,4 +1,3 @@
-import 'package:be_ready_app/src/components/goals/explore.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -6,7 +5,6 @@ import 'package:be_ready_app/src/widgets/custom_slider_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:be_ready_app/src/widgets/thank_you_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DailyCheckInPage extends StatefulWidget {
   const DailyCheckInPage({Key? key}) : super(key: key);
