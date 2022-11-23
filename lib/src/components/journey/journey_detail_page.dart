@@ -1,4 +1,6 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/subscription/subscription_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -67,29 +69,34 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
 
 
   Widget _buildContainer() {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-        decoration: const BoxDecoration(
-          gradient:
-              LinearGradient(colors: [Color(0xffF0D780), Color(0xffDA8C6E)]),
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(70),
-          ),
-        ),
-        child: Row(
-          children: [
-            Text(
-              'Track 987324...',
-              style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17),
+    return GestureDetector(
+      onTap: () {
+        AppNavigation.to(context, const SubscriptionPage());
+      },
+      child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+          decoration: const BoxDecoration(
+            gradient:
+                LinearGradient(colors: [Color(0xffF0D780), Color(0xffDA8C6E)]),
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(70),
             ),
-            const Spacer(),
-            Image.asset(AppAssets.playYellowButton)
-          ],
-        ));
+          ),
+          child: Row(
+            children: [
+              Text(
+                'Track 987324...',
+                style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 17),
+              ),
+              const Spacer(),
+              Image.asset(AppAssets.playYellowButton)
+            ],
+          )),
+    );
   }
 }
 String lorem =

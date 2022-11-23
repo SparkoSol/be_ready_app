@@ -103,11 +103,11 @@ class _HomeViewState extends State<HomeView> {
               ]),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 30,
-                crossAxisSpacing: 10,
+                mainAxisSpacing: 36,
+                crossAxisSpacing: 21,
               ),
             ),
-            const SliverPadding(padding: EdgeInsets.all(10)),
+            const SliverToBoxAdapter(child: SizedBox(height: 45)),
             SliverToBoxAdapter(
               child: GestureDetector(
                 onTap: () {

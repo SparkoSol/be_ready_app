@@ -20,19 +20,22 @@ class MainMenuWidget extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            top: 16,
-            left: 18,
-            right: 18,
+            left: 16,
+            right: 16,
+            bottom: -24,
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height / 4.3,
+              height: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(27),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(22),
+                  bottomRight: Radius.circular(22),
+                ),
                 gradient: LinearGradient(
                   end: Alignment.bottomRight,
                   begin: Alignment.centerLeft,
                   colors: [
-                    const Color(0xFF916DDD).withOpacity(0.12),
+                    const Color(0xFF916DDD).withOpacity(0.2),
                     const Color(0xFF512E73).withOpacity(0.12),
                   ],
                 ),
@@ -40,19 +43,23 @@ class MainMenuWidget extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 8,
+            // top: 16,
             left: 8,
             right: 8,
+            bottom: -12,
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height / 4.4,
+              height: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(27),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(22),
+                  bottomRight: Radius.circular(22),
+                ),
                 gradient: LinearGradient(
                   end: Alignment.bottomRight,
                   begin: Alignment.centerLeft,
                   colors: [
-                    const Color(0xFF916DDD).withOpacity(0.4),
+                    const Color(0xFF916DDD).withOpacity(0.2),
                     const Color(0xFF512E73).withOpacity(0.4),
                   ],
                 ),
@@ -61,11 +68,10 @@ class MainMenuWidget extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height / 4.5,
             padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(22),
               gradient: const LinearGradient(
                 stops: [0.5, 1],
                 end: Alignment.bottomRight,
@@ -103,6 +109,7 @@ class MainMenuWidget extends StatelessWidget {
                     fontSize: 13,
                     color: Colors.white,
                     letterSpacing: 1,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
