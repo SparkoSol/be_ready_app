@@ -19,79 +19,80 @@ class VideoWidget extends StatelessWidget {
           image: AssetImage(AppAssets.videoBg),
         ),
       ),
-      child: Column(children: [
-        Container(
-          width: 63,
-          height: 63,
-          padding: const EdgeInsets.all(15),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              stops: [0.1, 0.8],
-              end: Alignment.bottomRight,
-              begin: Alignment.centerLeft,
-              colors: [
-                Color(0xFFF0D781),
-                Color(0xFFDA8B6D),
-                // Color(0xff56528E),
-              ],
-            ),
-          ),
-          child: Image.asset(AppAssets.videoIcon),
-        ),
-        const SizedBox(height: 43),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(35),
-              bottomLeft: Radius.circular(35),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 10,
-                sigmaY: 10,
+      child: Column(
+        children: [
+          Container(
+            width: 63,
+            height: 63,
+            padding: const EdgeInsets.all(15),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                stops: [0.1, 0.8],
+                end: Alignment.bottomRight,
+                begin: Alignment.centerLeft,
+                colors: [
+                  Color(0xFFF0D781),
+                  Color(0xFFDA8B6D),
+                  // Color(0xff56528E),
+                ],
               ),
-              child: Container(
-                padding: const EdgeInsets.all(21),
-                margin: const EdgeInsets.only(bottom: 1),
-                decoration: BoxDecoration(
-                  color: Colors.transparent.withOpacity(0.4),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color.fromRGBO(210, 135, 111, 1),
-                      Color.fromRGBO(82, 48, 114, 1),
-                    ],
-                  ),
-                  shape: BoxShape.rectangle,
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(35),
-                    bottomLeft: Radius.circular(35),
-                  ),
+            ),
+            child: Image.asset(AppAssets.videoIcon),
+          ),
+          const SizedBox(height: 43),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(35),
+                  bottomLeft: Radius.circular(35),
                 ),
-                child: Row(children: [
-                  Expanded(
-                    child: Text(
-                      'Share with a Friend',
-                      style: GoogleFonts.poppins(
-                        fontSize: 11,
-                        color: Colors.white,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 10,
+                    sigmaY: 10,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(21),
+                    margin: const EdgeInsets.only(bottom: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(0.4),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color.fromRGBO(210, 135, 111, 1),
+                          Color.fromRGBO(82, 48, 114, 1),
+                        ],
+                      ),
+                      shape: BoxShape.rectangle,
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(35),
+                        bottomLeft: Radius.circular(35),
                       ),
                     ),
+                    child: Row(children: [
+                      Expanded(
+                        child: Text(
+                          'Share with a Friend',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Like',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
                   ),
-                  Text(
-                    'Like',
-                    style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      color: Colors.white,
-                    ),
-                  ),
-                ]),
-              ),
-            ),
-          ),
-        ),
-      ]),
+                ),
+              ))
+        ],
+      ),
     );
   }
 }

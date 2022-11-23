@@ -21,57 +21,48 @@ class ResourcePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56,
-          ),
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
+        extendBodyBehindAppBar: true,
+        appBar: AppBarWidget(),
+        body: BackgroundImageWidget(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
+                top: MediaQuery.of(context).viewPadding.top + 56),
+            child: CustomScrollView(
+              slivers: [
+                const SliverToBoxAdapter(
+                  child: GoalsPageTitle(text: 'Resources'),
+                ),
+                const SliverToBoxAdapter(
+                  child:
+                      GoalsPageDescription(text: 'Absorb. Digest. Integrate.'),
+                ),
+                SliverPadding(padding: EdgeInsets.only(bottom: 20)),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                      (context, index) => GestureDetector(
+                            child: ResourceWidget(
+                              quantity: 525,
+                              text: 'Articelss',
+                              isDifferentFromNormal: false,
+                            ),
+                            onTap: () {
+                              AppNavigation.to(context, VideoPage());
+                            },
+                          )),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.8,
+                    // mainAxisExtent: 200,
+                  ),
+                )
+              ],
             ),
-            slivers: [
-              const SliverToBoxAdapter(
-                child: GoalsPageTitle(text: 'Resources'),
-              ),
-              const SliverToBoxAdapter(
-                child: GoalsPageDescription(text: 'Absorb. Digest. Integrate.'),
-              ),
-              const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
-              SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: _pageContent.length,
-                  (context, i) {
-                    final content = _pageContent[i];
-                    return GestureDetector(
-                      child: ResourceWidget(
-                        isDifferentFromNormal: content['isDifferent'],
-                        quantity: content['quantity'],
-                        text: content['title'],
-                      ),
-                      onTap: () {
-                        AppNavigation.to(context, const VideoPage());
-                      },
-                    );
-                  },
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 10,
-                  // childAspectRatio: 0.8,
-                  mainAxisExtent: 238
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 20)),
-            ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

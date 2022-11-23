@@ -1,7 +1,6 @@
 import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'dart:ui' as ui;
 
 class CustomSlider extends StatefulWidget {
