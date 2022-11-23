@@ -91,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const ResourcePage());
+                    AppNavigation.to(context, ResourcePage());
                   },
                   text: 'Resources',
                   path: AppAssets.graphIcon,
