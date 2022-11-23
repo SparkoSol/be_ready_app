@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/app_text_field.dart';
@@ -32,18 +33,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(33, 24, 33, 28),
+            padding: const EdgeInsets.fromLTRB(30, 24, 30, 28),
             child: Column(children: [
               const AuthTitleWidget(
                 title: 'Reset Password',
                 fontWeight: FontWeight.w400,
               ),
-              const SizedBox(height: 12),
-              Text(
-                'Please enter your email address to request a password reset',
-                style: GoogleFonts.poppins(fontSize: 15, color: Colors.white),
+              Padding(
+                padding: const EdgeInsets.only(top: 13, bottom: 30),
+                child: Text(
+                  'Please enter your email address to request a password reset',
+                  style: GoogleFonts.poppins(fontSize: 15, color: Colors.white),
+                ),
               ),
-              const SizedBox(height: 30),
               AppTextField(
                 textEditingController: _emailController,
                 prefix: Image.asset(AppAssets.messageIcon),
@@ -51,7 +53,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 bottomPadding: 44,
               ),
               AppButtonWidget(
-                onPressed: () {},
+                onPressed: () {
+                  AppNavigation.pop(context);
+                },
                 title: 'SEND',
               ),
             ]),

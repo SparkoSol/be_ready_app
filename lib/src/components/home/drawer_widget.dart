@@ -53,7 +53,7 @@ class AppDrawer extends StatelessWidget {
           ),
           backgroundColor: const Color(0xFF0B002A),
           child: Padding(
-            padding: EdgeInsets.only(top: padding.top + 10, bottom: 37),
+            padding: EdgeInsets.only(top: padding.top + 20, bottom: 37),
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 46),
@@ -75,15 +75,17 @@ class AppDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 35,
+                trailing: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: IconButton(
+                    splashRadius: 0.1,
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 35,
+                    ),
+                    onPressed: parentScaffoldKey.currentState?.closeDrawer,
                   ),
-                  onPressed: () {
-                    parentScaffoldKey.currentState?.closeDrawer();
-                  },
                 ),
               ),
               Padding(

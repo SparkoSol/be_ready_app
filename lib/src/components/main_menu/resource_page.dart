@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/main_menu/articles_page.dart';
 import 'package:be_ready_app/src/components/video_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -26,9 +27,9 @@ class ResourcePage extends StatelessWidget {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56,
+            left: 30,
+            right: 30,
+            top: MediaQuery.of(context).padding.top + 56,
           ),
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(
@@ -41,7 +42,7 @@ class ResourcePage extends StatelessWidget {
               const SliverToBoxAdapter(
                 child: GoalsPageDescription(text: 'Absorb. Digest. Integrate.'),
               ),
-              const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
+              const SliverToBoxAdapter(child: SizedBox(height: 68)),
               SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   childCount: _pageContent.length,
@@ -54,7 +55,10 @@ class ResourcePage extends StatelessWidget {
                         text: content['title'],
                       ),
                       onTap: () {
-                        AppNavigation.to(context, const VideoPage());
+                        AppNavigation.to(
+                          context,
+                          i % 2 == 0 ? const ArticlesPage() : const VideoPage(),
+                        );
                       },
                     );
                   },

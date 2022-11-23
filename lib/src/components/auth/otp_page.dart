@@ -100,7 +100,7 @@ class _OtpPageState extends State<OtpPage> {
           ),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(33, 22, 33, 28),
+            padding: const EdgeInsets.fromLTRB(30, 22, 30, 0),
             child: Column(
               children: [
                 const AuthTitleWidget(title: 'Verification'),
@@ -136,6 +136,7 @@ class _OtpPageState extends State<OtpPage> {
                         hintColor: Colors.white,
                         maxLength: 1,
                         hint: '-',
+                        bottomPadding: 45,
                       ),
                     ),
                     SizedBox(
@@ -154,6 +155,7 @@ class _OtpPageState extends State<OtpPage> {
                         hintColor: Colors.white,
                         focusNode: _digit2,
                         textEditingController: _controller2,
+                        bottomPadding: 45,
                       ),
                     ),
                     SizedBox(
@@ -172,11 +174,13 @@ class _OtpPageState extends State<OtpPage> {
                         hint: '-',
                         hintColor: Colors.white,
                         textEditingController: _controller3,
+                        bottomPadding: 45,
                       ),
                     ),
                     SizedBox(
                       width: 62,
                       child: AppTextField(
+                        bottomPadding: 45,
                         boxShadow: boxShadow,
                         keyboardType: TextInputType.number,
                         onChanged: _digitInputHandler(

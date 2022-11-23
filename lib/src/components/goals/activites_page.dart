@@ -14,10 +14,6 @@ class ActivitesPage extends StatefulWidget {
 }
 
 class _ActivitesPageState extends State<ActivitesPage> {
-  double bodySliderValue = 8;
-  double mindSliderValue = 3;
-  double spiritValue = 6;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +32,10 @@ class _ActivitesPageState extends State<ActivitesPage> {
             children: [
               const GoalsPageTitle(text: 'Activities'),
               const GoalsPageDescription(
-                  text:
-                      'Based on your results we want to help you improve how you’re feeling'),
-              const SizedBox(
-                height: 30,
+                text: 'Based on your results we want to help you improve how '
+                    'you’re feeling',
               ),
+              const SizedBox(height: 30),
               FeelingWidget(
                 text: 'Meditation',
                 path: AppAssets.deltaIcon,

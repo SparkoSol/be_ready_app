@@ -52,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           child: CustomScrollView(slivers: [
             const SliverPadding(
-              padding: EdgeInsets.only(top: 12),
+              padding: EdgeInsets.only(top: 33),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Welcome, Laurie',
@@ -75,6 +75,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             SliverToBoxAdapter(
               child: AppCourseButtonWidget(
+                bottomPadding: 37,
                 title: 'Continue Coursework',
                 onTap: () {},
                 isShadowed: true,

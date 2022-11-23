@@ -24,19 +24,15 @@ class _VideoPageState extends State<VideoPage> {
             top: MediaQuery.of(context).padding.top + 56,
           ),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-              left: 55,
-              right: 55,
-              bottom: 20,
-            ),
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const GoalsPageTitle(text: 'Videos'),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 for (int i = 0; i < 10; i++)
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 20),
+                    padding: EdgeInsets.only(bottom: 23),
                     child: VideoWidget(path: AppAssets.backgroundImage),
                   )
               ],

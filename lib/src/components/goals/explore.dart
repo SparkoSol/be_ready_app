@@ -26,8 +26,8 @@ class _ExplorePageState extends State<ExplorePage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 58,
-            right: 58,
+            left: 30,
+            right: 30,
             bottom: 20,
             top: MediaQuery.of(context).padding.top + 56,
           ),
@@ -36,27 +36,20 @@ class _ExplorePageState extends State<ExplorePage> {
             children: [
               const GoalsPageTitle(text: 'Explore'),
               const GoalsPageDescription(text: 'Additional Courses'),
-              const SizedBox(
-                height: 50,
-              ),
+              const SizedBox(height: 50),
               const RedText(text: 'Mind'),
-              AppCourseButtonWidget(
-                onTap: () {},
-              ),
+              AppCourseButtonWidget(onTap: () {}),
               const RedText(text: 'Body'),
-              AppCourseButtonWidget(
-                onTap: () {},
-              ),
+              AppCourseButtonWidget(onTap: () {}),
               const RedText(text: 'Spirit'),
-              AppCourseButtonWidget(
-                onTap: () {},
-              ),
+              AppCourseButtonWidget(onTap: () {}),
               const Spacer(),
               AppButtonWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const ActivitesPage());
-                  },
-                  title: 'SUPPORTIVE ACTIVITIES')
+                onPressed: () {
+                  AppNavigation.to(context, const ActivitesPage());
+                },
+                title: 'SUPPORTIVE ACTIVITIES',
+              ),
             ],
           ),
         ),
