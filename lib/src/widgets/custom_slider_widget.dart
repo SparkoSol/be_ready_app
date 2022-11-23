@@ -66,7 +66,8 @@ class _CustomSliderState extends State<CustomSlider> {
                 child: SliderTheme(
                   data: SliderThemeData(
                     overlayShape: SliderComponentShape.noOverlay,
-                    // overlayColor: Colors.pink[50],
+                    // overlayShape: const CircleThumbShape(thumbRadius: 2),
+                    overlayColor: Colors.pink[50],
                     // overlayColor: const Color(0xFF7390D6).withOpacity(0.7),
                     // thumbColor: Colors.black,
                     // thumbColor: Colors.green,
@@ -76,7 +77,7 @@ class _CustomSliderState extends State<CustomSlider> {
                       gradient: gradient,
                     ),
                     // disabledThumbColor: Colors.grey,
-                    // overlappingShapeStrokeColor: Colors.brown,
+                    overlappingShapeStrokeColor: Colors.brown,
                   ),
                   child: Slider(
                       min: 0.0,
@@ -111,7 +112,7 @@ class CircleThumbShape extends SliderComponentShape {
   final double thumbRadius;
 
   const CircleThumbShape({
-    this.thumbRadius = 6.0,
+    this.thumbRadius = 10.0,
   });
 
   @override
@@ -139,42 +140,36 @@ class CircleThumbShape extends SliderComponentShape {
 
     final borderPaint = Paint();
     borderPaint.strokeWidth = 4;
-    borderPaint.style = PaintingStyle.fill;
-    // borderPaint.shader = ui.Gradient.radial(
-    //   Offset(-1, 1),
-    //   10,
-    //   [
-    //     Colors.yellow,
-    //     Colors.brown,
-    //   ],
-    // );
+// borderPaint.colorFilter= ColorFilter.mode(Colors.grey, BlendMode.lighten);
+    borderPaint.style = PaintingStyle.stroke;
     borderPaint.shader = ui.Gradient.radial(
-      const Offset(0, 0),
-      51,
+      const Offset(1, 1),
+      250,
       [
-        Colors.black,
-        Colors.blue,
+        const Color(0xFFD2876F),
+        const Color(0xFF523072),
       ],
     );
 
     final paint5 = Paint()
       ..shader = RadialGradient(
         colors: [
-          Colors.yellow,
           Colors.blue.withOpacity(0.7),
+          Colors.green.withOpacity(0.7),
+          Colors.teal.withOpacity(0.7),
+          Colors.red.withOpacity(0.2),
         ],
       ).createShader(
         Rect.fromCircle(
-          center: const Offset(1, 1),
-          radius: 10,
+          // center: const Offset(1, 1),
+          radius: 30, center: const Offset(-1, 1),
         ),
       )
-      ..strokeWidth = 4
+      ..strokeWidth = 10
       ..style = PaintingStyle.stroke;
 
     canvas.drawCircle(center, thumbRadius, fillPaint);
-    canvas.drawCircle(center, thumbRadius, paint5);
-    // TODO: implement paint
+    canvas.drawCircle(center, thumbRadius, borderPaint);
   }
 }
 
