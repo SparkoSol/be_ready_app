@@ -61,10 +61,9 @@ class ResourcePage extends StatelessWidget {
                 ),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 10,
-                  // childAspectRatio: 0.8,
-                  mainAxisExtent: 238
+                  mainAxisSpacing: 26,
+                  crossAxisSpacing: 17,
+                  mainAxisExtent: 185,
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 20)),
