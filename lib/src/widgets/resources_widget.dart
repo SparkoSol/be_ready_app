@@ -7,9 +7,11 @@ class ResourceWidget extends StatelessWidget {
     Key? key,
     required this.quantity,
     required this.text,
+    required this.isDifferentFromNormal,
   }) : super(key: key);
   final String text;
   final int quantity;
+  final bool isDifferentFromNormal;
 
   @override
   Widget build(BuildContext context) {
@@ -17,28 +19,26 @@ class ResourceWidget extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-            stops: [0.1, 0.7],
-            end: Alignment.bottomRight,
-            begin: Alignment.centerLeft,
-            colors: [
-              Color(0xFFD2876F),
-              Color(0xFF523072),
-              // Color(0xff56528E),
-            ]),
+        gradient: LinearGradient(
+          stops: const [0.5, 1],
+          colors: [
+            const Color(0xFFD2876F).withOpacity(.8),
+            const Color(0xFF523072).withOpacity(.8),
+          ],
+        ),
+      ),
+      padding: EdgeInsets.only(
+        top: 40,
+        bottom: isDifferentFromNormal ? 0 : 40,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Image.asset(AppAssets.resourcesIcon, width: 50, height: 50),
           ),
-          const SizedBox(
-            height: 15,
-          ),
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15, top: 23),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -52,7 +52,7 @@ class ResourceWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15, bottom: 25),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -65,22 +65,38 @@ class ResourceWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
-          Container(
-            height: 1,
-            width: 160,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                stops: const [0.5, 1],
-                colors: [
-                  Colors.white.withOpacity(0.1),
-                  Colors.white,
-                ],
+          if (isDifferentFromNormal) ...[
+            Container(
+              height: 41,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(22),
+                  bottomLeft: Radius.circular(22),
+                ),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.04),
+                    Colors.white.withOpacity(0.2),
+                  ],
+                ),
               ),
             ),
-          ),
+          ] else ...[
+            Container(
+              height: 1,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  stops: const [0.3, 1],
+                  colors: [
+                    Colors.white.withOpacity(0.0),
+                    Colors.white,
+                  ],
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

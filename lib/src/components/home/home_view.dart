@@ -23,15 +23,25 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
+    final mediaQuery = MediaQuery.of(context);
+    final padding = mediaQuery.padding;
     return Scaffold(
-      drawer: const AppDrawer(),
+      key: _scaffoldKey,
+      drawer: SizedBox(
+        width: 346,
+        child: AppDrawer(parentScaffoldKey: _scaffoldKey),
+      ),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(
+        hasDrawer: true,
+        parentScaffoldKey: _scaffoldKey,
+      ),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -81,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const ResourcePage());
+                    AppNavigation.to(context, ResourcePage());
                   },
                   text: 'Resources',
                   path: AppAssets.graphIcon,

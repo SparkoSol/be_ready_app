@@ -14,6 +14,8 @@ class AppAssets {
   static const skullIcon = '$_path/skull.png';
   static const heartyIcon = '$_path/hearty.png';
   static const graphIcon = '$_path/graph.png';
+  static const crossIcon = '$_path/cross.png';
+  static const videoBg = '$_path/dd.png';
   static const calenderIcon = '$_path/calendar.png';
   static const userIcon = '$_path/profile.png';
   static const buddIcon = '$_path/budd.png';
@@ -38,4 +40,6 @@ class AppAssets {
   static const attachmentIcon = '$_path/attachment_icon.png';
   static const temple = '$_path/temple.png';
   static const ratingStar = '$_path/rating_star.png';
+  static const settingsIcon = '$_path/settings_icon.png';
+  static const drawerIcon = '$_path/drawer_icon.png';
 }

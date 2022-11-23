@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
 import 'package:be_ready_app/src/components/home/drawer_actions/contact_us_page.dart';
 import 'package:be_ready_app/src/components/home/drawer_actions/faq_page.dart';
 import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
@@ -8,13 +11,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+  AppDrawer({
+    Key? key,
+    required this.parentScaffoldKey,
+  }) : super(key: key);
+
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
+
+  final _buttonTitleTextStyle = GoogleFonts.poppins(
+    fontSize: 16,
+    color: Colors.white,
+  );
 
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Container(
-      padding: const EdgeInsets.only(right: 2),
+      padding: const EdgeInsets.only(right: 3),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(30),
@@ -29,76 +42,118 @@ class AppDrawer extends StatelessWidget {
           ],
         ),
       ),
-      child: Drawer(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30),
-            bottomRight: Radius.circular(30),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+        child: Drawer(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
           ),
-        ),
-        backgroundColor: const Color(0xFF0B002A),
-        child: Padding(
-          padding: EdgeInsets.only(top: padding.top + 10),
-          child: Column(mainAxisSize: MainAxisSize.max, children: [
-            ListTile(
-              onTap: () {
-                AppNavigation.to(context, const SettingPage());
-              },
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(
-                  AppAssets.user,
+          backgroundColor: const Color(0xFF0B002A),
+          child: Padding(
+            padding: EdgeInsets.only(top: padding.top + 10, bottom: 37),
+            child: Column(mainAxisSize: MainAxisSize.max, children: [
+              ListTile(
+                contentPadding: const EdgeInsets.only(left: 46),
+                leading: const CircleAvatar(
+                  backgroundImage: AssetImage(AppAssets.user),
+                ),
+                title: Text(
+                  'Erlan Sadewa',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+                subtitle: Text(
+                  '+91-9800000012',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white,
+                  ),
+                ),
+                trailing: IconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+                  onPressed: () {
+                    parentScaffoldKey.currentState?.closeDrawer();
+                  },
                 ),
               ),
-              title: Text(
-                'Erlan Sadewa',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 64),
+                child: _getDrawerTile(
+                  title: 'Share with a friend',
+                  icon: AppAssets.shareIcon,
+                  onTap: () {},
                 ),
               ),
-              subtitle: Text(
-                '+91-9800000012',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w300,
-                  color: Colors.white,
-                ),
-              ),
-              trailing: const Icon(Icons.close, color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              child: _getDrawerTile(
-                title: 'Share with a friend',
-                icon: AppAssets.shareIcon,
-                onTap: () {},
-              ),
-            ),
-            _getDrawerTile(
-              title: 'FAQs',
-              icon: AppAssets.faqIcon,
-              onTap: () {
-                AppNavigation.to(context, const FAQPage());
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              child: _getDrawerTile(
-                title: 'Terms and Conditions',
-                icon: AppAssets.termsAndCondIcon,
+              _getDrawerTile(
+                title: 'FAQs',
+                icon: AppAssets.faqIcon,
                 onTap: () {
-                  AppNavigation.to(context, const TermsAndConditionsPage());
+                  AppNavigation.to(context, const FAQPage());
                 },
               ),
-            ),
-            _getDrawerTile(
-              title: 'Contact Us',
-              icon: AppAssets.contactUsIcon,
-              onTap: () {
-                AppNavigation.to(context, const ContactUsPage());
-              },
-            ),
-          ]),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 64),
+                child: _getDrawerTile(
+                  title: 'Terms and Conditions',
+                  icon: AppAssets.termsAndCondIcon,
+                  onTap: () {
+                    AppNavigation.to(context, const TermsAndConditionsPage());
+                  },
+                ),
+              ),
+              _getDrawerTile(
+                title: 'Contact Us',
+                icon: AppAssets.contactUsIcon,
+                onTap: () {
+                  AppNavigation.to(context, const ContactUsPage());
+                },
+              ),
+              const Spacer(),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                TextButton(
+                  onPressed: () {
+                    AppNavigation.to(context, const SettingPage());
+                  },
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    Image.asset(AppAssets.settingsIcon, height: 18, width: 18),
+                    const SizedBox(width: 13),
+                    Text(
+                      'Settings',
+                      style: _buttonTitleTextStyle,
+                    ),
+                  ]),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 32),
+                  height: 33,
+                  width: 1,
+                  color: Colors.white,
+                ),
+                TextButton(
+                  onPressed: () {
+                    AppNavigation.navigateRemoveUntil(
+                      context,
+                      const SignInPage(),
+                    );
+                  },
+                  child: Text(
+                    'Logout',
+                    style: _buttonTitleTextStyle,
+                  ),
+                ),
+              ]),
+            ]),
+          ),
         ),
       ),
     );
@@ -110,6 +165,7 @@ class AppDrawer extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
+      contentPadding: const EdgeInsets.only(left: 46),
       dense: true,
       visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
       onTap: onTap,
