@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            top: padding.top + 56,
+            top: padding.top,
             bottom: padding.bottom,
           ),
           child: SingleChildScrollView(
