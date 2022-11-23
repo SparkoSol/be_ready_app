@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
+import 'package:be_ready_app/src/components/subscription/subscription_page.dart';
 import 'package:flutter/material.dart';
 
 import 'base/theme.dart';
