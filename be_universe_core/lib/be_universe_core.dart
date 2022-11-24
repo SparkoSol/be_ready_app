@@ -5,6 +5,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+part 'authorization_interceptor.dart';
+
 part 'be_universe_core.g.dart';
 
 part 'src/authentication/api.dart';
@@ -14,6 +16,12 @@ part 'src/authentication/models.dart';
 part 'src/authentication/requests.dart';
 
 part 'src/authentication/responses.dart';
+
+part 'src/daily_check_in/api.dart';
+
+part 'src/daily_check_in/models.dart';
+
+part 'src/daily_check_in/requests.dart';
 
 late SharedPreferences _preferences;
 const _accessTokenKey = 'access_token';
@@ -28,7 +36,9 @@ class Api {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  static final client = Dio(BaseOptions());
+  var token = getAccessToken();
+  static final client = Dio(BaseOptions())
+    ..interceptors.add(AuthorizationInterceptor());
 
   static Future<void> saveAccessToken(String token) async {
     await _preferences.setString(_accessTokenKey, token);

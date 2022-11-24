@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
     if (token == 'null') {
       return;
     } else {
-      if (mounted) AppNavigation.to(context, const HomePage());
+      if (mounted) AppNavigation.navigateRemoveUntil(context, const HomePage());
     }
   }
 

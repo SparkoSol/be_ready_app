@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:be_ready_app/src/services/exception_service.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 
@@ -9,7 +7,6 @@ class AuthenticationService {
   Future<void> signIn(final UserSignInRequest request) async {
     try {
       final response = await _api.signIn(request);
-      log(response.signintoken);
       await Api.saveAccessToken(response.signintoken);
     } catch (e) {
       throw DialogError.withDioError(e);

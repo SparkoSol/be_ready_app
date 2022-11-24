@@ -8,7 +8,6 @@ import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/components/main_menu/events.dart';
 import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
@@ -57,10 +56,10 @@ class _HomeViewState extends State<HomeView> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(
-        hasDrawer: true,
-        parentScaffoldKey: _scaffoldKey,
-      ),
+      // appBar: AppBarWidget(
+      //   hasDrawer: false,
+      //   parentScaffoldKey: _scaffoldKey,
+      // ),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -70,8 +69,8 @@ class _HomeViewState extends State<HomeView> {
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
-            const SliverPadding(
-              padding: EdgeInsets.only(top: 33),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 33),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Welcome, $name',
