@@ -3,6 +3,8 @@ import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
 import 'package:be_ready_app/src/components/home/home_view.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
+import 'package:be_universe_core/be_universe_core.dart';
+import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
