@@ -1,97 +1,65 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:reusables/reusables.dart';
+import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
+import 'package:flutter/material.dart';
 
-typedef TimedWidgetBuilder = Function(BuildContext context, Duration time);
+class TimerWidget extends StatefulWidget {
+  const TimerWidget({
+    Key? key,
+    required this.seconds,
+  }) : super(key: key);
 
-class TimedWidgetController extends ChangeNotifier {
-  ///
-  Duration get time {
-    if (_isRunning) {
-      return _time!;
-    } else {
-      throw 'Access this getter only when timer is running';
-    }
+  final int seconds;
+
+  @override
+  State createState() => _TimerWidgetState();
+}
+
+class _TimerWidgetState extends State<TimerWidget> {
+  final interval = const Duration(seconds: 1);
+  int currentSeconds = 0;
+
+  String get timerText =>
+      '${((widget.seconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}:${((widget.seconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+
+  late Timer timer;
+
+  startTimeout() {
+    var duration = interval;
+    timer = Timer.periodic(duration, (timer) {
+      setState(() {
+        currentSeconds = timer.tick;
+        if (timer.tick >= widget.seconds) {
+          timer.cancel();
+        }
+      });
+    });
   }
 
-  ///
-  bool get isRunning => _isRunning;
-
-  ///
-  void start(Duration period, [Duration? runFor]) {
-    if (_timer != null) {
-      throw 'a timer is active already stop the previous timer to start again';
-    }
-
-    _time = const Duration();
-    _isRunning = true;
-    notifyListeners();
-
-    if (runFor != null) {
-      _timerFor = Timer(runFor, cancel);
-    }
-
-    _period = period;
-    _timer = Timer.periodic(period, _notifyListeners);
-  }
-
-  ///
-  void cancel() {
-    _time = null;
-    _period = null;
-
-    if (_timerFor?.isActive == true) {
-      _timerFor?.cancel();
-      _timerFor = null;
-    }
-
-    if (_timer?.isActive == true) {
-      _timer?.cancel();
-      _timer = null;
-    }
-
-    _isRunning = false;
-    notifyListeners();
+  @override
+  void initState() {
+    startTimeout();
+    super.initState();
   }
 
   @override
   void dispose() {
-    if (_timer?.isActive == true) {
-      _timer?.cancel();
-      _timer = null;
-    }
+    timer.cancel();
     super.dispose();
   }
 
-  void _notifyListeners(Timer _) {
-    _time = _time! + _period!;
-    notifyListeners();
+  @override
+  Widget build(BuildContext context) {
+    return timer.isActive
+        ? AuthTextSpanWidget(
+            buttonTitle: timerText,
+            action: () {},
+            message: 'Re-send code in ',
+          )
+        : AuthTextSpanWidget(
+            buttonTitle: 'Resend',
+            action: startTimeout,
+            message: 'Did not receive code ',
+          );
   }
-
-  Timer? _timer;
-  Timer? _timerFor;
-  Duration? _time;
-  Duration? _period;
-
-  var _isRunning = false;
-}
-
-class TimedWidget extends ControlledWidget<TimedWidgetController> {
-  const TimedWidget({
-    Key? key,
-    required this.builder,
-    required TimedWidgetController controller,
-  }) : super(key: key, controller: controller);
-
-  final TimedWidgetBuilder builder;
-
-  @override
-  State createState() => _TimedWidgetState();
-}
-
-class _TimedWidgetState extends State<TimedWidget> with ControlledStateMixin {
-  @override
-  Widget build(BuildContext context) =>
-      widget.builder(context, widget.controller.time);
 }
