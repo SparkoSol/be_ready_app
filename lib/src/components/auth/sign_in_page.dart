@@ -30,6 +30,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(top: padding.top, bottom: padding.bottom),

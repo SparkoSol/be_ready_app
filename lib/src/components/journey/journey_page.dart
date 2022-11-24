@@ -24,8 +24,9 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
     final devicePadding = media.padding;
-    double height =
-        media.size.height - devicePadding.top - devicePadding.bottom;
+    double height = media.size.height - devicePadding.bottom;
+    // double height =
+    //     media.size.height - devicePadding.top - devicePadding.bottom;
 
     double topContainerHeight = (height * 39) / 100;
 
@@ -41,17 +42,20 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
         children: [
           Container(
             width: media.size.width,
-            margin: EdgeInsets.only(top: devicePadding.top),
+            // margin: EdgeInsets.only(top: devicePadding.top),
             height: topContainerHeight,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(AppAssets.journeyHome), fit: BoxFit.cover),
+                image: AssetImage(AppAssets.journeyHome),
+                fit: BoxFit.cover,
+              ),
             ),
             padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: media.viewPadding.top),
+                // SizedBox(height: media.viewPadding.top),
+                SizedBox(height: media.viewPadding.top + devicePadding.top),
                 Text(
                   AppUtils.getTherapy(therapy: widget.therapy),
                   style: GoogleFonts.oswald(
@@ -80,41 +84,47 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
               clipBehavior: Clip.none,
               children: [
                 _buildContainer(
-                    colorStart: const Color(0xff43355C),
-                    colorEnd: const Color(0xff57538E),
-                    top: 0,
-                    text: 'Actions vs outcomes',
-                    height: positionScale),
+                  colorStart: const Color(0xff43355C),
+                  colorEnd: const Color(0xff57538E),
+                  top: 0,
+                  text: 'Actions vs outcomes',
+                  height: positionScale,
+                ),
                 _buildContainer(
-                    height: positionScale,
-                    colorStart: const Color(0xff7390D5),
-                    colorEnd: const Color(0xffDFE0A0),
-                    top: positionScale,
-                    text: 'Formal/Spoken/Written'),
+                  height: positionScale,
+                  colorStart: const Color(0xff7390D5),
+                  colorEnd: const Color(0xffDFE0A0),
+                  top: positionScale,
+                  text: 'Formal/Spoken/Written',
+                ),
                 _buildContainer(
-                    colorStart: const Color(0xffF0D780),
-                    colorEnd: const Color(0xffDA8C6E),
-                    height: positionScale,
-                    top: positionScale * 2,
-                    text: 'Never Assumed'),
+                  colorStart: const Color(0xffF0D780),
+                  colorEnd: const Color(0xffDA8C6E),
+                  height: positionScale,
+                  top: positionScale * 2,
+                  text: 'Never Assumed',
+                ),
                 _buildContainer(
-                    colorStart: const Color(0xffD58874),
-                    colorEnd: const Color(0xff523071),
-                    height: positionScale,
-                    top: positionScale * 3,
-                    text: 'Voluntary (never coerced)'),
+                  colorStart: const Color(0xffD58874),
+                  colorEnd: const Color(0xff523071),
+                  height: positionScale,
+                  top: positionScale * 3,
+                  text: 'Voluntary (never coerced)',
+                ),
                 _buildContainer(
-                    colorStart: const Color(0xff43355C),
-                    colorEnd: const Color(0xff57538E),
-                    top: positionScale * 4,
-                    height: positionScale,
-                    text: "Mutual (“our” agreement)"),
+                  colorStart: const Color(0xff43355C),
+                  colorEnd: const Color(0xff57538E),
+                  top: positionScale * 4,
+                  height: positionScale,
+                  text: "Mutual (“our” agreement)",
+                ),
                 _buildContainer(
-                    colorStart: const Color(0xff2E2340),
-                    colorEnd: const Color(0xff2E2340),
-                    height: positionScale,
-                    top: positionScale * 5,
-                    text: 'Renegotiable'),
+                  colorStart: const Color(0xff2E2340),
+                  colorEnd: const Color(0xff2E2340),
+                  height: positionScale,
+                  top: positionScale * 5,
+                  text: 'Renegotiable',
+                ),
               ],
             ),
           ),
@@ -146,15 +156,17 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
           child: Text(
             text,
             style: GoogleFonts.poppins(
-                color: const Color(0xffA29CB1), fontWeight: FontWeight.w400),
+              color: Colors.white.withOpacity(0.5),
+              // color: const Color(0xffA29CB1),
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
         onTap: () {
           AppNavigation.to(
-              context,
-              JourneyDetailPage(
-                pageTitle: text,
-              ));
+            context,
+            JourneyDetailPage(pageTitle: text),
+          );
         },
       ),
     );

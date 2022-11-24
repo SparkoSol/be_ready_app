@@ -68,7 +68,7 @@ class MainMenuWidget extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            // padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(22),
@@ -85,8 +85,7 @@ class MainMenuWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                Expanded(
                   child: Image.asset(path, width: 70, height: 70),
                 ),
                 Container(
@@ -102,14 +101,31 @@ class MainMenuWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  text,
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    color: Colors.white,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w600,
+                // const SizedBox(height: 8),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(22),
+                        bottomRight: Radius.circular(22),
+                      ),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0),
+                        Colors.white.withOpacity(0.2),
+                      ],
+                    )
+                  ),
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.fromLTRB(0, 9, 0, 15),
+                  child: Text(
+                    text,
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      color: Colors.white,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
