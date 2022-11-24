@@ -32,10 +32,14 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
+  String name = '';
+
   Future<void> getProfileData() async {
     var accessToken = await Api.getAccessToken();
     final profile = await AuthenticationService().getProfile(accessToken);
     Api.saveProfileData(profile.userid, profile.username);
+    name = profile.username;
+    setState(() {});
   }
 
   @override
@@ -56,12 +60,12 @@ class _HomeViewState extends State<HomeView> {
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
-            const SliverPadding(
-              padding: EdgeInsets.only(top: 12),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 12),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  'Welcome, Laurie',
-                  style: TextStyle(fontSize: 33, color: Colors.white),
+                  'Welcome, $name',
+                  style: const TextStyle(fontSize: 33, color: Colors.white),
                 ),
               ),
             ),

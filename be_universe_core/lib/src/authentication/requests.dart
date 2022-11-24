@@ -3,11 +3,11 @@ part of be_universe_core;
 @JsonSerializable(createFactory: false)
 class UserSignInRequest {
   const UserSignInRequest({
-    required this.email,
+    required this.username,
     required this.password,
   });
 
-  final String email;
+  final String username;
   final String password;
 
   Map<String, dynamic> toJson() => _$UserSignInRequestToJson(this);

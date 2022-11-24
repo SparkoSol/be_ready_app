@@ -4,7 +4,7 @@ part of be_universe_core;
 abstract class AuthenticationApi {
   factory AuthenticationApi() => _AuthenticationApi(
         Api.client,
-        baseUrl: 'http://192.168.11.193:3000/',
+        baseUrl: 'https://192.168.195.77:3002/',
       );
 
   @POST('auth/sign-in')
@@ -19,4 +19,7 @@ abstract class AuthenticationApi {
 
   @GET('auth/profile')
   Future<ProfileResponse> getProfile(@Header('Authorization') String token);
+
+  @POST('auth/sign-out')
+  Future<void> signingOut();
 }

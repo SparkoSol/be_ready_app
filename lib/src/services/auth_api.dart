@@ -26,8 +26,16 @@ class AuthenticationService {
 
   Future<ProfileResponse> getProfile(final String token) async {
     try {
-      var profile = await _api.getProfile(token);
+      var profile = await _api.getProfile('Bearer $token');
       return profile;
+    } catch (e) {
+      throw DialogError.withDioError(e).description;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _api.signingOut();
     } catch (e) {
       throw DialogError.withDioError(e).description;
     }
