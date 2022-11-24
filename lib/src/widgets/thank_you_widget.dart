@@ -123,7 +123,10 @@ dynamic $showBottomSheet(BuildContext context, Widget child) {
     isScrollControlled: true,
     context: context,
     builder: (context) => BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      filter: ImageFilter.blur(
+        sigmaX: 3,
+        sigmaY: 3,
+      ),
       child: child,
     ),
     shape: const RoundedRectangleBorder(
