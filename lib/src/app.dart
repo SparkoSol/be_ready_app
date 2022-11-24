@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
 import 'package:be_ready_app/src/utils/default_awaiter.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -11,11 +13,12 @@ class MyApp extends StatefulWidget {
   const MyApp._() : super();
 
   static Future<void> initializeAndRun() async {
+    HttpOverrides.global = MyHttpOverrides();
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
     // AppData.initialize();
-    Api.initialize();
+    await Api.initialize();
     return runApp(const MyApp._());
   }
 
@@ -37,5 +40,14 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       home: const SignInPage(),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

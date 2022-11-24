@@ -7,6 +7,7 @@ import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.da
 import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/or_widget.dart';
 import 'package:be_ready_app/src/components/auth/widget/social_auth_button.dart';
+import 'package:be_ready_app/src/components/home/home_page.dart';
 import 'package:be_ready_app/src/components/home/home_view.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/services/auth_service.dart';
@@ -32,6 +33,23 @@ class _SignInPageState extends State<SignInPage> {
   var _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
   var _autoValidateMode = AutovalidateMode.disabled;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => getLoginStatus());
+  }
+
+  Future<void> getLoginStatus() async {
+    String token = await Api.getAccessToken();
+
+    if (token == 'null') {
+      return;
+    } else {
+      if (mounted) AppNavigation.to(context, const HomePage());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
     try {
       await AuthenticationService().signIn(
         UserSignInRequest(
-          email: _emailController.text.trim(),
+          username: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         ),
       );

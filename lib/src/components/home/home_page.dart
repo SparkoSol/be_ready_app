@@ -3,7 +3,6 @@ import 'package:be_ready_app/src/base/theme.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
 import 'package:be_ready_app/src/components/home/home_view.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       {'page': const HomeView()},
-
-      /// TODO : Add Second View Here
       {'page': const Text('Second View')},
     ];
     WidgetsBinding.instance
@@ -39,8 +36,12 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getProfileData() async {
     var accessToken = await Api.getAccessToken();
+    print(accessToken);
     final profile = await AuthenticationService().getProfile(accessToken);
-    Api.saveProfileData(profile.userid, profile.username);
+    Api.saveProfileData(
+      profile.userid,
+      profile.username,
+    );
   }
 
   @override

@@ -19,6 +19,7 @@ late SharedPreferences _preferences;
 const _accessTokenKey = 'access_token';
 const _userId = 'user_id';
 const _userName = 'user_name';
+const _rememberMe = 'remember_me';
 
 typedef _Json = Map<String, dynamic>;
 
@@ -33,14 +34,26 @@ class Api {
     await _preferences.setString(_accessTokenKey, token);
   }
 
-  static Future<void> saveProfileData(String id, String name) async {
+  static Future<void> saveProfileData(
+    String id,
+    String name,
+  ) async {
     await _preferences.setString(_userName, name);
     await _preferences.setString(_userId, id);
   }
 
+  static Future<void> saveRememberMe(bool status) async {
+    await _preferences.setBool(_rememberMe, status);
+  }
+
+  static Future<bool> getRememberMeStatus() async {
+    bool status = _preferences.getBool(_rememberMe)!;
+    return status;
+  }
+
   static Future<String> getAccessToken() async {
     var token = _preferences.getString(_accessTokenKey);
-    return token!;
+    return token ?? 'null';
   }
 
   static Future<Map<String, String>> getProfileDate() async {
@@ -49,7 +62,7 @@ class Api {
     return {'userName': name!, 'userId': id!};
   }
 
-  static Future<void> clearToken() async {
+  static Future<void> clearLocalData() async {
     await _preferences.clear();
   }
 }
