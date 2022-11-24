@@ -17,33 +17,40 @@ class UniverseTileWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.only(left: 40, top: 17, bottom: 19, right: 17),
+        padding: const EdgeInsets.only(
+          left: 40,
+          top: 17,
+          bottom: 19,
+          right: 17,
+        ),
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(20),
           gradient: const LinearGradient(
-              stops: [0.1, 1],
-              end: Alignment.centerRight,
-              begin: Alignment.centerLeft,
-              colors: [
-                Color(0xFF3A2E51),
-                Color(0xff56528E),
-                // Color(0xff56528E),
-              ]),
+            stops: [0.1, 1],
+            end: Alignment.centerRight,
+            begin: Alignment.centerLeft,
+            colors: [
+              Color(0xFF3A2E51),
+              Color(0xff56528E),
+              // Color(0xff56528E),
+            ],
+          ),
         ),
-        margin: EdgeInsets.only(bottom: 17),
+        margin: const EdgeInsets.only(bottom: 17),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Image.asset(path, width: 40, height: 40),
-
             Text(
               text,
               style: GoogleFonts.poppins(
-                  fontSize: 18, color: Colors.white,fontWeight: FontWeight.w500),
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,

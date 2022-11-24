@@ -23,14 +23,16 @@ class _BeUniverseViewState extends State<BeUniverseView> {
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 56),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).viewPadding.top + 56,
+          ),
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(
-                left: 55,
-                right: 55,
-                bottom: 20,
-            ),            child: Column(
+              left: 55,
+              right: 55,
+              bottom: 20,
+            ),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -51,10 +53,12 @@ class _BeUniverseViewState extends State<BeUniverseView> {
                       fontWeight: FontWeight.w200),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: Image.asset(AppAssets.temple, width: 243, height: 270),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Image.asset(
+                    AppAssets.temple,
+                    height: 200,
+                  ),
                 ),
-
                 UniverseTileWidget(
                   onPressed: () {
                     AppNavigation.to(
