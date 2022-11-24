@@ -26,7 +26,7 @@ class _BeUniverseViewState extends State<BeUniverseView> {
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 56),
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 left: 55,
                 right: 55,
                 bottom: 20,
