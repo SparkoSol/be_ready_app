@@ -33,6 +33,14 @@ part 'src/events/requests.dart';
 
 part 'src/events/responses.dart';
 
+part 'src/resources/api.dart';
+
+part 'src/resources/models.dart';
+
+part 'src/resources/requests.dart';
+
+part 'src/resources/responses.dart';
+
 late SharedPreferences _preferences;
 const _accessTokenKey = 'access_token';
 const _userId = 'user_id';

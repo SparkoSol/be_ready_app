@@ -61,7 +61,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
               myBodyFeels: body.toInt(),
               myMindFeels: mind.toInt(),
               mySpiritFeels: spirit.toInt())),
-          arguments: 'saving...');
+          arguments: 'loading...');
       print(response.myMindFeels);
       spiritValue = response.mySpiritFeels.toDouble();
       mindSliderValue = response.myMindFeels.toDouble();

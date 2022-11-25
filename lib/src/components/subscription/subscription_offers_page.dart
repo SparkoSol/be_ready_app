@@ -227,7 +227,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                   ),
                   Container(
                     padding: const EdgeInsets.only(
-                        top: 40, right: 30, left: 30, bottom: 30),
+                        top: 40, right: 30, left: 29, bottom: 30),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       color: Colors.transparent,
