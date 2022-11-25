@@ -23,6 +23,16 @@ part 'src/daily_check_in/models.dart';
 
 part 'src/daily_check_in/requests.dart';
 
+part 'src/daily_check_in/responses.dart';
+
+part 'src/events/api.dart';
+
+part 'src/events/models.dart';
+
+part 'src/events/requests.dart';
+
+part 'src/events/responses.dart';
+
 late SharedPreferences _preferences;
 const _accessTokenKey = 'access_token';
 const _userId = 'user_id';

@@ -33,7 +33,7 @@ class ResourceWidget extends StatelessWidget {
       child: Column(children: [
         Image.asset(AppAssets.resourcesIcon, width: 40, height: 40),
         Padding(
-          padding: const EdgeInsets.only(left: 15, top: 18),
+          padding: const EdgeInsets.only(left: 15, top: 10),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(

@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/modals/error_dialog.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/auth/reset_password_page.dart';
 import 'package:be_ready_app/src/components/auth/sign_up_page.dart';

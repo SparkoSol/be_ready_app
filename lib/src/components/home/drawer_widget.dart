@@ -9,6 +9,7 @@ import 'package:be_ready_app/src/components/home/drawer_actions/faq_page.dart';
 import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
 import 'package:be_ready_app/src/components/home/drawer_actions/terms_and_conditions_page.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -157,10 +158,13 @@ class _AppDrawerState extends State<AppDrawer> {
                           future: AuthenticationService().signOut(),
                           context: context,
                           arguments: 'Signing out');
-                      AppNavigation.navigateRemoveUntil(
-                        context,
-                        const SignInPage(),
-                      );
+                      await Api.clearLocalData();
+                      if (mounted) {
+                        AppNavigation.navigateRemoveUntil(
+                          context,
+                          const SignInPage(),
+                        );
+                      }
                     } catch (e) {
                       ErrorDialog(error: e.toString());
                     }

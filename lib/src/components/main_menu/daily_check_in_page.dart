@@ -8,6 +8,7 @@ import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:be_ready_app/src/widgets/thank_you_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
 class DailyCheckInPage extends StatefulWidget {
   const DailyCheckInPage({Key? key}) : super(key: key);
@@ -20,32 +21,55 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
   double bodySliderValue = 8;
   double mindSliderValue = 3;
   double spiritValue = 6;
+  String userId = '';
 
   @override
   void initState() {
     WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => sendDailyCheckIn());
+        .addPostFrameCallback((timeStamp) => sendDailyCheckIn(0, 0, 0));
     super.initState();
   }
 
-  Future<void> sendDailyCheckIn() async {
+  Future<void> getDailyCheckIns() async {
     try {
       final userData = await Api.getProfileDate();
+      userId = userData['userId']!;
       print('user data ${userData}');
       print('userID ${userData['userId']}');
-      final response = await DailyCheckInService().sendDailyCheckInData(
-          DailyCheckInModel(
+      dynamic response = await DailyCheckInService().getDailyCheckInData();
+      spiritValue = response.mySpiritFeels.toDouble();
+      mindSliderValue = response.myMindFeels.toDouble();
+      bodySliderValue = response.myBodyFeels.toDouble();
+      setState(() {});
+    } catch (e) {
+      ErrorDialog(error: e).show(context);
+
+      //     $showSnackBar(context, e.toString());
+    }
+  }
+
+  Future<void> sendDailyCheckIn(double spirit, double mind, double body) async {
+    try {
+      final userData = await Api.getProfileDate();
+      userId = userData['userId']!;
+      print('user data ${userData}');
+      print('userID ${userData['userId']}');
+      final response = await Awaiter.process(
+          context: context,
+          future: DailyCheckInService().sendDailyCheckInData(DailyCheckInModel(
               userId: '${userData['userId']}',
-              myBodyFeels: 6,
-              myMindFeels: 9,
-              mySpiritFeels: 5));
+              myBodyFeels: body.toInt(),
+              myMindFeels: mind.toInt(),
+              mySpiritFeels: spirit.toInt())),
+          arguments: 'saving...');
       print(response.myMindFeels);
       spiritValue = response.mySpiritFeels.toDouble();
       mindSliderValue = response.myMindFeels.toDouble();
       bodySliderValue = response.myBodyFeels.toDouble();
       setState(() {});
     } catch (e) {
-      ErrorDialog(error: e.toString()).show(context);
+      // $showSnackBar(context, e.toString());
+      ErrorDialog(error: e).show(context);
     }
   }
 
@@ -69,17 +93,29 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
               const GoalsPageDescription(text: 'Aware. Acknowledge. Accept.'),
               CustomSlider(
                 value: mindSliderValue,
-                callback: (v) => mindSliderValue = v,
+                callback: (v) async {
+                  mindSliderValue = v;
+                  await sendDailyCheckIn(
+                      spiritValue, mindSliderValue, bodySliderValue);
+                },
                 text: 'My Mind Feels',
               ),
               CustomSlider(
                 value: bodySliderValue,
-                callback: (v) => bodySliderValue = v,
+                callback: (v) async {
+                  bodySliderValue = v;
+                  await sendDailyCheckIn(
+                      spiritValue, mindSliderValue, bodySliderValue);
+                },
                 text: 'My Body Feels',
               ),
               CustomSlider(
                 value: spiritValue,
-                callback: (v) => spiritValue = v,
+                callback: (v) async {
+                  spiritValue = v;
+                  await sendDailyCheckIn(
+                      spiritValue, mindSliderValue, bodySliderValue);
+                },
                 text: 'My Spirit Feels',
               ),
               const Spacer(),

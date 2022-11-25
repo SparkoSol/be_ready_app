@@ -11,5 +11,5 @@ abstract class DailyCheckInApi {
       @Body() DailyCheckInModel dailyCheckInModel);
 
   @GET('daily-check-in')
-  Future<DailyCheckInModel> getDailyCheckIn();
+  Future<DailyCheckInResponse> getDailyCheckIn();
 }

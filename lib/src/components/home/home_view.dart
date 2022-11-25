@@ -5,10 +5,9 @@ import 'package:be_ready_app/src/components/home/be_universe_view.dart';
 import 'package:be_ready_app/src/components/home/drawer_widget.dart';
 import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
-import 'package:be_ready_app/src/components/main_menu/events.dart';
+import 'package:be_ready_app/src/components/main_menu/events/controller.dart';
+import 'package:be_ready_app/src/components/main_menu/events/events.dart';
 import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
-import 'package:be_ready_app/src/services/auth_api.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -27,23 +26,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => getProfileData());
-    super.initState();
-  }
-
-  String name = '';
-
-  Future<void> getProfileData() async {
-    var accessToken = await Api.getAccessToken();
-    final profile = await AuthenticationService().getProfile(accessToken);
-    Api.saveProfileData(profile.userid, profile.username);
-    name = profile.username;
-    setState(() {});
-  }
 
   @override
   void initState() {
@@ -88,8 +70,8 @@ class _HomeViewState extends State<HomeView> {
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 12),
+            // SliverPadding(
+            //   padding: const EdgeInsets.only(top: 12),
             SliverPadding(
               padding: const EdgeInsets.only(top: 33),
               sliver: SliverToBoxAdapter(
@@ -137,7 +119,11 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const EventsPage());
+                    AppNavigation.to(
+                        context,
+                        EventsPage(
+                          eventsController: EventsController(),
+                        ));
                   },
                   text: 'Events',
                   path: AppAssets.calenderIcon,
