@@ -42,15 +42,14 @@ class _BeUniverseViewState extends State<BeUniverseView> {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: 5),
                 Text(
                   'Discover. Create. Expand',
                   style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w200),
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w200,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -89,9 +88,7 @@ class _BeUniverseViewState extends State<BeUniverseView> {
                   text: 'Spirit',
                   path: AppAssets.buddIcon,
                 ),
-                const SizedBox(
-                  height: 10,
-                )
+                const SizedBox(height: 10)
               ],
             ),
           ),
