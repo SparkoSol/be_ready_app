@@ -29,7 +29,7 @@ class AuthenticationService {
       var profile = await _api.getProfile('Bearer $token');
       return profile;
     } catch (e) {
-      throw DialogError.withDioError(e).description;
+      throw DialogError.withDioError(e).title;
     }
   }
 
@@ -37,7 +37,7 @@ class AuthenticationService {
     try {
       await _api.signingOut();
     } catch (e) {
-      throw DialogError.withDioError(e).description;
+      throw DialogError.withDioError(e);
     }
   }
 

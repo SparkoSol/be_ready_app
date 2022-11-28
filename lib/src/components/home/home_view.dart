@@ -7,7 +7,7 @@ import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
 import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_ready_app/src/components/main_menu/events/controller.dart';
 import 'package:be_ready_app/src/components/main_menu/events/events.dart';
-import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/resource_page.dart';
 import 'package:be_ready_app/src/services/auth_api.dart';
 import 'package:be_ready_app/src/widgets/app_button_widget.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -38,6 +38,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> getProfileData() async {
     var accessToken = await Api.getAccessToken();
+    print('access token $accessToken');
     final profile = await AuthenticationService().getProfile(accessToken);
     Api.saveProfileData(profile.userid, profile.username);
     name = profile.username;

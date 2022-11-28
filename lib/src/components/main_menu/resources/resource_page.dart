@@ -1,7 +1,9 @@
 import 'package:be_ready_app/src/base/modals/error_dialog.dart';
 import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/main_menu/articles_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/resources_controller.dart';
 import 'package:be_ready_app/src/components/video_page.dart';
+import 'package:be_ready_app/src/services/exception_service.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/resources_widget.dart';
@@ -37,7 +39,7 @@ class _ResourcePageState extends State<ResourcePage> {
     {'title': 'Quotes', 'quantity': 190, 'isDifferent': true, 'type': 'Quote'},
   ];
 
-  late List<ResourceResponse> resources;
+  late ResourceCountResponse resources;
   int audioCount = 0;
   int articleCount = 0;
   int videoCount = 0;
@@ -56,57 +58,40 @@ class _ResourcePageState extends State<ResourcePage> {
   Future<void> getResources() async {
     try {
       resources = await Awaiter.process(
-          future: ResourcesApi().getAllResources(),
+          future: ResourcesApi().getResourcesCount(),
           context: context,
           arguments: 'loading ...');
 
-      if (resources.isNotEmpty) {
-        for (var r in resources) {
-          switch (r.type) {
-            case 'Video':
-              videoCount++;
-              break;
-            case 'Audio':
-              audioCount++;
-              break;
-            case 'Article':
-              articleCount++;
-              break;
-            case 'Books':
-              booksCount++;
-              break;
-            case 'Quotes':
-              quotesCount++;
-              break;
-            case 'Podcasts':
-              podcastsCount++;
-              break;
-          }
-        }
-        resourcesCount = [
-          articleCount,
-          videoCount,
-          audioCount,
-          booksCount,
-          podcastsCount,
-          quotesCount
-        ];
-      }
+      videoCount = resources.videos ?? 0;
+      articleCount = resources.articles ?? 0;
+      audioCount = resources.audios ?? 0;
+      booksCount = resources.books ?? 0;
+      podcastsCount = resources.podcasts ?? 0;
+      quotesCount = resources.quotes ?? 0;
+
+      resourcesCount = [
+        articleCount,
+        videoCount,
+        audioCount,
+        booksCount,
+        podcastsCount,
+        quotesCount
+      ];
       loading = false;
       setState(() {});
     } catch (e) {
-      ErrorDialog(error: e).show(context);
+      ErrorDialog(error: DialogError.withDioError(e)).show(context);
     }
   }
 
-  Future<void> getSelectedResource(String type) async {
-    try {
-      final resource = await ResourcesApi().getResource(type);
-      print(resource.length);
-    } catch (e) {
-      ErrorDialog(error: e).show(context);
-    }
-  }
+  // Future<void> getSelectedResource(String type) async {
+  //   try {
+  //     final resource = await ResourcesApi().getPaginatedResource('Video', '3', '3');
+  //     // print(resource!.length??0);
+  //   } catch (e) {
+  //     ErrorDialog(error: e).show(context);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,14 +136,52 @@ class _ResourcePageState extends State<ResourcePage> {
                               text: content['title'],
                             ),
                             onTap: () async {
-                              await getSelectedResource(content['type']);
+                              //    await getSelectedResource(content['type']);
                               if (mounted) {
-                                AppNavigation.to(
-                                  context,
-                                  i % 2 == 0
-                                      ? const ArticlesPage()
-                                      : const VideoPage(),
-                                );
+                                dynamic page;
+                                switch (content['type']) {
+                                  case 'Article':
+                                    page = ArticlesPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+                                    break;
+                                  case 'Book':
+                                    page = ArticlesPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+                                    break;
+                                  case 'Podcast':
+                                    page = ArticlesPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+
+                                    break;
+                                  case 'Audio':
+                                    page = ArticlesPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+
+                                    break;
+                                  case 'Video':
+                                    page = VideoPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+
+                                    break;
+                                  case 'Quote':
+                                    page = ArticlesPage(
+                                      resourceController: ResourceController(
+                                          type: content['type']),
+                                    );
+
+                                    break;
+                                }
+                                AppNavigation.to(context, page);
                               }
                             },
                           );

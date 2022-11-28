@@ -26,7 +26,7 @@ class EventsController extends ChangeNotifier {
       print(response);
       return response;
     } catch (e) {
-      throw DialogError.withDioError(e).description;
+      throw DialogError.withDioError(e);
     }
   }
 }

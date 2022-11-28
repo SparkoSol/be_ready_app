@@ -8,8 +8,14 @@ abstract class ResourcesApi {
       );
 
   @GET('resources/query/filters')
-  Future<List<ResourceResponse>> getResource(@Query('type') String type);
+  Future<List<PaginatedResource>> getPaginatedResource(
+      @Query('type') String type,
+      @Query('page') String page,
+      @Query('limit') String limit);
 
   @GET('resources')
   Future<List<ResourceResponse>> getAllResources();
+
+  @GET('resources/count/all')
+  Future<ResourceCountResponse> getResourcesCount();
 }

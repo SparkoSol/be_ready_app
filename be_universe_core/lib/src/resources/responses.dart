@@ -1,6 +1,16 @@
 part of be_universe_core;
 
 @JsonSerializable(createToJson: false)
+class PaginatedResource {
+  PaginatedResource();
+
+  List<ResourceResponse>? data;
+
+  factory PaginatedResource.fromJson(Map<String, dynamic> json) =>
+      _$PaginatedResourceFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
 class ResourceResponse {
   const ResourceResponse(
       {required this.description,
@@ -9,7 +19,10 @@ class ResourceResponse {
       required this.thumbnail,
       required this.type,
       required this.likeBy,
-      required this.likeCount});
+      required this.likeCount,
+      required this.createdAt,
+      required this.id,
+      required this.updateAt});
 
   @JsonKey(name: 'filename')
   final String filename;
@@ -25,8 +38,42 @@ class ResourceResponse {
   final int likeCount;
   @JsonKey(name: 'like_by')
   final List<String> likeBy;
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updateAt;
 
   factory ResourceResponse.fromJson(_Json json) {
     return _$ResourceResponseFromJson(json);
+  }
+}
+
+@JsonSerializable(createToJson: false)
+class ResourceCountResponse {
+  const ResourceCountResponse(
+      {required this.articles,
+      required this.audios,
+      required this.quotes,
+      required this.books,
+      required this.podcasts,
+      required this.videos});
+
+  @JsonKey(name: 'Article')
+  final int? articles;
+  @JsonKey(name: 'Video')
+  final int? videos;
+  @JsonKey(name: 'Audio')
+  final int? audios;
+  @JsonKey(name: 'Book')
+  final int? books;
+  @JsonKey(name: 'Podcast')
+  final int? podcasts;
+  @JsonKey(name: 'Quote')
+  final int? quotes;
+
+  factory ResourceCountResponse.fromJson(_Json json) {
+    return _$ResourceCountResponseFromJson(json);
   }
 }

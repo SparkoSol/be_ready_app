@@ -1,5 +1,7 @@
 import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_ready_app/src/base/nav.dart';
 import 'package:be_ready_app/src/components/main_menu/events/controller.dart';
+import 'package:be_ready_app/src/components/main_menu/events/events_details.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/event_page_widget.dart';
@@ -69,7 +71,7 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                             ),
                             const SizedBox(height: 30),
                             Text(
-                              'Most Popular',
+                              'Upcoming',
                               style: GoogleFonts.oswald(
                                 fontSize: 19,
                                 fontWeight: FontWeight.w400,
@@ -79,62 +81,65 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                             Container(
                               margin: const EdgeInsets.only(top: 5, bottom: 30),
                               width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.only(top: 100),
+                              padding: const EdgeInsets.only(top: 150),
                               decoration: BoxDecoration(
                                 color: Colors.orange,
                                 image: const DecorationImage(
-                                  image: AssetImage(AppAssets.graphIcon),
+                                  fit: BoxFit.fitHeight,
+                                  image: AssetImage(
+                                    AppAssets.userIcon,
+                                  ),
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Container(
-                                padding: const EdgeInsets.all(15),
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xff728FD6),
-                                      Color(0xffE0DF9F),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                  ),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Mon, Apr 18 · 21:00 Pm ',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      'La Rosalia',
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.location_on_outlined,
-                                            size: 18),
-                                        const SizedBox(width: 2),
-                                        Text(
-                                          'Palau Sant Jordi, Barcelona',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
+                              // child: Container(
+                              //   padding: const EdgeInsets.all(15),
+                              //   decoration: const BoxDecoration(
+                              //     gradient: LinearGradient(
+                              //       colors: [
+                              //         Color(0xff728FD6),
+                              //         Color(0xffE0DF9F),
+                              //       ],
+                              //     ),
+                              //     borderRadius: BorderRadius.only(
+                              //       bottomRight: Radius.circular(20),
+                              //       bottomLeft: Radius.circular(20),
+                              //     ),
+                              //   ),
+                              //   child: Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Text(
+                              //         'Mon, Apr 18 · 21:00 Pm ',
+                              //         style: GoogleFonts.poppins(
+                              //           fontWeight: FontWeight.w400,
+                              //           fontSize: 12,
+                              //         ),
+                              //       ),
+                              //       Text(
+                              //         'La Rosalia',
+                              //         style: GoogleFonts.poppins(
+                              //           fontWeight: FontWeight.w700,
+                              //           fontSize: 16,
+                              //         ),
+                              //       ),
+                              //       Row(
+                              //         children: [
+                              //           const Icon(Icons.location_on_outlined,
+                              //               size: 18),
+                              //           const SizedBox(width: 2),
+                              //           Text(
+                              //             'Palau Sant Jordi, Barcelona',
+                              //             style: GoogleFonts.poppins(
+                              //               fontWeight: FontWeight.w400,
+                              //               fontSize: 12,
+                              //             ),
+                              //           )
+                              //         ],
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                             ),
                             Text(
                               'Other Events',
@@ -149,15 +154,39 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                             for (int i = 0;
                                 i < widget.eventsController.events.length;
                                 i++)
-                              EventsTile(
-                                title: widget.eventsController.events[i].name,
-                                date: widget.eventsController.events[i].date,
-                                participants: const [
-                                  AppAssets.user,
-                                  AppAssets.user,
-                                  AppAssets.user,
-                                ],
-                                path: AppAssets.otherEvents,
+                              GestureDetector(
+                                onTap: () => AppNavigation.to(
+                                  context,
+                                  EventsDetailsPage(
+                                    title:
+                                        widget.eventsController.events[i].name,
+                                    date:
+                                        widget.eventsController.events[i].date,
+                                    location: widget
+                                        .eventsController.events[i].location,
+                                    imagePath: AppAssets.temple,
+                                    participants: const [
+                                      AppAssets.user,
+                                      AppAssets.user,
+                                      AppAssets.user,
+                                      AppAssets.user,
+                                      AppAssets.user,
+                                      AppAssets.user,
+                                    ],
+                                  ),
+                                ),
+                                child: EventsTile(
+                                  title: widget.eventsController.events[i].name,
+                                  date: DateTime.parse(widget
+                                          .eventsController.events[i].date)
+                                      .dateFormat,
+                                  // participants: const [
+                                  //   AppAssets.user,
+                                  //   AppAssets.user,
+                                  //   AppAssets.user,
+                                  // ],
+                                  path: AppAssets.otherEvents,
+                                ),
                               )
                           ],
                         ),
