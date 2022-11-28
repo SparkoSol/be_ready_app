@@ -6,6 +6,8 @@ import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/thank_you_widget.dart';
+
 class ActivitesPage extends StatefulWidget {
   const ActivitesPage({Key? key}) : super(key: key);
 
@@ -56,7 +58,9 @@ class _ActivitesPageState extends State<ActivitesPage> {
               ),
               const Spacer(),
               AppButtonWidget(
-                onPressed: () {},
+                onPressed: () {
+                  $showBottomSheet(context, const ThankYouWidget());
+                },
                 title: 'I’m in!',
                 isIcon: false,
               )

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,7 +43,12 @@ class SocialAuthButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(platformImage),
+            Image.asset(
+              platformImage,
+              height: 33,
+              width: 33,
+              fit: BoxFit.cover,
+            ),
             const SizedBox(width: 22),
             Text(
               'Login with $platformName',

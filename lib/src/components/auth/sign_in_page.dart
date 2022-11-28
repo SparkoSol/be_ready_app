@@ -36,7 +36,12 @@ class _SignInPageState extends State<SignInPage> {
           padding: EdgeInsets.only(top: padding.top, bottom: padding.bottom),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(30, 57, 30, 28),
+            padding: const EdgeInsets.fromLTRB(
+              30,
+              57,
+              30,
+              28,
+            ),
             child: Column(
               children: [
                 const AuthTitleWidget(title: 'Sign in'),

@@ -232,21 +232,3 @@ class _GradientCircularProgressPainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
-class _DrawCircle extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final circlePaint = Paint()
-      ..color = const Color(0xFFEAB471)
-      ..style = PaintingStyle.fill
-      ..isAntiAlias = true;
-    canvas.drawCircle(Offset.zero, 8, circlePaint);
-    canvas.drawCircle(
-      Offset.zero,
-      13,
-      circlePaint..color = Colors.white.withOpacity(0.2),
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
