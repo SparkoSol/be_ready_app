@@ -80,7 +80,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   ),
                 ),
                 Container(
-                  width: double.infinity,
+            margin: EdgeInsets.only(bottom: 20),      width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(vertical: 26, horizontal: 2),
                   decoration: BoxDecoration(

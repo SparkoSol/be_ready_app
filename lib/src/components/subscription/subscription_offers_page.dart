@@ -150,50 +150,6 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                   ],
                 ),
               ),
-              Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 26, horizontal: 24),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border:
-                        Border.all(color: const Color(0xFF444A88), width: 0.5),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Annual (27% off!)',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              Text(
-                                '\$9.99',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '\$0.23/day',
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
               Padding(
                 padding: const EdgeInsets.only(
                   left: 30,
