@@ -151,23 +151,23 @@ class CircleThumbShape extends SliderComponentShape {
       ],
     );
 
-    final paint5 = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          Colors.blue.withOpacity(0.7),
-          Colors.green.withOpacity(0.7),
-          Colors.teal.withOpacity(0.7),
-          Colors.red.withOpacity(0.2),
-        ],
-      ).createShader(
-        Rect.fromCircle(
-          // center: const Offset(1, 1),
-          radius: 30, center: const Offset(-1, 1),
-        ),
-      )
-      ..strokeWidth = 10
-      ..style = PaintingStyle.stroke;
-
+    // final paint5 = Paint()
+    //   ..shader = RadialGradient(
+    //     colors: [
+    //       Colors.blue.withOpacity(0.7),
+    //       Colors.green.withOpacity(0.7),
+    //       Colors.teal.withOpacity(0.7),
+    //       Colors.red.withOpacity(0.2),
+    //     ],
+    //   ).createShader(
+    //     Rect.fromCircle(
+    //       center: const Offset(1, 1),
+          // radius: 30, center: const Offset(-1, 1),
+        // ),
+      // )
+      // ..strokeWidth = 10
+      // ..style = PaintingStyle.stroke;
+    //
     canvas.drawCircle(center, thumbRadius, fillPaint);
     canvas.drawCircle(center, thumbRadius, borderPaint);
   }

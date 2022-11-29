@@ -106,6 +106,8 @@ class ThankYouWidget extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context)
                     ..pop()
+                    ..pop()
+                    ..pop()
                     ..pop();
                 },
               ),
