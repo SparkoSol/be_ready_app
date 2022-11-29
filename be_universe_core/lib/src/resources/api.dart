@@ -8,7 +8,7 @@ abstract class ResourcesApi {
       );
 
   @GET('resources/query/filters')
-  Future<List<PaginatedResource>> getPaginatedResource(
+  Future<List<ResourceResponse>> getPaginatedResource(
       @Query('type') String type,
       @Query('page') String page,
       @Query('limit') String limit);

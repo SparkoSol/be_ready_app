@@ -1,13 +1,14 @@
+import 'package:be_ready_app/src/base/modals/app_snackbar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ResourceController extends ChangeNotifier {
-  ResourceController({required this.type}) {
+  ResourceController({required this.type, required this.context}) {
     controller = ScrollController()..addListener(loadMore);
-    firstLoad();
+    firstLoad(context);
   }
 
+  final BuildContext context;
   final String type;
 
   void disposeListener() {
@@ -15,8 +16,8 @@ class ResourceController extends ChangeNotifier {
   }
 
   var error = '';
-  List<PaginatedResource>? paginatedResource;
-  var dataList = <PaginatedResource>[];
+  List<ResourceResponse> paginatedResource = [];
+  var dataList = <ResourceResponse>[];
   int pageNumber = 0;
   int limitSize = 20;
   bool isLoadingMore = false;
@@ -24,24 +25,21 @@ class ResourceController extends ChangeNotifier {
   late ScrollController controller;
   bool hasNextPage = true;
 
-  void firstLoad() async {
-    try {
-      isLoading = true;
-      notifyListeners();
-      paginatedResource = await ResourcesApi().getPaginatedResource(
-          type, pageNumber.toString(), limitSize.toString());
-      pageNumber = pageNumber += 1;
-      for (var item in paginatedResource!) {
-        dataList.add(item);
-      }
-      print('data List length ${dataList.length}');
-    } catch (e) {
-      print(e);
-      if (e is DioError) {
-        error = e.message;
-      }
-      error = e.toString();
+  void firstLoad(BuildContext context) async {
+    // try {
+    isLoading = true;
+    notifyListeners();
+    paginatedResource = await ResourcesApi().getPaginatedResource(
+        type, pageNumber.toString(), limitSize.toString());
+    pageNumber = pageNumber += 1;
+    for (var item in paginatedResource) {
+      dataList.add(item);
     }
+    print('data List length ${dataList.length}');
+    // } catch (e) {
+    //   print(e);
+    //   $showSnackBar(context, e.toString());
+    // }
     isLoading = false;
     notifyListeners();
   }
@@ -55,7 +53,7 @@ class ResourceController extends ChangeNotifier {
         isLoadingMore = true;
         notifyListeners();
         pageNumber = pageNumber += 1;
-        final List<PaginatedResource> data = await ResourcesApi()
+        final List<ResourceResponse> data = await ResourcesApi()
             .getPaginatedResource(
                 type, pageNumber.toString(), limitSize.toString());
 
@@ -70,11 +68,12 @@ class ResourceController extends ChangeNotifier {
       }
     } catch (e) {
       print(e);
+      $showSnackBar(context, e.toString());
 
-      if (e is DioError) {
-        error = e.message;
-      }
-      error = e.toString();
+      // if (e is DioError) {
+      //   error = e.message;
+      // }
+      // error = e.toString();
     }
     isLoadingMore = false;
     notifyListeners();

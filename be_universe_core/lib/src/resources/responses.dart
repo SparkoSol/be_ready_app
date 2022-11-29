@@ -1,14 +1,14 @@
 part of be_universe_core;
 
-@JsonSerializable(createToJson: false)
-class PaginatedResource {
-  PaginatedResource();
-
-  List<ResourceResponse>? data;
-
-  factory PaginatedResource.fromJson(Map<String, dynamic> json) =>
-      _$PaginatedResourceFromJson(json);
-}
+// @JsonSerializable(createToJson: false)
+// class PaginatedResource {
+//   PaginatedResource();
+//
+//   List<ResourceResponse>? data;
+//
+//   factory PaginatedResource.fromJson(Map<String, dynamic> json) =>
+//       _$PaginatedResourceFromJson(json);
+// }
 
 @JsonSerializable(createToJson: false)
 class ResourceResponse {
@@ -18,7 +18,7 @@ class ResourceResponse {
       required this.filename,
       required this.thumbnail,
       required this.type,
-      required this.likeBy,
+      required this.liked,
       required this.likeCount,
       required this.createdAt,
       required this.id,
@@ -36,8 +36,8 @@ class ResourceResponse {
   final String description;
   @JsonKey(name: 'like_count')
   final int likeCount;
-  @JsonKey(name: 'like_by')
-  final List<String> likeBy;
+  @JsonKey(name: 'liked')
+  final bool liked;
   @JsonKey(name: '_id')
   final String id;
   @JsonKey(name: 'createdAt')

@@ -1,8 +1,7 @@
 import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/goals/explore.dart';
-import 'package:be_ready_app/src/components/journey/journey_detail_page.dart';
 import 'package:be_ready_app/src/components/main_menu/resources/resources_controller.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/widgets/article_widget.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
@@ -51,11 +50,17 @@ class _ArticlesPageState extends State<ArticlesPage> with ControlledStateMixin {
                           controller: widget.resourceController.controller,
                           itemCount: widget.resourceController.dataList.length,
                           itemBuilder: (context, index) {
-                            var data = widget.resourceController.dataList;
-
+                            var data =
+                                widget.resourceController.dataList[index];
+                            print(data.toString());
                             return GestureDetector(
                               onTap: () {
-                                AppNavigation.to(context, const ExplorePage());
+                                AppNavigation.to(
+                                    context,
+                                    ArticleDetailWidget(
+                                      title: data.title,
+                                      description: data.description,
+                                    ));
                               },
                               child: Container(
                                 margin: const EdgeInsets.only(bottom: 31),
@@ -74,24 +79,40 @@ class _ArticlesPageState extends State<ArticlesPage> with ControlledStateMixin {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                          'HR Ujjol',
+                                          data.title,
                                           style: GoogleFonts.poppins(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xffF0D781),
                                           ),
                                         ),
+                                        const Spacer(),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xff241B32),
+                                              borderRadius:
+                                                  BorderRadius.circular(12)),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 6),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Like',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.white),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              const Icon(
+                                                Icons.favorite,
+                                                color: Colors.white,
+                                                size: 12,
+                                              )
+                                            ],
+                                          ),
+                                        )
                                       ],
-                                    ),
-                                    const SizedBox(height: 15),
-                                    Text(
-                                      lorem,
-                                      maxLines: 3,
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white,
-                                      ),
                                     ),
                                   ],
                                 ),

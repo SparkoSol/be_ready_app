@@ -2,22 +2,41 @@ import 'package:be_ready_app/src/base/assets.dart';
 import 'package:be_ready_app/src/components/main_menu/resources/resources_controller.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_ready_app/src/widgets/media_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
-import 'package:be_ready_app/src/widgets/video_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:reusables/reusables.dart';
 
-class VideoPage extends ControlledWidget<ResourceController> {
-  const VideoPage({Key? key, required this.resourceController})
+class MediaPage extends ControlledWidget<ResourceController> {
+  const MediaPage({Key? key, required this.resourceController})
       : super(key: key, controller: resourceController);
   final ResourceController resourceController;
+
   @override
-  State<VideoPage> createState() => _VideoPageState();
+  State<MediaPage> createState() => _MediaPageState();
 }
 
-class _VideoPageState extends State<VideoPage> with ControlledStateMixin {
+class _MediaPageState extends State<MediaPage> with ControlledStateMixin {
   @override
   Widget build(BuildContext context) {
+    late String title;
+    switch (widget.resourceController.type) {
+      case 'Video':
+        title = 'Videos';
+        break;
+      case 'Book':
+        title = 'Books';
+        break;
+      case 'Audio':
+        title = 'Audios';
+        break;
+      case 'Podcast':
+        title = 'Podcasts';
+        break;
+      case 'Quote':
+        title = 'Quotes';
+        break;
+    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
@@ -38,9 +57,9 @@ class _VideoPageState extends State<VideoPage> with ControlledStateMixin {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 60),
-                        child: GoalsPageTitle(text: 'Videos'),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 60),
+                        child: GoalsPageTitle(text: title),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.7,
@@ -51,10 +70,13 @@ class _VideoPageState extends State<VideoPage> with ControlledStateMixin {
                             itemBuilder: (context, index) {
                               var data = widget.resourceController.dataList;
 
-                              return const Padding(
-                                padding: EdgeInsets.only(bottom: 23),
-                                child: VideoWidget(
-                                    path: AppAssets.backgroundImage),
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 23),
+                                child: MediaWidget(
+                                  index: index,
+                                  path: AppAssets.backgroundImage,
+                                  controller: widget.resourceController,
+                                ),
                               );
                             }),
                       ),

@@ -42,4 +42,8 @@ class AppAssets {
   static const ratingStar = '$_path/rating_star.png';
   static const settingsIcon = '$_path/settings_icon.png';
   static const drawerIcon = '$_path/drawer_icon.png';
+  static const audioIcon = '$_path/audio.png';
+  static const bookIcon = '$_path/book.png';
+  static const podcastIcon = '$_path/podcast.png';
+  static const quotesIcon = '$_path/quotes.png';
 }

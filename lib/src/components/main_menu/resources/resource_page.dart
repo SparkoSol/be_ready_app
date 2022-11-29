@@ -1,8 +1,8 @@
 import 'package:be_ready_app/src/base/modals/error_dialog.dart';
 import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/main_menu/articles_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/articles_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/media_page.dart';
 import 'package:be_ready_app/src/components/main_menu/resources/resources_controller.dart';
-import 'package:be_ready_app/src/components/video_page.dart';
 import 'package:be_ready_app/src/services/exception_service.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -143,40 +143,46 @@ class _ResourcePageState extends State<ResourcePage> {
                                   case 'Article':
                                     page = ArticlesPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
                                     break;
                                   case 'Book':
-                                    page = ArticlesPage(
+                                    page = MediaPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
                                     break;
                                   case 'Podcast':
-                                    page = ArticlesPage(
+                                    page = MediaPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
 
                                     break;
                                   case 'Audio':
-                                    page = ArticlesPage(
+                                    page = MediaPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
 
                                     break;
                                   case 'Video':
-                                    page = VideoPage(
+                                    page = MediaPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
 
                                     break;
                                   case 'Quote':
-                                    page = ArticlesPage(
+                                    page = MediaPage(
                                       resourceController: ResourceController(
-                                          type: content['type']),
+                                          type: content['type'],
+                                          context: context),
                                     );
 
                                     break;
