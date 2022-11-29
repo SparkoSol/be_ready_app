@@ -98,13 +98,15 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget _getText({required String text}) {
-    return Text(
-      text,
-      style: GoogleFonts.poppins(
-        fontSize: 16,
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-      ),
+    return Expanded(
+      child: Text(text,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          )),
     );
   }
 }

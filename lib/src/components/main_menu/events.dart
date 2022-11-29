@@ -39,7 +39,8 @@ class _EventsPageState extends State<EventsPage> {
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'Most Popular',
+                  'Coming up',
+                  // 'Most Popular',
                   style: GoogleFonts.oswald(
                     fontSize: 19,
                     fontWeight: FontWeight.w400,

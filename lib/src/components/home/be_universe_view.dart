@@ -25,72 +25,67 @@ class _BeUniverseViewState extends State<BeUniverseView> {
         child: Padding(
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).viewPadding.top + 56,
+            left: 55,
+            right: 55,
           ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-              left: 55,
-              right: 55,
-              bottom: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'BeUniverse',
-                  style: GoogleFonts.oswald(
-                    fontSize: 33,
-                    color: Colors.white,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'BeUniverse',
+                style: GoogleFonts.oswald(
+                  fontSize: 33,
+                  color: Colors.white,
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  'Discover. Create. Expand',
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w200,
-                  ),
+              ),
+              // const SizedBox(height: 5),
+              Text(
+                'Discover. Create. Expand',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w200,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Image.asset(
-                    AppAssets.temple,
-                    height: 200,
-                  ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Image.asset(
+                  AppAssets.temple,
+                  height: 190,
                 ),
-                UniverseTileWidget(
-                  onPressed: () {
-                    AppNavigation.to(
-                      context,
-                      const JourneyHomePage(therapy: TherapyType.mind),
-                    );
-                  },
-                  text: 'Mind',
-                  path: AppAssets.skullIcon,
-                ),
-                UniverseTileWidget(
-                  onPressed: () {
-                    AppNavigation.to(
-                      context,
-                      const JourneyHomePage(therapy: TherapyType.body),
-                    );
-                  },
-                  text: 'Body',
-                  path: AppAssets.heartyIcon,
-                ),
-                UniverseTileWidget(
-                  onPressed: () {
-                    AppNavigation.to(
-                      context,
-                      const JourneyHomePage(therapy: TherapyType.spirit),
-                    );
-                  },
-                  text: 'Spirit',
-                  path: AppAssets.buddIcon,
-                ),
-                const SizedBox(height: 10)
-              ],
-            ),
+              ),
+              UniverseTileWidget(
+                onPressed: () {
+                  AppNavigation.to(
+                    context,
+                    const JourneyHomePage(therapy: TherapyType.mind),
+                  );
+                },
+                text: 'Mind',
+                path: AppAssets.skullIcon,
+              ),
+              UniverseTileWidget(
+                onPressed: () {
+                  AppNavigation.to(
+                    context,
+                    const JourneyHomePage(therapy: TherapyType.body),
+                  );
+                },
+                text: 'Body',
+                path: AppAssets.heartyIcon,
+              ),
+              UniverseTileWidget(
+                onPressed: () {
+                  AppNavigation.to(
+                    context,
+                    const JourneyHomePage(therapy: TherapyType.spirit),
+                  );
+                },
+                text: 'Spirit',
+                path: AppAssets.buddIcon,
+              ),
+              const SizedBox(height: 10)
+            ],
           ),
         ),
       ),

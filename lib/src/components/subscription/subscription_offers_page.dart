@@ -152,12 +152,12 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
+                  left: 0,
+                  right: 0,
                 ),
                 child: Stack(fit: StackFit.loose, children: [
                   Positioned(
-                    right: 10,
+                    right: 0,
                     child: Container(
                       width: 120,
                       height: 25,
@@ -166,8 +166,8 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                         color: Colors.white,
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(35),
-                          topRight: Radius.circular(35),
+                          bottomLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
                         ),
                       ),
                       child: Text(
@@ -183,9 +183,13 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                   ),
                   Container(
                     padding: const EdgeInsets.only(
-                        top: 40, right: 30, left: 30, bottom: 30),
+                      top: 40,
+                      right: 5,
+                      left: 20,
+                      bottom: 30,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
+                      borderRadius: BorderRadius.circular(25),
                       color: Colors.transparent,
                       shape: BoxShape.rectangle,
                       border: Border.all(
