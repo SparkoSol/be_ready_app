@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
+import 'package:be_ready_app/src/components/home/home_page.dart';
+import 'package:be_ready_app/src/services/exception_service.dart';
 import 'package:be_ready_app/src/utils/default_awaiter.dart';
+import 'package:be_ready_app/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class MyApp extends StatefulWidget {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
+    DioException.setDefaultParser = customErrorMessage;
     // AppData.initialize();
     await Api.initialize();
     return runApp(const MyApp._());
@@ -38,7 +42,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Be Universe',
       theme: AppTheme.lightTheme,
-      home: const SignInPage(),
+      home: Api.getAccessToken() == 'null'
+          ? const SignInPage()
+          : const HomePage(),
     );
   }
 }

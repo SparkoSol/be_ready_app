@@ -79,12 +79,16 @@ class Api {
     return status;
   }
 
-  static Future<String> getAccessToken() async {
+  static String getAccessToken() {
     var token = _preferences.getString(_accessTokenKey);
     return token ?? 'null';
   }
 
-  static Future<Map<String, String>> getProfileDate() async {
+  static String get userId => _preferences.getString(_userId) ?? '';
+
+  static String get userName => _preferences.getString(_userName) ?? '';
+
+  static Map<String, String> getProfileData() {
     var name = _preferences.getString(_userName);
     var id = _preferences.getString(_userId);
     return {'userName': name!, 'userId': id!};

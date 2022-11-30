@@ -274,7 +274,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                 padding: const EdgeInsets.only(
                     left: 30, right: 30, top: 50, bottom: 50),
                 child: AppButtonWidget(
-                  onPressed: () {},
+                  onPressed: () async {},
                   isIcon: false,
                   title: 'continue',
                 ),

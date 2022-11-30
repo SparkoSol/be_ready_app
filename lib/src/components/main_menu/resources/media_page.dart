@@ -1,26 +1,44 @@
 import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/components/main_menu/resources/resources_controller.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_ready_app/src/widgets/list_view/custom_list_controller.dart';
+import 'package:be_ready_app/src/widgets/list_view/custom_list_view.dart';
 import 'package:be_ready_app/src/widgets/media_widget.dart';
 import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
-import 'package:reusables/reusables.dart';
 
-class MediaPage extends ControlledWidget<ResourceController> {
-  const MediaPage({Key? key, required this.resourceController})
-      : super(key: key, controller: resourceController);
-  final ResourceController resourceController;
+class MediaPage extends StatefulWidget {
+  const MediaPage({Key? key, required this.type})
+      : super(
+          key: key,
+        );
+  final String type;
 
   @override
   State<MediaPage> createState() => _MediaPageState();
 }
 
-class _MediaPageState extends State<MediaPage> with ControlledStateMixin {
+class _MediaPageState extends State<MediaPage> {
+  late CustomListViewController<ResourceResponse> listController;
+
+  @override
+  void initState() {
+    super.initState();
+    listController = CustomListViewController<ResourceResponse>(
+      paginatedFunction: (int page, int limit) =>
+          ResourcesApi().getPaginatedResource(
+        widget.type,
+        page.toString(),
+        limit.toString(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     late String title;
-    switch (widget.resourceController.type) {
+    switch (widget.type) {
       case 'Video':
         title = 'Videos';
         break;
@@ -37,6 +55,7 @@ class _MediaPageState extends State<MediaPage> with ControlledStateMixin {
         title = 'Quotes';
         break;
     }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
@@ -45,50 +64,44 @@ class _MediaPageState extends State<MediaPage> with ControlledStateMixin {
           padding: EdgeInsets.only(
             top: MediaQuery.of(context).padding.top + 56,
           ),
-          child: widget.resourceController.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.indigo,
-                  ),
-                )
-              : Padding(
-                  padding:
-                      const EdgeInsets.only(left: 30, right: 30, bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 60),
-                        child: GoalsPageTitle(text: title),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 60),
+                  child: GoalsPageTitle(text: title),
+                ),
+                Expanded(
+                  child: CustomListView<ResourceResponse>.simpler(
+                    listViewController: listController,
+                    baseColor: const Color(0xff2E2340),
+                    highLightColor: Colors.white12,
+                    shimmerWidget: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.7,
-                        child: ListView.builder(
-                            controller: widget.resourceController.controller,
-                            itemCount:
-                                widget.resourceController.dataList.length,
-                            itemBuilder: (context, index) {
-                              var data = widget.resourceController.dataList;
-
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 23),
-                                child: MediaWidget(
-                                  index: index,
-                                  path: AppAssets.backgroundImage,
-                                  controller: widget.resourceController,
-                                ),
-                              );
-                            }),
+                      child: const SizedBox(
+                        height: 150,
+                        width: double.infinity,
                       ),
-                      if (widget.resourceController.isLoadingMore)
-                        const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.indigo,
-                          ),
+                    ),
+                    builder: (ctx, data) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 23),
+                        child: MediaWidget(
+                          resource: data,
+                          path: AppAssets.backgroundImage,
+                          type: widget.type,
                         ),
-                    ],
+                      );
+                    },
                   ),
                 ),
+              ],
+            ),
+          ),
         ),
       ),
     );

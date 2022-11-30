@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:be_ready_app/src/services/exception_service.dart';
+import 'package:be_ready_app/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 
 class AuthenticationService {
@@ -12,15 +13,15 @@ class AuthenticationService {
       log(response.signintoken);
       await Api.saveAccessToken(response.signintoken);
     } catch (e) {
-      throw DialogError.withDioError(e);
+      rethrow;
     }
   }
 
   Future<void> signUp(final UserRegisterRequest request) async {
     try {
       await _api.signUp(request);
-    } catch (e) {
-      throw DialogError.withDioError(e);
+    } catch (_) {
+      rethrow;
     }
   }
 
@@ -29,7 +30,7 @@ class AuthenticationService {
       var profile = await _api.getProfile('Bearer $token');
       return profile;
     } catch (e) {
-      throw DialogError.withDioError(e).title;
+      throw DioException.withDioError(e).description;
     }
   }
 
@@ -37,16 +38,16 @@ class AuthenticationService {
     try {
       await _api.signingOut();
     } catch (e) {
-      throw DialogError.withDioError(e);
+      throw DioException.withDioError(e);
     }
   }
 
   Future<void> socialSignIn(final SocialSignInRequest request) async {
     try {
-      final socialResponse = _api.socialSignIn(request);
-      await Api.saveAccessToken(socialResponse.toString());
+      final socialResponse = await _api.socialSignIn(request);
+      await Api.saveAccessToken(socialResponse.socialToken);
     } catch (e) {
-      throw DialogError.withDioError(e).description;
+      throw DioException.withDioError(e).description;
     }
   }
 }

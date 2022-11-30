@@ -31,7 +31,7 @@ class _EventsDetailsPageState extends State<EventsDetailsPage> {
       appBar: AppBarWidget(),
       persistentFooterButtons: [
         AppButtonWidget(
-          onPressed: () {},
+          onPressed: () async {},
           title: 'Participate',
           isIcon: false,
         )

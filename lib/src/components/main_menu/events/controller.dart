@@ -1,4 +1,5 @@
 import 'package:be_ready_app/src/services/exception_service.dart';
+import 'package:be_ready_app/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -26,7 +27,7 @@ class EventsController extends ChangeNotifier {
       print(response);
       return response;
     } catch (e) {
-      throw DialogError.withDioError(e);
+      throw DioException.withDioError(e);
     }
   }
 }

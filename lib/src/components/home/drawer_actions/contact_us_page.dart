@@ -113,7 +113,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     ),
                   ),
                 const SizedBox(height: 21),
-                AppButtonWidget(onPressed: () {}, title: 'Send'),
+                AppButtonWidget(onPressed: () async {}, title: 'Send'),
               ],
             ),
           ),

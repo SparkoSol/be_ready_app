@@ -109,7 +109,7 @@ class _RatingStarWidgetState extends State<RatingStarWidget> {
                 padding: const EdgeInsets.fromLTRB(60, 10, 60, 60),
                 child: AppButtonWidget(
                   title: 'Rate Us Now',
-                  onPressed: () {
+                  onPressed: () async {
                     AppNavigation.pop(context);
                   },
                 ),

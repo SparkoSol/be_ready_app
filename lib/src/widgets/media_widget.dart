@@ -6,6 +6,7 @@ import 'package:be_ready_app/src/components/main_menu/resources/resources_contro
 import 'package:be_ready_app/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_ready_app/src/components/main_menu/resources/widgets/pdf_dialog.dart';
 import 'package:be_ready_app/src/components/main_menu/resources/widgets/video_player_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,19 +14,20 @@ class MediaWidget extends StatelessWidget {
   const MediaWidget(
       {Key? key,
       required this.path,
-      required this.controller,
-      required this.index})
+      required this.type,
+      required this.resource})
       : super(key: key);
   final String path;
-  final ResourceController controller;
-  final int index;
+  final String type;
+  final ResourceResponse resource;
+  // final ResourceController controller;
+  // final int index;
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'https://192.168.11.193:3002/uploads/${controller.dataList[index].filename}');
+    print('https://192.168.11.193:3002/uploads/${resource.filename}');
     late String icon;
-    switch (controller.type) {
+    switch (type) {
       case 'Video':
         icon = AppAssets.videoIcon;
         break;
@@ -50,11 +52,11 @@ class MediaWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
         image: DecorationImage(
-          fit: BoxFit.fill,
-          image: controller.dataList[index].thumbnail == ''
+          fit: BoxFit.cover,
+          image: resource.thumbnail == ''
               ? const AssetImage(AppAssets.backgroundImage)
               : NetworkImage(
-                      'https://192.168.11.193:3002/uploads/${controller.dataList[index].thumbnail}')
+                      'https://192.168.11.193:3002/uploads/${resource.thumbnail}')
                   as ImageProvider,
         ),
       ),
@@ -62,27 +64,27 @@ class MediaWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              switch (controller.type) {
+              switch (type) {
                 case 'Video':
                   AppNavigation.to(
                       context,
                       VideoPlayerWidget(
                           url:
-                              'https://192.168.11.193:3002/uploads/${controller.dataList[index].filename}'));
+                              'https://192.168.11.193:3002/uploads/${resource.filename}'));
 
                   break;
                 case 'Book':
                   PdfDialog(
                           url:
-                              'https://192.168.11.193:3002/uploads/${controller.dataList[index].filename}')
+                              'https://192.168.11.193:3002/uploads/${resource.filename}')
                       .show(context);
 
                   break;
                 case 'Audio':
                   AudioPlayerWidget(
                           url:
-                              'https://192.168.11.193:3002/uploads/${controller.dataList[index].filename}',
-                          title: controller.dataList[index].title)
+                              'https://192.168.11.193:3002/uploads/${resource.filename}',
+                          title: resource.title)
                       .show(context);
                   break;
                 case 'Podcast':
@@ -115,69 +117,66 @@ class MediaWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 43),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(35),
-                  bottomLeft: Radius.circular(35),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 10,
-                    sigmaY: 10,
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(35),
+              bottomLeft: Radius.circular(35),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 10,
+                sigmaY: 10,
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(21),
+                decoration: BoxDecoration(
+                  color: Colors.transparent.withOpacity(0.4),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(210, 135, 111, 1),
+                      Color.fromRGBO(82, 48, 114, 1),
+                    ],
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.all(21),
-                    margin: const EdgeInsets.only(bottom: 1),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(0.4),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromRGBO(210, 135, 111, 1),
-                          Color.fromRGBO(82, 48, 114, 1),
-                        ],
-                      ),
-                      shape: BoxShape.rectangle,
-                      borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(35),
-                        bottomLeft: Radius.circular(35),
-                      ),
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Share with a Friend',
-                            style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Container(
-                            height: 30,
-                            width: 1,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                stops: const [0.5, 1],
-                                colors: [
-                                  Colors.white.withOpacity(0.1),
-                                  Colors.white,
-                                ],
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'Like',
-                            style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ]),
+                  shape: BoxShape.rectangle,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(35),
+                    bottomLeft: Radius.circular(35),
                   ),
                 ),
-              ))
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Share with a Friend',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        height: 30,
+                        width: 1,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            stops: const [0.5, 1],
+                            colors: [
+                              Colors.white.withOpacity(0.1),
+                              Colors.white,
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Like',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+          )
         ],
       ),
     );

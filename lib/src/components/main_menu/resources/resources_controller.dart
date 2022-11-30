@@ -26,20 +26,20 @@ class ResourceController extends ChangeNotifier {
   bool hasNextPage = true;
 
   void firstLoad(BuildContext context) async {
-    // try {
-    isLoading = true;
-    notifyListeners();
-    paginatedResource = await ResourcesApi().getPaginatedResource(
-        type, pageNumber.toString(), limitSize.toString());
-    pageNumber = pageNumber += 1;
-    for (var item in paginatedResource) {
-      dataList.add(item);
+    try {
+      isLoading = true;
+      notifyListeners();
+      paginatedResource = await ResourcesApi().getPaginatedResource(
+          type, pageNumber.toString(), limitSize.toString());
+      pageNumber = pageNumber += 1;
+      for (var item in paginatedResource) {
+        dataList.add(item);
+      }
+      print('data List length ${dataList.length}');
+    } catch (e) {
+      print(e);
+      $showSnackBar(context, e.toString());
     }
-    print('data List length ${dataList.length}');
-    // } catch (e) {
-    //   print(e);
-    //   $showSnackBar(context, e.toString());
-    // }
     isLoading = false;
     notifyListeners();
   }

@@ -103,7 +103,7 @@ class ThankYouWidget extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12),
               child: AppButtonWidget(
                 title: 'Back To HomePage',
-                onPressed: () {
+                onPressed: () async {
                   Navigator.of(context)
                     ..pop()
                     ..pop();

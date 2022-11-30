@@ -30,8 +30,7 @@ dependencies:
   appinio_video_player: ^1.2.0
   syncfusion_flutter_pdfviewer: ^20.3.59
   audioplayers: ^1.1.1
-
-
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

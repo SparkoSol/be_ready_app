@@ -125,28 +125,26 @@ class AuthService {
   }
 
   static Future<UserCredential> signInWithFacebook() async {
-    try {
-      final account = await FacebookAuth.instance.login();
-      final token = account.accessToken!.token;
-      print(
-          'Facebook token userID : ${account.accessToken!.grantedPermissions}');
-      final graphResponse = await http.get(Uri.parse(
-          'https://graph.facebook.com/'
-          'v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
+    // try {
+    final account = await FacebookAuth.instance.login();
+    final token = account.accessToken!.token;
+    print('Facebook token userID : ${account.accessToken!.grantedPermissions}');
+    final graphResponse = await http.get(Uri.parse('https://graph.facebook.com/'
+        'v2.12/me?fields=name,first_name,last_name,email&access_token=$token'));
 
-      final profile = jsonDecode(graphResponse.body);
-      print("Profile is equal to $profile");
-      if (account.status != LoginStatus.success) {
-        throw account.message ?? 'Facebook Login Failed';
-      }
-      final facebookAuthCredential =
-          FacebookAuthProvider.credential(account.accessToken!.token);
-      final authResult = await FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential);
-      return authResult;
-    } catch (e) {
-      rethrow;
+    final profile = jsonDecode(graphResponse.body);
+    print("Profile is equal to $profile");
+    if (account.status != LoginStatus.success) {
+      throw account.message ?? 'Facebook Login Failed';
     }
+    final facebookAuthCredential =
+        FacebookAuthProvider.credential(account.accessToken!.token);
+    final authResult = await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
+    return authResult;
+    // } catch (e) {
+    //   rethrow;
+    // }
   }
 
   static Future<UserCredential> signInWithApple() async {

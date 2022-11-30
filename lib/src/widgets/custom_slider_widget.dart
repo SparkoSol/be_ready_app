@@ -33,6 +33,13 @@ class _CustomSliderState extends State<CustomSlider> {
   }
 
   @override
+  void didUpdateWidget(covariant CustomSlider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    value = widget.value;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

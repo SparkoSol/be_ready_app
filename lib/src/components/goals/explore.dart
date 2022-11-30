@@ -45,7 +45,7 @@ class _ExplorePageState extends State<ExplorePage> {
               AppCourseButtonWidget(onTap: () {}),
               const Spacer(),
               AppButtonWidget(
-                onPressed: () {
+                onPressed: () async {
                   AppNavigation.to(context, const ActivitesPage());
                 },
                 title: 'SUPPORTIVE ACTIVITIES',

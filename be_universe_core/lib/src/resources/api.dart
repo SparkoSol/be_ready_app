@@ -9,9 +9,10 @@ abstract class ResourcesApi {
 
   @GET('resources/query/filters')
   Future<List<ResourceResponse>> getPaginatedResource(
-      @Query('type') String type,
-      @Query('page') String page,
-      @Query('limit') String limit);
+    @Query('type') String type,
+    @Query('page') String page,
+    @Query('limit') String limit,
+  );
 
   @GET('resources')
   Future<List<ResourceResponse>> getAllResources();

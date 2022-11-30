@@ -75,7 +75,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                   ),
                 ],
                 AppButtonWidget(
-                  onPressed: () {},
+                  onPressed: () async {},
                   title: 'Accept & Continue',
                 ),
                 const SizedBox(height: 25),

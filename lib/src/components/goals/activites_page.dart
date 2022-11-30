@@ -56,7 +56,7 @@ class _ActivitesPageState extends State<ActivitesPage> {
               ),
               const Spacer(),
               AppButtonWidget(
-                onPressed: () {},
+                onPressed: () async {},
                 title: 'I’m in!',
                 isIcon: false,
               )

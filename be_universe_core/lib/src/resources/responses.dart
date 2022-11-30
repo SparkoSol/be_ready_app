@@ -22,6 +22,7 @@ class ResourceResponse {
       required this.likeCount,
       required this.createdAt,
       required this.id,
+      required this.authorName,
       required this.updateAt});
 
   @JsonKey(name: 'filename')
@@ -44,6 +45,8 @@ class ResourceResponse {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updateAt;
+  @JsonKey(name: 'author_name')
+  final String? authorName;
 
   factory ResourceResponse.fromJson(_Json json) {
     return _$ResourceResponseFromJson(json);
