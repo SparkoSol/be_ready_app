@@ -55,7 +55,9 @@ class Api {
   }
 
   var token = getAccessToken();
-  static final client = Dio(BaseOptions())
+  static final client = Dio(BaseOptions(
+    baseUrl: 'https://beuniverse-api.sparkosol.com/',
+  ))
     ..interceptors.add(AuthorizationInterceptor());
 
   static Future<void> saveAccessToken(String token) async {
@@ -81,7 +83,7 @@ class Api {
 
   static String getAccessToken() {
     var token = _preferences.getString(_accessTokenKey);
-    return token ?? 'null';
+    return token ?? '';
   }
 
   static String get userId => _preferences.getString(_userId) ?? '';
