@@ -4,7 +4,7 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/auth/sign_in_page.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/components/auth/widget/or_widget.dart';
@@ -160,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
       $showSnackBar(context, 'Account created Successfully');
       FocusScope.of(context).unfocus();
-      AppNavigation.to(context, const SignInPage());
+      AppNavigation.to(context, const OtpPage(isForgotPassword: false));
     } catch (e) {
       ErrorDialog(error: e).show(context);
     }

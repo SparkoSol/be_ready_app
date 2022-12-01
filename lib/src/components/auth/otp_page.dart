@@ -1,5 +1,6 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
+import 'package:be_universe/src/components/auth/widget/new_password_page.dart';
 import 'package:be_universe/src/components/auth/widget/timed_widget.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
@@ -9,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({Key? key}) : super(key: key);
+  const OtpPage({Key? key, required this.isForgotPassword}) : super(key: key);
+  final bool isForgotPassword;
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -195,8 +197,14 @@ class _OtpPageState extends State<OtpPage> {
                     after: () => setState(() => _absorb = false),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
-                      AppNavigation.navigateRemoveUntil(
-                          context, const HomeView());
+                      if (widget.isForgotPassword) {
+                        AppNavigation.to(context, const NewPasswordPage());
+                      } else {
+                        AppNavigation.navigateRemoveUntil(
+                          context,
+                          const HomeView(),
+                        );
+                      }
                     },
                     title: 'CONTINUE',
                   ),

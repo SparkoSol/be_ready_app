@@ -1,5 +1,6 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
@@ -58,7 +59,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
                 AppButtonWidget(
                   onPressed: () async {
-                    AppNavigation.pop(context);
+                    AppNavigation.to(
+                      context,
+                      const OtpPage(isForgotPassword: true),
+                    );
                   },
                   title: 'SEND',
                 ),
