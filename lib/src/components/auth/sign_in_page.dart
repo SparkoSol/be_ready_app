@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/reset_password_page.dart';
 import 'package:be_universe/src/components/auth/sign_up_page.dart';
@@ -11,7 +10,6 @@ import 'package:be_universe/src/components/auth/widget/or_widget.dart';
 import 'package:be_universe/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/services/auth_api.dart';
-import 'package:be_universe/src/services/auth_service.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -74,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
                     Row(children: [
                       SwitchWidget(
                         value: _rememberMe,
-                        callback: (_) => _rememberMe = _,
+                        callback: (value) => _rememberMe = value,
                       ),
                       const SizedBox(width: 5),
                       Expanded(
@@ -162,6 +160,7 @@ class _SignInPageState extends State<SignInPage> {
           username: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         ),
+        _rememberMe,
       );
       if (!mounted) return;
       FocusScope.of(context).unfocus();

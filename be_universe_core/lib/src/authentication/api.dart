@@ -4,7 +4,6 @@ part of be_universe_core;
 abstract class AuthenticationApi {
   factory AuthenticationApi() => _AuthenticationApi(
         Api.client,
-        baseUrl: 'https://192.168.11.193:3002/',
       );
 
   @POST('auth/sign-in')
