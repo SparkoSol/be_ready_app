@@ -162,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
       FocusScope.of(context).unfocus();
       AppNavigation.to(context, const SignInPage());
     } catch (e) {
-      ErrorDialog(error: e).show(context);
+      rethrow;
     }
   }
 

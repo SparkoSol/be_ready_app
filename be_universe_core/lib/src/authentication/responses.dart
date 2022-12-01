@@ -28,12 +28,14 @@ class SocialSignInResponse {
 
 @JsonSerializable(createToJson: false)
 class ProfileResponse {
-  const ProfileResponse(this.userid, this.username);
+  const ProfileResponse(this.userid, this.username, this.name);
 
   @JsonKey(name: '_id')
   final String userid;
   @JsonKey(name: 'username')
   final String username;
+  @JsonKey(name: 'name')
+  final String name;
 
   factory ProfileResponse.fromJson(_Json json) {
     return _$ProfileResponseFromJson(json);

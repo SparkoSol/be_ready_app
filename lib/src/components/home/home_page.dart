@@ -44,10 +44,7 @@ class _HomePageState extends State<HomePage> {
     print('user id ${profile.userid}');
     print('user name ${profile.username}');
 
-    await Api.saveProfileData(
-      profile.userid,
-      profile.username,
-    );
+    await Api.saveProfileData(profile.userid, profile.username, profile.name);
   }
 
   @override

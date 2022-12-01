@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/confirmation_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/contact_us_page.dart';
@@ -8,7 +9,6 @@ import 'package:be_universe/src/components/home/drawer_actions/faq_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/settings/setting_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/terms_and_conditions_page.dart';
 import 'package:be_universe/src/services/auth_api.dart';
-import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -151,7 +151,16 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 TextButton(
-                  onPressed: _signOut,
+                  onPressed: () async {
+                    var result = await ConfirmationDialog(
+                            text: 'Are you sure you want to Logout')
+                        .show(context);
+                    if (result) {
+                      _signOut();
+                    } else {
+                      return;
+                    }
+                  },
                   child: Text(
                     'Logout',
                     style: _buttonTitleTextStyle,
@@ -170,7 +179,7 @@ class _AppDrawerState extends State<AppDrawer> {
       await Awaiter.process(
         future: AuthenticationService().signOut(),
         context: context,
-        arguments: 'Signing out',
+        arguments: 'Signing out...',
       );
       if (mounted) {
         AppNavigation.navigateRemoveUntil(

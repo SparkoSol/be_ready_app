@@ -46,7 +46,7 @@ const _accessTokenKey = 'access_token';
 const _userId = 'user_id';
 const _userName = 'user_name';
 const _rememberMe = 'remember_me';
-
+const _name = 'name';
 typedef _Json = Map<String, dynamic>;
 
 class Api {
@@ -63,11 +63,10 @@ class Api {
   }
 
   static Future<void> saveProfileData(
-    String id,
-    String name,
-  ) async {
-    await _preferences.setString(_userName, name);
+      String id, String uname, String name) async {
+    await _preferences.setString(_userName, uname);
     await _preferences.setString(_userId, id);
+    await _preferences.setString(_name, name);
   }
 
   static Future<void> saveRememberMe(bool status) async {
