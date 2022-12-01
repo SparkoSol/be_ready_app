@@ -64,13 +64,13 @@ class _SocialAuthButtonState extends State<SocialAuthButton> {
           break;
         case _AuthType.apple:
           name = 'Apple';
-          image = AppAssets.google;
+          image = AppAssets.apple;
           break;
       }
       child = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image),
+          Image.asset(image, width: 36, height: 36),
           const SizedBox(width: 22),
           Text(
             'Login with $name',
