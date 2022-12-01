@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -125,26 +126,56 @@ class AuthService {
   }
 
   static Future<UserCredential> signInWithFacebook() async {
-    // try {
-    final account = await FacebookAuth.instance.login();
-    final token = account.accessToken!.token;
-    print('Facebook token userID : ${account.accessToken!.grantedPermissions}');
-    final graphResponse = await http.get(Uri.parse('https://graph.facebook.com/'
-        'v2.12/me?fields=name,first_name,last_name,email&access_token=$token'));
-
-    final profile = jsonDecode(graphResponse.body);
-    print("Profile is equal to $profile");
-    if (account.status != LoginStatus.success) {
-      throw account.message ?? 'Facebook Login Failed';
+    try {
+      final loginResult = await FacebookAuth.instance.login(
+        permissions: ['email', 'public_profile'],
+      );
+      print('RRRRRRRRRR Status ${loginResult.status}');
+      print('RRRRRRRRRR Message ${loginResult.message}');
+      switch (loginResult.status) {
+        case LoginStatus.success:
+          if (loginResult.accessToken == null) {
+            print('RRRRRRRRRR Null Access Token');
+            throw Exception('Facebook login failed');
+          }
+          print('RRRRRRRRRR Access Token ${loginResult.accessToken!.token}');
+          final credentials = FacebookAuthProvider.credential(
+            loginResult.accessToken!.token,
+          );
+          print('RRRRRRRRRR Credentials $credentials');
+          return await _firebaseAuth.signInWithCredential(credentials);
+        case LoginStatus.cancelled:
+          throw Exception('User has cancelled the login');
+        case LoginStatus.failed:
+          throw Exception(loginResult.message ?? 'Facebook login failed');
+        case LoginStatus.operationInProgress:
+          throw Exception(loginResult.message ?? 'Login in progress');
+      }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    } catch (_) {
+      rethrow;
     }
-    final facebookAuthCredential =
-        FacebookAuthProvider.credential(account.accessToken!.token);
-    final authResult = await FirebaseAuth.instance
-        .signInWithCredential(facebookAuthCredential);
-    return authResult;
-    // } catch (e) {
-    //   rethrow;
+    // // try {
+    // final account = await FacebookAuth.instance.login();
+    // final token = account.accessToken!.token;
+    // print('Facebook token userID : ${account.accessToken!.grantedPermissions}');
+    // final graphResponse = await http.get(Uri.parse('https://graph.facebook.com/'
+    //     'v2.12/me?fields=name,first_name,last_name,email&access_token=$token'));
+    //
+    // final profile = jsonDecode(graphResponse.body);
+    // print("Profile is equal to $profile");
+    // if (account.status != LoginStatus.success) {
+    //   throw account.message ?? 'Facebook Login Failed';
     // }
+    // final facebookAuthCredential =
+    //     FacebookAuthProvider.credential(account.accessToken!.token);
+    // final authResult = await FirebaseAuth.instance
+    //     .signInWithCredential(facebookAuthCredential);
+    // return authResult;
+    // // } catch (e) {
+    // //   rethrow;
+    // // }
   }
 
   static Future<UserCredential> signInWithApple() async {

@@ -216,7 +216,7 @@ class _SignInPageState extends State<SignInPage> {
       if (!mounted) return;
       AppNavigation.navigateRemoveUntil(context, const HomePage());
     } catch (e) {
-      ErrorDialog(error: e).show(context);
+      ErrorDialog(error: e.toString()).show(context);
     }
   }
 }
