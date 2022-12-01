@@ -16,7 +16,7 @@ class AppButtonWidget extends StatefulWidget {
     this.before,
   }) : super(key: key);
 
-  final Future<void> Function() onPressed;
+  final Future<void> Function()? onPressed;
   final VoidCallback? before;
   final VoidCallback? after;
   final String title;
@@ -98,7 +98,7 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        onPressed: _isLoading
+        onPressed: _isLoading || widget.onPressed == null
             ? null
             : () async {
                 _isLoading = true;
@@ -107,7 +107,7 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
                   if (widget.before != null) {
                     widget.before!();
                   }
-                  await widget.onPressed();
+                  await widget.onPressed!();
                 } catch (e) {
                   if (!mounted) return;
                   ErrorDialog(error: DioException.withDioError(e))

@@ -14,6 +14,43 @@ class UserSignInRequest {
 }
 
 @JsonSerializable(createFactory: false)
+class VerifyAccountRequest {
+  const VerifyAccountRequest({
+    required this.hash,
+    required this.id,
+  });
+
+  final String hash;
+  final String id;
+
+  Map<String, dynamic> toJson() => _$VerifyAccountRequestToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
+class ForgotRequest {
+  const ForgotRequest({
+    required this.hash,
+    required this.password,
+  });
+
+  final String hash;
+  final String password;
+
+  Map<String, dynamic> toJson() => _$ForgotRequestToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
+class ForgotEmailRequest {
+  const ForgotEmailRequest({
+    required this.email,
+  });
+
+  final String email;
+
+  Map<String, dynamic> toJson() => _$ForgotEmailRequestToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
 class UserRegisterRequest {
   const UserRegisterRequest(
       {required this.email,

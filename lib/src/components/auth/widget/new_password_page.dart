@@ -3,12 +3,18 @@ import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:reusables/mixins/form_state_mixin.dart';
 import 'package:reusables/reusables.dart';
 
 class NewPasswordPage extends StatefulWidget {
-  const NewPasswordPage({Key? key}) : super(key: key);
+  const NewPasswordPage({
+    Key? key,
+    required this.code,
+  }) : super(key: key);
+
+  final String code;
 
   @override
   State<NewPasswordPage> createState() => _NewPasswordPageState();
@@ -74,7 +80,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
                     onPressed: () async => submitter(),
-                    title: 'SIGN UP',
+                    title: 'Submit',
                   ),
                 ]),
               ),
@@ -86,5 +92,19 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
   }
 
   @override
-  Future<void> onSubmit() async {}
+  Future<void> onSubmit() async {
+    try {
+      await AuthenticationApi().confirmResetPassword(ForgotRequest(
+        hash: widget.code,
+        password: _confirmPasswordController.text,
+      ));
+      if (!mounted) return;
+      Navigator.of(context)
+        ..pop()
+        ..pop()
+        ..pop();
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

@@ -26,7 +26,18 @@ class AuthenticationService {
 
   Future<void> signUp(final UserRegisterRequest request) async {
     try {
-      await _api.signUp(request);
+      final profile = await _api.signUp(request);
+      await signIn(
+        UserSignInRequest(
+          username: request.username,
+          password: request.password,
+        ),
+        true,
+      );
+      await Api.saveProfileData(
+        profile.userid,
+        profile.username,
+      );
     } catch (_) {
       rethrow;
     }

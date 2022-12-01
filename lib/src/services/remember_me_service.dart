@@ -19,10 +19,10 @@ class RememberMeService {
 
   Future<void> setAccessToken(String token, bool rememberMe) async {
     _remember = rememberMe;
-    if (rememberMe) {
+    // if (rememberMe) {
       await Api.saveAccessToken(token);
-    } else {
+    // } else {
       _accessToken = token;
-    }
+    // }
   }
 }

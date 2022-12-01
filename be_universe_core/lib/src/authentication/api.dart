@@ -10,7 +10,7 @@ abstract class AuthenticationApi {
   Future<UserSignInResponse> signIn(@Body() UserSignInRequest request);
 
   @POST('auth/sign-up')
-  Future signUp(@Body() UserRegisterRequest request);
+  Future<ProfileResponse> signUp(@Body() UserRegisterRequest request);
 
   @POST('auth/social-sign-in')
   Future<SocialSignInResponse> socialSignIn(
@@ -21,4 +21,13 @@ abstract class AuthenticationApi {
 
   @POST('auth/sign-out')
   Future<void> signingOut();
+
+  @PATCH('persons/verify-account')
+  Future verifyAccount(@Body() VerifyAccountRequest request);
+
+  @PATCH('persons/reset-password')
+  Future confirmResetPassword(@Body() ForgotRequest request);
+
+  @POST('persons/forgot-password')
+  Future sendResetPasswordEmail(@Body() ForgotEmailRequest request);
 }

@@ -157,7 +157,7 @@ class _SignInPageState extends State<SignInPage> {
     try {
       await AuthenticationService().signIn(
         UserSignInRequest(
-          username: _emailController.text.trim(),
+          username: _emailController.text.trim().toLowerCase(),
           password: _passwordController.text.trim(),
         ),
         _rememberMe,
