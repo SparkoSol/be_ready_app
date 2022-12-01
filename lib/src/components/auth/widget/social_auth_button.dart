@@ -115,13 +115,13 @@ class _SocialAuthButtonState extends State<SocialAuthButton> {
                   final service = AuthenticationService();
                   switch (widget._type) {
                     case _AuthType.google:
-                      service.signInWithGoogle(this);
+                      await service.signInWithGoogle(this);
                       break;
                     case _AuthType.facebook:
-                      service.signInWithFacebook(this);
+                      await service.signInWithFacebook(this);
                       break;
                     case _AuthType.apple:
-                      service.signInWithApple(this);
+                      await service.signInWithApple(this);
                       break;
                   }
                 } catch (e) {
