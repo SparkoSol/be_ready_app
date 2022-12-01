@@ -20,20 +20,18 @@ class DioException implements Exception {
     }
     _description = '';
     if (error is DioError) {
-      if (error.response != null) {
-        if ((error.response?.statusCode ?? 0) == 406) {
-          _description =
-              'Account with this email already exists, kindly sign in with email and password!';
-        } else if ((error.response?.statusCode ?? 0) == 401) {
-          _description = 'email or password incorrect';
-        } else {
-          _description = error.response!.data?.toString() ?? 'Error';
-        }
+      if ((error.response?.statusCode ?? 0) == 400) {
+        _description = error.response?.data['message'] ?? 'Data not found';
+      } else if ((error.response?.statusCode ?? 0) == 406) {
+        _description =
+            'Account with this email already exists, kindly sign in with email and password!';
+      } else if ((error.response?.statusCode ?? 0) == 401) {
+        _description = 'email or password incorrect';
       } else if (error.message.contains('SocketException') ||
           error.message.contains('Connecting timed')) {
         _description = 'Internet Connection Error';
       } else {
-        _description = error.message;
+        _description = 'Internet Connection Error';
       }
     } else {
       _description = error.toString();

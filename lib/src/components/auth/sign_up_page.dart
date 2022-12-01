@@ -103,14 +103,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const OrWidget(),
                   SocialAuthButton(
-                    onTap: () {},
+                    onTap: () async =>
+                        AuthenticationService().signInWithGoogle(this),
                     platformImage: AppAssets.google,
                     platformName: 'Google',
+                    before: () => setState(() => _absorb = true),
+                    after: () => setState(() => _absorb = false),
                   ),
                   SocialAuthButton(
-                    onTap: () {},
+                    onTap: () async =>
+                        AuthenticationService().signInWithFacebook(this),
                     platformImage: AppAssets.facebook,
                     platformName: 'Facebook',
+                    before: () => setState(() => _absorb = true),
+                    after: () => setState(() => _absorb = false),
                   ),
                   AuthTextSpanWidget(
                     message: 'Already have an account?',
@@ -160,19 +166,19 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  // Future<void> signUp() async {
-  //   try {
-  //     await AuthenticationService().signUp(
-  //       UserRegisterRequest(
-  //           email: _emailController.text.trim(),
-  //           password: _passwordController.text.trim(),
-  //           name: _fullNameController.text.trim(),
-  //           username: _emailController.text.trim(),
-  //           role: 'User',
-  //           loginVia: 'Email'),
-  //     );
-  //   } catch (_) {
-  //     rethrow;
-  //   }
-  // }
+// Future<void> signUp() async {
+//   try {
+//     await AuthenticationService().signUp(
+//       UserRegisterRequest(
+//           email: _emailController.text.trim(),
+//           password: _passwordController.text.trim(),
+//           name: _fullNameController.text.trim(),
+//           username: _emailController.text.trim(),
+//           role: 'User',
+//           loginVia: 'Email'),
+//     );
+//   } catch (_) {
+//     rethrow;
+//   }
+// }
 }

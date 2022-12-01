@@ -35,7 +35,9 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
     if (_isLoading) {
       child = Center(
         child: CircularProgressIndicator(
-            color: Colors.deepOrangeAccent.withOpacity(0.5), strokeWidth: 3),
+          color: Colors.deepOrangeAccent.withOpacity(0.5),
+          strokeWidth: 3,
+        ),
       );
     } else {
       child = Stack(

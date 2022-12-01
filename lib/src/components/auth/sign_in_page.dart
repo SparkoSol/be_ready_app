@@ -117,14 +117,20 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     const OrWidget(),
                     SocialAuthButton(
-                      onTap: googleSignIn,
+                      onTap: () async =>
+                          AuthenticationService().signInWithGoogle(this),
                       platformImage: AppAssets.google,
                       platformName: 'Google',
+                      before: () => setState(() => _absorb = true),
+                      after: () => setState(() => _absorb = false),
                     ),
                     SocialAuthButton(
-                      onTap: facebookSignIn,
+                      onTap: () async =>
+                          AuthenticationService().signInWithFacebook(this),
                       platformImage: AppAssets.facebook,
                       platformName: 'Facebook',
+                      before: () => setState(() => _absorb = true),
+                      after: () => setState(() => _absorb = false),
                     ),
                     AuthTextSpanWidget(
                       message: 'Don’t have an account?',
@@ -162,61 +168,6 @@ class _SignInPageState extends State<SignInPage> {
       AppNavigation.navigateRemoveUntil(context, const HomePage());
     } catch (_) {
       rethrow;
-    }
-  }
-
-  // Future<void> signinigIn() async {
-  //   try {
-  //     await AuthenticationService().signIn(
-  //       UserSignInRequest(
-  //         username: _emailController.text.trim(),
-  //         password: _passwordController.text.trim(),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
-
-  Future<void> googleSignIn() async {
-    final response = await AuthService.signInWithGoogle();
-    final token = await response.user!.getIdToken();
-    try {
-      await Awaiter.process(
-          future: AuthenticationService().socialSignIn(SocialSignInRequest(
-              username: response.user?.email ?? 'none',
-              idToken: token,
-              name: response.user?.displayName ?? 'default mail',
-              email: response.user?.email ?? 'default mail',
-              image: response.user?.photoURL ?? '',
-              loginVia: 'Google')),
-          context: context,
-          arguments: 'saving...');
-      if (!mounted) return;
-      AppNavigation.navigateRemoveUntil(context, const HomePage());
-    } catch (e) {
-      if (mounted) ErrorDialog(error: e).show(context);
-    }
-  }
-
-  Future<void> facebookSignIn() async {
-    final response = await AuthService.signInWithFacebook();
-    final token = await response.user!.getIdToken();
-    try {
-      await Awaiter.process(
-          future: AuthenticationService().socialSignIn(SocialSignInRequest(
-              username: response.user?.email ?? 'none',
-              idToken: token,
-              name: response.user?.displayName ?? 'default mail',
-              email: response.user?.email ?? 'default mail',
-              image: response.user?.photoURL ?? '',
-              loginVia: 'Facebook')),
-          context: context,
-          arguments: 'saving...');
-      if (!mounted) return;
-      AppNavigation.navigateRemoveUntil(context, const HomePage());
-    } catch (e) {
-      if (mounted) ErrorDialog(error: e).show(context);
     }
   }
 }
