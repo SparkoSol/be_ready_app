@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/modals/error_dialog.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/contact_us_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/faq_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/terms_and_conditions_page.dart';
-import 'package:be_ready_app/src/services/auth_api.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/auth/sign_in_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/contact_us_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/faq_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/settings/setting_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/terms_and_conditions_page.dart';
+import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

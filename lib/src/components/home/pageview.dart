@@ -1,6 +1,6 @@
-import 'package:be_ready_app/src/components/subscription/subscription_offers_page.dart';
-import 'package:be_ready_app/src/components/subscription/subscription_page.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
+import 'package:be_universe/src/components/subscription/subscription_offers_page.dart';
+import 'package:be_universe/src/components/subscription/subscription_page.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class PageViewWidget extends StatefulWidget {

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:352649851509:android:08c623238f2c9222f77e3c",
+        "mobilesdk_app_id": "1:352649851509:android:d7f658a8caf22ba2f77e3c",
         "android_client_info": {
-          "package_name": "com.sparkosol.be_ready_app"
+          "package_name": "com.digitalprodigee.beuniverse"
         }
       },
       "oauth_client": [
@@ -29,6 +29,57 @@
             {
               "client_id": "352649851509-1uped9v8hj6489lutp45u876qjpi0bdt.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "352649851509-q2dpg9jbv2t0eloebrgo4h5sfmpdj5fn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digitalprodigee.beuniverse"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352649851509:android:08c623238f2c9222f77e3c",
+        "android_client_info": {
+          "package_name": "com.sparkosol.be_ready_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352649851509-0c24vd42kv8r223c9pv4d0poav8mn8dm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sparkosol.be_ready_app",
+            "certificate_hash": "d7495dfceaba71390683066b6dda95df1d0f1723"
+          }
+        },
+        {
+          "client_id": "352649851509-1uped9v8hj6489lutp45u876qjpi0bdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbJFyBIr8WM_ROpTqArlaguDeYgFch17o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352649851509-1uped9v8hj6489lutp45u876qjpi0bdt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "352649851509-q2dpg9jbv2t0eloebrgo4h5sfmpdj5fn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digitalprodigee.beuniverse"
+              }
             }
           ]
         }

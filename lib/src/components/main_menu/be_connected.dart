@@ -1,10 +1,10 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/goals/explore.dart';
-import 'package:be_ready_app/src/components/journey/journey_detail_page.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/goals/explore.dart';
+import 'package:be_universe/src/components/journey/journey_detail_page.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

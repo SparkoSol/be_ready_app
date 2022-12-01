@@ -1,9 +1,9 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/auth/widget/auth_title_widget.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/app_text_field.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/widgets/app_text_field.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:be_ready_app/src/widgets/list_view/paginated/paginated_list_controller.dart';
+import 'package:be_universe/src/widgets/list_view/paginated/paginated_list_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reusables/reusables.dart';

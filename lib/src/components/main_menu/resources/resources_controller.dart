@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/base/modals/app_snackbar.dart';
+import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 

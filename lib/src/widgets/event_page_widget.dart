@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/components/main_menu/stack_images.dart';
+import 'package:be_universe/src/components/main_menu/stack_images.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

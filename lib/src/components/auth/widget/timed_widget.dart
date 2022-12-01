@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:be_ready_app/src/components/auth/widget/auth_text_span_widget.dart';
+import 'package:be_universe/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {

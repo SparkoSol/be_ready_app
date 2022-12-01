@@ -1,10 +1,10 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/list_view/custom_list_controller.dart';
-import 'package:be_ready_app/src/widgets/list_view/custom_list_view.dart';
-import 'package:be_ready_app/src/widgets/media_widget.dart';
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_view.dart';
+import 'package:be_universe/src/widgets/media_widget.dart';
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 

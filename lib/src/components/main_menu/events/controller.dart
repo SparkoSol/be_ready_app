@@ -1,5 +1,5 @@
-import 'package:be_ready_app/src/services/exception_service.dart';
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/services/exception_service.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
 

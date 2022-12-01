@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:be_ready_app/src/base/modals/error_dialog.dart';
-import 'package:be_ready_app/src/base/theme.dart';
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

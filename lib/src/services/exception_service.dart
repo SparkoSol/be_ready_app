@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:dio/dio.dart';
 
 ParseException customErrorMessage = (dynamic error) {

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

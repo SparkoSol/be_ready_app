@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/cupertino.dart';
 
 class CustomListViewController<T> extends ChangeNotifier {

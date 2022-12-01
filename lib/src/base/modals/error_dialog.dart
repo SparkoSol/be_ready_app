@@ -1,5 +1,5 @@
-import 'package:be_ready_app/src/services/exception_service.dart';
-import 'package:be_ready_app/src/utils/dio_exception.dart';
+import 'package:be_universe/src/services/exception_service.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
