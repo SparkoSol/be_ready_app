@@ -1,23 +1,37 @@
+import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+enum _AuthType { google, facebook, apple }
+
 class SocialAuthButton extends StatefulWidget {
-  const SocialAuthButton({
+  const SocialAuthButton.google({
     Key? key,
-    required this.onTap,
-    required this.platformImage,
-    required this.platformName,
     this.after,
     this.before,
-  }) : super(key: key);
+  })  : _type = _AuthType.google,
+        super(key: key);
 
-  final String platformImage;
-  final String platformName;
-  final Future<void> Function() onTap;
+  const SocialAuthButton.facebook({
+    Key? key,
+    this.after,
+    this.before,
+  })  : _type = _AuthType.facebook,
+        super(key: key);
+
+  const SocialAuthButton.apple({
+    Key? key,
+    this.after,
+    this.before,
+  })  : _type = _AuthType.apple,
+        super(key: key);
+
   final VoidCallback? before;
   final VoidCallback? after;
+  final _AuthType _type;
 
   @override
   State<SocialAuthButton> createState() => _SocialAuthButtonState();
@@ -37,13 +51,29 @@ class _SocialAuthButtonState extends State<SocialAuthButton> {
         ),
       );
     } else {
+      late String image;
+      late String name;
+      switch (widget._type) {
+        case _AuthType.google:
+          name = 'Google';
+          image = AppAssets.google;
+          break;
+        case _AuthType.facebook:
+          name = 'Facebook';
+          image = AppAssets.facebook;
+          break;
+        case _AuthType.apple:
+          name = 'Apple';
+          image = AppAssets.google;
+          break;
+      }
       child = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(widget.platformImage),
+          Image.asset(image),
           const SizedBox(width: 22),
           Text(
-            'Login with ${widget.platformName}',
+            'Login with $name',
             style: GoogleFonts.poppins(fontSize: 16),
           ),
         ],
@@ -82,11 +112,23 @@ class _SocialAuthButtonState extends State<SocialAuthButton> {
                   if (widget.before != null) {
                     widget.before!();
                   }
-                  await widget.onTap();
+                  final service = AuthenticationService();
+                  switch (widget._type) {
+                    case _AuthType.google:
+                      service.signInWithGoogle(this);
+                      break;
+                    case _AuthType.facebook:
+                      service.signInWithFacebook(this);
+                      break;
+                    case _AuthType.apple:
+                      service.signInWithApple(this);
+                      break;
+                  }
                 } catch (e) {
                   if (!mounted) return;
-                  ErrorDialog(error: DioException.withDioError(e))
-                      .show(context);
+                  ErrorDialog(
+                    error: DioException.withDioError(e),
+                  ).show(context);
                 }
                 if (!mounted) return;
                 if (widget.after != null) {

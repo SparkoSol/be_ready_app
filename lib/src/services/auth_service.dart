@@ -126,6 +126,13 @@ class AuthService {
         authCredential,
       );
       return authResult;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        throw Exception(
+          'Account with this email already exists',
+        );
+      }
+      throw Exception(e.code);
     } catch (e) {
       rethrow;
     }
@@ -156,7 +163,7 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
         throw Exception(
-          'Account with this email already exists with different source(google OR email), please try with Google or Email',
+          'Account with this email already exists',
         );
       }
       throw Exception(e.code);
@@ -178,10 +185,20 @@ class AuthService {
         idToken: appleCredentials.identityToken,
         accessToken: appleCredentials.authorizationCode,
       );
-      appleCredentials.identityToken;
-      final authResult =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      final authResult = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+      if (authResult.user == null) {
+        throw Exception('Apple login failed');
+      }
       return authResult;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        throw Exception(
+          'Account with this email already exists',
+        );
+      }
+      throw Exception(e.code);
     } catch (e) {
       throw 'Apple authorization cancelled';
     }

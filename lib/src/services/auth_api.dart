@@ -95,6 +95,27 @@ class AuthenticationService {
     }
   }
 
+  Future<void> signInWithApple(State state) async {
+    try {
+      final response = await AuthService.signInWithApple();
+      final token = await response.user!.getIdToken();
+      await AuthenticationService().socialSignIn(
+        SocialSignInRequest(
+          username: response.user?.email ?? 'none',
+          idToken: token,
+          name: response.user?.displayName ?? 'default mail',
+          email: response.user?.email ?? 'default mail',
+          image: response.user?.photoURL ?? '',
+          loginVia: 'Apple',
+        ),
+      );
+      if (!state.mounted) return;
+      AppNavigation.navigateRemoveUntil(state.context, const HomePage());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<void> socialSignIn(final SocialSignInRequest request) async {
     try {
       final socialResponse = await _api.socialSignIn(request);

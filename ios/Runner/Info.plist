@@ -22,8 +22,29 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1844766385868209</string>
+				<string>com.googleusercontent.apps.352649851509-q2dpg9jbv2t0eloebrgo4h5sfmpdj5fn</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>1844766385868209</string>
+	<key>FacebookClientToken</key>
+	<string>6073adc20bbac4d93f56a86b1e9ed8a9</string>
+	<key>FacebookDisplayName</key>
+	<string>BeUniverse</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -32,31 +53,15 @@
 	<string>This application requires Photo permission to allow users to select profile picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb1844766385868209</string>
-          <string>com.googleusercontent.apps.352649851509-q2dpg9jbv2t0eloebrgo4h5sfmpdj5fn</string>
-        </array>
-      </dict>
-    </array>
-	<key>FacebookAppID</key>
-    <string>1844766385868209</string>
-    <key>FacebookClientToken</key>
-    <string>6073adc20bbac4d93f56a86b1e9ed8a9</string>
-    <key>FacebookDisplayName</key>
-    <string>BeUniverse</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-    </array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

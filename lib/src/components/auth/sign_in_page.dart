@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
@@ -116,22 +118,20 @@ class _SignInPageState extends State<SignInPage> {
                       title: 'SIGN IN',
                     ),
                     const OrWidget(),
-                    SocialAuthButton(
-                      onTap: () async =>
-                          AuthenticationService().signInWithGoogle(this),
-                      platformImage: AppAssets.google,
-                      platformName: 'Google',
+                    SocialAuthButton.google(
                       before: () => setState(() => _absorb = true),
                       after: () => setState(() => _absorb = false),
                     ),
-                    SocialAuthButton(
-                      onTap: () async =>
-                          AuthenticationService().signInWithFacebook(this),
-                      platformImage: AppAssets.facebook,
-                      platformName: 'Facebook',
+                    SocialAuthButton.facebook(
                       before: () => setState(() => _absorb = true),
                       after: () => setState(() => _absorb = false),
                     ),
+                    if (Platform.isIOS) ...[
+                      SocialAuthButton.apple(
+                        before: () => setState(() => _absorb = true),
+                        after: () => setState(() => _absorb = false),
+                      ),
+                    ],
                     AuthTextSpanWidget(
                       message: 'Don’t have an account?',
                       buttonTitle: ' Sign up',
