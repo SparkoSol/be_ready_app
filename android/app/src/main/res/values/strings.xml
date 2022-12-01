@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="facebook_app_id">1844766385868209</string>
-    <string name="fb_login_protocol_scheme">fb1844766385868209</string>
-    <string name="facebook_client_token">6073adc20bbac4d93f56a86b1e9ed8a9</string>
+    <string name="facebook_app_id">1580691325724286</string>
+    <string name="fb_login_protocol_scheme">fb1580691325724286</string>
+    <string name="facebook_client_token">06865ecc2413cde008f8502347b5e89f</string>
     <string name="app_name">BeUniverse</string>
 
 

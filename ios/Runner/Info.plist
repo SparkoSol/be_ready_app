@@ -27,7 +27,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1844766385868209</string>
+				<string>fb1580691325724286</string>
 				<string>com.googleusercontent.apps.352649851509-q2dpg9jbv2t0eloebrgo4h5sfmpdj5fn</string>
 			</array>
 		</dict>
@@ -35,9 +35,9 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>1844766385868209</string>
+	<string>1580691325724286</string>
 	<key>FacebookClientToken</key>
-	<string>6073adc20bbac4d93f56a86b1e9ed8a9</string>
+	<string>06865ecc2413cde008f8502347b5e89f</string>
 	<key>FacebookDisplayName</key>
 	<string>BeUniverse</string>
 	<key>LSApplicationQueriesSchemes</key>
