@@ -120,8 +120,8 @@ class AuthenticationService {
     try {
       final socialResponse = await _api.socialSignIn(request);
       await Api.saveAccessToken(socialResponse.socialToken);
-    } catch (e) {
-      throw DioException.withDioError(e);
+    } catch (_) {
+      rethrow;
     }
   }
 }
