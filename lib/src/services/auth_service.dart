@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:http/http.dart' as http;
 
 class AuthService {
   static final _firebaseAuth = FirebaseAuth.instance;
@@ -68,8 +64,12 @@ class AuthService {
     }
   }
 
-  static Future<void> signOut() {
-    return _firebaseAuth.signOut();
+  static Future<void> signOut() async {
+    try {
+      await GoogleSignIn().signOut();
+      await FacebookAuth.instance.logOut();
+      await _firebaseAuth.signOut();
+    } catch (_) {}
   }
 
   Future<void> forgotPassword(String email) async {
@@ -89,6 +89,7 @@ class AuthService {
 
   Future<User> signUp(String email, String password) async {
     try {
+      await signOut();
       final createdUser = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -111,6 +112,7 @@ class AuthService {
 
   static Future<UserCredential> signInWithGoogle() async {
     try {
+      await signOut();
       final account = await GoogleSignIn().signIn();
       final authentication = await account!.authentication;
       final authCredential = GoogleAuthProvider.credential(
@@ -127,6 +129,7 @@ class AuthService {
 
   static Future<UserCredential> signInWithFacebook() async {
     try {
+      await signOut();
       final loginResult = await FacebookAuth.instance.login(
         permissions: ['email', 'public_profile'],
       );
@@ -180,6 +183,7 @@ class AuthService {
 
   static Future<UserCredential> signInWithApple() async {
     try {
+      await signOut();
       final appleCredentials = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,

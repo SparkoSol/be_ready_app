@@ -20,35 +20,15 @@ class DioException implements Exception {
     }
     _description = '';
     if (error is DioError) {
-      if ((error.response?.statusCode ?? 0) == 400) {
-        if (error.response?.data != null) {
-          var response = error.response!.data;
-          if (response is String) {
-            _description = response;
-          } else if (response['error_description']?.toString().isNotEmpty ??
-              false) {
-            if (response['error_description'] ==
-                'invalid_username_or_password') {
-              _description = 'Invalid UserName or Password';
-            } else {
-              _description = response['error_description'];
-            }
-          } else if ((response['errors']?.toString().isNotEmpty ?? false) &&
-              response['errors'].first['code'] == 'PasswordMismatch') {
-            _description = 'Incorrect password, old password did not match';
-          } else if (response['DuplicateUserName']?.isNotEmpty ?? false) {
-            _description = response['DuplicateUserName'][0];
-          } else {
-            _description = 'Internet Connection Error';
-          }
-        }
-      } else if ((error.response?.statusCode ?? 0) == 401) {
-        _description = 'email or password incorrect';
-      } else if ((error.response?.statusCode ?? 0) == 406) {
-        _description = 'Account with this email already exists.';
-      }
       if (error.response != null) {
-        _description = error.response!.data?.toString() ?? '';
+        if ((error.response?.statusCode ?? 0) == 406) {
+          _description =
+              'Account with this email already exists, kindly sign in with email and password!';
+        } else if ((error.response?.statusCode ?? 0) == 401) {
+          _description = 'email or password incorrect';
+        } else {
+          _description = error.response!.data?.toString() ?? 'Error';
+        }
       } else if (error.message.contains('SocketException') ||
           error.message.contains('Connecting timed')) {
         _description = 'Internet Connection Error';

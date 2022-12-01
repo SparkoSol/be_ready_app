@@ -179,9 +179,9 @@ class _SignInPageState extends State<SignInPage> {
   // }
 
   Future<void> googleSignIn() async {
+    final response = await AuthService.signInWithGoogle();
+    final token = await response.user!.getIdToken();
     try {
-      final response = await AuthService.signInWithGoogle();
-      final token = await response.user!.getIdToken();
       await Awaiter.process(
           future: AuthenticationService().socialSignIn(SocialSignInRequest(
               username: response.user?.email ?? 'none',
@@ -195,14 +195,14 @@ class _SignInPageState extends State<SignInPage> {
       if (!mounted) return;
       AppNavigation.navigateRemoveUntil(context, const HomePage());
     } catch (e) {
-      ErrorDialog(error: e).show(context);
+      if (mounted) ErrorDialog(error: e).show(context);
     }
   }
 
   Future<void> facebookSignIn() async {
+    final response = await AuthService.signInWithFacebook();
+    final token = await response.user!.getIdToken();
     try {
-      final response = await AuthService.signInWithFacebook();
-      final token = await response.user!.getIdToken();
       await Awaiter.process(
           future: AuthenticationService().socialSignIn(SocialSignInRequest(
               username: response.user?.email ?? 'none',
@@ -216,7 +216,7 @@ class _SignInPageState extends State<SignInPage> {
       if (!mounted) return;
       AppNavigation.navigateRemoveUntil(context, const HomePage());
     } catch (e) {
-      ErrorDialog(error: e.toString()).show(context);
+      if (mounted) ErrorDialog(error: e).show(context);
     }
   }
 }

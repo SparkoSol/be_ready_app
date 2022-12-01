@@ -1,9 +1,8 @@
 import 'dart:developer';
 
+import 'package:be_universe/src/services/auth_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final _api = AuthenticationApi();
@@ -37,12 +36,12 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     try {
+      await Api.clearLocalData();
       await _api.signingOut();
-      await GoogleSignIn().signOut();
-      await FacebookAuth.instance.logOut();
-    } catch (e) {
-      throw DioException.withDioError(e);
-    }
+    } catch (_) {}
+    try {
+      await AuthService.signOut();
+    } catch (_) {}
   }
 
   Future<void> socialSignIn(final SocialSignInRequest request) async {
@@ -50,7 +49,7 @@ class AuthenticationService {
       final socialResponse = await _api.socialSignIn(request);
       await Api.saveAccessToken(socialResponse.socialToken);
     } catch (e) {
-      throw DioException.withDioError(e).description;
+      throw DioException.withDioError(e);
     }
   }
 }

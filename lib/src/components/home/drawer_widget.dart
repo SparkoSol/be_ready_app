@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/contact_us_page.dart';
@@ -152,23 +151,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   color: Colors.white,
                 ),
                 TextButton(
-                  onPressed: () async {
-                    try {
-                      await Awaiter.process(
-                          future: AuthenticationService().signOut(),
-                          context: context,
-                          arguments: 'Signing out');
-                      await Api.clearLocalData();
-                      if (mounted) {
-                        AppNavigation.navigateRemoveUntil(
-                          context,
-                          const SignInPage(),
-                        );
-                      }
-                    } catch (e) {
-                      ErrorDialog(error: e.toString());
-                    }
-                  },
+                  onPressed: _signOut,
                   child: Text(
                     'Logout',
                     style: _buttonTitleTextStyle,
@@ -180,6 +163,22 @@ class _AppDrawerState extends State<AppDrawer> {
         ),
       ),
     );
+  }
+
+  void _signOut() async {
+    try {
+      await Awaiter.process(
+        future: AuthenticationService().signOut(),
+        context: context,
+        arguments: 'Signing out',
+      );
+      if (mounted) {
+        AppNavigation.navigateRemoveUntil(
+          context,
+          const SignInPage(),
+        );
+      }
+    } catch (_) {}
   }
 
   Widget _getDrawerTile({

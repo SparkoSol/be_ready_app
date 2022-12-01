@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
-import 'package:be_universe/src/services/exception_service.dart';
 import 'package:be_universe/src/utils/default_awaiter.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
