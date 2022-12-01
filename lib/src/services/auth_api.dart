@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:be_ready_app/src/services/exception_service.dart';
 import 'package:be_ready_app/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final _api = AuthenticationApi();
@@ -37,6 +38,8 @@ class AuthenticationService {
   Future<void> signOut() async {
     try {
       await _api.signingOut();
+      await GoogleSignIn().signOut();
+      await FacebookAuth.instance.logOut();
     } catch (e) {
       throw DioException.withDioError(e);
     }

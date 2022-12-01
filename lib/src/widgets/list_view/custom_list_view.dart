@@ -69,12 +69,18 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
         );
         break;
       case _CustomListType.sliver:
-        shimmerWidget = SliverPadding(
-          padding: const EdgeInsets.all(20),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              _cardBuilder,
-              childCount: 5,
+        shimmerWidget = SliverToBoxAdapter(
+          child: SliverPadding(
+            padding: const EdgeInsets.all(20),
+            sliver: Shimmer.fromColors(
+              baseColor: widget.baseColor ?? Colors.indigo.withOpacity(0.5),
+              highlightColor: widget.highLightColor ?? Colors.white30,
+              child: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  _cardBuilder,
+                  childCount: 5,
+                ),
+              ),
             ),
           ),
         );

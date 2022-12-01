@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
-    DioException.setDefaultParser = customErrorMessage;
+    // DioException.setDefaultParser = customErrorMessage;
     // AppData.initialize();
     await Api.initialize();
     return runApp(const MyApp._());
