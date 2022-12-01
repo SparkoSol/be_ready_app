@@ -28,7 +28,7 @@ class _MediaPageState extends State<MediaPage> {
     listController = CustomListViewController<ResourceResponse>(
       paginatedFunction: (int page, int limit) =>
           ResourcesApi().getPaginatedResource(
-        widget.type,
+        widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
       ),
@@ -37,24 +37,7 @@ class _MediaPageState extends State<MediaPage> {
 
   @override
   Widget build(BuildContext context) {
-    late String title;
-    switch (widget.type) {
-      case 'Video':
-        title = 'Videos';
-        break;
-      case 'Book':
-        title = 'Books';
-        break;
-      case 'Audio':
-        title = 'Audios';
-        break;
-      case 'Podcast':
-        title = 'Podcasts';
-        break;
-      case 'Quote':
-        title = 'Quotes';
-        break;
-    }
+    String title = widget.type;
 
     return Scaffold(
       extendBodyBehindAppBar: true,

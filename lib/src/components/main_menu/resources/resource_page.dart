@@ -1,3 +1,7 @@
+import 'package:be_ready_app/src/base/nav.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/articles_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/media_page.dart';
+import 'package:be_ready_app/src/components/main_menu/resources/quotes_page.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
 import 'package:be_ready_app/src/widgets/list_view/custom_list_controller.dart';
@@ -15,7 +19,7 @@ class ResourcePage extends StatefulWidget {
 }
 
 class _ResourcePageState extends State<ResourcePage> {
-  final _content = <String, int>{};
+  final _content = <ResourcesCategories, int>{};
 
   // final List<Map<String, dynamic>> _pageContent = [
   //   {
@@ -107,7 +111,7 @@ class _ResourcePageState extends State<ResourcePage> {
             30,
             MediaQuery.of(context).padding.top + 56,
             30,
-            0,
+            60,
           ),
           child: CustomScrollView(
             slivers: [
@@ -132,57 +136,55 @@ class _ResourcePageState extends State<ResourcePage> {
                   ),
                 ),
                 builder: (ctx, data) {
-                  _content['Article'] = data.articles ?? 0;
-                  _content['videos'] = data.videos ?? 0;
-                  _content['Audios'] = data.audios ?? 0;
-                  _content['Books'] = data.books ?? 0;
-                  _content['Podcasts'] = data.podcasts ?? 0;
-                  _content['Quotes'] = data.quotes ?? 0;
+                  _content[ResourcesCategories.articles] = data.articles ?? 0;
+                  _content[ResourcesCategories.videos] = data.videos ?? 0;
+                  _content[ResourcesCategories.audios] = data.audios ?? 0;
+                  _content[ResourcesCategories.books] = data.books ?? 0;
+                  _content[ResourcesCategories.podcasts] = data.podcasts ?? 0;
+                  _content[ResourcesCategories.quotes] = data.quotes ?? 0;
                   return SliverGrid(
                     delegate: SliverChildBuilderDelegate(
-                      childCount: _content.length,
+                      childCount: ResourcesCategories.values.length,
                       (context, i) {
                         final item = _content.entries.elementAt(i);
                         return GestureDetector(
                           child: ResourceWidget(
                             isDifferentFromNormal: i == 5 ? true : i % 3 == 0,
                             quantity: item.value,
-                            text: item.key,
+                            text: item.key.category,
                           ),
                           onTap: () async {
-                            //    await getSelectedResource(content['type']);
-                            // if (mounted) {
-                            //   dynamic page;
-                            //   switch (content['type']) {
-                            //     case 'Article':
-                            //       page = ArticlesPage(
-                            //         type: content['type'],
-                            //       );
-                            //       break;
-                            //     case 'Book':
-                            //       page = MediaPage(type: content['type']);
-                            //       break;
-                            //     case 'Podcast':
-                            //       page = MediaPage(type: content['type']);
-                            //
-                            //       break;
-                            //     case 'Audio':
-                            //       page = MediaPage(type: content['type']);
-                            //
-                            //       break;
-                            //     case 'Videos':
-                            //       page = MediaPage(type: 'Videos);
-                            //
-                            //       break;
-                            //     case 'Quote':
-                            //       page = QuotesPage(
-                            //         type: content['type'],
-                            //       );
-                            //
-                            //       break;
-                            //   }
-                            //   AppNavigation.to(context, page);
-                            // }
+                            if (mounted) {
+                              dynamic page;
+                              switch (item.key) {
+                                case ResourcesCategories.videos:
+                                  page = MediaPage(type: item.key.category);
+                                  break;
+                                case ResourcesCategories.audios:
+                                  page = MediaPage(type: item.key.category);
+
+                                  break;
+                                case ResourcesCategories.quotes:
+                                  page = QuotesPage(
+                                    type: item.key.category,
+                                  );
+                                  break;
+                                case ResourcesCategories.podcasts:
+                                  page = MediaPage(type: item.key.category);
+
+                                  break;
+                                case ResourcesCategories.articles:
+                                  page = ArticlesPage(
+                                    type: item.key.category,
+                                  );
+                                  break;
+                                case ResourcesCategories.books:
+                                  page = MediaPage(type: item.key.category);
+
+                                  break;
+                              }
+                              AppNavigation.to(context, page);
+                            }
                           },
                         );
                       },
@@ -203,4 +205,17 @@ class _ResourcePageState extends State<ResourcePage> {
       ),
     );
   }
+}
+
+enum ResourcesCategories {
+  videos('Videos'),
+  audios('Audios'),
+  quotes('Quotes'),
+  podcasts('Podcasts'),
+  articles('Articles'),
+  books('Books');
+
+  const ResourcesCategories(this.category);
+
+  final String category;
 }

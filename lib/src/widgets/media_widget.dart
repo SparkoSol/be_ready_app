@@ -20,30 +20,28 @@ class MediaWidget extends StatelessWidget {
   final String path;
   final String type;
   final ResourceResponse resource;
-  // final ResourceController controller;
-  // final int index;
 
   @override
   Widget build(BuildContext context) {
     print('https://192.168.11.193:3002/uploads/${resource.filename}');
     late String icon;
     switch (type) {
-      case 'Video':
+      case 'Videos':
         icon = AppAssets.videoIcon;
         break;
-      case 'Book':
+      case 'Books':
         icon = AppAssets.bookIcon;
 
         break;
-      case 'Audio':
+      case 'Audios':
         icon = AppAssets.audioIcon;
 
         break;
-      case 'Podcast':
+      case 'Podcasts':
         icon = AppAssets.podcastIcon;
 
         break;
-      case 'Quote':
+      case 'Quotes':
         icon = AppAssets.quotesIcon;
         break;
     }
@@ -65,7 +63,7 @@ class MediaWidget extends StatelessWidget {
           GestureDetector(
             onTap: () {
               switch (type) {
-                case 'Video':
+                case 'Videos':
                   AppNavigation.to(
                       context,
                       VideoPlayerWidget(
@@ -73,23 +71,23 @@ class MediaWidget extends StatelessWidget {
                               'https://192.168.11.193:3002/uploads/${resource.filename}'));
 
                   break;
-                case 'Book':
+                case 'Books':
                   PdfDialog(
                           url:
                               'https://192.168.11.193:3002/uploads/${resource.filename}')
                       .show(context);
 
                   break;
-                case 'Audio':
+                case 'Audios':
                   AudioPlayerWidget(
                           url:
                               'https://192.168.11.193:3002/uploads/${resource.filename}',
                           title: resource.title)
                       .show(context);
                   break;
-                case 'Podcast':
+                case 'Podcasts':
                   break;
-                case 'Quote':
+                case 'Quotes':
                   break;
               }
             },

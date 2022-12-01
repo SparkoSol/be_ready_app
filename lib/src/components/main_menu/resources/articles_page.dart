@@ -33,7 +33,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
     listController = CustomListViewController<ResourceResponse>(
       paginatedFunction: (int page, int limit) =>
           ResourcesApi().getPaginatedResource(
-        widget.type,
+        widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
       ),
