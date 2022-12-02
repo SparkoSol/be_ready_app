@@ -120,9 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   AuthTextSpanWidget(
                     message: 'Already have an account?',
                     buttonTitle: ' Sign in',
-                    action: () {
-                      AppNavigation.pop(context);
-                    },
+                    action: Navigator.of(context).pop,
                   ),
                 ]),
               ),
@@ -140,11 +138,6 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
     try {
-      // await Awaiter.process(
-      //   future: signUp(),
-      //   context: context,
-      //   arguments: 'Creating account...',
-      // );
       await AuthenticationService().signUp(
         UserRegisterRequest(
           email: _emailController.text.trim().toLowerCase(),
@@ -158,7 +151,10 @@ class _SignUpPageState extends State<SignUpPage> {
       if (!mounted) {
         return;
       }
-      $showSnackBar(context, 'Account created Successfully');
+      $showSnackBar(
+        context,
+        'Account created Successfully, a verification code has been sent to you email',
+      );
       FocusScope.of(context).unfocus();
       AppNavigation.to(context, const OtpPage(isForgotPassword: false));
     } catch (_) {

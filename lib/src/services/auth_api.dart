@@ -14,9 +14,9 @@ class AuthenticationService {
   Future<void> signIn(final UserSignInRequest request, bool rememberMe) async {
     try {
       final response = await _api.signIn(request);
-      log(response.signintoken);
+      log(response.signInToken);
       await RememberMeService().setAccessToken(
-        response.signintoken,
+        response.signInToken,
         rememberMe,
       );
     } catch (e) {
@@ -34,10 +34,7 @@ class AuthenticationService {
         ),
         true,
       );
-      await Api.saveProfileData(
-        profile.userid,
-        profile.username,
-      );
+      await AppData().saveUser(profile);
     } catch (_) {
       rethrow;
     }
@@ -54,7 +51,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     try {
-      await Api.clearLocalData();
+      await AppData.clearLocalData();
       await _api.signingOut();
     } catch (_) {}
     try {

@@ -4,10 +4,10 @@ part of be_universe_core;
   createToJson: false,
 )
 class UserSignInResponse {
-  UserSignInResponse(this.signintoken);
+  UserSignInResponse(this.signInToken);
 
   @JsonKey(name: 'access_token')
-  final String signintoken;
+  final String signInToken;
 
   factory UserSignInResponse.fromJson(_Json json) {
     return _$UserSignInResponseFromJson(json);
@@ -27,13 +27,36 @@ class SocialSignInResponse {
 }
 
 @JsonSerializable(createToJson: false)
-class ProfileResponse {
-  const ProfileResponse(this.userid, this.username);
+@HiveType(typeId: 0)
+class ProfileResponse extends HiveObject {
+  ProfileResponse({
+    required this.userid,
+    required this.username,
+    required this.isVerified,
+    required this.image,
+    required this.name,
+    required this.email,
+    required this.fcmToken,
+    required this.loginVia,
+  });
 
+  @HiveField(0)
   @JsonKey(name: '_id')
   final String userid;
-  @JsonKey(name: 'username')
+  @HiveField(1)
   final String username;
+  @HiveField(2)
+  final bool isVerified;
+  @HiveField(3)
+  String name;
+  @HiveField(4)
+  String email;
+  @HiveField(5)
+  String loginVia;
+  @HiveField(6)
+  String image;
+  @HiveField(7)
+  String? fcmToken;
 
   factory ProfileResponse.fromJson(_Json json) {
     return _$ProfileResponseFromJson(json);

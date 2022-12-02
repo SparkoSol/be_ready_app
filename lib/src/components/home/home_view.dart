@@ -37,10 +37,10 @@ class _HomeViewState extends State<HomeView> {
   String name = '';
 
   Future<void> getProfileData() async {
-    var accessToken = await Api.getAccessToken();
+    var accessToken = AppData.accessToken;
     print('access token $accessToken');
     final profile = await AuthenticationService().getProfile(accessToken);
-    Api.saveProfileData(profile.userid, profile.username);
+    await AppData().saveUser(profile);
     name = profile.username;
     setState(() {});
   }

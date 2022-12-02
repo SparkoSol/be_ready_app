@@ -4,9 +4,7 @@ import 'package:be_universe/src/components/home/drawer_widget.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe_core/be_universe_core.dart';
-import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
-import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,16 +36,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> getProfileData() async {
-    var accessToken = await Api.getAccessToken();
-    print('user token ${accessToken}');
+    var accessToken = AppData.accessToken;
+    print('user token $accessToken');
     final profile = await AuthenticationService().getProfile(accessToken);
     print('user id ${profile.userid}');
     print('user name ${profile.username}');
 
-    await Api.saveProfileData(
-      profile.userid,
-      profile.username,
-    );
+    await AppData().saveUser(profile);
   }
 
   @override
