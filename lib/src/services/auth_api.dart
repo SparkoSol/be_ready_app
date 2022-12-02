@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/services/auth_service.dart';
+import 'package:be_universe/src/services/remember_me_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,11 +11,14 @@ import 'package:flutter/cupertino.dart';
 class AuthenticationService {
   final _api = AuthenticationApi();
 
-  Future<void> signIn(final UserSignInRequest request) async {
+  Future<void> signIn(final UserSignInRequest request, bool rememberMe) async {
     try {
       final response = await _api.signIn(request);
       log(response.signintoken);
-      await Api.saveAccessToken(response.signintoken);
+      await RememberMeService().setAccessToken(
+        response.signintoken,
+        rememberMe,
+      );
     } catch (e) {
       rethrow;
     }
@@ -22,7 +26,18 @@ class AuthenticationService {
 
   Future<void> signUp(final UserRegisterRequest request) async {
     try {
-      await _api.signUp(request);
+      final profile = await _api.signUp(request);
+      await signIn(
+        UserSignInRequest(
+          username: request.username,
+          password: request.password,
+        ),
+        true,
+      );
+      await Api.saveProfileData(
+        profile.userid,
+        profile.username,
+      );
     } catch (_) {
       rethrow;
     }
@@ -119,7 +134,10 @@ class AuthenticationService {
   Future<void> socialSignIn(final SocialSignInRequest request) async {
     try {
       final socialResponse = await _api.socialSignIn(request);
-      await Api.saveAccessToken(socialResponse.socialToken);
+      await RememberMeService().setAccessToken(
+        socialResponse.socialToken,
+        true,
+      );
     } catch (_) {
       rethrow;
     }

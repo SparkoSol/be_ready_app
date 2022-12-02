@@ -1,22 +1,27 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
+import 'package:be_universe/src/components/auth/widget/new_password_page.dart';
 import 'package:be_universe/src/components/auth/widget/timed_widget.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({Key? key}) : super(key: key);
+  const OtpPage({Key? key, required this.isForgotPassword}) : super(key: key);
+  final bool isForgotPassword;
 
   @override
   State<OtpPage> createState() => _OtpPageState();
 }
 
 class _OtpPageState extends State<OtpPage> {
-  // String? _codeEntered;
+  String? _codeEntered;
+  bool canVerify = false;
 
   final _digit1 = FocusNode();
   final _digit2 = FocusNode();
@@ -45,20 +50,20 @@ class _OtpPageState extends State<OtpPage> {
           _controller3.text,
           _controller4.text,
         ])) {
-          // widget.controller.canVerify = true;
+          canVerify = true;
         }
 
         if (next == null) {
-          // _codeEntered = _controller1.text +
-          //     _controller2.text +
-          //     _controller3.text +
-          //     _controller4.text;
+          _codeEntered = _controller1.text +
+              _controller2.text +
+              _controller3.text +
+              _controller4.text;
           current.unfocus();
         } else {
           next.requestFocus();
         }
       } else {
-        // widget.controller.canVerify = false;
+        canVerify = false;
         prev?.requestFocus();
       }
       setState(() {});
@@ -193,11 +198,40 @@ class _OtpPageState extends State<OtpPage> {
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
-                    onPressed: () async {
-                      FocusScope.of(context).unfocus();
-                      AppNavigation.navigateRemoveUntil(
-                          context, const HomeView());
-                    },
+                    onPressed: !canVerify
+                        ? null
+                        : () async {
+                            FocusScope.of(context).unfocus();
+                            try {
+                              if (widget.isForgotPassword) {
+                                AppNavigation.to(
+                                  context,
+                                  NewPasswordPage(code: _codeEntered ?? ''),
+                                );
+                              } else {
+                                await AuthenticationApi().verifyAccount(
+                                  VerifyAccountRequest(
+                                    hash: _codeEntered ?? '',
+                                    id: Api.userId,
+                                  ),
+                                );
+                                if (!mounted) return;
+                                AppNavigation.navigateRemoveUntil(
+                                  context,
+                                  const HomeView(),
+                                );
+                              }
+                            } catch (e) {
+                              if (e is DioError &&
+                                  ((e.response?.statusCode ?? 0) == 406)) {
+                                throw Exception('Invalid OTP');
+                              } else if (e is DioError &&
+                                  ((e.response?.statusCode ?? 0) == 409)) {
+                                throw Exception('Account already verified');
+                              }
+                              rethrow;
+                            }
+                          },
                     title: 'CONTINUE',
                   ),
                   const SizedBox(height: 28),

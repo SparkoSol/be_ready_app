@@ -4,7 +4,6 @@ part of be_universe_core;
 abstract class EventsApi {
   factory EventsApi() => _EventsApi(
         Api.client,
-        baseUrl: 'https://192.168.11.193:3002/',
       );
   @POST('events')
   Future<EventsResponse> sendEvent(@Body() EventsResponse eventsResponse);

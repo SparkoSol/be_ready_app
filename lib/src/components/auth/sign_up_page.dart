@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/auth/sign_in_page.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/components/auth/widget/or_widget.dart';
@@ -148,20 +147,21 @@ class _SignUpPageState extends State<SignUpPage> {
       // );
       await AuthenticationService().signUp(
         UserRegisterRequest(
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim(),
-            name: _fullNameController.text.trim(),
-            username: _emailController.text.trim(),
-            role: 'User',
-            loginVia: 'Email'),
+          email: _emailController.text.trim().toLowerCase(),
+          password: _passwordController.text.trim(),
+          name: _fullNameController.text.trim(),
+          username: _emailController.text.trim(),
+          role: 'User',
+          loginVia: 'Email',
+        ),
       );
       if (!mounted) {
         return;
       }
       $showSnackBar(context, 'Account created Successfully');
       FocusScope.of(context).unfocus();
-      AppNavigation.to(context, const SignInPage());
-    } catch (e) {
+      AppNavigation.to(context, const OtpPage(isForgotPassword: false));
+    } catch (_) {
       rethrow;
     }
   }

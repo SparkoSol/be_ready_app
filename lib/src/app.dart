@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
+import 'package:be_universe/src/services/remember_me_service.dart';
 import 'package:be_universe/src/utils/default_awaiter.dart';
-import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Be Universe',
       theme: AppTheme.lightTheme,
-      home: Api.getAccessToken() == 'null'
+      home: RememberMeService().accessToken.isEmpty
           ? const SignInPage()
           : const HomePage(),
     );
