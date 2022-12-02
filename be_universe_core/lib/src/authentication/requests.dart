@@ -51,14 +51,26 @@ class ForgotEmailRequest {
 }
 
 @JsonSerializable(createFactory: false)
+class SendOtpRequest {
+  const SendOtpRequest({
+    required this.id,
+  });
+
+  final String id;
+
+  Map<String, dynamic> toJson() => _$SendOtpRequestToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
 class UserRegisterRequest {
-  const UserRegisterRequest(
-      {required this.email,
-      required this.password,
-      required this.name,
-      required this.username,
-      required this.loginVia,
-      required this.role});
+  const UserRegisterRequest({
+    required this.email,
+    required this.password,
+    required this.name,
+    required this.username,
+    required this.loginVia,
+    required this.role,
+  });
 
   final String email;
   final String password;
@@ -72,13 +84,14 @@ class UserRegisterRequest {
 
 @JsonSerializable(createFactory: false)
 class SocialSignInRequest {
-  const SocialSignInRequest(
-      {required this.username,
-      required this.idToken,
-      required this.name,
-      required this.email,
-      required this.image,
-      required this.loginVia});
+  const SocialSignInRequest({
+    required this.username,
+    required this.idToken,
+    required this.name,
+    required this.email,
+    required this.image,
+    required this.loginVia,
+  });
 
   final String username;
   final String email;

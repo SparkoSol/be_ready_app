@@ -30,4 +30,7 @@ abstract class AuthenticationApi {
 
   @POST('persons/forgot-password')
   Future sendResetPasswordEmail(@Body() ForgotEmailRequest request);
+
+  @PATCH('persons/verification-email')
+  Future sendOtp(@Body() SendOtpRequest request);
 }

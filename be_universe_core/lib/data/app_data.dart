@@ -7,6 +7,7 @@ class AppData with ProfileMixin {
 
   static Future<void> initialize() async {
     _preferences = await SharedPreferences.getInstance();
+    await Hive.initFlutter();
     Hive.registerAdapter(ProfileResponseAdapter());
     await ProfileMixin.initialize();
   }
