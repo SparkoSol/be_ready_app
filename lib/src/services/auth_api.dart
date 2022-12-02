@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/services/auth_service.dart';
-import 'package:be_universe/src/services/remember_me_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,10 +14,8 @@ class AuthenticationService {
     try {
       final response = await _api.signIn(request);
       log(response.signInToken);
-      await RememberMeService().setAccessToken(
-        response.signInToken,
-        rememberMe,
-      );
+      await AppData.saveAccessToken(response.signInToken);
+      await AppData.saveRememberMe(rememberMe);
       return response.signInToken;
     } catch (e) {
       rethrow;
@@ -132,10 +129,8 @@ class AuthenticationService {
   Future<void> socialSignIn(final SocialSignInRequest request) async {
     try {
       final socialResponse = await _api.socialSignIn(request);
-      await RememberMeService().setAccessToken(
-        socialResponse.socialToken,
-        true,
-      );
+      await AppData.saveAccessToken(socialResponse.socialToken);
+      await AppData.saveRememberMe(true);
     } catch (_) {
       rethrow;
     }

@@ -1,9 +1,10 @@
 part of be_universe_core;
 
-const _accessTokenKey = 'access_token';
-
 class AppData with ProfileMixin {
   static late SharedPreferences _preferences;
+
+  static const _accessTokenKey = 'access_token';
+  static const _rememberKey = 'remember_me';
 
   static Future<void> initialize() async {
     _preferences = await SharedPreferences.getInstance();
@@ -19,10 +20,11 @@ class AppData with ProfileMixin {
   static String get accessToken =>
       _preferences.getString(_accessTokenKey) ?? '';
 
-  static String getAccessToken() {
-    var token = _preferences.getString(_accessTokenKey);
-    return token ?? '';
+  static Future<void> saveRememberMe(bool value) async {
+    await _preferences.setBool(_rememberKey, value);
   }
+
+  static bool get rememberMe => _preferences.getBool(_rememberKey) ?? true;
 
   static Future<void> clearLocalData() async {
     await _preferences.clear();

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
-import 'package:be_universe/src/services/remember_me_service.dart';
 import 'package:be_universe/src/utils/default_awaiter.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,10 +18,14 @@ class MyApp extends StatefulWidget {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
-    // DioException.setDefaultParser = customErrorMessage;
-    // AppData.initialize();
-
     await Api.initialize();
+
+    /// Remember Me
+    if (AppData.accessToken.isNotEmpty) {
+      if (!AppData.rememberMe) {
+        await AppData.clearLocalData();
+      }
+    }
     return runApp(const MyApp._());
   }
 
@@ -32,19 +35,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Be Universe',
       theme: AppTheme.lightTheme,
-      home: RememberMeService().accessToken.isEmpty
-          ? const SignInPage()
-          : const HomePage(),
+      home: AppData.accessToken.isEmpty ? const SignInPage() : const HomePage(),
     );
   }
 }
