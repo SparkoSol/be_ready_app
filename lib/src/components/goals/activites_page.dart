@@ -60,7 +60,7 @@ class _ActivitesPageState extends State<ActivitesPage> {
               ),
               const Spacer(),
               AppButtonWidget(
-                onPressed: () {
+                onPressed: () async {
                   $showBottomSheet(context, const ThankYouWidget());
                 },
                 title: 'I’m in!',

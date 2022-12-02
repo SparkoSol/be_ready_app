@@ -1,7 +1,5 @@
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/main_menu/events/controller.dart';
-import 'package:be_universe/src/components/main_menu/events/events_details.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/event_page_widget.dart';
@@ -186,6 +184,7 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                                   //   AppAssets.user,
                                   // ],
                                   path: AppAssets.otherEvents,
+                                  participants: const [],
                                 ),
                               )
                           ],

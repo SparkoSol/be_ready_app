@@ -132,7 +132,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
                   const SizedBox(height: 32),
                   AppButtonWidget(
                     title: 'UPDATE CARD',
-                    onPressed: () {},
+                    onPressed: () async {},
                   ),
                 ],
               ),
