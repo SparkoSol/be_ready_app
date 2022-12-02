@@ -53,7 +53,7 @@ class _MediaPageState extends State<MediaPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 60),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: GoalsPageTitle(text: title),
                 ),
                 Expanded(

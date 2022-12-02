@@ -65,7 +65,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     prefix: Image.asset(AppAssets.messageIcon),
                     hint: 'abc@email.com',
                     bottomPadding: 44,
-                    validator: InputValidator.email(),
+                    validator: InputValidator.email(
+                        message: 'Please enter a valid email address'),
                   ),
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),

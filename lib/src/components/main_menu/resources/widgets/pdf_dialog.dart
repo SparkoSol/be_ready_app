@@ -71,7 +71,7 @@ class _PdfDialogState extends State<PdfDialog> {
             Expanded(
               child: SfPdfViewer.network(
                 widget.url,
-                pageLayoutMode: PdfPageLayoutMode.single,
+                pageLayoutMode: PdfPageLayoutMode.continuous,
                 enableDoubleTapZooming: true,
               ),
             ),

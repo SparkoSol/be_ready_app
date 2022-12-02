@@ -51,7 +51,7 @@ class _QuotesPageState extends State<QuotesPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 60),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: GoalsPageTitle(text: widget.type),
               ),
               Expanded(

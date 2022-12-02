@@ -257,7 +257,7 @@ class _OtpPageState extends State<OtpPage> {
       }
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
-        throw 'You have entered the wrong code';
+        throw 'You have entered the wrong code. Please try again';
       } else if (e is DioError && ((e.response?.statusCode ?? 0) == 409)) {
         throw 'Account is already verified';
       }
