@@ -15,11 +15,11 @@ import 'package:google_fonts/google_fonts.dart';
 class OtpPage extends StatefulWidget {
   const OtpPage({
     Key? key,
-    required this.isForgotPassword,
+    this.forgotEmail,
     this.isTimer = true,
   }) : super(key: key);
 
-  final bool isForgotPassword;
+  final String? forgotEmail;
   final bool isTimer;
 
   @override
@@ -27,6 +27,8 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
+  bool get isForgotPassword => widget.forgotEmail != null;
+
   String? _codeEntered;
   bool canVerify = false;
 
@@ -97,7 +99,7 @@ class _OtpPageState extends State<OtpPage> {
           resizeToAvoidBottomInset: false,
           extendBody: true,
           extendBodyBehindAppBar: true,
-          appBar: AppBar(),
+          // appBar: AppBar(),
           body: BackgroundImageWidget(
             child: Padding(
               padding: EdgeInsets.only(
@@ -143,6 +145,7 @@ class _OtpPageState extends State<OtpPage> {
                             maxLength: 1,
                             hint: '-',
                             bottomPadding: 45,
+                            removeHint: true,
                           ),
                         ),
                         SizedBox(
@@ -162,6 +165,7 @@ class _OtpPageState extends State<OtpPage> {
                             focusNode: _digit2,
                             textEditingController: _controller2,
                             bottomPadding: 45,
+                            removeHint: true,
                           ),
                         ),
                         SizedBox(
@@ -181,6 +185,7 @@ class _OtpPageState extends State<OtpPage> {
                             hintColor: Colors.white,
                             textEditingController: _controller3,
                             bottomPadding: 45,
+                            removeHint: true,
                           ),
                         ),
                         SizedBox(
@@ -200,6 +205,7 @@ class _OtpPageState extends State<OtpPage> {
                             textAlign: TextAlign.center,
                             textEditingController: _controller4,
                             focusNode: _digit4,
+                            removeHint: true,
                           ),
                         ),
                       ],
@@ -214,6 +220,7 @@ class _OtpPageState extends State<OtpPage> {
                     TimerWidget(
                       seconds: 60,
                       isTimer: widget.isTimer,
+                      email: widget.forgotEmail,
                     ),
                     const SizedBox(height: 20),
                     OtpSignOutButton(
@@ -233,7 +240,7 @@ class _OtpPageState extends State<OtpPage> {
   Future<void> _verify() async {
     FocusScope.of(context).unfocus();
     try {
-      if (widget.isForgotPassword) {
+      if (isForgotPassword) {
         AppNavigation.to(
           context,
           NewPasswordPage(code: _codeEntered ?? ''),
@@ -246,16 +253,13 @@ class _OtpPageState extends State<OtpPage> {
           ),
         );
         if (!mounted) return;
-        AppNavigation.navigateRemoveUntil(
-          context,
-          const HomeView(),
-        );
+        AppNavigation.navigateRemoveUntil(context, const HomeView());
       }
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
         throw Exception('Invalid OTP');
       } else if (e is DioError && ((e.response?.statusCode ?? 0) == 409)) {
-        throw Exception('Account already verified');
+        throw Exception('Account is already verified');
       }
       rethrow;
     }

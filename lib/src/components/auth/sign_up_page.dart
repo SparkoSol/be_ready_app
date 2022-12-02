@@ -156,7 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
         'Account created Successfully, a verification code has been sent to you email',
       );
       FocusScope.of(context).unfocus();
-      AppNavigation.to(context, const OtpPage(isForgotPassword: false));
+      AppNavigation.to(context, const OtpPage());
     } catch (_) {
       rethrow;
     }

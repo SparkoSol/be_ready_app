@@ -6,6 +6,7 @@ import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -94,9 +95,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       if (!mounted) return;
       AppNavigation.to(
         context,
-        const OtpPage(isForgotPassword: true),
+        OtpPage(
+          forgotEmail: _emailController.text.trim().toLowerCase(),
+        ),
       );
-    } catch (_) {
+    } catch (e) {
+      if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
+        throw Exception('Account does not exist with this email.');
+      }
       rethrow;
     }
   }

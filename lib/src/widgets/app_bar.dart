@@ -19,6 +19,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
+    print('RRRRRRRRR');
+    print(hasDrawer);
+    print('---------');
     return AppBar(
       // backgroundColor: Colors.white.withOpacity(0.1),
       leadingWidth: 50,

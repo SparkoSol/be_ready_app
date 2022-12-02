@@ -11,10 +11,12 @@ class TimerWidget extends StatefulWidget {
     Key? key,
     required this.seconds,
     required this.isTimer,
+    required this.email,
   }) : super(key: key);
 
   final int seconds;
   final bool isTimer;
+  final String? email;
 
   @override
   State createState() => _TimerWidgetState();
@@ -58,6 +60,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 
   var _isLoading = false;
+  final _api = AuthenticationApi();
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +84,17 @@ class _TimerWidgetState extends State<TimerWidget> {
         try {
           _isLoading = true;
           setState(() {});
-          await AuthenticationApi().sendOtp(
-            SendOtpRequest(
-              id: AppData().readLastUser().userid,
-            ),
-          );
+          if (widget.email != null) {
+            await _api.sendResetPasswordEmail(
+              ForgotEmailRequest(email: widget.email!),
+            );
+          } else {
+            await _api.sendOtp(
+              SendOtpRequest(
+                id: AppData().readLastUser().userid,
+              ),
+            );
+          }
           startTimeout();
         } catch (e) {
           ErrorDialog(error: DioException.withDioError(e)).show(context);

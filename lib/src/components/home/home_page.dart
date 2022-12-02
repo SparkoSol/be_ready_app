@@ -45,13 +45,7 @@ class _HomePageState extends State<HomePage> {
       await AppData().saveUser(profile);
       if (!mounted) return;
       if (profile.loginVia == 'Email' && profile.isVerified != true) {
-        AppNavigation.to(
-          context,
-          const OtpPage(
-            isForgotPassword: false,
-            isTimer: false,
-          ),
-        );
+        AppNavigation.to(context, const OtpPage(isTimer: false));
       }
       setState(() {});
     } catch (_) {}
@@ -68,7 +62,10 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(parentScaffoldKey: _scaffoldKey, hasDrawer: true),
+      appBar: AppBarWidget(
+        parentScaffoldKey: _scaffoldKey,
+        hasDrawer: true,
+      ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(top: 24),

@@ -41,6 +41,7 @@ class AppTextField extends StatefulWidget {
     this.textAlign,
     this.focusNode,
     this.boxShadow,
+    this.removeHint = false,
   }) : super(key: key);
 
   final int? maxLength;
@@ -76,6 +77,7 @@ class AppTextField extends StatefulWidget {
   final TextAlign? textAlign;
   final FocusNode? focusNode;
   final List<BoxShadow>? boxShadow;
+  final bool removeHint;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -83,15 +85,22 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   late FocusNode focusNode;
+  String? hintText;
 
   @override
   void initState() {
+    super.initState();
+    hintText = widget.hint;
     focusNode = widget.focusNode ?? FocusNode();
     focusNode.addListener(_listener);
-    super.initState();
   }
 
-  void _listener() => setState(() {});
+  void _listener() {
+    if (widget.removeHint) {
+      hintText = focusNode.hasFocus ? '' : widget.hint;
+    }
+    setState(() {});
+  }
 
   @override
   void dispose() {
@@ -149,7 +158,7 @@ class _AppTextFieldState extends State<AppTextField> {
           contentPadding: widget.contentPadding,
           prefixIcon: widget.prefix,
           labelText: widget.label,
-          hintText: widget.hint ?? '',
+          hintText: hintText,
           suffixIcon: widget.suffix,
           hintStyle: widget.hintStyle ??
               GoogleFonts.poppins(

@@ -170,13 +170,7 @@ class _SignInPageState extends State<SignInPage> {
       FocusScope.of(context).unfocus();
       if (profile.loginVia == 'Email' && profile.isVerified != true) {
         $showSnackBar(context, 'Your account is not verified');
-        AppNavigation.to(
-          context,
-          const OtpPage(
-            isForgotPassword: false,
-            isTimer: false,
-          ),
-        );
+        AppNavigation.to(context, const OtpPage(isTimer: false));
       } else {
         AppNavigation.navigateRemoveUntil(context, const HomePage());
       }
