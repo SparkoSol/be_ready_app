@@ -1,6 +1,7 @@
 library be_universe_core;
 
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,61 +42,19 @@ part 'src/resources/requests.dart';
 
 part 'src/resources/responses.dart';
 
-late SharedPreferences _preferences;
-const _accessTokenKey = 'access_token';
-const _userId = 'user_id';
-const _userName = 'user_name';
-const _rememberMe = 'remember_me';
-const _name = 'name';
+part 'data/app_data.dart';
+
+part 'data/mixins/profile_mixin.dart';
+
 typedef _Json = Map<String, dynamic>;
 
 class Api {
   static Future<void> initialize() async {
-    _preferences = await SharedPreferences.getInstance();
+    await AppData.initialize();
   }
 
-  var token = getAccessToken();
   static final client = Dio(BaseOptions(
     baseUrl: 'https://beuniverse-api.sparkosol.com/',
   ))
     ..interceptors.add(AuthorizationInterceptor());
-
-  static Future<void> saveAccessToken(String token) async {
-    await _preferences.setString(_accessTokenKey, token);
-  }
-
-  static Future<void> saveProfileData(
-      String id, String uname, String name) async {
-    await _preferences.setString(_userName, uname);
-    await _preferences.setString(_userId, id);
-    await _preferences.setString(_name, name);
-  }
-
-  static Future<void> saveRememberMe(bool status) async {
-    await _preferences.setBool(_rememberMe, status);
-  }
-
-  static Future<bool> getRememberMeStatus() async {
-    bool status = _preferences.getBool(_rememberMe)!;
-    return status;
-  }
-
-  static String getAccessToken() {
-    var token = _preferences.getString(_accessTokenKey);
-    return token ?? '';
-  }
-
-  static String get userId => _preferences.getString(_userId) ?? '';
-
-  static String get userName => _preferences.getString(_userName) ?? '';
-
-  static Map<String, String> getProfileData() {
-    var name = _preferences.getString(_userName);
-    var id = _preferences.getString(_userId);
-    return {'userName': name!, 'userId': id!};
-  }
-
-  static Future<void> clearLocalData() async {
-    await _preferences.clear();
-  }
 }

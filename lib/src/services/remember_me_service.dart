@@ -12,7 +12,7 @@ class RememberMeService {
 
   String get accessToken {
     if (_remember) {
-      return Api.getAccessToken();
+      return AppData.accessToken;
     }
     return _accessToken ?? '';
   }
@@ -20,7 +20,7 @@ class RememberMeService {
   Future<void> setAccessToken(String token, bool rememberMe) async {
     _remember = rememberMe;
     // if (rememberMe) {
-      await Api.saveAccessToken(token);
+      await AppData.saveAccessToken(token);
     // } else {
       _accessToken = token;
     // }

@@ -198,40 +198,7 @@ class _OtpPageState extends State<OtpPage> {
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
-                    onPressed: !canVerify
-                        ? null
-                        : () async {
-                            FocusScope.of(context).unfocus();
-                            try {
-                              if (widget.isForgotPassword) {
-                                AppNavigation.to(
-                                  context,
-                                  NewPasswordPage(code: _codeEntered ?? ''),
-                                );
-                              } else {
-                                await AuthenticationApi().verifyAccount(
-                                  VerifyAccountRequest(
-                                    hash: _codeEntered ?? '',
-                                    id: Api.userId,
-                                  ),
-                                );
-                                if (!mounted) return;
-                                AppNavigation.navigateRemoveUntil(
-                                  context,
-                                  const HomeView(),
-                                );
-                              }
-                            } catch (e) {
-                              if (e is DioError &&
-                                  ((e.response?.statusCode ?? 0) == 406)) {
-                                throw Exception('Invalid OTP');
-                              } else if (e is DioError &&
-                                  ((e.response?.statusCode ?? 0) == 409)) {
-                                throw Exception('Account already verified');
-                              }
-                              rethrow;
-                            }
-                          },
+                    onPressed: !canVerify ? null : _verify,
                     title: 'CONTINUE',
                   ),
                   const SizedBox(height: 28),
@@ -243,5 +210,36 @@ class _OtpPageState extends State<OtpPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _verify() async {
+    FocusScope.of(context).unfocus();
+    try {
+      if (widget.isForgotPassword) {
+        AppNavigation.to(
+          context,
+          NewPasswordPage(code: _codeEntered ?? ''),
+        );
+      } else {
+        await AuthenticationApi().verifyAccount(
+          VerifyAccountRequest(
+            hash: _codeEntered ?? '',
+            id: AppData().readLastUser().userid,
+          ),
+        );
+        if (!mounted) return;
+        AppNavigation.navigateRemoveUntil(
+          context,
+          const HomeView(),
+        );
+      }
+    } catch (e) {
+      if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
+        throw Exception('Invalid OTP');
+      } else if (e is DioError && ((e.response?.statusCode ?? 0) == 409)) {
+        throw Exception('Account already verified');
+      }
+      rethrow;
+    }
   }
 }

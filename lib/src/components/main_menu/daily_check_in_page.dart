@@ -31,9 +31,11 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
     // WidgetsBinding.instance
     //     .addPostFrameCallback((timeStamp) => sendDailyCheckIn(0, 0, 0));
     super.initState();
-    // listController = CustomListViewController<DailyCheckInResponse>(
-    //     //dataFunction: () => DailyCheckInApi().getDailyCheckIn(Api.userId),
-    //     );
+    listController = CustomListViewController<DailyCheckInResponse>(
+      dataFunction: () => DailyCheckInApi().getDailyCheckIn(
+        AppData().readLastUser().userid,
+      ),
+    );
   }
 
   // Future<void> getDailyCheckIns() async {
@@ -140,18 +142,19 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
 
   Future<void> sendDailyCheckIn(double spirit, double mind, double body) async {
     try {
-      final userData = Api.getProfileData();
-      final response = await DailyCheckInService().sendDailyCheckInData(
+      final userData = AppData().readLastUser();
+      final response = await Awaiter.process(
+        context: context,
+        future: DailyCheckInService().sendDailyCheckInData(
           DailyCheckInModel(
-              userId: '${userData['userId']}',
-              myBodyFeels: body.toInt(),
-              myMindFeels: mind.toInt(),
-              mySpiritFeels: spirit.toInt()));
-      // final response = await Awaiter.process(
-      //     context: context,
-      //     future:
-      //     arguments: 'loading...');
-
+            userId: userData.userid,
+            myBodyFeels: body.toInt(),
+            myMindFeels: mind.toInt(),
+            mySpiritFeels: spirit.toInt(),
+          ),
+        ),
+        arguments: 'loading...',
+      );
       spiritValue = response.mySpiritFeels.toDouble();
       mindSliderValue = response.myMindFeels.toDouble();
       bodySliderValue = response.myBodyFeels.toDouble();
