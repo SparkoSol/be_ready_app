@@ -35,7 +35,7 @@ class ThankYouWidget extends StatelessWidget {
         margin: const EdgeInsets.all(3),
         padding: EdgeInsets.fromLTRB(
           30,
-          20,
+          0,
           30,
           10 + MediaQuery.of(context).padding.bottom,
         ),
@@ -45,7 +45,7 @@ class ThankYouWidget extends StatelessWidget {
             GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               child: Transform.translate(
-                offset: const Offset(0, -60),
+                offset: const Offset(0, -40),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF0B002A),
@@ -76,7 +76,7 @@ class ThankYouWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Image.asset(AppAssets.thumbIcon, width: 94, height: 119),
+            Image.asset(AppAssets.thumbIcon, ),
             const SizedBox(height: 38),
             Text(
               'Thank You!',
