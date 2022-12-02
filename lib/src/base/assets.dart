@@ -36,10 +36,11 @@ class AppAssets {
   static const homeIcon = '$_path/home_icon.png';
   static const chatIcon = '$_path/chat_icon.png';
   static const visaIcon = '$_path/visa_icon.png';
-  static const stripeIcon = '$_path/stripe_icon.png';
+  static const stripeIcon = '$_path/stripe.png';
   static const attachmentIcon = '$_path/attachment_icon.png';
   static const temple = '$_path/temple.png';
   static const ratingStar = '$_path/rating_star.png';
   static const settingsIcon = '$_path/settings_icon.png';
   static const drawerIcon = '$_path/drawer_icon.png';
+  static const eventComingUp = '$_path/event_coming.png';
 }

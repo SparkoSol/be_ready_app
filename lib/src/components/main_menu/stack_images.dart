@@ -8,11 +8,11 @@ class StackImages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        imageStack(0, AppAssets.graphIcon),
-        imageStack(12.5, AppAssets.user),
-        imageStack(25, AppAssets.graphIcon),
-        imageStack(37.5, AppAssets.graphIcon),
         imageStack(50, AppAssets.userIcon),
+        imageStack(37.5, AppAssets.graphIcon),
+        imageStack(25, AppAssets.graphIcon),
+        imageStack(12.5, AppAssets.user),
+        imageStack(0, AppAssets.graphIcon),
       ],
     );
   }

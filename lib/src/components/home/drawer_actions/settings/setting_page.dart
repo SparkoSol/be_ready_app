@@ -23,64 +23,66 @@ class _SettingPageState extends State<SettingPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(top: padding.top + 56),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: Column(children: [
-              const Text(
-                'Hello, Laurie!',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
+          child: Center(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Column(children: [
+                const Text(
+                  'Hello, Laurie!',
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 36),
-                child: Image.asset(
-                  AppAssets.user,
-                  fit: BoxFit.fill,
-                  height: 111,
-                  width: 111,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 36),
+                  child: Image.asset(
+                    AppAssets.user,
+                    fit: BoxFit.fill,
+                    height: 111,
+                    width: 111,
+                  ),
                 ),
-              ),
-              _ProfileDataContainer(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _getText(text: '+79183754623'),
-                    _getTrailing(text: 'Phone Number'),
-                  ],
+                _ProfileDataContainer(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _getText(text: '+79183754623'),
+                      _getTrailing(text: 'Phone Number'),
+                    ],
+                  ),
                 ),
-              ),
-              _ProfileDataContainer(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _getText(text: 'address@address.com'),
-                    _getTrailing(text: 'Email'),
-                  ],
+                _ProfileDataContainer(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _getText(text: 'address@address.com'),
+                      _getTrailing(text: 'Email'),
+                    ],
+                  ),
                 ),
-              ),
-              _ProfileDataContainer(
-                onTap: () {},
-                child: Row(children: [
-                  _getText(text: 'Change Password'),
-                ]),
-              ),
-              _ProfileDataContainer(
-                onTap: () => AppNavigation.to(
-                  context,
-                  const PaymentMethodPage(),
+                _ProfileDataContainer(
+                  onTap: () {},
+                  child: Row(children: [
+                    _getText(text: 'Change Password'),
+                  ]),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _getText(text: 'Update Payment Method'),
-                    Image.asset(AppAssets.stripeIcon, width: 62, height: 38),
-                  ],
+                _ProfileDataContainer(
+                  onTap: () => AppNavigation.to(
+                    context,
+                    const PaymentMethodPage(),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _getText(text: 'Update Payment Method'),
+                      Image.asset(AppAssets.stripeIcon, width: 50, height: 27,fit: BoxFit.fill,),
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ]),
+            ),
           ),
         ),
       ),
@@ -193,7 +195,7 @@ class _ProfileDataContainer extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
-        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: Colors.transparent,

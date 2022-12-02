@@ -1,4 +1,3 @@
-import 'package:be_ready_app/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
 import 'package:be_ready_app/src/utils/const.dart';
 import 'package:be_ready_app/src/widgets/app_bar.dart';
 import 'package:be_ready_app/src/widgets/background_image_widget.dart';
@@ -27,24 +26,23 @@ class _FAQPageState extends State<FAQPage> {
             top: padding.top + 56,
           ),
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 30,
               right: 30,
              // left: 46,
              //  right: 46,
-              // top: padding.top + 56,
             ),
             physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'FAQ’s',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
                     color: Colors.white,
                   ),
-                ),SizedBox(height: 10,),
+                ),const SizedBox(height: 10,),
                 // const DrawerActionTitleWidget(title: 'FAQ’s'),
                 for (int i = 0; i < _isExpanded.length; i++) ...[
                   GestureDetector(
