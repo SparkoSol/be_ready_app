@@ -61,7 +61,7 @@ class AuthenticationService {
     try {
       final response = await AuthService.signInWithFacebook();
       if (response.user == null) {
-        throw Exception('Login failed');
+        throw 'Login failed';
       }
       final token = await response.user!.getIdToken();
       await AuthenticationService().socialSignIn(
@@ -85,7 +85,7 @@ class AuthenticationService {
     try {
       final response = await AuthService.signInWithGoogle();
       if (response.user == null) {
-        throw Exception('Login failed');
+        throw 'Login failed';
       }
       final token = await response.user!.getIdToken();
       await AuthenticationService().socialSignIn(

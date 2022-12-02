@@ -257,9 +257,9 @@ class _OtpPageState extends State<OtpPage> {
       }
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
-        throw Exception('Invalid OTP');
+        throw 'You have entered the wrong code';
       } else if (e is DioError && ((e.response?.statusCode ?? 0) == 409)) {
-        throw Exception('Account is already verified');
+        throw 'Account is already verified';
       }
       rethrow;
     }

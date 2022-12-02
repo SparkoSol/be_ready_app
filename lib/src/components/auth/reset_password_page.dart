@@ -101,7 +101,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       );
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
-        throw Exception('Account does not exist with this email.');
+        throw 'Account does not exist with this email.';
       }
       rethrow;
     }

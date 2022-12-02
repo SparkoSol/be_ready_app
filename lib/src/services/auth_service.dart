@@ -115,7 +115,7 @@ class AuthService {
       await signOut();
       final account = await GoogleSignIn().signIn();
       if (account == null) {
-        throw Exception('Google login failed');
+        throw 'Google login failed';
       }
       final authentication = await account.authentication;
       final authCredential = GoogleAuthProvider.credential(
@@ -128,11 +128,9 @@ class AuthService {
       return authResult;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        throw Exception(
-          'Account with this email already exists',
-        );
+        throw 'Account with this email already exists';
       }
-      throw Exception(e.code);
+      throw e.code;
     } catch (e) {
       rethrow;
     }
@@ -147,26 +145,24 @@ class AuthService {
       switch (loginResult.status) {
         case LoginStatus.success:
           if (loginResult.accessToken == null) {
-            throw Exception('Facebook login failed');
+            throw 'Facebook login failed';
           }
           final credentials = FacebookAuthProvider.credential(
             loginResult.accessToken!.token,
           );
           return await _firebaseAuth.signInWithCredential(credentials);
         case LoginStatus.cancelled:
-          throw Exception('User has cancelled the login');
+          throw 'User has cancelled the login';
         case LoginStatus.failed:
-          throw Exception(loginResult.message ?? 'Facebook login failed');
+          throw loginResult.message ?? 'Facebook login failed';
         case LoginStatus.operationInProgress:
-          throw Exception(loginResult.message ?? 'Login in progress');
+          throw loginResult.message ?? 'Login in progress';
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        throw Exception(
-          'Account with this email already exists',
-        );
+        throw 'Account with this email already exists';
       }
-      throw Exception(e.code);
+      throw e.code;
     } catch (_) {
       rethrow;
     }
@@ -189,16 +185,14 @@ class AuthService {
         credential,
       );
       if (authResult.user == null) {
-        throw Exception('Apple login failed');
+        throw 'Apple login failed';
       }
       return authResult;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        throw Exception(
-          'Account with this email already exists',
-        );
+        throw'Account with this email already exists';
       }
-      throw Exception(e.code);
+      throw e.code;
     } catch (e) {
       throw 'Apple authorization cancelled';
     }

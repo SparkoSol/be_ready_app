@@ -112,7 +112,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         ..pop();
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
-        throw Exception('Code is invalid or expired');
+        throw 'Code is invalid or expired';
       }
       rethrow;
     }
