@@ -1,4 +1,4 @@
-name: be_ready_app
+name: be_universe
 description: A new Flutter project.
 publish_to: 'none'
 version: 1.0.0+1
@@ -10,13 +10,35 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   syncfusion_flutter_sliders:
+  firebase_core: ^2.3.0
+  firebase_auth: ^4.1.3
+  google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^5.0.6
+  sign_in_with_apple: ^3.0.0
+  http:
+  json_serializable: ^6.5.4
+  retrofit:  ^3.3.1
+  json_annotation: ^4.7.0
+  dio: ^4.0.6
+  shared_preferences: ^2.0.15
   reusables:
     git: https://github.com/SparkoSol/reusables.git
   image_picker: ^0.8.6
+  be_universe_core:
+    path: ./be_universe_core
+  flutter_html: ^2.2.1
+  appinio_video_player: ^1.2.0
+  syncfusion_flutter_pdfviewer: ^20.3.59
+  audioplayers: ^1.1.1
+  shimmer: ^2.0.0
+  audio_video_progress_bar: ^0.11.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  retrofit_generator: ^4.2.0
+  build_runner: ^2.3.2
 flutter:
   uses-material-design: true
   assets:

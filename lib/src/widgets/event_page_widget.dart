@@ -1,20 +1,16 @@
-import 'package:be_ready_app/src/components/main_menu/stack_images.dart';
+import 'package:be_universe/src/components/main_menu/stack_images.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventsTile extends StatelessWidget {
   const EventsTile(
-      {Key? key,
-      required this.title,
-      required this.date,
-      required this.participants,
-      required this.path})
+      {Key? key, required this.title, required this.date, required this.path})
       : super(key: key);
 
   final String title;
   final String date;
   final String path;
-  final List<String> participants;
+  // final List<String> participants;
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +85,12 @@ class EventsTile extends StatelessWidget {
                         color: Colors.white30,
                       ),
                     ),
-                    const StackImages(),
-                  ],
-                )
-              ],
-            ),
-          )
+                  // ),
+                  // const StackImages(),
+                ],
+              )
+            ],
+          ),
         ],
       ),
     );

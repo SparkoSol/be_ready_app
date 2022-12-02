@@ -1,4 +1,4 @@
-# be_ready_app
+# BeUniverse App
 
 A new Flutter project.
 

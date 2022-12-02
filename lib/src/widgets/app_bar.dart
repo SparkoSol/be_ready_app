@@ -1,6 +1,6 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/home/drawer_actions/settings/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSize {
@@ -19,6 +19,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
+    print('RRRRRRRRR');
+    print(hasDrawer);
+    print('---------');
     return AppBar(
       // backgroundColor: Colors.white.withOpacity(0.1),
       leadingWidth: 50,

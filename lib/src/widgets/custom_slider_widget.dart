@@ -1,7 +1,8 @@
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'dart:ui' as ui;
+
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui' as ui;
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider(
@@ -29,6 +30,13 @@ class _CustomSliderState extends State<CustomSlider> {
   void initState() {
     value = widget.value;
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomSlider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    value = widget.value;
+    setState(() {});
   }
 
   @override
@@ -95,7 +103,7 @@ class _CustomSliderState extends State<CustomSlider> {
               width: 10,
             ),
             Text(
-              '10',
+              '${widget.value.toInt()}',
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.7),

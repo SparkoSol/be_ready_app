@@ -1,8 +1,12 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/theme.dart';
-import 'package:be_ready_app/src/components/home/drawer_widget.dart';
-import 'package:be_ready_app/src/components/home/home_view.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
+import 'package:be_universe/src/components/home/drawer_widget.dart';
+import 'package:be_universe/src/components/home/home_view.dart';
+import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe_core/be_universe_core.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,13 +28,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     _pages = [
       {'page': const HomeView()},
-
-      /// TODO : Add Second View Here
       {'page': const Text('Second View')},
     ];
-    super.initState();
+    getProfileData();
+  }
+
+  Future<void> getProfileData() async {
+    try {
+      var accessToken = AppData.accessToken;
+      final profile = await AuthenticationService().getProfile(accessToken);
+
+      /// Check Verification
+      await AppData().saveUser(profile);
+      if (!mounted) return;
+      if (profile.loginVia == 'Email' && profile.isVerified != true) {
+        AppNavigation.to(context, const OtpPage(isTimer: false));
+      }
+      setState(() {});
+    } catch (_) {}
   }
 
   @override
@@ -44,7 +62,10 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(parentScaffoldKey: _scaffoldKey, hasDrawer: true),
+      appBar: AppBarWidget(
+        parentScaffoldKey: _scaffoldKey,
+        hasDrawer: true,
+      ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(top: 24),

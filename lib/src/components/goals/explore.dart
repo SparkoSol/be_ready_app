@@ -1,9 +1,9 @@
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/goals/activites_page.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/goals/activites_page.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _ExplorePageState extends State<ExplorePage> {
               AppCourseButtonWidget(onTap: () {}),
               const Spacer(),
               AppButtonWidget(
-                onPressed: () {
+                onPressed: () async {
                   AppNavigation.to(context, const ActivitesPage());
                 },
                 title: 'SUPPORTIVE ACTIVITIES',

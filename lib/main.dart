@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
+import 'package:be_universe/src/app.dart';
 
-import 'src/app.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() => MyApp.initializeAndRun();

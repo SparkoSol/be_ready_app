@@ -1,68 +1,84 @@
-import 'package:be_ready_app/src/base/theme.dart';
+import 'dart:async';
+
+import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// class AppButtonWidget extends StatelessWidget {
-//   const AppButtonWidget({
-//     Key? key,
-//     required this.onPressed,
-//     this.title,
-//     this.child,
-//     this.gradiant,
-//     this.borderRadius,
-//   }) : super(key: key);
-//
-//   final VoidCallback onPressed;
-//   final String? title;
-//   final Widget? child;
-//   final List<Color>? gradiant;
-//   final double? borderRadius;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(borderRadius ?? 16),
-//         gradient: LinearGradient(
-//           colors: gradiant ?? AppColors.buttonGradient,
-//         ),
-//       ),
-//       child: ElevatedButton(
-//         style: ElevatedButton.styleFrom(
-//           disabledForegroundColor: Colors.transparent,
-//           disabledBackgroundColor: Colors.transparent,
-//           shadowColor: Colors.transparent,
-//           backgroundColor: Colors.transparent,
-//           minimumSize: const Size.fromHeight(66),
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(15),
-//           ),
-//         ),
-//         onPressed: onPressed,
-//         child: child ??
-//             Text(
-//               title ?? '',
-//               style: const TextStyle(fontSize: 18),
-//             ),
-//       ),
-//     );
-//   }
-// }
+class AppButtonWidget extends StatefulWidget {
+  const AppButtonWidget({
+    Key? key,
+    required this.onPressed,
+    required this.title,
+    this.isIcon = true,
+    this.after,
+    this.before,
+  }) : super(key: key);
 
-class AppButtonWidget extends StatelessWidget {
-  const AppButtonWidget(
-      {Key? key,
-      required this.onPressed,
-      required this.title,
-      this.isIcon = true})
-      : super(key: key);
-
-  final VoidCallback onPressed;
+  final Future<void> Function()? onPressed;
+  final VoidCallback? before;
+  final VoidCallback? after;
   final String title;
   final bool? isIcon;
 
   @override
+  State<AppButtonWidget> createState() => _AppButtonWidgetState();
+}
+
+class _AppButtonWidgetState extends State<AppButtonWidget> {
+  var _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
+    late Widget child;
+    if (_isLoading) {
+      child = Center(
+        child: CircularProgressIndicator(
+          color: Colors.deepOrangeAccent.withOpacity(0.5),
+          strokeWidth: 3,
+        ),
+      );
+    } else {
+      child = Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Center(
+            child: Text(
+              widget.title.toUpperCase(),
+              style: GoogleFonts.oswald(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          widget.isIcon == true
+              ? Positioned(
+                  right: 16,
+                  bottom: -3.3,
+                  child: Container(
+                    height: 34,
+                    width: 34,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0xFFDA8B6D),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withOpacity(0.3),
+                          Colors.white.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                    child: const Icon(Icons.arrow_forward_sharp),
+                  ),
+                )
+              : const SizedBox(),
+        ],
+      );
+    }
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -82,45 +98,29 @@ class AppButtonWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        onPressed: onPressed,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Center(
-              child: Text(
-                title.toUpperCase(),
-                style: GoogleFonts.oswald(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            isIcon == true
-                ? Positioned(
-                    right: 16,
-                    bottom: -3.3,
-                    child: Container(
-                      height: 34,
-                      width: 34,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color(0xFFDA8B6D),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.white.withOpacity(0.3),
-                            Colors.white.withOpacity(0.0),
-                          ],
-                        ),
-                      ),
-                      child: const Icon(Icons.arrow_forward_sharp),
-                    ),
-                  )
-                : const SizedBox(),
-          ],
-        ),
+        onPressed: _isLoading || widget.onPressed == null
+            ? null
+            : () async {
+                _isLoading = true;
+                setState(() {});
+                try {
+                  if (widget.before != null) {
+                    widget.before!();
+                  }
+                  await widget.onPressed!();
+                } catch (e) {
+                  if (!mounted) return;
+                  ErrorDialog(error: DioException.withDioError(e))
+                      .show(context);
+                }
+                if (!mounted) return;
+                if (widget.after != null) {
+                  widget.after!();
+                }
+                _isLoading = false;
+                setState(() {});
+              },
+        child: child,
       ),
     );
   }

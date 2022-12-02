@@ -1,4 +1,4 @@
-package com.sparkosol.be_ready_app
+package com.digitalprodigee.beuniverse
 
 import io.flutter.embedding.android.FlutterActivity
 
