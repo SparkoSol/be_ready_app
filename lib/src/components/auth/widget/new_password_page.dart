@@ -4,8 +4,8 @@ import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:reusables/mixins/form_state_mixin.dart';
 import 'package:reusables/reusables.dart';
 
 class NewPasswordPage extends StatefulWidget {
@@ -20,10 +20,13 @@ class NewPasswordPage extends StatefulWidget {
   State<NewPasswordPage> createState() => _NewPasswordPageState();
 }
 
-class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
+class _NewPasswordPageState extends State<NewPasswordPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   var _absorb = false;
+
+  final formKey = GlobalKey<FormState>();
+  var autoValidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
               padding: const EdgeInsets.fromLTRB(30, 24, 30, 28),
               child: Form(
                 key: formKey,
-                autovalidateMode: autovalidateMode,
+                autovalidateMode: autoValidateMode,
                 child: Column(children: [
                   const AuthTitleWidget(
                     title: 'Set new password',
@@ -79,7 +82,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
-                    onPressed: () async => submitter(),
+                    onPressed: onSubmit,
                     title: 'Submit',
                   ),
                 ]),
@@ -91,8 +94,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
     );
   }
 
-  @override
   Future<void> onSubmit() async {
+    if (!formKey.currentState!.validate()) {
+      autoValidateMode = AutovalidateMode.onUserInteraction;
+      setState(() {});
+      return;
+    }
     try {
       await AuthenticationApi().confirmResetPassword(ForgotRequest(
         hash: widget.code,
@@ -103,7 +110,10 @@ class _NewPasswordPageState extends State<NewPasswordPage> with FormStateMixin {
         ..pop()
         ..pop()
         ..pop();
-    } catch (_) {
+    } catch (e) {
+      if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {
+        throw Exception('Code is invalid or expired');
+      }
       rethrow;
     }
   }

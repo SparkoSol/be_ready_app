@@ -8,7 +8,6 @@ import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reusables/mixins/form_state_mixin.dart';
 import 'package:reusables/reusables.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -18,10 +17,12 @@ class ResetPasswordPage extends StatefulWidget {
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _ResetPasswordPageState extends State<ResetPasswordPage>
-    with FormStateMixin {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _emailController = TextEditingController();
-  final _absorb = false;
+  var _absorb = false;
+
+  final formKey = GlobalKey<FormState>();
+  var autoValidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
       absorbing: _absorb,
       child: Form(
         key: formKey,
-        autovalidateMode: autovalidateMode,
+        autovalidateMode: autoValidateMode,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           extendBody: true,
@@ -66,7 +67,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
                     validator: InputValidator.email(),
                   ),
                   AppButtonWidget(
-                    onPressed: () async => submitter(),
+                    before: () => setState(() => _absorb = true),
+                    after: () => setState(() => _absorb = false),
+                    onPressed: onSubmit,
                     title: 'SEND',
                   ),
                 ]),
@@ -78,8 +81,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage>
     );
   }
 
-  @override
   Future<void> onSubmit() async {
+    if (!formKey.currentState!.validate()) {
+      autoValidateMode = AutovalidateMode.onUserInteraction;
+      setState(() {});
+      return;
+    }
     try {
       await AuthenticationApi().sendResetPasswordEmail(
         ForgotEmailRequest(email: _emailController.text.trim().toLowerCase()),
