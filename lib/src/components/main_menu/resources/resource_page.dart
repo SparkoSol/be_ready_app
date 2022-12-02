@@ -126,15 +126,16 @@ class _ResourcePageState extends State<ResourcePage> {
                 listViewController: listController,
                 // baseColor: const Color(0xff2E2340),
                 // highLightColor: Colors.white12,
-                shimmerWidget: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: const SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                  ),
-                ),
+                isGridShimmer: true,
+                // shimmerWidget: Card(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(30),
+                //   ),
+                //   child: const SizedBox(
+                //     height: 150,
+                //     width: double.infinity,
+                //   ),
+                // ),
                 builder: (ctx, data) {
                   _content[ResourcesCategories.articles] = data.articles ?? 0;
                   _content[ResourcesCategories.videos] = data.videos ?? 0;

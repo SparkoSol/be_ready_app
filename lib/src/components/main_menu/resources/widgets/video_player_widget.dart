@@ -1,4 +1,5 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -20,13 +21,13 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    print('video url ${widget.url}');
     videoPlayerController = VideoPlayerController.network(widget.url)
       ..initialize().then((value) => setState(() {}));
     _customVideoPlayerController = CustomVideoPlayerController(
       context: context,
       videoPlayerController: videoPlayerController,
     );
+    _customVideoPlayerController.videoPlayerController.play();
   }
 
   @override
@@ -37,20 +38,31 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (videoPlayerController.value.isInitialized) {
-      return SafeArea(
-        child: Center(
-          child: CustomVideoPlayer(
-            customVideoPlayerController: _customVideoPlayerController,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(),
+      body: BackgroundImageWidget(
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              videoPlayerController.value.isInitialized
+                  ? Center(
+                      child: CustomVideoPlayer(
+                        customVideoPlayerController:
+                            _customVideoPlayerController,
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: Colors.deepOrange,
+                      ),
+                    ),
+            ],
           ),
         ),
-      );
-    } else {
-      return const Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 2,
-        ),
-      );
-    }
+      ),
+    );
   }
 }

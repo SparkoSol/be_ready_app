@@ -22,7 +22,7 @@ class MediaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('https://192.168.11.193:3002/uploads/${resource.filename}');
+    print(resource.filename.fileUrl);
     late String icon;
     switch (type) {
       case 'Videos':
@@ -52,9 +52,7 @@ class MediaWidget extends StatelessWidget {
           fit: BoxFit.cover,
           image: resource.thumbnail == ''
               ? const AssetImage(AppAssets.backgroundImage)
-              : NetworkImage(
-                      'https://192.168.11.193:3002/uploads/${resource.thumbnail}')
-                  as ImageProvider,
+              : NetworkImage(resource.thumbnail.fileUrl) as ImageProvider,
         ),
       ),
       child: Column(
@@ -63,31 +61,28 @@ class MediaWidget extends StatelessWidget {
             onTap: () {
               switch (type) {
                 case 'Videos':
-                  AppNavigation.to(
-                      context,
-                      VideoPlayerWidget(
-                          url:
-                              'https://192.168.11.193:3002/uploads/${resource.filename}'));
+                  AppNavigation.to(context,
+                      VideoPlayerWidget(url: resource.filename.fileUrl));
 
                   break;
                 case 'Books':
-                  PdfDialog(
-                          url:
-                              'https://192.168.11.193:3002/uploads/${resource.filename}')
-                      .show(context);
+                  PdfDialog(url: resource.filename.fileUrl).show(context);
 
                   break;
                 case 'Audios':
                   AudioPlayerWidget(
-                    url:
-                        'https://192.168.11.193:3002/uploads/${resource.filename}',
-                    pic:
-                        'https://192.168.11.193:3002/uploads/${resource.thumbnail}',
+                    url: resource.filename,
+                    pic: resource.thumbnail,
                     title: resource.title,
                   ).show(context);
 
                   break;
                 case 'Podcasts':
+                  AudioPlayerWidget(
+                    url: resource.filename,
+                    pic: resource.thumbnail,
+                    title: resource.title,
+                  ).show(context);
                   break;
                 case 'Quotes':
                   break;

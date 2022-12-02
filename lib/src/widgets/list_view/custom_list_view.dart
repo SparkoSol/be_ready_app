@@ -17,6 +17,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
     this.baseColor,
     this.highLightColor,
     this.shimmerWidget,
+    this.isGridShimmer = false,
   })  : _type = _CustomListType.simpler,
         super(key: key, controller: listViewController);
 
@@ -30,6 +31,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
     this.baseColor,
     this.highLightColor,
     this.shimmerWidget,
+    this.isGridShimmer = false,
   })  : _type = _CustomListType.sliver,
         super(key: key, controller: listViewController);
 
@@ -42,6 +44,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
   final Color? highLightColor;
   final _CustomListType _type;
   final Widget? shimmerWidget;
+  final bool isGridShimmer;
 
   @override
   State<CustomListView<T>> createState() => _CustomListViewState<T>();
@@ -51,30 +54,22 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
     with ControlledStateMixin {
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
     late Widget shimmerWidget;
     switch (widget._type) {
       case _CustomListType.simpler:
-        shimmerWidget = Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Shimmer.fromColors(
-              baseColor: widget.baseColor ?? Colors.indigo.withOpacity(0.5),
-              highlightColor: widget.highLightColor ?? Colors.white30,
-              child: ListView.builder(
-                itemBuilder: _cardBuilder,
-                itemCount: 5,
-              ),
-            ),
-          ),
+        shimmerWidget = Padding(
+          padding: const EdgeInsets.all(20),
+          child: _shimmerChild(),
         );
         break;
       case _CustomListType.sliver:
         shimmerWidget = SliverPadding(
           padding: const EdgeInsets.all(20),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              _cardBuilder,
-              childCount: 5,
+          sliver: SliverToBoxAdapter(
+            child: SizedBox(
+              height: media.size.height,
+              child: _shimmerChild(),
             ),
           ),
         );
@@ -121,23 +116,21 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
       if (widget.controller.isList) {
         switch (widget._type) {
           case _CustomListType.simpler:
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    controller: widget.controller.scrollController,
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    itemCount: widget.controller.listData.length,
-                    itemBuilder: (ctx, index) {
-                      return widget.builder(
-                          ctx, widget.controller.listData[index]);
-                    },
-                  ),
+            return Column(children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: widget.controller.scrollController,
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  itemCount: widget.controller.listData.length,
+                  itemBuilder: (ctx, index) {
+                    return widget.builder(
+                        ctx, widget.controller.listData[index]);
+                  },
                 ),
-                if (widget.controller.isSubLoading) subLoadingWidget,
-              ],
-            );
+              ),
+              if (widget.controller.isSubLoading) subLoadingWidget,
+            ]);
           case _CustomListType.sliver:
             var count = widget.controller.listData.length;
             if (widget.controller.isSubLoading) count++;
@@ -157,6 +150,40 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
         return widget.builder(context, widget.controller.data as T);
       }
     }
+  }
+
+  Widget _shimmerChild() {
+    late Widget child;
+    if (widget.isGridShimmer) {
+      child = GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 26,
+          crossAxisSpacing: 17,
+          mainAxisExtent: 185,
+        ),
+        itemBuilder: (_, index) {
+          if (widget.shimmerWidget != null) {
+            return widget.shimmerWidget!;
+          }
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          );
+        },
+      );
+    } else {
+      child = ListView.builder(
+        itemBuilder: _cardBuilder,
+        itemCount: 5,
+      );
+    }
+    return Shimmer.fromColors(
+      baseColor: widget.baseColor ?? Colors.indigo.withOpacity(0.5),
+      highlightColor: widget.highLightColor ?? Colors.white30,
+      child: child,
+    );
   }
 
   Widget _cardBuilder(BuildContext context, int index) {

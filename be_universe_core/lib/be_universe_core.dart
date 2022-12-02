@@ -10,6 +10,10 @@ part 'authorization_interceptor.dart';
 
 part 'be_universe_core.g.dart';
 
+part 'data/app_data.dart';
+
+part 'data/mixins/profile_mixin.dart';
+
 part 'src/authentication/api.dart';
 
 part 'src/authentication/models.dart';
@@ -42,19 +46,21 @@ part 'src/resources/requests.dart';
 
 part 'src/resources/responses.dart';
 
-part 'data/app_data.dart';
-
-part 'data/mixins/profile_mixin.dart';
-
 typedef _Json = Map<String, dynamic>;
 
 class Api {
+  static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
+
+  static String get apiUl => _apiUrl;
+
   static Future<void> initialize() async {
     await AppData.initialize();
   }
 
-  static final client = Dio(BaseOptions(
-    baseUrl: 'https://beuniverse-api.sparkosol.com/',
-  ))
+  static final client = Dio(BaseOptions(baseUrl: _apiUrl))
     ..interceptors.add(AuthorizationInterceptor());
+}
+
+extension ApiExtension on String {
+  String get fileUrl => '${Api.apiUl}uploads/$this';
 }
