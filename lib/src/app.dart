@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
     Awaiter.defaultBehaviour = AppAwaitBehaviour();
     // DioException.setDefaultParser = customErrorMessage;
     // AppData.initialize();
+
     await Api.initialize();
     return runApp(const MyApp._());
   }
