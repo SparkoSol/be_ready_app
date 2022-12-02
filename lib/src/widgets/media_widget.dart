@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/main_menu/resources/resources_controller.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/pdf_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/video_player_widget.dart';
@@ -80,10 +79,13 @@ class MediaWidget extends StatelessWidget {
                   break;
                 case 'Audios':
                   AudioPlayerWidget(
-                          url:
-                              'https://192.168.11.193:3002/uploads/${resource.filename}',
-                          title: resource.title)
-                      .show(context);
+                    url:
+                        'https://192.168.11.193:3002/uploads/${resource.filename}',
+                    pic:
+                        'https://192.168.11.193:3002/uploads/${resource.thumbnail}',
+                    title: resource.title,
+                  ).show(context);
+
                   break;
                 case 'Podcasts':
                   break;

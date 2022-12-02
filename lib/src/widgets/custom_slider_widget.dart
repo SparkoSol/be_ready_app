@@ -103,7 +103,7 @@ class _CustomSliderState extends State<CustomSlider> {
               width: 10,
             ),
             Text(
-              '${widget.value}',
+              '${widget.value.toInt()}',
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.7),

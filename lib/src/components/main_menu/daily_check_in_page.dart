@@ -56,70 +56,84 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
   //     //     $showSnackBar(context, e.toString());
   //   }
   // }
+  var _absorb = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 58,
-            right: 58,
-            bottom: 20,
-            top: MediaQuery.of(context).viewPadding.top + 56,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GoalsPageTitle(text: 'Daily Check-In'),
-              const GoalsPageDescription(text: 'Aware. Acknowledge. Accept.'),
-              CustomListView<DailyCheckInResponse>.simpler(
-                listViewController: listController,
-                builder: (context, data) {
-                  spiritValue = data.mySpiritFeels.toDouble();
-                  mindSliderValue = data.myMindFeels.toDouble();
-                  bodySliderValue = data.myBodyFeels.toDouble();
-                  return Column(children: [
-                    CustomSlider(
-                      value: mindSliderValue,
-                      callback: (v) async {
-                        mindSliderValue = v;
-                        await sendDailyCheckIn(
-                            spiritValue, mindSliderValue, bodySliderValue);
-                      },
-                      text: 'My Mind Feels',
-                    ),
-                    CustomSlider(
-                      value: bodySliderValue,
-                      callback: (v) async {
-                        bodySliderValue = v;
-                        await sendDailyCheckIn(
-                            spiritValue, mindSliderValue, bodySliderValue);
-                      },
-                      text: 'My Body Feels',
-                    ),
-                    CustomSlider(
-                      value: spiritValue,
-                      callback: (v) async {
-                        spiritValue = v;
-                        await sendDailyCheckIn(
-                            spiritValue, mindSliderValue, bodySliderValue);
-                      },
-                      text: 'My Spirit Feels',
-                    ),
-                  ]);
-                },
+    return AbsorbPointer(
+      absorbing: _absorb,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBarWidget(),
+        body: SingleChildScrollView(
+          child: BackgroundImageWidget(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 58,
+                right: 58,
+                bottom: 20,
+                top: MediaQuery.of(context).viewPadding.top + 56,
               ),
-              // const Spacer(),
-              AppButtonWidget(
-                onPressed: () async {
-                  $showBottomSheet(context, const ThankYouWidget());
-                },
-                title: 'See results',
-              )
-            ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const GoalsPageTitle(text: 'Daily Check-In'),
+                  const GoalsPageDescription(
+                      text: 'Aware. Acknowledge. Accept.'),
+                  CustomSlider(
+                    value: mindSliderValue,
+                    callback: (v) async {
+                      mindSliderValue = v;
+                      setState(() {});
+                    },
+                    text: 'My Mind Feels',
+                  ),
+                  CustomSlider(
+                    value: bodySliderValue,
+                    callback: (v) async {
+                      bodySliderValue = v;
+                      setState(() {});
+                    },
+                    text: 'My Body Feels',
+                  ),
+
+                  CustomSlider(
+                    value: spiritValue,
+                    callback: (v) async {
+                      spiritValue = v;
+                      setState(() {});
+                    },
+                    text: 'My Spirit Feels',
+                  ),
+
+                  // CustomListView<DailyCheckInResponse>.simpler(
+                  //   listViewController: listController,
+                  //   builder: (context, data) {
+                  //     spiritValue = data.mySpiritFeels.toDouble();
+                  //     mindSliderValue = data.myMindFeels.toDouble();
+                  //     bodySliderValue = data.myBodyFeels.toDouble();
+                  //     return Column(children: []);
+                  //   },
+                  // ),
+                  const Spacer(),
+                  AppButtonWidget(
+                    before: () => setState(() => _absorb = true),
+                    after: () => setState(() => _absorb = false),
+                    onPressed: () async {
+                      await sendDailyCheckIn(
+                          spiritValue, mindSliderValue, bodySliderValue);
+                      if (mounted) {
+                        $showBottomSheet(context, const ThankYouWidget());
+                      }
+                    },
+                    title: 'See results',
+                  ),
+                  const SizedBox(
+                    height: 55,
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -146,7 +160,6 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
       bodySliderValue = response.myBodyFeels.toDouble();
       setState(() {});
     } catch (e) {
-      // $showSnackBar(context, e.toString());
       ErrorDialog(error: e).show(context);
     }
   }

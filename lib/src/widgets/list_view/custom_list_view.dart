@@ -86,13 +86,18 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
         : const CupertinoActivityIndicator();
     final noDataWidget = widget.noDataWidget ??
         const Center(
-          child: Text('Data not found!'),
+          child: Text('Data not found!', style: TextStyle(color: Colors.white)),
         );
     final errorWidget = Center(
       child: widget.errorWidget ??
           Column(children: [
-            const Icon(Icons.warning_amber_rounded, size: 70),
-            Text(widget.controller.error?.description ?? ''),
+            const Icon(
+              Icons.warning_amber_rounded,
+              size: 70,
+              color: Colors.white,
+            ),
+            Text(widget.controller.error?.description ?? '',
+                style: const TextStyle(color: Colors.white)),
           ]),
     );
     if (widget.controller.isLoading) {

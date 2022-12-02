@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
 
 class EventsPage extends ControlledWidget<EventsController> {
-  EventsPage({Key? key, required this.eventsController})
+  const EventsPage({Key? key, required this.eventsController})
       : super(key: key, controller: eventsController);
   final EventsController eventsController;
 
@@ -155,26 +155,26 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                                 i < widget.eventsController.events.length;
                                 i++)
                               GestureDetector(
-                                onTap: () => AppNavigation.to(
-                                  context,
-                                  EventsDetailsPage(
-                                    title:
-                                        widget.eventsController.events[i].name,
-                                    date:
-                                        widget.eventsController.events[i].date,
-                                    location: widget
-                                        .eventsController.events[i].location,
-                                    imagePath: AppAssets.temple,
-                                    participants: const [
-                                      AppAssets.user,
-                                      AppAssets.user,
-                                      AppAssets.user,
-                                      AppAssets.user,
-                                      AppAssets.user,
-                                      AppAssets.user,
-                                    ],
-                                  ),
-                                ),
+                                // onTap: () => AppNavigation.to(
+                                //   context,
+                                //   EventsDetailsPage(
+                                //     title:
+                                //         widget.eventsController.events[i].name,
+                                //     date:
+                                //         widget.eventsController.events[i].date,
+                                //     location: widget
+                                //         .eventsController.events[i].location,
+                                //     imagePath: AppAssets.temple,
+                                //     participants: const [
+                                //       AppAssets.user,
+                                //       AppAssets.user,
+                                //       AppAssets.user,
+                                //       AppAssets.user,
+                                //       AppAssets.user,
+                                //       AppAssets.user,
+                                //     ],
+                                //   ),
+                                // ),
                                 child: EventsTile(
                                   title: widget.eventsController.events[i].name,
                                   date: DateTime.parse(widget

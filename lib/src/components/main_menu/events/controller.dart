@@ -26,6 +26,7 @@ class EventsController extends ChangeNotifier {
       print(response);
       return response;
     } catch (e) {
+      print(e);
       throw DioException.withDioError(e);
     }
   }

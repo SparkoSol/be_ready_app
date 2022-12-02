@@ -20,7 +20,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-
+    print('video url ${widget.url}');
     videoPlayerController = VideoPlayerController.network(widget.url)
       ..initialize().then((value) => setState(() {}));
     _customVideoPlayerController = CustomVideoPlayerController(

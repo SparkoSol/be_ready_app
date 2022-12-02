@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ConfirmationDialog extends StatelessWidget {
-  const ConfirmationDialog({
+  ConfirmationDialog({
     Key? key,
     required this.text,
   }) : super(key: key);
 
   final String text;
-
+  var fontStyle = GoogleFonts.poppins(color: Colors.indigo);
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -16,11 +17,17 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Yes'),
+          child: Text(
+            'Yes',
+            style: fontStyle,
+          ),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('No'),
+          child: Text(
+            'No',
+            style: fontStyle,
+          ),
         ),
       ],
     );

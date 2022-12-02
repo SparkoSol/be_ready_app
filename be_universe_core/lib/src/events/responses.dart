@@ -5,7 +5,6 @@ class EventsResponse {
   EventsResponse({
     required this.name,
     required this.date,
-    required this.participants,
     required this.imageName,
     required this.location,
   });
@@ -18,8 +17,8 @@ class EventsResponse {
   final String location;
   @JsonKey(name: 'date')
   final String date;
-  @JsonKey(name: 'participate_by')
-  final List<String> participants;
+  // @JsonKey(name: 'participate_by')
+  // final List<String> participants;
 
   factory EventsResponse.fromJson(_Json json) => _$EventsResponseFromJson(json);
 }
