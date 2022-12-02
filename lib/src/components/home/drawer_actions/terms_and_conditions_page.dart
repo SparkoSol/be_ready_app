@@ -33,11 +33,15 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 30,
-            right: 30,
+            // left: 30,
+            // right: 30,
             top: padding.top + 56,
           ),
           child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+              left: 30,
+              right: 30,
+            ),
             physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

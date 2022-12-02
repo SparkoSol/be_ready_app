@@ -27,8 +27,10 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 58,
-            right: 58,
+            // left: 58,
+            // right: 58,
+            left: 30,
+            right: 30,
             bottom: 20,
             top: MediaQuery.of(context).viewPadding.top + 56,
           ),

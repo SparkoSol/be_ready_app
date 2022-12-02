@@ -24,16 +24,28 @@ class _FAQPageState extends State<FAQPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 46,
-            right: 46,
             top: padding.top + 56,
           ),
           child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+              left: 30,
+              right: 30,
+             // left: 46,
+             //  right: 46,
+              // top: padding.top + 56,
+            ),
             physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const DrawerActionTitleWidget(title: 'FAQ’s'),
+                Text(
+                  'FAQ’s',
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
+                ),SizedBox(height: 10,),
+                // const DrawerActionTitleWidget(title: 'FAQ’s'),
                 for (int i = 0; i < _isExpanded.length; i++) ...[
                   GestureDetector(
                     onTap: () {
