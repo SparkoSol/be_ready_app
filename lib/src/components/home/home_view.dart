@@ -8,7 +8,6 @@ import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/controller.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
-import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/gradient_progress_indicator.dart';
@@ -26,24 +25,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => getProfileData());
-    super.initState();
-  }
-
-  String name = '';
-
-  Future<void> getProfileData() async {
-    var accessToken = AppData.accessToken;
-    print('access token $accessToken');
-    final profile = await AuthenticationService().getProfile(accessToken);
-    await AppData().saveUser(profile);
-    name = profile.username;
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
               padding: const EdgeInsets.only(top: 33),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  'Welcome, $name',
+                  'Welcome, ${AppData().readLastUser().name}',
                   style: const TextStyle(fontSize: 33, color: Colors.white),
                 ),
               ),

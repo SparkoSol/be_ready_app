@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/auth/reset_password_page.dart';
 import 'package:be_universe/src/components/auth/sign_up_page.dart';
 import 'package:be_universe/src/components/auth/widget/auth_text_span_widget.dart';
@@ -153,18 +155,31 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {});
       return;
     }
-
+    final service = AuthenticationService();
     try {
-      await AuthenticationService().signIn(
+      final token = await service.signIn(
         UserSignInRequest(
           username: _emailController.text.trim().toLowerCase(),
           password: _passwordController.text.trim(),
         ),
         _rememberMe,
       );
+      final profile = await service.getProfile(token);
+      await AppData().saveUser(profile);
       if (!mounted) return;
       FocusScope.of(context).unfocus();
-      AppNavigation.navigateRemoveUntil(context, const HomePage());
+      if (profile.loginVia == 'Email' && profile.isVerified != true) {
+        $showSnackBar(context, 'Your account is not verified');
+        AppNavigation.to(
+          context,
+          const OtpPage(
+            isForgotPassword: false,
+            isTimer: false,
+          ),
+        );
+      } else {
+        AppNavigation.navigateRemoveUntil(context, const HomePage());
+      }
     } catch (_) {
       rethrow;
     }

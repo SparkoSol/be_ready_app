@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 class AuthenticationService {
   final _api = AuthenticationApi();
 
-  Future<void> signIn(final UserSignInRequest request, bool rememberMe) async {
+  Future<String> signIn(final UserSignInRequest request, bool rememberMe) async {
     try {
       final response = await _api.signIn(request);
       log(response.signInToken);
@@ -19,6 +19,7 @@ class AuthenticationService {
         response.signInToken,
         rememberMe,
       );
+      return response.signInToken;
     } catch (e) {
       rethrow;
     }

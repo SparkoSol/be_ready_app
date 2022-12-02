@@ -1,5 +1,7 @@
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/home/drawer_widget.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/services/auth_api.dart';
@@ -26,23 +28,33 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     _pages = [
       {'page': const HomeView()},
       {'page': const Text('Second View')},
     ];
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => getProfileData());
-    super.initState();
+    getProfileData();
   }
 
   Future<void> getProfileData() async {
-    var accessToken = AppData.accessToken;
-    print('user token $accessToken');
-    final profile = await AuthenticationService().getProfile(accessToken);
-    print('user id ${profile.userid}');
-    print('user name ${profile.username}');
+    try {
+      var accessToken = AppData.accessToken;
+      final profile = await AuthenticationService().getProfile(accessToken);
 
-    await AppData().saveUser(profile);
+      /// Check Verification
+      await AppData().saveUser(profile);
+      if (!mounted) return;
+      if (profile.loginVia == 'Email' && profile.isVerified != true) {
+        AppNavigation.to(
+          context,
+          const OtpPage(
+            isForgotPassword: false,
+            isTimer: false,
+          ),
+        );
+      }
+      setState(() {});
+    } catch (_) {}
   }
 
   @override

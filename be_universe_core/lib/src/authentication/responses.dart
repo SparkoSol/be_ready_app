@@ -33,10 +33,10 @@ class ProfileResponse extends HiveObject {
     required this.userid,
     required this.username,
     required this.isVerified,
-    required this.image,
+    this.image,
     required this.name,
     required this.email,
-    required this.fcmToken,
+    this.fcmToken,
     required this.loginVia,
   });
 
@@ -54,7 +54,7 @@ class ProfileResponse extends HiveObject {
   @HiveField(5)
   String loginVia;
   @HiveField(6)
-  String image;
+  String? image;
   @HiveField(7)
   String? fcmToken;
 

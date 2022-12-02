@@ -1,6 +1,7 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/components/auth/widget/new_password_page.dart';
+import 'package:be_universe/src/components/auth/widget/otp_sign_out_button.dart';
 import 'package:be_universe/src/components/auth/widget/timed_widget.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
@@ -12,8 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpPage extends StatefulWidget {
-  const OtpPage({Key? key, required this.isForgotPassword}) : super(key: key);
+  const OtpPage({
+    Key? key,
+    required this.isForgotPassword,
+    this.isTimer = true,
+  }) : super(key: key);
+
   final bool isForgotPassword;
+  final bool isTimer;
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -82,128 +89,139 @@ class _OtpPageState extends State<OtpPage> {
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
-    return AbsorbPointer(
-      absorbing: _absorb,
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(),
-        body: BackgroundImageWidget(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: padding.top + 56,
-              bottom: padding.bottom,
-            ),
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(30, 22, 30, 0),
-              child: Column(
-                children: [
-                  const AuthTitleWidget(title: 'Verification'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14, bottom: 30),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'We’ve sent you a verification code to your email',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          color: Colors.white,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: AbsorbPointer(
+        absorbing: _absorb,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(),
+          body: BackgroundImageWidget(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: padding.top + 56,
+                bottom: padding.bottom,
+              ),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(30, 22, 30, 0),
+                child: Column(
+                  children: [
+                    const AuthTitleWidget(title: 'Verification'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 14, bottom: 30),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'We’ve sent you a verification code to your email',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 62,
-                        child: AppTextField(
-                          boxShadow: boxShadow,
-                          keyboardType: TextInputType.number,
-                          onChanged: _digitInputHandler(
-                            null,
-                            _digit1,
-                            _digit2,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 62,
+                          child: AppTextField(
+                            boxShadow: boxShadow,
+                            keyboardType: TextInputType.number,
+                            onChanged: _digitInputHandler(
+                              null,
+                              _digit1,
+                              _digit2,
+                            ),
+                            focusNode: _digit1,
+                            textEditingController: _controller1,
+                            textAlign: TextAlign.center,
+                            hintColor: Colors.white,
+                            maxLength: 1,
+                            hint: '-',
+                            bottomPadding: 45,
                           ),
-                          focusNode: _digit1,
-                          textEditingController: _controller1,
-                          textAlign: TextAlign.center,
-                          hintColor: Colors.white,
-                          maxLength: 1,
-                          hint: '-',
-                          bottomPadding: 45,
                         ),
-                      ),
-                      SizedBox(
-                        width: 62,
-                        child: AppTextField(
-                          boxShadow: boxShadow,
-                          keyboardType: TextInputType.number,
-                          onChanged: _digitInputHandler(
-                            _digit1,
-                            _digit2,
-                            _digit3,
+                        SizedBox(
+                          width: 62,
+                          child: AppTextField(
+                            boxShadow: boxShadow,
+                            keyboardType: TextInputType.number,
+                            onChanged: _digitInputHandler(
+                              _digit1,
+                              _digit2,
+                              _digit3,
+                            ),
+                            hint: '-',
+                            textAlign: TextAlign.center,
+                            maxLength: 1,
+                            hintColor: Colors.white,
+                            focusNode: _digit2,
+                            textEditingController: _controller2,
+                            bottomPadding: 45,
                           ),
-                          hint: '-',
-                          textAlign: TextAlign.center,
-                          maxLength: 1,
-                          hintColor: Colors.white,
-                          focusNode: _digit2,
-                          textEditingController: _controller2,
-                          bottomPadding: 45,
                         ),
-                      ),
-                      SizedBox(
-                        width: 62,
-                        child: AppTextField(
-                          boxShadow: boxShadow,
-                          focusNode: _digit3,
-                          keyboardType: TextInputType.number,
-                          onChanged: _digitInputHandler(
-                            _digit2,
-                            _digit3,
-                            _digit4,
+                        SizedBox(
+                          width: 62,
+                          child: AppTextField(
+                            boxShadow: boxShadow,
+                            focusNode: _digit3,
+                            keyboardType: TextInputType.number,
+                            onChanged: _digitInputHandler(
+                              _digit2,
+                              _digit3,
+                              _digit4,
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLength: 1,
+                            hint: '-',
+                            hintColor: Colors.white,
+                            textEditingController: _controller3,
+                            bottomPadding: 45,
                           ),
-                          textAlign: TextAlign.center,
-                          maxLength: 1,
-                          hint: '-',
-                          hintColor: Colors.white,
-                          textEditingController: _controller3,
-                          bottomPadding: 45,
                         ),
-                      ),
-                      SizedBox(
-                        width: 62,
-                        child: AppTextField(
-                          bottomPadding: 45,
-                          boxShadow: boxShadow,
-                          keyboardType: TextInputType.number,
-                          onChanged: _digitInputHandler(
-                            _digit3,
-                            _digit4,
-                            null,
+                        SizedBox(
+                          width: 62,
+                          child: AppTextField(
+                            bottomPadding: 45,
+                            boxShadow: boxShadow,
+                            keyboardType: TextInputType.number,
+                            onChanged: _digitInputHandler(
+                              _digit3,
+                              _digit4,
+                              null,
+                            ),
+                            hintColor: Colors.white,
+                            maxLength: 1,
+                            hint: '-',
+                            textAlign: TextAlign.center,
+                            textEditingController: _controller4,
+                            focusNode: _digit4,
                           ),
-                          hintColor: Colors.white,
-                          maxLength: 1,
-                          hint: '-',
-                          textAlign: TextAlign.center,
-                          textEditingController: _controller4,
-                          focusNode: _digit4,
                         ),
-                      ),
-                    ],
-                  ),
-                  AppButtonWidget(
-                    before: () => setState(() => _absorb = true),
-                    after: () => setState(() => _absorb = false),
-                    onPressed: !canVerify ? null : _verify,
-                    title: 'CONTINUE',
-                  ),
-                  const SizedBox(height: 28),
-                  const TimerWidget(seconds: 60),
-                ],
+                      ],
+                    ),
+                    AppButtonWidget(
+                      before: () => setState(() => _absorb = true),
+                      after: () => setState(() => _absorb = false),
+                      onPressed: !canVerify ? null : _verify,
+                      title: 'CONTINUE',
+                    ),
+                    const SizedBox(height: 28),
+                    TimerWidget(
+                      seconds: 60,
+                      isTimer: widget.isTimer,
+                    ),
+                    const SizedBox(height: 20),
+                    OtpSignOutButton(
+                      before: () => setState(() => _absorb = true),
+                      after: () => setState(() => _absorb = false),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
