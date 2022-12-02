@@ -25,7 +25,7 @@ class _SettingPageState extends State<SettingPage> {
           padding: EdgeInsets.only(top: padding.top + 56),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(top: 166),
+            padding: const EdgeInsets.only(left: 30, right: 30),
             child: Column(children: [
               const Text(
                 'Hello, Laurie!',
@@ -192,8 +192,8 @@ class _ProfileDataContainer extends StatelessWidget {
       borderRadius: BorderRadius.circular(24),
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(left: 52, right: 45, bottom: 29),
-        padding: const EdgeInsets.fromLTRB(31, 26, 24, 27),
+        margin: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: Colors.transparent,
@@ -208,3 +208,34 @@ class _ProfileDataContainer extends StatelessWidget {
     );
   }
 }
+
+///OldCode Shahoor
+// class _ProfileDataContainer extends StatelessWidget {
+//   const _ProfileDataContainer({Key? key, required this.child, this.onTap})
+//       : super(key: key);
+//
+//   final Widget child;
+//   final VoidCallback? onTap;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       borderRadius: BorderRadius.circular(24),
+//       onTap: onTap,
+//       child: Container(
+//         margin: const EdgeInsets.only(left: 52, right: 45, bottom: 29),
+//         padding: const EdgeInsets.fromLTRB(31, 26, 24, 27),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(24),
+//           color: Colors.transparent,
+//           shape: BoxShape.rectangle,
+//           border: Border.all(
+//             color: Colors.white.withOpacity(0.1),
+//             width: 1.5,
+//           ),
+//         ),
+//         child: child,
+//       ),
+//     );
+//   }
+// }
