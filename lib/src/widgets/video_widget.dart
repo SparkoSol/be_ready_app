@@ -13,9 +13,9 @@ class VideoWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 51),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(35),
+        borderRadius: BorderRadius.circular(12),
         image: const DecorationImage(
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           image: AssetImage(AppAssets.videoBg),
         ),
       ),
@@ -45,8 +45,8 @@ class VideoWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 3),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(35),
-                  bottomLeft: Radius.circular(35),
+                  bottomRight: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(
@@ -66,8 +66,8 @@ class VideoWidget extends StatelessWidget {
                       ),
                       shape: BoxShape.rectangle,
                       borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(35),
-                        bottomLeft: Radius.circular(35),
+                        bottomRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
                       ),
                     ),
                     child: Row(children: [
