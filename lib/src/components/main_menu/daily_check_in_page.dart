@@ -1,16 +1,16 @@
 import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/goals/activites_page.dart';
+import 'package:be_universe/src/components/goals/explore.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/custom_slider_widget.dart';
 import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
-import 'package:be_universe/src/widgets/list_view/custom_list_view.dart';
 import 'package:be_universe/src/widgets/text.dart';
-import 'package:be_universe/src/widgets/thank_you_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
-import 'package:reusables/reusables.dart';
 
 class DailyCheckInPage extends StatefulWidget {
   const DailyCheckInPage({Key? key}) : super(key: key);
@@ -20,16 +20,14 @@ class DailyCheckInPage extends StatefulWidget {
 }
 
 class _DailyCheckInPageState extends State<DailyCheckInPage> {
-  double bodySliderValue = 0;
-  double mindSliderValue = 0;
-  double spiritValue = 0;
+  double bodySliderValue = 1;
+  double mindSliderValue = 1;
+  double spiritValue = 1;
   String userId = '';
   late CustomListViewController<DailyCheckInResponse> listController;
 
   @override
   void initState() {
-    // WidgetsBinding.instance
-    //     .addPostFrameCallback((timeStamp) => sendDailyCheckIn(0, 0, 0));
     super.initState();
     listController = CustomListViewController<DailyCheckInResponse>(
       dataFunction: () => DailyCheckInApi().getDailyCheckIn(
@@ -123,7 +121,20 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                       await sendDailyCheckIn(
                           spiritValue, mindSliderValue, bodySliderValue);
                       if (mounted) {
-                        $showBottomSheet(context, const ThankYouWidget());
+                        if (mindSliderValue < 5 ||
+                            bodySliderValue < 5 ||
+                            spiritValue < 5) {
+                          AppNavigation.toReplace(
+                              context,
+                              ExplorePage(
+                                bodyValue: bodySliderValue,
+                                mindValue: mindSliderValue,
+                                spiritValue: spiritValue,
+                              ));
+                        } else {
+                          AppNavigation.toReplace(
+                              context, const ActivitesPage());
+                        }
                       }
                     },
                     title: 'See results',
@@ -143,17 +154,13 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
   Future<void> sendDailyCheckIn(double spirit, double mind, double body) async {
     try {
       final userData = AppData().readLastUser();
-      final response = await Awaiter.process(
-        context: context,
-        future: DailyCheckInService().sendDailyCheckInData(
-          DailyCheckInModel(
-            userId: userData.userid,
-            myBodyFeels: body.toInt(),
-            myMindFeels: mind.toInt(),
-            mySpiritFeels: spirit.toInt(),
-          ),
+      final response = await DailyCheckInService().sendDailyCheckInData(
+        DailyCheckInModel(
+          userId: userData.userid,
+          myBodyFeels: body.toInt(),
+          myMindFeels: mind.toInt(),
+          mySpiritFeels: spirit.toInt(),
         ),
-        arguments: 'loading...',
       );
       spiritValue = response.mySpiritFeels.toDouble();
       mindSliderValue = response.myMindFeels.toDouble();

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,7 +78,9 @@ class ThankYouWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Image.asset(AppAssets.thumbIcon, ),
+            Image.asset(
+              AppAssets.thumbIcon,
+            ),
             const SizedBox(height: 38),
             Text(
               'Thank You!',
@@ -104,11 +108,7 @@ class ThankYouWidget extends StatelessWidget {
               child: AppButtonWidget(
                 title: 'Back To HomePage',
                 onPressed: () async {
-                  Navigator.of(context)
-                    ..pop()
-                    ..pop()
-                    ..pop()
-                    ..pop();
+                  AppNavigation.navigateRemoveUntil(context, const HomePage());
                 },
               ),
             )

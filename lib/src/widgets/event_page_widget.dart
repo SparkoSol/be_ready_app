@@ -35,8 +35,8 @@ class EventsTile extends StatelessWidget {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(15),
               image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
                   path,
                 ),
               ),

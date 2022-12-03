@@ -53,7 +53,7 @@ class _CustomSliderState extends State<CustomSlider> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '0',
+              '1',
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.7),
@@ -170,11 +170,11 @@ class CircleThumbShape extends SliderComponentShape {
     //   ).createShader(
     //     Rect.fromCircle(
     //       center: const Offset(1, 1),
-          // radius: 30, center: const Offset(-1, 1),
-        // ),
-      // )
-      // ..strokeWidth = 10
-      // ..style = PaintingStyle.stroke;
+    // radius: 30, center: const Offset(-1, 1),
+    // ),
+    // )
+    // ..strokeWidth = 10
+    // ..style = PaintingStyle.stroke;
     //
     canvas.drawCircle(center, thumbRadius, fillPaint);
     canvas.drawCircle(center, thumbRadius, borderPaint);
