@@ -2,6 +2,8 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/goals/explore.dart';
 import 'package:be_universe/src/components/journey/journey_detail_page.dart';
+import 'package:be_universe/src/components/journey/journey_page.dart';
+import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/text.dart';
@@ -28,10 +30,11 @@ class _BeConnectedState extends State<BeConnected> {
           ),
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(
-                left: 52,
-                right: 52,
-                bottom: 20,
-            ),            child: Column(
+              left: 52,
+              right: 52,
+              bottom: 20,
+            ),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const GoalsPageTitle(text: 'Be Connected '),
@@ -41,9 +44,7 @@ class _BeConnectedState extends State<BeConnected> {
                 ),
                 for (int i = 0; i < 100; i++)
                   GestureDetector(
-                      onTap: () {
-                        AppNavigation.to(context, const ExplorePage());
-                      },
+                      onTap: () {},
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.all(20),
