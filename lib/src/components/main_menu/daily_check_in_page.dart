@@ -1,6 +1,5 @@
 import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/goals/activites_page.dart';
 import 'package:be_universe/src/components/goals/explore.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
@@ -9,6 +8,7 @@ import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/custom_slider_widget.dart';
 import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
 import 'package:be_universe/src/widgets/text.dart';
+import 'package:be_universe/src/widgets/thank_you_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
@@ -132,8 +132,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                                 spiritValue: spiritValue,
                               ));
                         } else {
-                          AppNavigation.toReplace(
-                              context, const ActivitesPage());
+                          $showBottomSheet(context, const ThankYouWidget());
                         }
                       }
                     },

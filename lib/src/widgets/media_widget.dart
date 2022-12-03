@@ -8,6 +8,7 @@ import 'package:be_universe/src/components/main_menu/resources/widgets/video_pla
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MediaWidget extends StatelessWidget {
   const MediaWidget(
@@ -141,11 +142,31 @@ class MediaWidget extends StatelessWidget {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        'Share with a Friend',
-                        style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: Colors.white,
+                      GestureDetector(
+                        onTap: () async {
+                          String sharingText = '';
+                          switch (type) {
+                            case 'Videos':
+                              sharingText = resource.filename.fileUrl;
+                              break;
+                            case 'Audios':
+                              sharingText = resource.filename.fileUrl;
+                              break;
+                            case 'Books':
+                              sharingText = resource.filename.fileUrl;
+                              break;
+                            case 'Podcasts':
+                              sharingText = resource.filename.fileUrl;
+                              break;
+                          }
+                          await Share.share(sharingText);
+                        },
+                        child: Text(
+                          'Share with a Friend',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(

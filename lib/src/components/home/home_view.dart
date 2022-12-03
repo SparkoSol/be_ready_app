@@ -1,4 +1,5 @@
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/home/be_universe_view.dart';
@@ -15,6 +16,7 @@ import 'package:be_universe/src/widgets/main_page_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -86,8 +88,22 @@ class _HomeViewState extends State<HomeView> {
             SliverGrid(
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const DailyCheckInPage());
+                  onPressed: () async {
+                    final response = await Awaiter.process(
+                        future: DailyCheckInApi().getLastDailyCheckIn(
+                            AppData().readLastUser().userid),
+                        context: context,
+                        arguments: 'loading ...');
+                    var dateTime =
+                        DateTime.parse(response.createdAt).dateFormat;
+
+                    if (DateTime.now().dateFormat == dateTime) {
+                      if (mounted) $showSnackBar(context, 'Already Checked In');
+                    } else {
+                      if (mounted) {
+                        AppNavigation.to(context, const DailyCheckInPage());
+                      }
+                    }
                   },
                   text: 'Daily check-In',
                   path: AppAssets.graphIcon,

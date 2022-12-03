@@ -21,6 +21,8 @@ class _ArticleDetailWidgetState extends State<ArticleDetailWidget> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
 
+    print(widget.description);
+
     return Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
@@ -53,10 +55,7 @@ class _ArticleDetailWidgetState extends State<ArticleDetailWidget> {
                       ),
                       const SizedBox(height: 15),
                       Html(
-                        style: {
-                          "*": Style(
-                              color: Colors.white, fontFamily: '{Poppins'),
-                        },
+                        style: {"*": Style(color: Colors.white)},
                         data: widget.description,
                       ),
                     ],

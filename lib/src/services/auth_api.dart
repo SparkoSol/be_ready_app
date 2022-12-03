@@ -10,7 +10,8 @@ import 'package:flutter/cupertino.dart';
 class AuthenticationService {
   final _api = AuthenticationApi();
 
-  Future<String> signIn(final UserSignInRequest request, bool rememberMe) async {
+  Future<String> signIn(
+      final UserSignInRequest request, bool rememberMe) async {
     try {
       final response = await _api.signIn(request);
       log(response.signInToken);
@@ -131,6 +132,9 @@ class AuthenticationService {
       final socialResponse = await _api.socialSignIn(request);
       await AppData.saveAccessToken(socialResponse.socialToken);
       await AppData.saveRememberMe(true);
+      final profile =
+          await AuthenticationService().getProfile(socialResponse.socialToken);
+      await AppData().saveUser(profile);
     } catch (_) {
       rethrow;
     }

@@ -14,4 +14,8 @@ abstract class DailyCheckInApi {
   Future<DailyCheckInResponse> getDailyCheckIn(
     @Path('id') String id,
   );
+  @GET('daily-check-in/user/{id}/last')
+  Future<DailyCheckInResponse> getLastDailyCheckIn(
+    @Path('id') String id,
+  );
 }
