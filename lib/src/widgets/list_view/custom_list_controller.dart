@@ -42,7 +42,7 @@ class CustomListViewController<T> extends ChangeNotifier {
   T? _data;
   var _listData = <T>[];
   DioException? _error;
-  var _page = 0;
+  var _page = 1;
   var _hasMoreData = true;
 
   bool get isLoading => _isLoading;
@@ -63,7 +63,7 @@ class CustomListViewController<T> extends ChangeNotifier {
         if (listDataFunction != null) {
           _listData = await listDataFunction?.call() ?? [];
         } else if (paginatedFunction != null) {
-          if (_page > 0) {
+          if (_page > 1) {
             _isSubLoading = true;
             notifyListeners();
           } else {
@@ -107,7 +107,7 @@ class CustomListViewController<T> extends ChangeNotifier {
   }
 
   Future<void> refresh() {
-    _page = 0;
+    _page = 1;
     return _fetchData();
   }
 }

@@ -89,6 +89,7 @@ class _HomeViewState extends State<HomeView> {
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
                   onPressed: () async {
+                    return;
                     final response = await Awaiter.process(
                         future: DailyCheckInApi().getLastDailyCheckIn(
                             AppData().readLastUser().userid),

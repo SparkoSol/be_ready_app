@@ -11,6 +11,7 @@ abstract class ResourcesApi {
     @Query('type') String type,
     @Query('page') String page,
     @Query('limit') String limit,
+    // @Query('user_id') String userid,
   );
 
   @GET('resources')

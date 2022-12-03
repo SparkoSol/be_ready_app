@@ -15,6 +15,7 @@ class QuotesPage extends StatefulWidget {
           key: key,
         );
   final String type;
+
   @override
   State<QuotesPage> createState() => _QuotesPageState();
 }
@@ -31,6 +32,7 @@ class _QuotesPageState extends State<QuotesPage> {
         widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
+        // AppData().readLastUser().userid,
       ),
     );
   }

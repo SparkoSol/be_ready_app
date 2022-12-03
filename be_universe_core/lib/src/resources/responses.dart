@@ -12,18 +12,19 @@ part of be_universe_core;
 
 @JsonSerializable(createToJson: false)
 class ResourceResponse {
-  const ResourceResponse(
-      {required this.description,
-      required this.title,
-      required this.filename,
-      required this.thumbnail,
-      required this.type,
-      required this.liked,
-      required this.likeCount,
-      required this.createdAt,
-      required this.id,
-      required this.authorName,
-      required this.updateAt});
+  ResourceResponse({
+    required this.description,
+    required this.title,
+    required this.filename,
+    required this.thumbnail,
+    required this.type,
+    this.liked,
+    required this.likeCount,
+    required this.createdAt,
+    required this.id,
+    required this.authorName,
+    required this.updateAt,
+  });
 
   @JsonKey(name: 'filename')
   final String filename;
@@ -38,7 +39,7 @@ class ResourceResponse {
   @JsonKey(name: 'like_count')
   final int likeCount;
   @JsonKey(name: 'liked')
-  final bool liked;
+  bool? liked;
   @JsonKey(name: '_id')
   final String id;
   @JsonKey(name: 'createdAt')
