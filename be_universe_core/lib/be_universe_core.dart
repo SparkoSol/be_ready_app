@@ -14,6 +14,14 @@ part 'data/app_data.dart';
 
 part 'data/mixins/profile_mixin.dart';
 
+part 'src/Faq/api.dart';
+
+part 'src/Faq/models.dart';
+
+part 'src/Faq/requests.dart';
+
+part 'src/Faq/responses.dart';
+
 part 'src/authentication/api.dart';
 
 part 'src/authentication/models.dart';
@@ -30,7 +38,7 @@ part 'src/daily_check_in/requests.dart';
 
 part 'src/daily_check_in/responses.dart';
 
-part 'src/events/api.dart';
+part 'src/events//api.dart';
 
 part 'src/events/models.dart';
 

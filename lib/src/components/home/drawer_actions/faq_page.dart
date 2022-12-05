@@ -1,7 +1,9 @@
-import 'package:be_universe/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
 import 'package:be_universe/src/utils/const.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_view.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +15,15 @@ class FAQPage extends StatefulWidget {
 }
 
 class _FAQPageState extends State<FAQPage> {
-  final _isExpanded = List.generate(30, (i) => false);
+  late CustomListViewController<FaqResponse> faqController;
+
+  @override
+  void initState() {
+    super.initState();
+    faqController = CustomListViewController<FaqResponse>(
+      listDataFunction: () => FaqApi().getAllFaqs(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,32 +33,43 @@ class _FAQPageState extends State<FAQPage> {
       appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
-          padding: EdgeInsets.only(
-            top: padding.top + 56,
-          ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-             // left: 46,
-             //  right: 46,
-            ),
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
+          padding: EdgeInsets.only(top: padding.top + 56, left: 20, right: 20),
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(
+                child: Text(
                   'FAQ’s',
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.white,
                   ),
-                ),const SizedBox(height: 10,),
-                // const DrawerActionTitleWidget(title: 'FAQ’s'),
-                for (int i = 0; i < _isExpanded.length; i++) ...[
-                  GestureDetector(
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 10,
+                ),
+              ),
+              CustomListView<FaqResponse>.sliver(
+                listViewController: faqController,
+                baseColor: const Color(0xff2E2340),
+                shimmerCount: 1,
+                highLightColor: Colors.white12,
+                shimmerWidget: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                  ),
+                ),
+                builder: (ctx, data) {
+                  // final _isExpanded = List.generate(data., (i) => false);
+
+                  return GestureDetector(
                     onTap: () {
-                      _isExpanded[i] = !_isExpanded[i];
+                      // _isExpanded[i] = !_isExpanded[i];
                       setState(() {});
                     },
                     child: Container(
@@ -63,46 +84,48 @@ class _FAQPageState extends State<FAQPage> {
                         color: const Color(0xFF2E2340),
                         borderRadius: BorderRadius.circular(17),
                       ),
-                      child: Row(
-                        children: [
-                          Text(
-                            kLoremIpsumTitle,
-                            style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            Text(
+                              data.title,
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Icon(
-                            _isExpanded[i]
-                                ? Icons.expand_less
-                                : Icons.expand_more,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (_isExpanded[i]) ...[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 6,
-                        right: 6,
-                        bottom: 25,
-                      ),
-                      child: Text(
-                        kLoremIpsum,
-                        style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          color: Colors.white.withOpacity(0.6),
+                            // const Spacer(),
+                            // Icon(
+                            //   _isExpanded[i]
+                            //       ? Icons.expand_less
+                            //       : Icons.expand_more,
+                            //   color: Colors.white,
+                            // ),
+                          ],
                         ),
-                      ),
+                        // if (_isExpanded[i]) ...[
+                        //   Padding(
+                        //     padding: const EdgeInsets.only(
+                        //       left: 6,
+                        //       right: 6,
+                        //       bottom: 25,
+                        //     ),
+                        //     child: Text(
+                        //       kLoremIpsum,
+                        //       style: GoogleFonts.poppins(
+                        //         fontSize: 13,
+                        //         color: Colors.white.withOpacity(0.6),
+                        //       ),
+                        //     ),
+                        //   )
+                        // ]
+                      ]),
                     ),
-                  ],
-                ],
-              ],
-            ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
