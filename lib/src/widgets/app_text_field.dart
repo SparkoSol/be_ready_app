@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_universe/src/base/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -41,6 +41,7 @@ class AppTextField extends StatefulWidget {
     this.textAlign,
     this.focusNode,
     this.boxShadow,
+    this.removeHint = false,
   }) : super(key: key);
 
   final int? maxLength;
@@ -76,6 +77,7 @@ class AppTextField extends StatefulWidget {
   final TextAlign? textAlign;
   final FocusNode? focusNode;
   final List<BoxShadow>? boxShadow;
+  final bool removeHint;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -83,113 +85,158 @@ class AppTextField extends StatefulWidget {
 
 class _AppTextFieldState extends State<AppTextField> {
   late FocusNode focusNode;
+  String? hintText;
+  String? error;
+  var _errorTriggered = false;
+  late TextEditingController _controller;
 
   @override
   void initState() {
-    focusNode = widget.focusNode ?? FocusNode();
-    focusNode.addListener(_listener);
     super.initState();
+    hintText = widget.hint;
+    focusNode = widget.focusNode ?? FocusNode();
+    _controller = widget.textEditingController ?? TextEditingController();
+    _controller.addListener(_textController);
+    focusNode.addListener(_listener);
   }
 
-  void _listener() => setState(() {});
+  void _listener() {
+    if (widget.removeHint) {
+      hintText = focusNode.hasFocus ? '' : widget.hint;
+    }
+    setState(() {});
+  }
+
+  void _textController() {
+    if (_errorTriggered && widget.validator != null) {
+      error = widget.validator!(_controller.text);
+    }
+    setState(() {});
+  }
 
   @override
   void dispose() {
     focusNode.removeListener(_listener);
+    focusNode.dispose();
+    _controller.removeListener(_textController);
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: widget.bottomPadding ?? 21),
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
-        gradient: (focusNode.hasFocus)
-            ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF7491D4),
-                  Color(0xFFDFDFA3),
-                ],
-              )
-            : null,
-        boxShadow: focusNode.hasFocus ? widget.boxShadow : null,
-      ),
-      child: TextFormField(
-        focusNode: focusNode,
-        textAlign: widget.textAlign ?? TextAlign.start,
-        onTap: widget.onTap,
-        onSaved: widget.onSaved,
-        onChanged: widget.onChanged,
-        textInputAction: widget.textInputAction,
-        keyboardType: widget.keyboardType,
-        initialValue: widget.value,
-        maxLines: widget.maxLines,
-        readOnly: widget.readonly,
-        maxLength: widget.maxLength,
-        //minLines: minLines,
-        validator: widget.validator,
-        obscureText: widget.obscure ?? false,
-        controller: widget.textEditingController,
-        scrollPadding: const EdgeInsets.all(100),
-        cursorColor: Colors.white,
-        style: widget.style ??
-            GoogleFonts.poppins(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: widget.hintColor ?? Colors.white,
-            ),
-        decoration: InputDecoration(
-          counterText: '',
-          prefixText: widget.prefixText,
-          prefixStyle: widget.prefixStyle,
-          contentPadding: widget.contentPadding,
-          prefixIcon: widget.prefix,
-          labelText: widget.label,
-          hintText: widget.hint ?? '',
-          suffixIcon: widget.suffix,
-          hintStyle: widget.hintStyle ??
-              GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: widget.hintColor ?? const Color(0xFF747688),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+            gradient: (focusNode.hasFocus)
+                ? const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF7491D4),
+                      Color(0xFFDFDFA3),
+                    ],
+                  )
+                : null,
+            boxShadow: focusNode.hasFocus ? widget.boxShadow : null,
+          ),
+          child: TextFormField(
+            focusNode: focusNode,
+            textAlign: widget.textAlign ?? TextAlign.start,
+            onTap: widget.onTap,
+            onSaved: widget.onSaved,
+            onChanged: widget.onChanged,
+            textInputAction: widget.textInputAction,
+            keyboardType: widget.keyboardType,
+            initialValue: widget.value,
+            maxLines: widget.maxLines,
+            readOnly: widget.readonly,
+            maxLength: widget.maxLength,
+            //minLines: minLines,
+            validator: widget.validator == null
+                ? null
+                : (value) {
+                    error = widget.validator!(value);
+                    _errorTriggered = true;
+                    setState(() {});
+                    return error;
+                  },
+            obscureText: widget.obscure ?? false,
+            controller: _controller,
+            scrollPadding: const EdgeInsets.all(100),
+            cursorColor: Colors.white,
+            style: widget.style ??
+                GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: widget.hintColor ?? Colors.white,
+                ),
+            decoration: InputDecoration(
+              counterText: '',
+              prefixText: widget.prefixText,
+              prefixStyle: widget.prefixStyle,
+              contentPadding: widget.contentPadding,
+              prefixIcon: widget.prefix,
+              labelText: widget.label,
+              hintText: hintText,
+              suffixIcon: widget.suffix,
+              hintStyle: widget.hintStyle ??
+                  GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: widget.hintColor ?? const Color(0xFF747688),
+                  ),
+              enabledBorder: OutlineInputBorder(
+                // borderSide: BorderSide(
+                //   color: showBorder
+                //       ? borderColor ?? const Color(0xFFE1E1E1)
+                //       : Colors.transparent,
+                //   width: 1,
+                // ),
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
               ),
-          enabledBorder: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? borderColor ?? const Color(0xFFE1E1E1)
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+              errorStyle: const TextStyle(
+                fontSize: 0,
+                height: -1,
+                letterSpacing: 0,
+              ),
+              // errorText: focusNode.hasFocus ? null : null,
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
+              ),
+              filled: true,
+              fillColor: widget.fillColor ?? const Color(0xFF2E2340),
+            ),
           ),
-          border: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? borderColor ?? const Color(0xFFE1E1E1)
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
-          ),
-          focusedBorder: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? focusedBorderColor == null
-            //           ? const Color(0xFFE1E1E1)
-            //           : focusedBorderColor!
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
-          ),
-          filled: true,
-          fillColor: widget.fillColor ?? const Color(0xFF2E2340),
         ),
-      ),
+        if (error?.isNotEmpty ?? false)
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              15,
+              focusNode.hasFocus ? 5 : 2,
+              0,
+              0,
+            ),
+            child: Text(
+              error!,
+              style: const TextStyle(
+                color: Colors.redAccent,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        SizedBox(height: widget.bottomPadding ?? 21),
+      ],
     );
   }
 }
@@ -230,113 +277,146 @@ class AppPasswordField extends StatefulWidget {
 
 class _AppPasswordFieldState extends State<AppPasswordField> {
   bool _show = true;
-  final focusNode = FocusNode();
+  late FocusNode focusNode;
+  String? error;
+  var _errorTriggered = false;
+  late TextEditingController _controller;
 
   @override
   void initState() {
-    focusNode.addListener(_listener);
     super.initState();
+    focusNode = FocusNode();
+    _controller = widget.textEditingController ?? TextEditingController();
+    _controller.addListener(_textController);
+    focusNode.addListener(_listener);
+  }
+
+  void _textController() {
+    if (_errorTriggered && widget.validator != null) {
+      error = widget.validator!(_controller.text);
+    }
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    focusNode.removeListener(_listener);
+    focusNode.dispose();
+    _controller.removeListener(_textController);
+    _controller.dispose();
+    super.dispose();
   }
 
   void _listener() => setState(() {});
 
   @override
-  void dispose() {
-    focusNode.removeListener(_listener);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 21),
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: (focusNode.hasFocus)
-            ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF7491D4),
-                  Color(0xFFDFDFA3),
-                ],
-              )
-            : null,
-      ),
-      child: TextFormField(
-        onSaved: widget.onSaved,
-        validator: widget.validator,
-        focusNode: focusNode,
-        cursorColor: Colors.white,
-        obscureText: _show,
-        onChanged: widget.onChanged,
-        controller: widget.textEditingController,
-        textInputAction: widget.textInputAction ?? TextInputAction.next,
-        onFieldSubmitted: (v) {
-          FocusScope.of(context).nextFocus();
-        },
-        scrollPadding: const EdgeInsets.all(100),
-        decoration: InputDecoration(
-          prefixIcon: widget.prefix,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 23,
-            horizontal: 12,
-          ),
-          hintStyle: GoogleFonts.poppins(
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-            color: const Color(0xFF747688),
-          ),
-          enabledBorder: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? borderColor ?? const Color(0xFFE1E1E1)
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
+            gradient: (focusNode.hasFocus)
+                ? const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF7491D4),
+                      Color(0xFFDFDFA3),
+                    ],
+                  )
+                : null,
           ),
-          border: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? borderColor ?? const Color(0xFFE1E1E1)
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          focusedBorder: OutlineInputBorder(
-            // borderSide: BorderSide(
-            //   color: showBorder
-            //       ? focusedBorderColor == null
-            //           ? const Color(0xFFE1E1E1)
-            //           : focusedBorderColor!
-            //       : Colors.transparent,
-            //   width: 1,
-            // ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          filled: true,
-          fillColor: const Color(0xFF2E2340),
-          labelText: widget.label,
-          hintText: widget.hint,
-          suffixIcon: InkWell(
-            onTap: () => setState(
-              () => _show = !_show,
+          child: TextFormField(
+            onSaved: widget.onSaved,
+            validator: widget.validator == null
+                ? null
+                : (value) {
+                    error = widget.validator!(value);
+                    _errorTriggered = true;
+                    setState(() {});
+                    return error;
+                  },
+            focusNode: focusNode,
+            cursorColor: Colors.white,
+            obscureText: _show,
+            onChanged: widget.onChanged,
+            controller: _controller,
+            textInputAction: widget.textInputAction ?? TextInputAction.next,
+            onFieldSubmitted: (v) {
+              FocusScope.of(context).nextFocus();
+            },
+            scrollPadding: const EdgeInsets.all(100),
+            decoration: InputDecoration(
+              prefixIcon: widget.prefix,
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 23,
+                horizontal: 12,
+              ),
+              hintStyle: GoogleFonts.poppins(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: const Color(0xFF747688),
+              ),
+              errorStyle: const TextStyle(
+                fontSize: 0,
+                height: -1,
+                letterSpacing: 0,
+              ),
+              // errorText: focusNode.hasFocus ? null : null,
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular( 12),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              filled: true,
+              fillColor: const Color(0xFF2E2340),
+              labelText: widget.label,
+              hintText: widget.hint,
+              suffixIcon: InkWell(
+                onTap: () => setState(
+                  () => _show = !_show,
+                ),
+                child: Image.asset(
+                  AppAssets.hiddenIcon,
+                  color: _show ? null : Colors.white,
+                ),
+              ),
             ),
-            child: Image.asset(
-              AppAssets.hiddenIcon,
-              color: _show ? null : Colors.white,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: Colors.white,
             ),
           ),
         ),
-        style: GoogleFonts.poppins(
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-          color: Colors.white,
-        ),
-      ),
+        if (error?.isNotEmpty ?? false)
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              15,
+              focusNode.hasFocus ? 5 : 2,
+              0,
+              0,
+            ),
+            child: Text(
+              error!,
+              style: const TextStyle(
+                color: Colors.redAccent,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        const SizedBox(height: 21),
+      ],
     );
   }
 }

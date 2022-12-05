@@ -7,6 +7,7 @@ class AppAssets {
   static const passwordIcon = '$_path/password_icon.png';
   static const facebook = '$_path/facebook_logo.png';
   static const google = '$_path/google_logo.png';
+  static const apple = '$_path/apple.png';
   static const profileIcon = '$_path/profile_icon.png';
   static const journeyHome = '$_path/journey.png';
   static const playButton = '$_path/play.png';
@@ -43,4 +44,8 @@ class AppAssets {
   static const settingsIcon = '$_path/settings_icon.png';
   static const drawerIcon = '$_path/drawer_icon.png';
   static const eventComingUp = '$_path/event_coming.png';
+  static const audioIcon = '$_path/audio.png';
+  static const bookIcon = '$_path/book.png';
+  static const podcastIcon = '$_path/podcast.png';
+  static const quotesIcon = '$_path/quotes.png';
 }

@@ -1,7 +1,8 @@
-import 'package:be_ready_app/src/widgets/text.dart';
+import 'dart:ui' as ui;
+
+import 'package:be_universe/src/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui' as ui;
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider(
@@ -32,6 +33,13 @@ class _CustomSliderState extends State<CustomSlider> {
   }
 
   @override
+  void didUpdateWidget(covariant CustomSlider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    value = widget.value;
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -45,7 +53,7 @@ class _CustomSliderState extends State<CustomSlider> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '0',
+              '1',
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.7),
@@ -95,7 +103,7 @@ class _CustomSliderState extends State<CustomSlider> {
               width: 10,
             ),
             Text(
-              '10',
+              '${widget.value.toInt()}',
               style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.7),
@@ -162,11 +170,11 @@ class CircleThumbShape extends SliderComponentShape {
     //   ).createShader(
     //     Rect.fromCircle(
     //       center: const Offset(1, 1),
-          // radius: 30, center: const Offset(-1, 1),
-        // ),
-      // )
-      // ..strokeWidth = 10
-      // ..style = PaintingStyle.stroke;
+    // radius: 30, center: const Offset(-1, 1),
+    // ),
+    // )
+    // ..strokeWidth = 10
+    // ..style = PaintingStyle.stroke;
     //
     canvas.drawCircle(center, thumbRadius, fillPaint);
     canvas.drawCircle(center, thumbRadius, borderPaint);

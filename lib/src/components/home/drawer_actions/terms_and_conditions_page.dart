@@ -1,8 +1,8 @@
-import 'package:be_ready_app/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
-import 'package:be_ready_app/src/utils/const.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
+import 'package:be_universe/src/utils/const.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -77,7 +77,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                   ),
                 ],
                 AppButtonWidget(
-                  onPressed: () {},
+                  onPressed: () async {},
                   title: 'Accept & Continue',
                 ),
                 const SizedBox(height: 25),

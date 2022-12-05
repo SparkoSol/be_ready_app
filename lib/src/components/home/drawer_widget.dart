@@ -1,16 +1,19 @@
 import 'dart:ui';
 
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/auth/sign_in_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/contact_us_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/faq_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/settings/setting_page.dart';
-import 'package:be_ready_app/src/components/home/drawer_actions/terms_and_conditions_page.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/confirmation_dialog.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/auth/sign_in_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/contact_us_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/faq_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/settings/setting_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/terms_and_conditions_page.dart';
+import 'package:be_universe/src/services/auth_api.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   AppDrawer({
     Key? key,
     required this.parentScaffoldKey,
@@ -18,6 +21,11 @@ class AppDrawer extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
   final _buttonTitleTextStyle = GoogleFonts.poppins(
     fontSize: 16,
     color: Colors.white,
@@ -84,7 +92,8 @@ class AppDrawer extends StatelessWidget {
                       color: Colors.white,
                       size: 35,
                     ),
-                    onPressed: parentScaffoldKey.currentState?.closeDrawer,
+                    onPressed:
+                        widget.parentScaffoldKey.currentState?.closeDrawer,
                   ),
                 ),
               ),
@@ -142,11 +151,15 @@ class AppDrawer extends StatelessWidget {
                   color: Colors.white,
                 ),
                 TextButton(
-                  onPressed: () {
-                    AppNavigation.navigateRemoveUntil(
-                      context,
-                      const SignInPage(),
-                    );
+                  onPressed: () async {
+                    var result = await ConfirmationDialog(
+                            text: 'Are you sure you want to Logout')
+                        .show(context);
+                    if (result) {
+                      _signOut();
+                    } else {
+                      return;
+                    }
                   },
                   child: Text(
                     'Logout',
@@ -159,6 +172,22 @@ class AppDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _signOut() async {
+    try {
+      await Awaiter.process(
+        future: AuthenticationService().signOut(),
+        context: context,
+        arguments: 'Signing out...',
+      );
+      if (mounted) {
+        AppNavigation.navigateRemoveUntil(
+          context,
+          const SignInPage(),
+        );
+      }
+    } catch (_) {}
   }
 
   Widget _getDrawerTile({

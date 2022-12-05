@@ -1,4 +1,4 @@
-import 'package:be_ready_app/src/base/assets.dart';
+import 'package:be_universe/src/base/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +9,7 @@ class ResourceWidget extends StatelessWidget {
     required this.text,
     required this.isDifferentFromNormal,
   }) : super(key: key);
+
   final String text;
   final int quantity;
   final bool isDifferentFromNormal;
@@ -33,7 +34,7 @@ class ResourceWidget extends StatelessWidget {
       child: Column(children: [
         Image.asset(AppAssets.resourcesIcon, width: 40, height: 40),
         Padding(
-          padding: const EdgeInsets.only(left: 15, top: 18),
+          padding: const EdgeInsets.only(left: 15, top: 10),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -61,19 +62,21 @@ class ResourceWidget extends StatelessWidget {
           ),
         ),
         if (isDifferentFromNormal) ...[
-          Container(
-            height: 41,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(22),
-                bottomLeft: Radius.circular(22),
-              ),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.white.withOpacity(0.04),
-                  Colors.white.withOpacity(0.2),
-                ],
+          Expanded(
+            child: Container(
+              height: 41,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(22),
+                  bottomLeft: Radius.circular(22),
+                ),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.04),
+                    Colors.white.withOpacity(0.2),
+                  ],
+                ),
               ),
             ),
           ),

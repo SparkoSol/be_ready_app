@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -109,7 +109,7 @@ class _RatingStarWidgetState extends State<RatingStarWidget> {
                 padding: const EdgeInsets.fromLTRB(60, 10, 60, 60),
                 child: AppButtonWidget(
                   title: 'Rate Us Now',
-                  onPressed: () {
+                  onPressed: () async {
                     AppNavigation.pop(context);
                   },
                 ),

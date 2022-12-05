@@ -1,19 +1,24 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/base/theme.dart';
-import 'package:be_ready_app/src/components/home/be_universe_view.dart';
-import 'package:be_ready_app/src/components/home/drawer_widget.dart';
-import 'package:be_ready_app/src/components/main_menu/be_connected.dart';
-import 'package:be_ready_app/src/components/main_menu/daily_check_in_page.dart';
-import 'package:be_ready_app/src/components/main_menu/events.dart';
-import 'package:be_ready_app/src/components/main_menu/resource_page.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
-import 'package:be_ready_app/src/widgets/gradient_progress_indicator.dart';
-import 'package:be_ready_app/src/widgets/main_page_widget.dart';
+import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/app_snackbar.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/components/home/be_universe_view.dart';
+import 'package:be_universe/src/components/home/drawer_widget.dart';
+import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
+import 'package:be_universe/src/components/main_menu/events/controller.dart';
+import 'package:be_universe/src/components/main_menu/events/events.dart';
+import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
+import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/gradient_progress_indicator.dart';
+import 'package:be_universe/src/widgets/main_page_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -38,10 +43,10 @@ class _HomeViewState extends State<HomeView> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(
-        hasDrawer: true,
-        parentScaffoldKey: _scaffoldKey,
-      ),
+      // appBar: AppBarWidget(
+      //   hasDrawer: false,
+      //   parentScaffoldKey: _scaffoldKey,
+      // ),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -51,12 +56,14 @@ class _HomeViewState extends State<HomeView> {
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
-            const SliverPadding(
-              padding: EdgeInsets.only(top: 33),
+            // SliverPadding(
+            //   padding: const EdgeInsets.only(top: 12),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 33),
               sliver: SliverToBoxAdapter(
                 child: Text(
-                  'Welcome, Laurie',
-                  style: TextStyle(fontSize: 33, color: Colors.white),
+                  'Welcome, ${AppData().readLastUser().name}',
+                  style: const TextStyle(fontSize: 33, color: Colors.white),
                 ),
               ),
             ),
@@ -75,7 +82,6 @@ class _HomeViewState extends State<HomeView> {
             ),
             SliverToBoxAdapter(
               child: AppCourseButtonWidget(
-                bottomPadding: 37,
                 title: 'Continue Coursework',
                 onTap: () {},
                 isShadowed: true,
@@ -84,29 +90,35 @@ class _HomeViewState extends State<HomeView> {
             SliverGrid(
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
-                  onPressed: () {
-                    AppNavigation.to(context, const DailyCheckInPage());
-                  },
+                  onPressed: dailyCheckInRequest,
                   text: 'Daily check-In',
                   path: AppAssets.graphIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, ResourcePage());
+                    AppNavigation.to(context, const ResourcePage());
                   },
                   text: 'Resources',
                   path: AppAssets.graphIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const EventsPage());
+                    AppNavigation.to(
+                        context,
+                        EventsPage(
+                          eventsController: EventsController(),
+                        ));
                   },
                   text: 'Events',
                   path: AppAssets.calenderIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const BeConnected());
+                    AppNavigation.to(
+                        context,
+                        const ArticlesPage(
+                          isBeConnected: true,
+                        ));
                   },
                   text: 'Be Connected',
                   path: AppAssets.userIcon,
@@ -203,5 +215,32 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  Future<void> dailyCheckInRequest() async {
+    try {
+      final response = await Awaiter.process(
+          future: DailyCheckInApi()
+              .getLastDailyCheckIn(AppData().readLastUser().userid),
+          context: context,
+          arguments: 'loading ...');
+      var dateTime = DateTime.parse(response.createdAt).dateFormat;
+      var date = DateTime.parse(response.date).dateFormat;
+      print('server dateTime $dateTime');
+      print('current dateTime $date');
+      if (date == dateTime) {
+        if (mounted) {
+          $showSnackBar(context, 'Already Checked In');
+        }
+      } else {
+        if (mounted) {
+          AppNavigation.to(context, const DailyCheckInPage());
+        }
+      }
+    } catch (e) {
+      ErrorDialog(
+        error: DioException.withDioError(e),
+      ).show(context);
+    }
   }
 }

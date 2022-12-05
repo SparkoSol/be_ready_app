@@ -1,6 +1,6 @@
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/app_button_widget.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/app_button_widget.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -234,7 +234,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                 padding: const EdgeInsets.only(
                     left: 30, right: 30, top: 50, bottom: 50),
                 child: AppButtonWidget(
-                  onPressed: () {},
+                  onPressed: () async {},
                   isIcon: false,
                   title: 'continue',
                 ),
