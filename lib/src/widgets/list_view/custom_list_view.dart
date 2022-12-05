@@ -18,6 +18,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
     this.highLightColor,
     this.shimmerWidget,
     this.isGridShimmer = false,
+    this.shimmerCount,
   })  : _type = _CustomListType.simpler,
         super(key: key, controller: listViewController);
 
@@ -32,6 +33,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
     this.highLightColor,
     this.shimmerWidget,
     this.isGridShimmer = false,
+    this.shimmerCount,
   })  : _type = _CustomListType.sliver,
         super(key: key, controller: listViewController);
 
@@ -45,6 +47,7 @@ class CustomListView<T> extends ControlledWidget<CustomListViewController<T>> {
   final _CustomListType _type;
   final Widget? shimmerWidget;
   final bool isGridShimmer;
+  final int? shimmerCount;
 
   @override
   State<CustomListView<T>> createState() => _CustomListViewState<T>();
@@ -176,7 +179,7 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
     } else {
       child = ListView.builder(
         itemBuilder: _cardBuilder,
-        itemCount: 5,
+        itemCount: widget.shimmerCount ?? 5,
       );
     }
     return Shimmer.fromColors(
