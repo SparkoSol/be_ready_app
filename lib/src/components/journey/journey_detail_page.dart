@@ -1,10 +1,11 @@
-import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/subscription/subscription_page.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../base/assets.dart';
+import '../subscription/subscription_page.dart';
 
 class JourneyDetailPage extends StatefulWidget {
   final String pageTitle;
@@ -26,8 +27,6 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
         extendBodyBehindAppBar: true,
         appBar: AppBarWidget(),
         body: BackgroundImageWidget(
-            child: Padding(
-          padding: EdgeInsets.only(top: media.viewPadding.top + 56),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -35,11 +34,11 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
+                  padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      bottom: 20,
+                      top: media.viewPadding.top + 56),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,9 +49,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
                             fontWeight: FontWeight.w400,
                             color: Colors.white),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       Text(
                         lorem + lorem + lorem,
                         style: GoogleFonts.poppins(
@@ -67,7 +64,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
               _buildContainer()
             ],
           ),
-        )));
+        ));
   }
 
   Widget _buildContainer() {
