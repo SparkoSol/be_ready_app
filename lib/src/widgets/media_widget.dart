@@ -150,59 +150,60 @@ class _MediaWidgetState extends State<MediaWidget> {
                   ),
                 ),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          String sharingText = '';
-                          switch (widget.type) {
-                            case 'Videos':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Audios':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Books':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Podcasts':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                          }
-                          await Share.share(sharingText);
-                        },
-                        child: Text(
-                          'Share with a Friend',
-                          style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            color: Colors.white,
-                          ),
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        String sharingText = '';
+                        switch (widget.type) {
+                          case 'Videos':
+                            sharingText = widget.resource.filename.fileUrl;
+                            break;
+                          case 'Audios':
+                            sharingText = widget.resource.filename.fileUrl;
+                            break;
+                          case 'Books':
+                            sharingText = widget.resource.filename.fileUrl;
+                            break;
+                          case 'Podcasts':
+                            sharingText = widget.resource.filename.fileUrl;
+                            break;
+                        }
+                        await Share.share(sharingText);
+                      },
+                      child: Text(
+                        'Share with a Friend',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
                         ),
                       ),
-                      Container(
-                        height: 30,
-                        width: 1,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            stops: const [0.5, 1],
-                            colors: [
-                              Colors.white.withOpacity(0.1),
-                              Colors.white,
-                            ],
-                          ),
+                    ),
+                    Container(
+                      height: 30,
+                      width: 1,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          stops: const [0.5, 1],
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white,
+                          ],
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () => like(widget.resource.id),
-                        child: Text(
-                          widget.resource.liked == true ? 'Unlike' : 'Like',
-                          style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            color: Colors.white,
-                          ),
+                    ),
+                    GestureDetector(
+                      onTap: () => like(widget.resource.id),
+                      child: Text(
+                        widget.resource.liked == true ? 'Unlike' : 'Like',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
                         ),
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           )

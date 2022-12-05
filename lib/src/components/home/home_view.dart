@@ -9,6 +9,7 @@ import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
+import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -214,32 +215,18 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> dailyCheckInRequest() async {
     try {
-      // print('RRRRRR');
-      // final response = await Awaiter.process(
-      //   future: DailyCheckInApi().getLastDailyCheckIn(
-      //     AppData().readLastUser().userid,
-      //   ),
-      //   context: context,
-      //   arguments: 'loading ...',
-      // );
-      // print('RRRRRR After');
-      // print(response);
-      // if (!mounted) return;
-      // if (response == null) {
-      //   AppNavigation.to(context, const DailyCheckInPage());
-      //   return;
-      // }
-      // var dateTime = DateTime.parse(response.createdAt).dateFormat;
-      // var date = DateTime.parse(response.date).dateFormat;
-      // print('server dateTime $dateTime');
-      // print('current dateTime $date');
-      // if (date == dateTime) {
-      //   $showSnackBar(context, 'Already Checked In');
-      // } else {
-      //   AppNavigation.to(context, const DailyCheckInPage());
-      // }
+      final result = await Awaiter.process(
+        future: DailyCheckInService().getDailyCheckIn(),
+        context: context,
+        arguments: '',
+      );
+      if (!mounted) return;
+      if (result) {
+        AppNavigation.to(context, const DailyCheckInPage());
+      } else {
+        $showSnackBar(context, 'Already Checked In');
+      }
     } catch (e) {
-      print(e);
       ErrorDialog(
         error: DioException.withDioError(e),
       ).show(context);
