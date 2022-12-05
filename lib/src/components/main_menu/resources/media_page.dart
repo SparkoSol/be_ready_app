@@ -28,9 +28,10 @@ class _MediaPageState extends State<MediaPage> {
     listController = CustomListViewController<ResourceResponse>(
       paginatedFunction: (int page, int limit) =>
           ResourcesApi().getPaginatedResource(
-        widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
+        userId: AppData().readLastUser().userid,
+        type: widget.type.substring(0, widget.type.length - 1),
         // AppData().readLastUser().userid,
       ),
     );

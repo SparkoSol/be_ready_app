@@ -55,7 +55,19 @@ class _ArticleDetailWidgetState extends State<ArticleDetailWidget> {
                       ),
                       const SizedBox(height: 15),
                       Html(
-                        style: {"*": Style(color: Colors.white)},
+                        style: {
+                          "*": Style(color: Colors.white),
+                          "li": Style(
+                            color: Colors.white,
+                          ),
+                          // "ul li::before": Style(
+                          //   color: Colors.red,
+                          //   fontWeight: FontWeight.bold,
+                          //   display: Display.INLINE_BLOCK,
+                          //   width: 1,
+                          //   margin: const EdgeInsets.only(left: 1),
+                          // ),
+                        },
                         data: widget.description,
                       ),
                     ],

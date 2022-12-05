@@ -1,6 +1,7 @@
-import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/article_widget.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
@@ -9,14 +10,15 @@ import 'package:be_universe/src/widgets/text.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/utils/awaiter.dart';
 
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({
     Key? key,
-    required this.type,
+    this.isBeConnected = false,
   }) : super(key: key);
 
-  final String type;
+  final bool isBeConnected;
 
   @override
   State<ArticlesPage> createState() => _ArticlesPageState();
@@ -34,10 +36,11 @@ class _ArticlesPageState extends State<ArticlesPage> {
     listController = CustomListViewController<ResourceResponse>(
       paginatedFunction: (int page, int limit) =>
           ResourcesApi().getPaginatedResource(
-        widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
-        // AppData().readLastUser().userid,
+        liked: widget.isBeConnected ? 'true' : null,
+        type: 'Article',
+        userId: AppData().readLastUser().userid,
       ),
     );
     // listController = PaginatedListViewController(
@@ -63,10 +66,16 @@ class _ArticlesPageState extends State<ArticlesPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: GoalsPageTitle(text: 'Articles'),
-                ),
+                if (!widget.isBeConnected)
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: GoalsPageTitle(text: 'Articles'),
+                  )
+                else ...[
+                  const GoalsPageTitle(text: 'Be Connected '),
+                  const GoalsPageDescription(
+                      text: 'Aware. Acknowledge. Accept.'),
+                ],
                 Expanded(
                   child: CustomListView<ResourceResponse>.simpler(
                     listViewController: listController,
@@ -103,10 +112,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
                             children: [
                               Row(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 12,
-                                    child: Image.asset(AppAssets.user),
-                                  ),
+                                  if (data.thumbnail.isNotEmpty)
+                                    CircleAvatar(
+                                      radius: 12,
+                                      child:
+                                          Image.network(data.thumbnail.fileUrl),
+                                    ),
                                   const SizedBox(width: 5),
                                   Text(
                                     data.title,
@@ -117,32 +128,39 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                     ),
                                   ),
                                   const Spacer(),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff241B32),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 6,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Like',
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () => like(data),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xff241B32),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 6,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            data.liked == true
+                                                ? 'Unlike'
+                                                : 'Like',
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        const Icon(
-                                          Icons.favorite,
-                                          color: Colors.white,
-                                          size: 12,
-                                        )
-                                      ],
+                                          const SizedBox(width: 5),
+                                          Icon(
+                                            Icons.favorite,
+                                            color: data.liked == true
+                                                ? Colors.white
+                                                : Colors.red,
+                                            size: 12,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],
@@ -191,5 +209,24 @@ class _ArticlesPageState extends State<ArticlesPage> {
         ),
       ),
     );
+  }
+
+  Future<void> like(ResourceResponse resource) async {
+    try {
+      print(resource.id);
+      await Awaiter.process(
+        future: ResourcesApi()
+            .likeResource(AppData().readLastUser().userid, resource.id),
+        context: context,
+        arguments: 'saving',
+      );
+      if (widget.isBeConnected) {
+        listController.refresh();
+      }
+      resource.liked = !(resource.liked ?? false);
+      setState(() {});
+    } catch (e) {
+      ErrorDialog(error: DioException.withDioError(e));
+    }
   }
 }

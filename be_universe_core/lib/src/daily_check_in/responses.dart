@@ -7,6 +7,7 @@ class DailyCheckInResponse {
       required this.myBodyFeels,
       required this.myMindFeels,
       required this.mySpiritFeels,
+      required this.date,
       required this.createdAt});
 
   @JsonKey(name: 'user_id')
@@ -18,6 +19,7 @@ class DailyCheckInResponse {
   @JsonKey(name: 'my_spirit_feels')
   final int mySpiritFeels;
   final String createdAt;
+  final String date;
 
   factory DailyCheckInResponse.fromJson(_Json json) =>
       _$DailyCheckInResponseFromJson(json);

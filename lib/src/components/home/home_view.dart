@@ -1,14 +1,16 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/home/be_universe_view.dart';
 import 'package:be_universe/src/components/home/drawer_widget.dart';
-import 'package:be_universe/src/components/main_menu/be_connected.dart';
 import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/controller.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
+import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/gradient_progress_indicator.dart';
@@ -88,24 +90,7 @@ class _HomeViewState extends State<HomeView> {
             SliverGrid(
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
-                  onPressed: () async {
-                    return;
-                    final response = await Awaiter.process(
-                        future: DailyCheckInApi().getLastDailyCheckIn(
-                            AppData().readLastUser().userid),
-                        context: context,
-                        arguments: 'loading ...');
-                    var dateTime =
-                        DateTime.parse(response.createdAt).dateFormat;
-
-                    if (DateTime.now().dateFormat == dateTime) {
-                      if (mounted) $showSnackBar(context, 'Already Checked In');
-                    } else {
-                      if (mounted) {
-                        AppNavigation.to(context, const DailyCheckInPage());
-                      }
-                    }
-                  },
+                  onPressed: dailyCheckInRequest,
                   text: 'Daily check-In',
                   path: AppAssets.graphIcon,
                 ),
@@ -129,7 +114,11 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(context, const BeConnected());
+                    AppNavigation.to(
+                        context,
+                        const ArticlesPage(
+                          isBeConnected: true,
+                        ));
                   },
                   text: 'Be Connected',
                   path: AppAssets.userIcon,
@@ -226,5 +215,32 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  Future<void> dailyCheckInRequest() async {
+    try {
+      final response = await Awaiter.process(
+          future: DailyCheckInApi()
+              .getLastDailyCheckIn(AppData().readLastUser().userid),
+          context: context,
+          arguments: 'loading ...');
+      var dateTime = DateTime.parse(response.createdAt).dateFormat;
+      var date = DateTime.parse(response.date).dateFormat;
+      print('server dateTime $dateTime');
+      print('current dateTime $date');
+      if (date == dateTime) {
+        if (mounted) {
+          $showSnackBar(context, 'Already Checked In');
+        }
+      } else {
+        if (mounted) {
+          AppNavigation.to(context, const DailyCheckInPage());
+        }
+      }
+    } catch (e) {
+      ErrorDialog(
+        error: DioException.withDioError(e),
+      ).show(context);
+    }
   }
 }

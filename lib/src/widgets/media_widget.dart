@@ -1,16 +1,18 @@
 import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/pdf_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/video_player_widget.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 
-class MediaWidget extends StatelessWidget {
+class MediaWidget extends StatefulWidget {
   const MediaWidget(
       {Key? key,
       required this.path,
@@ -22,10 +24,15 @@ class MediaWidget extends StatelessWidget {
   final ResourceResponse resource;
 
   @override
+  State<MediaWidget> createState() => _MediaWidgetState();
+}
+
+class _MediaWidgetState extends State<MediaWidget> {
+  @override
   Widget build(BuildContext context) {
-    print(resource.filename.fileUrl);
+    print(widget.resource.filename.fileUrl);
     late String icon;
-    switch (type) {
+    switch (widget.type) {
       case 'Videos':
         icon = AppAssets.videoIcon;
         break;
@@ -51,38 +58,40 @@ class MediaWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(35),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: resource.thumbnail == ''
+          image: widget.resource.thumbnail == ''
               ? const AssetImage(AppAssets.backgroundImage)
-              : NetworkImage(resource.thumbnail.fileUrl) as ImageProvider,
+              : NetworkImage(widget.resource.thumbnail.fileUrl)
+                  as ImageProvider,
         ),
       ),
       child: Column(
         children: [
           GestureDetector(
             onTap: () {
-              switch (type) {
+              switch (widget.type) {
                 case 'Videos':
                   AppNavigation.to(context,
-                      VideoPlayerWidget(url: resource.filename.fileUrl));
+                      VideoPlayerWidget(url: widget.resource.filename.fileUrl));
 
                   break;
                 case 'Books':
-                  PdfDialog(url: resource.filename.fileUrl).show(context);
+                  PdfDialog(url: widget.resource.filename.fileUrl)
+                      .show(context);
 
                   break;
                 case 'Audios':
                   AudioPlayerWidget(
-                    url: resource.filename,
-                    pic: resource.thumbnail,
-                    title: resource.title,
+                    url: widget.resource.filename,
+                    pic: widget.resource.thumbnail,
+                    title: widget.resource.title,
                   ).show(context);
 
                   break;
                 case 'Podcasts':
                   AudioPlayerWidget(
-                    url: resource.filename,
-                    pic: resource.thumbnail,
-                    title: resource.title,
+                    url: widget.resource.filename,
+                    pic: widget.resource.thumbnail,
+                    title: widget.resource.title,
                   ).show(context);
                   break;
                 case 'Quotes':
@@ -145,18 +154,18 @@ class MediaWidget extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           String sharingText = '';
-                          switch (type) {
+                          switch (widget.type) {
                             case 'Videos':
-                              sharingText = resource.filename.fileUrl;
+                              sharingText = widget.resource.filename.fileUrl;
                               break;
                             case 'Audios':
-                              sharingText = resource.filename.fileUrl;
+                              sharingText = widget.resource.filename.fileUrl;
                               break;
                             case 'Books':
-                              sharingText = resource.filename.fileUrl;
+                              sharingText = widget.resource.filename.fileUrl;
                               break;
                             case 'Podcasts':
-                              sharingText = resource.filename.fileUrl;
+                              sharingText = widget.resource.filename.fileUrl;
                               break;
                           }
                           await Share.share(sharingText);
@@ -182,11 +191,14 @@ class MediaWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        'Like',
-                        style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: Colors.white,
+                      GestureDetector(
+                        onTap: () => like(widget.resource.id),
+                        child: Text(
+                          widget.resource.liked == true ? 'Unlike' : 'Like',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ]),
@@ -196,5 +208,16 @@ class MediaWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> like(String id) async {
+    try {
+      print(id);
+      await ResourcesApi().likeResource(AppData().readLastUser().userid, id);
+      widget.resource.liked = !(widget.resource.liked ?? false);
+      setState(() {});
+    } catch (e) {
+      ErrorDialog(error: DioException.withDioError(e));
+    }
   }
 }

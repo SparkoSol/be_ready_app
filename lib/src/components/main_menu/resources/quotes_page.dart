@@ -1,3 +1,5 @@
+import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
@@ -29,9 +31,10 @@ class _QuotesPageState extends State<QuotesPage> {
     listController = CustomListViewController<ResourceResponse>(
       paginatedFunction: (int page, int limit) =>
           ResourcesApi().getPaginatedResource(
-        widget.type.substring(0, widget.type.length - 1),
         page.toString(),
         limit.toString(),
+        userId: AppData().readLastUser().userid,
+        type: widget.type.substring(0, widget.type.length - 1),
         // AppData().readLastUser().userid,
       ),
     );
@@ -114,28 +117,31 @@ class _QuotesPageState extends State<QuotesPage> {
                                 )
                               ]),
                               const Spacer(),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff241B32),
-                                    borderRadius: BorderRadius.circular(12)),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 6),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Like',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    const Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                      size: 12,
-                                    )
-                                  ],
+                              GestureDetector(
+                                onTap: () => like(data),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff241B32),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        data.liked == true ? 'Unlike' : 'Like',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Icon(
+                                        Icons.favorite,
+                                        color: Colors.white,
+                                        size: 12,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -151,5 +157,17 @@ class _QuotesPageState extends State<QuotesPage> {
         ),
       ),
     );
+  }
+
+  Future<void> like(ResourceResponse resource) async {
+    try {
+      print(resource.id);
+      await ResourcesApi()
+          .likeResource(AppData().readLastUser().userid, resource.id);
+      resource.liked = !(resource.liked ?? false);
+      setState(() {});
+    } catch (e) {
+      ErrorDialog(error: DioException.withDioError(e));
+    }
   }
 }

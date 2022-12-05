@@ -175,9 +175,7 @@ class _ResourcePageState extends State<ResourcePage> {
 
                                   break;
                                 case ResourcesCategories.articles:
-                                  page = ArticlesPage(
-                                    type: item.key.category,
-                                  );
+                                  page = const ArticlesPage();
                                   break;
                                 case ResourcesCategories.books:
                                   page = MediaPage(type: item.key.category);

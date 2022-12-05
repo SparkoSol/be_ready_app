@@ -8,14 +8,19 @@ abstract class ResourcesApi {
 
   @GET('resources/query/filters')
   Future<List<ResourceResponse>> getPaginatedResource(
-    @Query('type') String type,
     @Query('page') String page,
-    @Query('limit') String limit,
-    // @Query('user_id') String userid,
-  );
+    @Query('limit') String limit, {
+    @Query('type') String? type,
+    @Query('liked') String? liked,
+    @Query('user_id') String? userId,
+  });
 
   @GET('resources')
   Future<List<ResourceResponse>> getAllResources();
+
+  @PATCH('resources/{id}')
+  Future<void> likeResource(
+      @Query('user_id') String userId, @Path('id') String rId);
 
   @GET('resources/count/all')
   Future<ResourceCountResponse> getResourcesCount();
