@@ -79,6 +79,7 @@ class _MediaPageState extends State<MediaPage> {
                           resource: data,
                           path: AppAssets.backgroundImage,
                           type: widget.type,
+                          videoTitle: widget.type,
                         ),
                       );
                     },

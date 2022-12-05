@@ -1,10 +1,11 @@
-import 'package:be_ready_app/src/base/assets.dart';
-import 'package:be_ready_app/src/base/nav.dart';
-import 'package:be_ready_app/src/components/subscription/subscription_page.dart';
-import 'package:be_ready_app/src/widgets/app_bar.dart';
-import 'package:be_ready_app/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../base/assets.dart';
+import '../subscription/subscription_page.dart';
 
 class JourneyDetailPage extends StatefulWidget {
   final String pageTitle;
@@ -21,7 +22,8 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
 
-    return Scaffold(extendBody: true,
+    return Scaffold(
+        extendBody: true,
         extendBodyBehindAppBar: true,
         appBar: AppBarWidget(),
         body: BackgroundImageWidget(
@@ -47,9 +49,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
                             fontWeight: FontWeight.w400,
                             color: Colors.white),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      const SizedBox(height: 20),
                       Text(
                         lorem + lorem + lorem,
                         style: GoogleFonts.poppins(
@@ -66,7 +66,6 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
           ),
         ));
   }
-
 
   Widget _buildContainer() {
     return GestureDetector(
@@ -99,5 +98,6 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
     );
   }
 }
+
 String lorem =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";

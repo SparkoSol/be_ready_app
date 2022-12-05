@@ -18,10 +18,12 @@ class MediaWidget extends StatefulWidget {
       {Key? key,
       required this.path,
       required this.type,
+      required this.videoTitle,
       required this.resource})
       : super(key: key);
   final String path;
   final String type;
+  final String videoTitle;
   final ResourceResponse resource;
 
   @override
@@ -32,6 +34,7 @@ class _MediaWidgetState extends State<MediaWidget> {
   @override
   Widget build(BuildContext context) {
     late String icon;
+
     switch (widget.type) {
       case 'Videos':
         icon = AppAssets.videoIcon;
@@ -53,7 +56,6 @@ class _MediaWidgetState extends State<MediaWidget> {
         break;
     }
     return Container(
-      padding: const EdgeInsets.only(top: 51),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
         image: DecorationImage(
@@ -66,6 +68,46 @@ class _MediaWidgetState extends State<MediaWidget> {
       ),
       child: Column(
         children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35),
+              topRight: Radius.circular(35),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 10,
+                sigmaY: 10,
+              ),
+              child: Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
+                margin: const EdgeInsets.only(bottom: 1),
+                decoration: BoxDecoration(
+                  color: Colors.transparent.withOpacity(0.4),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(210, 135, 111, 1),
+                      Color.fromRGBO(82, 48, 114, 1),
+                    ],
+                  ),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                ),
+                child: Text(
+                  widget.videoTitle,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ),
           GestureDetector(
             onTap: () {
               switch (widget.type) {
@@ -101,6 +143,7 @@ class _MediaWidgetState extends State<MediaWidget> {
             child: Container(
               width: 63,
               height: 63,
+              margin: EdgeInsets.symmetric(vertical: 40),
               padding: const EdgeInsets.all(15),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -121,7 +164,6 @@ class _MediaWidgetState extends State<MediaWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 43),
           ClipRRect(
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(35),
