@@ -119,15 +119,16 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                           Image.network(data.thumbnail.fileUrl),
                                     ),
                                   const SizedBox(width: 5),
-                                  Text(
-                                    data.title,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xffF0D781),
+                                  Expanded(
+                                    child: Text(
+                                      data.title,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xffF0D781),
+                                      ),
                                     ),
                                   ),
-                                  const Spacer(),
                                   GestureDetector(
                                     onTap: () => like(data),
                                     child: Container(
@@ -155,8 +156,8 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                           Icon(
                                             Icons.favorite,
                                             color: data.liked == true
-                                                ? Colors.white
-                                                : Colors.red,
+                                                ? Colors.red
+                                                : Colors.white,
                                             size: 12,
                                           )
                                         ],
@@ -213,7 +214,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   Future<void> like(ResourceResponse resource) async {
     try {
-      print(resource.id);
       await Awaiter.process(
         future: ResourcesApi()
             .likeResource(AppData().readLastUser().userid, resource.id),

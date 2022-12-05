@@ -1,6 +1,3 @@
-import 'package:be_universe/src/base/modals/error_dialog.dart';
-import 'package:be_universe/src/components/main_menu/events/controller.dart';
-import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/event_page_widget.dart';
@@ -16,9 +13,7 @@ import 'package:reusables/reusables.dart';
 class EventsPage extends StatefulWidget {
   const EventsPage({
     Key? key,
-  }) : super(
-          key: key,
-        );
+  }) : super(key: key);
 
   @override
   State<EventsPage> createState() => _EventsPageState();
@@ -26,7 +21,7 @@ class EventsPage extends StatefulWidget {
 
 class _EventsPageState extends State<EventsPage> {
   late CustomListViewController<EventsResponse> listController;
-  late CustomListViewController<BannerResponse> bannerController;
+  late CustomListViewController<List<BannerResponse>> bannerController;
 
   @override
   void initState() {
@@ -34,23 +29,10 @@ class _EventsPageState extends State<EventsPage> {
     listController = CustomListViewController<EventsResponse>(
       listDataFunction: () => EventsApi().getAllEvents(),
     );
-    bannerController = CustomListViewController<BannerResponse>(
+    bannerController = CustomListViewController<List<BannerResponse>>(
       dataFunction: () => EventsApi().getBanner(),
     );
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => loadBanner());
   }
-
-  Future<void> loadBanner() async {
-    try {
-      bannerResponse = await EventsApi().getBanner();
-      setState(() {});
-    } catch (e) {
-      ErrorDialog(error: DioException.withDioError(e));
-    }
-  }
-
-  var eventController = EventsController();
-  late BannerResponse bannerResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +56,10 @@ class _EventsPageState extends State<EventsPage> {
               ),
               slivers: [
                 CupertinoSliverRefreshControl(
-                  onRefresh: listController.refresh,
+                  onRefresh: () => Future.wait([
+                    listController.refresh(),
+                    bannerController.refresh(),
+                  ]),
                   builder: (context, refreshState, pulledExtent,
                       refreshTriggerPullDistance, refreshIndicatorExtent) {
                     return const CupertinoActivityIndicator(
@@ -86,49 +71,84 @@ class _EventsPageState extends State<EventsPage> {
                 SliverToBoxAdapter(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const GoalsPageTitle(text: 'Events'),
-                      const GoalsPageDescription(
+                    children: const [
+                      GoalsPageTitle(text: 'Events'),
+                      GoalsPageDescription(
                         text: 'Participate. Download. Attend.',
                       ),
-                      const SizedBox(height: 30),
-                      Text(
-                        'Coming up',
-                        style: GoogleFonts.oswald(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
-                      if (!eventController.loading)
-                        Container(
-                          margin: const EdgeInsets.only(top: 5, bottom: 30),
-                          width: double.infinity,
-                          padding: const EdgeInsets.only(top: 150),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            image: DecorationImage(
-                              fit: BoxFit.fitHeight,
-                              image: NetworkImage(
-                                bannerResponse.imageName,
-                              ),
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                      Text(
-                        'Other Events',
-                        style: GoogleFonts.oswald(
-                          height: 2,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: Text(
+                    'Coming up',
+                    style: GoogleFonts.oswald(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                CustomListView<List<BannerResponse>>.sliver(
+                  listViewController: bannerController,
+                  baseColor: const Color(0xff2E2340),
+                  shimmerCount: 1,
+                  highLightColor: Colors.white12,
+                  errorWidget: const SizedBox(),
+                  noDataWidget: const Text(
+                    'There is no upcoming event',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  shimmerWidget: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const SizedBox(
+                      height: 80,
+                      width: double.infinity,
+                    ),
+                  ),
+                  builder: (ctx, data) {
+                    if (data.isEmpty) {
+                      return const SliverToBoxAdapter(
+                        child: Text(
+                          'There is no upcoming event',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      );
+                    }
+                    return SliverToBoxAdapter(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 5, bottom: 30),
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(top: 150),
+                        decoration: BoxDecoration(
+                          color: Colors.orange,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              data.first.imageName.fileUrl,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SliverToBoxAdapter(
+                  child: Text(
+                    'Other Events',
+                    style: GoogleFonts.oswald(
+                      height: 2,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
                 CustomListView<EventsResponse>.sliver(
                   listViewController: listController,
                   baseColor: const Color(0xff2E2340),

@@ -50,7 +50,7 @@ typedef _Json = Map<String, dynamic>;
 
 class Api {
   // static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
-  static const _apiUrl = 'http://192.168.133.193:3000/';
+  static const _apiUrl = 'http://192.168.75.193:3000/';
 
   static String get apiUl => _apiUrl;
 

@@ -31,7 +31,6 @@ class MediaWidget extends StatefulWidget {
 class _MediaWidgetState extends State<MediaWidget> {
   @override
   Widget build(BuildContext context) {
-    print(widget.resource.filename.fileUrl);
     late String icon;
     switch (widget.type) {
       case 'Videos':
@@ -150,59 +149,53 @@ class _MediaWidgetState extends State<MediaWidget> {
                   ),
                 ),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          String sharingText = '';
-                          switch (widget.type) {
-                            case 'Videos':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Audios':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Books':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                            case 'Podcasts':
-                              sharingText = widget.resource.filename.fileUrl;
-                              break;
-                          }
-                          await Share.share(sharingText);
-                        },
-                        child: Text(
-                          'Share with a Friend',
-                          style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            color: Colors.white,
-                          ),
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        String sharingText = widget.resource.filename.fileUrl;
+
+                        await Share.share(sharingText,
+                            subject: 'Check this ${widget.type}');
+                      },
+                      child: Text(
+                        'Share with a Friend',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: Colors.white,
                         ),
                       ),
-                      Container(
-                        height: 30,
-                        width: 1,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            stops: const [0.5, 1],
-                            colors: [
-                              Colors.white.withOpacity(0.1),
-                              Colors.white,
-                            ],
-                          ),
+                    ),
+                    Container(
+                      height: 30,
+                      width: 1,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          stops: const [0.5, 1],
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white,
+                          ],
                         ),
                       ),
-                      GestureDetector(
+                    ),
+                    Expanded(
+                      child: GestureDetector(
                         onTap: () => like(widget.resource.id),
-                        child: Text(
-                          widget.resource.liked == true ? 'Unlike' : 'Like',
-                          style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            color: Colors.white,
+                        child: Padding(
+                          // color: Colors.red,
+                          padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
+                          child: Text(
+                            widget.resource.liked == true ? 'Unlike' : 'Like',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           )
@@ -214,11 +207,11 @@ class _MediaWidgetState extends State<MediaWidget> {
   Future<void> like(String id) async {
     try {
       await Awaiter.process(
-          future:
-              ResourcesApi().likeResource(AppData().readLastUser().userid, id),
-          context: context,
-          arguments: 'saving');
-
+        future:
+            ResourcesApi().likeResource(AppData().readLastUser().userid, id),
+        context: context,
+        arguments: 'saving',
+      );
       widget.resource.liked = !(widget.resource.liked ?? false);
       setState(() {});
     } catch (e) {

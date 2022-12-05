@@ -131,14 +131,17 @@ class _QuotesPageState extends State<QuotesPage> {
                                       Text(
                                         data.liked == true ? 'Unlike' : 'Like',
                                         style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white),
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const SizedBox(width: 5),
-                                      const Icon(
+                                      Icon(
                                         Icons.favorite,
-                                        color: Colors.white,
+                                        color: data.liked == true
+                                            ? Colors.red
+                                            : Colors.white,
                                         size: 12,
                                       )
                                     ],
@@ -162,7 +165,6 @@ class _QuotesPageState extends State<QuotesPage> {
 
   Future<void> like(ResourceResponse resource) async {
     try {
-      print(resource.id);
       await Awaiter.process(
           future: ResourcesApi()
               .likeResource(AppData().readLastUser().userid, resource.id),
