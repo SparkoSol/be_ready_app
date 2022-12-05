@@ -3,7 +3,6 @@ import 'package:be_universe/src/components/main_menu/events/controller.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/event_page_widget.dart';
-import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
 import 'package:be_universe/src/widgets/text.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,7 +70,7 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                       ),
                       const SizedBox(height: 30),
                       Text(
-                        'Upcoming',
+                        'Coming up',
                         style: GoogleFonts.oswald(
                           fontSize: 19,
                           fontWeight: FontWeight.w400,
@@ -80,7 +79,7 @@ class _EventsPageState extends State<EventsPage> with ControlledStateMixin {
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 30),
-                        width: MediaQuery.of(context).size.width,
+                        width: double.infinity,
                         padding: const EdgeInsets.only(top: 150),
                         decoration: BoxDecoration(
                           color: Colors.orange,
