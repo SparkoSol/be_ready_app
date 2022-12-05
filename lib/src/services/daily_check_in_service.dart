@@ -24,10 +24,10 @@ class DailyCheckInService {
         throw 'Internet connection error';
       }
       if (response.data == null) {
-        return false;
+        return true;
       }
       if (response.data == 'null') {
-        return false;
+        return true;
       }
       final data = DailyCheckInResponse.fromJson(response.data);
       var dateTime = DateTime.parse(data.createdAt).dateFormat;

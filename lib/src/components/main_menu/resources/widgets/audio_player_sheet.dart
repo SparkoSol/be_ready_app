@@ -41,7 +41,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => setAudio());
+    setAudio();
 
     audioPlayer.onPlayerStateChanged.listen((event) {
       if (mounted) {
@@ -119,9 +119,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Text(
                   widget.title,
                   style: GoogleFonts.poppins(
@@ -129,9 +127,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 ProgressBar(
                   progress: Duration(seconds: position.inSeconds),
                   buffered: const Duration(milliseconds: 2000),
@@ -172,19 +168,18 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   Future<void> setAudio() async {
     print('url ================');
-    print(widget.url);
+    print(widget.url.fileUrl);
     try {
-      await audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await audioPlayer.setReleaseMode(ReleaseMode.release);
       await audioPlayer.setSourceUrl(
-        widget.url.fileUrl,
+        Uri.encodeFull(widget.url.fileUrl),
       );
-      audioPlayer.play;
+      if(!mounted) return;
+      audioPlayer.resume();
       loading = false;
       setState(() {});
     } catch (e) {
-      ErrorDialog(
-        error: e,
-      ).show(context);
+      ErrorDialog(error: e).show(context);
     }
   }
 }

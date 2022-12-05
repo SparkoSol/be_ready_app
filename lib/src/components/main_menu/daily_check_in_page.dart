@@ -63,15 +63,15 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBarWidget(),
-        body: SingleChildScrollView(
-          child: BackgroundImageWidget(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 58,
-                right: 58,
-                bottom: 20,
-                top: MediaQuery.of(context).viewPadding.top + 56,
-              ),
+        body: BackgroundImageWidget(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 58,
+              right: 58,
+              bottom: 20,
+              top: MediaQuery.of(context).viewPadding.top + 56,
+            ),
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -113,7 +113,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                   //     return Column(children: []);
                   //   },
                   // ),
-                  const Spacer(),
+                  const SizedBox(height: 55),
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
@@ -138,9 +138,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                     },
                     title: 'See results',
                   ),
-                  const SizedBox(
-                    height: 55,
-                  )
+                  const SizedBox(height: 55)
                 ],
               ),
             ),

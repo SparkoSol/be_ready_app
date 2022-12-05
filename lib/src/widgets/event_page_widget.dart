@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventsTile extends StatelessWidget {
-  const EventsTile(
-      {Key? key,
-      required this.title,
-      required this.date,
-      required this.participants,
-      required this.path})
-      : super(key: key);
+  const EventsTile({
+    Key? key,
+    required this.title,
+    required this.date,
+    required this.participants,
+    required this.path,
+  }) : super(key: key);
 
   final String title;
   final String date;
@@ -25,29 +25,40 @@ class EventsTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: const Color(0xFF2E2340),
       ),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(child: Image.network(path, fit: BoxFit.fill)),
-        Expanded(
-          flex: 4,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              title,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                color: Colors.white,
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          // Expanded(child: Image.network(path, fit: BoxFit.fill)),
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(path, fit: BoxFit.cover),
+            ),
+          ),
+          const SizedBox(width: 5),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                title,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        ),
-        Text(
-          date,
-          style: GoogleFonts.poppins(
-            fontSize: 10,
-            color: Colors.white70,
+          Text(
+            date,
+            style: GoogleFonts.poppins(
+              fontSize: 10,
+              color: Colors.white70,
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

@@ -133,7 +133,7 @@ class _MediaWidgetState extends State<MediaWidget> {
                 sigmaY: 10,
               ),
               child: Container(
-                padding: const EdgeInsets.all(21),
+                padding: const EdgeInsets.fromLTRB(21, 5, 21, 5),
                 decoration: BoxDecoration(
                   color: Colors.transparent.withOpacity(0.4),
                   gradient: const LinearGradient(
@@ -150,18 +150,24 @@ class _MediaWidgetState extends State<MediaWidget> {
                 ),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () async {
-                        String sharingText = widget.resource.filename.fileUrl;
+                    Expanded(
+                      flex: 2,
+                      child: GestureDetector(
+                        onTap: () async {
+                          String sharingText = widget.resource.filename.fileUrl;
 
-                        await Share.share(sharingText,
-                            subject: 'Check this ${widget.type}');
-                      },
-                      child: Text(
-                        'Share with a Friend',
-                        style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: Colors.white,
+                          await Share.share(sharingText,
+                              subject: 'Check this ${widget.type}');
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Share with a Friend',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),

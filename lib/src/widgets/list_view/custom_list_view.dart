@@ -165,6 +165,7 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
           crossAxisSpacing: 17,
           mainAxisExtent: 185,
         ),
+        itemCount: widget.shimmerCount ?? 6,
         itemBuilder: (_, index) {
           if (widget.shimmerWidget != null) {
             return widget.shimmerWidget!;

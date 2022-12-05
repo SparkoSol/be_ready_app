@@ -46,19 +46,20 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              videoPlayerController.value.isInitialized
-                  ? Center(
-                      child: CustomVideoPlayer(
-                        customVideoPlayerController:
-                            _customVideoPlayerController,
-                      ),
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        color: Colors.deepOrange,
-                      ),
-                    ),
+              if (videoPlayerController.value.isInitialized)
+                AspectRatio(
+                  aspectRatio: MediaQuery.of(context).devicePixelRatio,
+                  child: CustomVideoPlayer(
+                    customVideoPlayerController: _customVideoPlayerController,
+                  ),
+                )
+              else
+                const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    color: Colors.deepOrange,
+                  ),
+                ),
             ],
           ),
         ),
