@@ -14,6 +14,14 @@ part 'data/app_data.dart';
 
 part 'data/mixins/profile_mixin.dart';
 
+part 'src/activities/api.dart';
+
+part 'src/activities/models.dart';
+
+part 'src/activities/requests.dart';
+
+part 'src/activities/responses.dart';
+
 part 'src/authentication/api.dart';
 
 part 'src/authentication/models.dart';
