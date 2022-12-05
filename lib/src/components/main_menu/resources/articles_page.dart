@@ -119,15 +119,16 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                           Image.network(data.thumbnail.fileUrl),
                                     ),
                                   const SizedBox(width: 5),
-                                  Text(
-                                    data.title,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xffF0D781),
+                                  Expanded(
+                                    child: Text(
+                                      data.title,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xffF0D781),
+                                      ),
                                     ),
                                   ),
-                                  const Spacer(),
                                   GestureDetector(
                                     onTap: () => like(data),
                                     child: Container(
