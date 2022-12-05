@@ -154,22 +154,10 @@ class _MediaWidgetState extends State<MediaWidget> {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        String sharingText = '';
-                        switch (widget.type) {
-                          case 'Videos':
-                            sharingText = widget.resource.filename.fileUrl;
-                            break;
-                          case 'Audios':
-                            sharingText = widget.resource.filename.fileUrl;
-                            break;
-                          case 'Books':
-                            sharingText = widget.resource.filename.fileUrl;
-                            break;
-                          case 'Podcasts':
-                            sharingText = widget.resource.filename.fileUrl;
-                            break;
-                        }
-                        await Share.share(sharingText);
+                        String sharingText = widget.resource.filename.fileUrl;
+
+                        await Share.share(sharingText,
+                            subject: 'Check this ${widget.type}');
                       },
                       child: Text(
                         'Share with a Friend',
