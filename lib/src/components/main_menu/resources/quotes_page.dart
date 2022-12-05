@@ -8,6 +8,7 @@ import 'package:be_universe/src/widgets/text.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
 class QuotesPage extends StatefulWidget {
   const QuotesPage({
@@ -162,8 +163,12 @@ class _QuotesPageState extends State<QuotesPage> {
   Future<void> like(ResourceResponse resource) async {
     try {
       print(resource.id);
-      await ResourcesApi()
-          .likeResource(AppData().readLastUser().userid, resource.id);
+      await Awaiter.process(
+          future: ResourcesApi()
+              .likeResource(AppData().readLastUser().userid, resource.id),
+          context: context,
+          arguments: 'saving');
+
       resource.liked = !(resource.liked ?? false);
       setState(() {});
     } catch (e) {

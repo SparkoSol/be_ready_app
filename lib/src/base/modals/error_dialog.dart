@@ -20,34 +20,37 @@ class ErrorDialog extends StatelessWidget {
     } else {
       d = error.toString();
     }
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          color: Colors.white,
-        ),
-        width: min(280, MediaQuery.of(context).size.width),
-        padding: const EdgeInsets.all(24),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(
-            d,
-            style: const TextStyle(fontSize: 18),
+    return Material(
+      color: Colors.transparent,
+      child: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            color: Colors.white,
           ),
-          const SizedBox(height: 24),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: Navigator.of(context).pop,
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: const Text('Ok'),
+          width: min(280, MediaQuery.of(context).size.width),
+          padding: const EdgeInsets.all(24),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Text(
+              d,
+              style: const TextStyle(fontSize: 18),
             ),
-          ),
-        ]),
+            const SizedBox(height: 24),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: Navigator.of(context).pop,
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Text('Ok'),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

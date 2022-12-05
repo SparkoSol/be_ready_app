@@ -6,7 +6,6 @@ import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/home/be_universe_view.dart';
 import 'package:be_universe/src/components/home/drawer_widget.dart';
 import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
-import 'package:be_universe/src/components/main_menu/events/controller.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
@@ -103,11 +102,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(
-                        context,
-                        EventsPage(
-                          eventsController: EventsController(),
-                        ));
+                    AppNavigation.to(context, const EventsPage());
                   },
                   text: 'Events',
                   path: AppAssets.calenderIcon,
@@ -219,25 +214,32 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> dailyCheckInRequest() async {
     try {
-      final response = await Awaiter.process(
-          future: DailyCheckInApi()
-              .getLastDailyCheckIn(AppData().readLastUser().userid),
-          context: context,
-          arguments: 'loading ...');
-      var dateTime = DateTime.parse(response.createdAt).dateFormat;
-      var date = DateTime.parse(response.date).dateFormat;
-      print('server dateTime $dateTime');
-      print('current dateTime $date');
-      if (date == dateTime) {
-        if (mounted) {
-          $showSnackBar(context, 'Already Checked In');
-        }
-      } else {
-        if (mounted) {
-          AppNavigation.to(context, const DailyCheckInPage());
-        }
-      }
+      // print('RRRRRR');
+      // final response = await Awaiter.process(
+      //   future: DailyCheckInApi().getLastDailyCheckIn(
+      //     AppData().readLastUser().userid,
+      //   ),
+      //   context: context,
+      //   arguments: 'loading ...',
+      // );
+      // print('RRRRRR After');
+      // print(response);
+      // if (!mounted) return;
+      // if (response == null) {
+      //   AppNavigation.to(context, const DailyCheckInPage());
+      //   return;
+      // }
+      // var dateTime = DateTime.parse(response.createdAt).dateFormat;
+      // var date = DateTime.parse(response.date).dateFormat;
+      // print('server dateTime $dateTime');
+      // print('current dateTime $date');
+      // if (date == dateTime) {
+      //   $showSnackBar(context, 'Already Checked In');
+      // } else {
+      //   AppNavigation.to(context, const DailyCheckInPage());
+      // }
     } catch (e) {
+      print(e);
       ErrorDialog(
         error: DioException.withDioError(e),
       ).show(context);

@@ -10,4 +10,6 @@ abstract class EventsApi {
 
   @GET('events')
   Future<List<EventsResponse>> getAllEvents();
+  @GET('banners')
+  Future<BannerResponse> getBanner();
 }
