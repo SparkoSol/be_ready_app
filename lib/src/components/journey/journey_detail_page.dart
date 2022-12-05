@@ -21,13 +21,10 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
 
-    return Scaffold(
-        extendBody: true,
+    return Scaffold(extendBody: true,
         extendBodyBehindAppBar: true,
         appBar: AppBarWidget(),
         body: BackgroundImageWidget(
-            child: Padding(
-          padding: EdgeInsets.only(top: media.viewPadding.top + 56),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -35,11 +32,11 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
+                  padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      bottom: 20,
+                      top: media.viewPadding.top + 56),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -67,8 +64,9 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
               _buildContainer()
             ],
           ),
-        )));
+        ));
   }
+
 
   Widget _buildContainer() {
     return GestureDetector(
@@ -101,6 +99,5 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
     );
   }
 }
-
 String lorem =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";

@@ -31,14 +31,9 @@ class _VideoPageState extends State<VideoPage> {
                 const GoalsPageTitle(text: 'Videos'),
                 const SizedBox(height: 40),
                 for (int i = 0; i < 10; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 23),
-                    child: VideoWidget(
-                      path: AppAssets.backgroundImage,
-                      title: 'Video Title',
-                      shareWithFriend: () {},
-                      likeButton: () {},
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 23),
+                    child: VideoWidget(path: AppAssets.backgroundImage),
                   )
               ],
             ),
