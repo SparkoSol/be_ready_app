@@ -219,25 +219,32 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> dailyCheckInRequest() async {
     try {
-      final response = await Awaiter.process(
-          future: DailyCheckInApi()
-              .getLastDailyCheckIn(AppData().readLastUser().userid),
-          context: context,
-          arguments: 'loading ...');
-      var dateTime = DateTime.parse(response.createdAt).dateFormat;
-      var date = DateTime.parse(response.date).dateFormat;
-      print('server dateTime $dateTime');
-      print('current dateTime $date');
-      if (date == dateTime) {
-        if (mounted) {
-          $showSnackBar(context, 'Already Checked In');
-        }
-      } else {
-        if (mounted) {
-          AppNavigation.to(context, const DailyCheckInPage());
-        }
-      }
+      // print('RRRRRR');
+      // final response = await Awaiter.process(
+      //   future: DailyCheckInApi().getLastDailyCheckIn(
+      //     AppData().readLastUser().userid,
+      //   ),
+      //   context: context,
+      //   arguments: 'loading ...',
+      // );
+      // print('RRRRRR After');
+      // print(response);
+      // if (!mounted) return;
+      // if (response == null) {
+      //   AppNavigation.to(context, const DailyCheckInPage());
+      //   return;
+      // }
+      // var dateTime = DateTime.parse(response.createdAt).dateFormat;
+      // var date = DateTime.parse(response.date).dateFormat;
+      // print('server dateTime $dateTime');
+      // print('current dateTime $date');
+      // if (date == dateTime) {
+      //   $showSnackBar(context, 'Already Checked In');
+      // } else {
+      //   AppNavigation.to(context, const DailyCheckInPage());
+      // }
     } catch (e) {
+      print(e);
       ErrorDialog(
         error: DioException.withDioError(e),
       ).show(context);
