@@ -10,6 +10,7 @@ import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MediaWidget extends StatefulWidget {
@@ -212,8 +213,12 @@ class _MediaWidgetState extends State<MediaWidget> {
 
   Future<void> like(String id) async {
     try {
-      print(id);
-      await ResourcesApi().likeResource(AppData().readLastUser().userid, id);
+      await Awaiter.process(
+          future:
+              ResourcesApi().likeResource(AppData().readLastUser().userid, id),
+          context: context,
+          arguments: 'saving');
+
       widget.resource.liked = !(widget.resource.liked ?? false);
       setState(() {});
     } catch (e) {

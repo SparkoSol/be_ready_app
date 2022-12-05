@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 class EventsController extends ChangeNotifier {
   late List<EventsResponse> events;
   bool loading = true;
+  final api = EventsApi();
 
   EventsController() {
     initialization();
@@ -19,14 +20,21 @@ class EventsController extends ChangeNotifier {
   }
 
   Future<List<EventsResponse>> getEvents() async {
-    print('getting events');
     try {
-      final api = EventsApi();
       final response = await api.getAllEvents();
-      print(response);
+
       return response;
     } catch (e) {
-      print(e);
+      throw DioException.withDioError(e);
+    }
+  }
+
+  Future<BannerResponse> getBanner() async {
+    try {
+      final response = await api.getBanner();
+
+      return response;
+    } catch (e) {
       throw DioException.withDioError(e);
     }
   }

@@ -22,3 +22,18 @@ class EventsResponse {
 
   factory EventsResponse.fromJson(_Json json) => _$EventsResponseFromJson(json);
 }
+
+@JsonSerializable(createToJson: false)
+class BannerResponse {
+  BannerResponse({
+    required this.title,
+    required this.imageName,
+  });
+
+  @JsonKey(name: 'image_name')
+  final String imageName;
+
+  final String title;
+
+  factory BannerResponse.fromJson(_Json json) => _$BannerResponseFromJson(json);
+}

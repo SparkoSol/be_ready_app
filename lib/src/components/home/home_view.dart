@@ -6,7 +6,6 @@ import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/home/be_universe_view.dart';
 import 'package:be_universe/src/components/home/drawer_widget.dart';
 import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
-import 'package:be_universe/src/components/main_menu/events/controller.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
@@ -103,11 +102,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 MainMenuWidget(
                   onPressed: () {
-                    AppNavigation.to(
-                        context,
-                        EventsPage(
-                          eventsController: EventsController(),
-                        ));
+                    AppNavigation.to(context, const EventsPage());
                   },
                   text: 'Events',
                   path: AppAssets.calenderIcon,
