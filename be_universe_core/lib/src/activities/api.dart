@@ -7,6 +7,6 @@ abstract class ActivitiesApi {
       );
 
   @GET('activities')
-  Future<List<ActivitiesResponse>> getAllActivities(
+  Future<List<ActivitiesResponse>> getPaginatedActivities(
       @Query('page') String page, @Query('limit') String limit);
 }

@@ -1,3 +1,4 @@
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,7 +37,12 @@ class FeelingWidget extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Image.asset(path, width: 50, height: 50),
+          child: Image.network(
+            path.fileUrl,
+            width: 50,
+            height: 50,
+            color: Colors.white,
+          ),
         ),
         const SizedBox(width: 20),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

@@ -3,7 +3,10 @@ import 'package:be_universe/src/widgets/activities_page_widget.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_view.dart';
 import 'package:be_universe/src/widgets/text.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/thank_you_widget.dart';
@@ -16,6 +19,17 @@ class ActivitesPage extends StatefulWidget {
 }
 
 class _ActivitesPageState extends State<ActivitesPage> {
+  late CustomListViewController<ActivitiesResponse> listViewController;
+
+  @override
+  void initState() {
+    listViewController = CustomListViewController<ActivitiesResponse>(
+      paginatedFunction: (int page, int limit) => ActivitiesApi()
+          .getPaginatedActivities(page.toString(), limit.toString()),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,25 +53,49 @@ class _ActivitesPageState extends State<ActivitesPage> {
                 text: 'Based on your results we want to help you improve how '
                     'you’re feeling',
               ),
+              Expanded(
+                child: CustomListView<ActivitiesResponse>.simpler(
+                  listViewController: listViewController,
+                  baseColor: const Color(0xff2E2340),
+                  highLightColor: Colors.white12,
+                  shimmerWidget: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const SizedBox(
+                      height: 20,
+                      width: double.infinity,
+                    ),
+                  ),
+                  builder: (ctx, data) {
+                    return FeelingWidget(
+                      text: data.title,
+                      path: data.icon,
+                      onPressed: () {},
+                      duration: data.duration,
+                    );
+                  },
+                ),
+              ),
               const SizedBox(height: 30),
-              FeelingWidget(
-                text: 'Meditation',
-                path: AppAssets.deltaIcon,
-                onPressed: () {},
-                duration: '1 hour',
-              ),
-              FeelingWidget(
-                text: 'Grounding',
-                path: AppAssets.atomIcon,
-                onPressed: () {},
-                duration: '1 hour',
-              ),
-              FeelingWidget(
-                text: 'Hike',
-                path: AppAssets.starIcon,
-                onPressed: () {},
-                duration: '1 hour',
-              ),
+              // FeelingWidget(
+              //   text: 'Meditation',
+              //   path: AppAssets.deltaIcon,
+              //   onPressed: () {},
+              //   duration: '1 hour',
+              // ),
+              // FeelingWidget(
+              //   text: 'Grounding',
+              //   path: AppAssets.atomIcon,
+              //   onPressed: () {},
+              //   duration: '1 hour',
+              // ),
+              // FeelingWidget(
+              //   text: 'Hike',
+              //   path: AppAssets.starIcon,
+              //   onPressed: () {},
+              //   duration: '1 hour',
+              // ),
               const Spacer(),
               AppButtonWidget(
                 onPressed: () async {
