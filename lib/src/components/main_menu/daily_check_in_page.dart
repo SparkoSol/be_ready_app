@@ -1,4 +1,3 @@
-import 'package:be_universe/src/base/modals/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/goals/explore.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
@@ -117,25 +116,8 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
                     after: () => setState(() => _absorb = false),
-                    onPressed: () async {
-                      await sendDailyCheckIn(
-                          spiritValue, mindSliderValue, bodySliderValue);
-                      if (mounted) {
-                        if (mindSliderValue < 5 ||
-                            bodySliderValue < 5 ||
-                            spiritValue < 5) {
-                          AppNavigation.toReplace(
-                              context,
-                              ExplorePage(
-                                bodyValue: bodySliderValue,
-                                mindValue: mindSliderValue,
-                                spiritValue: spiritValue,
-                              ));
-                        } else {
-                          $showBottomSheet(context, const ThankYouWidget());
-                        }
-                      }
-                    },
+                    onPressed: () => sendDailyCheckIn(
+                        spiritValue, mindSliderValue, bodySliderValue),
                     title: 'See results',
                   ),
                   const SizedBox(height: 55)
@@ -150,21 +132,29 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
 
   Future<void> sendDailyCheckIn(double spirit, double mind, double body) async {
     try {
-      final userData = AppData().readLastUser();
-      final response = await DailyCheckInService().sendDailyCheckInData(
+      await DailyCheckInService().sendDailyCheckInData(
         DailyCheckInModel(
-          userId: userData.userid,
+          userId: AppData().readLastUser().userid,
           myBodyFeels: body.toInt(),
           myMindFeels: mind.toInt(),
           mySpiritFeels: spirit.toInt(),
         ),
       );
-      spiritValue = response.mySpiritFeels.toDouble();
-      mindSliderValue = response.myMindFeels.toDouble();
-      bodySliderValue = response.myBodyFeels.toDouble();
-      setState(() {});
-    } catch (e) {
-      ErrorDialog(error: e).show(context);
+      if (!mounted) return;
+      if (mindSliderValue < 5 || bodySliderValue < 5 || spiritValue < 5) {
+        AppNavigation.toReplace(
+          context,
+          ExplorePage(
+            bodyValue: bodySliderValue,
+            mindValue: mindSliderValue,
+            spiritValue: spiritValue,
+          ),
+        );
+      } else {
+        $showBottomSheet(context, const ThankYouWidget());
+      }
+    } catch (_) {
+      rethrow;
     }
   }
 }

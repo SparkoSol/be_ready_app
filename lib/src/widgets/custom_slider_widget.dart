@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomSlider extends StatefulWidget {
-  const CustomSlider(
-      {Key? key,
-      required this.value,
-      required this.callback,
-      required this.text})
-      : super(key: key);
+  const CustomSlider({
+    Key? key,
+    required this.value,
+    required this.callback,
+    required this.text,
+  }) : super(key: key);
+
   final double value;
   final void Function(double) callback;
   final String text;
@@ -43,34 +44,30 @@ class _CustomSliderState extends State<CustomSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 50,
-        ),
-        RedText(
-          text: widget.text,
-        ),
+        const SizedBox(height: 50),
+        RedText(text: widget.text),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               '1',
               style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  color: Colors.white.withOpacity(0.7),
-                  letterSpacing: 1),
+                fontSize: 13,
+                color: Colors.white.withOpacity(0.7),
+                letterSpacing: 1,
+              ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Expanded(
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
                 // width: 270,
                 decoration: BoxDecoration(
-                    color: const Color(0xFF2E2340),
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10)),
+                  color: const Color(0xFF2E2340),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: SliderTheme(
                   data: SliderThemeData(
                     overlayShape: SliderComponentShape.noOverlay,
@@ -88,26 +85,26 @@ class _CustomSliderState extends State<CustomSlider> {
                     overlappingShapeStrokeColor: Colors.brown,
                   ),
                   child: Slider(
-                      min: 0.0,
-                      max: 10.0,
-                      value: value,
-                      onChanged: (d) {
-                        value = d;
-                        widget.callback(d);
-                        setState(() {});
-                      }),
+                    min: 1.0,
+                    max: 10.0,
+                    value: value,
+                    onChanged: (d) {
+                      value = d;
+                      widget.callback(d);
+                      setState(() {});
+                    },
+                  ),
                 ),
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             Text(
               '${widget.value.toInt()}',
               style: GoogleFonts.poppins(
-                  fontSize: 13,
-                  color: Colors.white.withOpacity(0.7),
-                  letterSpacing: 1),
+                fontSize: 13,
+                color: Colors.white.withOpacity(0.7),
+                letterSpacing: 1,
+              ),
             ),
           ],
         ),

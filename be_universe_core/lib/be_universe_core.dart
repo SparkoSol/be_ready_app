@@ -46,6 +46,14 @@ part 'src/events/requests.dart';
 
 part 'src/events/responses.dart';
 
+part 'src/journey/api.dart';
+
+part 'src/journey/models.dart';
+
+part 'src/journey/requests.dart';
+
+part 'src/journey/responses.dart';
+
 part 'src/resources/api.dart';
 
 part 'src/resources/models.dart';
@@ -58,7 +66,7 @@ typedef _Json = Map<String, dynamic>;
 
 class Api {
   // static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
-  static const _apiUrl = 'https://be-universe.loca.lt/';
+  static const _apiUrl = 'https://21ec-182-191-142-35.in.ngrok.io/';
 
   static String get apiUl => _apiUrl;
 
