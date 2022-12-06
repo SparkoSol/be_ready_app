@@ -1,5 +1,5 @@
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/modals/confirmation_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/confirmation_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/contact_us_page.dart';
@@ -153,7 +153,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 TextButton(
                   onPressed: () async {
                     var result = await ConfirmationDialog(
-                            text: 'Are you sure you want to Logout')
+                            text: 'Are you sure you want to Logout?')
                         .show(context);
                     if (result) {
                       _signOut();

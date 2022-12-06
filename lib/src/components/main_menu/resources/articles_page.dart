@@ -1,4 +1,4 @@
-import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/article_widget.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';

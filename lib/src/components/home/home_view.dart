@@ -1,6 +1,6 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/journey/be_universe_view.dart';

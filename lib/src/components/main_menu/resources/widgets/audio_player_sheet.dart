@@ -1,6 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

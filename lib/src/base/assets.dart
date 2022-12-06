@@ -48,4 +48,7 @@ class AppAssets {
   static const bookIcon = '$_path/book.png';
   static const podcastIcon = '$_path/podcast.png';
   static const quotesIcon = '$_path/quotes.png';
+  static const noWifi = '$_path/no_wifi.png';
+  static const warning = '$_path/warning.png';
+  static const question = '$_path/question.png';
 }

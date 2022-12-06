@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:be_universe/src/base/modals/error_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/components/auth/widget/auth_text_span_widget.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe_core/be_universe_core.dart';

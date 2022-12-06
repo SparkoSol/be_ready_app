@@ -1,4 +1,4 @@
-import 'package:be_universe/src/base/modals/confirmation_dialog.dart';
+import 'package:be_universe/src/base/modals/dialogs/confirmation_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/services/auth_api.dart';
