@@ -62,7 +62,11 @@ class _ArticlesPageState extends State<ArticlesPage> {
             top: MediaQuery.of(context).padding.top + 56,
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+            padding: const EdgeInsets.only(
+              left: 52,
+              right: 46,
+              bottom: 20,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

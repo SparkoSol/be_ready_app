@@ -108,9 +108,9 @@ class _ResourcePageState extends State<ResourcePage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-            30,
+            54,
             MediaQuery.of(context).padding.top + 56,
-            30,
+            63,
             60,
           ),
           child: CustomScrollView(

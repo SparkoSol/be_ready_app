@@ -30,7 +30,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 45),
-                  child: Image.asset(AppAssets.temple, width: 100, height: 100),
+                  child: Image.asset(AppAssets.temple, width: 87, height: 97),
                 ),
                 Text(
                   'Exclusive Content',
@@ -82,7 +82,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 Container(
             margin: const EdgeInsets.only(bottom: 20),      width: double.infinity,
                   padding:
-                      const EdgeInsets.symmetric(vertical: 26, horizontal: 2),
+                      const EdgeInsets.symmetric(vertical: 27, horizontal: 2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.transparent,

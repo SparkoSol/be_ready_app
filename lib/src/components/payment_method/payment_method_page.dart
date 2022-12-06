@@ -31,113 +31,112 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 30,
-            right: 30,
+            left: 40,
+            right: 31,
             top: padding.top + 56,
           ),
-          child: Center(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 30),
-                    child: Text(
-                      'Payment Method',
-                      style: TextStyle(fontSize: 33, color: Colors.white),
+          child:             SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 74),
+                  child: Text(
+                    'Payment Method',
+                    style: TextStyle(fontSize: 33, color: Colors.white),
+                  ),
+                ),
+                _getTitleText(title: 'Card number'),
+                AppTextField(
+                  textEditingController: _cardNumberController,
+                  hintStyle: _hintStyle,
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 14,
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 16,
+                  hint: '****     ****     ****     1234',
+                  suffix: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Image.asset(
+                      AppAssets.visaIcon,
+                      height: 40,
+                      width: 40,
                     ),
                   ),
-                  _getTitleText(title: 'Card number'),
-                  AppTextField(
-                    textEditingController: _cardNumberController,
-                    hintStyle: _hintStyle,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 14,
-                    ),
-                    keyboardType: TextInputType.number,
-                    maxLength: 16,
-                    hint: '****     ****     ****     1234',
-                    suffix: Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: Image.asset(
-                        AppAssets.visaIcon,
-                        height: 40,
-                        width: 40,
-                      ),
+                ),
+                Row(children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _getTitleText(title: 'Expiry date'),
+                        AppTextField(
+                          contentPadding: _contentPadding,
+                          hint: '11/24',
+                          keyboardType: TextInputType.number,
+                          hintStyle: _hintStyle,
+                          textEditingController: _expiryController,
+                        ),
+                      ],
                     ),
                   ),
-                  Row(children: [
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _getTitleText(title: 'CVV'),
+                        AppTextField(
+                          contentPadding: _contentPadding,
+                          maxLength: 3,
+                          keyboardType: TextInputType.number,
+                          hint: '***',
+                          hintStyle: _hintStyle,
+                          textEditingController: _cvvController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+                _getTitleText(title: 'Name on card'),
+                AppTextField(
+                  contentPadding: _contentPadding,
+                  hint: 'Laurie Powell',
+                  hintStyle: _hintStyle,
+                  textEditingController: _nameController,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      AppAssets.stripeIcon,
+                      width: 60,
+                      height: 32,
+                    ),
+                    const SizedBox(width: 24),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _getTitleText(title: 'Expiry date'),
-                          AppTextField(
-                            contentPadding: _contentPadding,
-                            hint: '11/24',
-                            keyboardType: TextInputType.number,
-                            hintStyle: _hintStyle,
-                            textEditingController: _expiryController,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _getTitleText(title: 'CVV'),
-                          AppTextField(
-                            contentPadding: _contentPadding,
-                            maxLength: 3,
-                            keyboardType: TextInputType.number,
-                            hint: '***',
-                            hintStyle: _hintStyle,
-                            textEditingController: _cvvController,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ]),
-                  _getTitleText(title: 'Name on card'),
-                  AppTextField(
-                    contentPadding: _contentPadding,
-                    hint: 'Laurie Powell',
-                    hintStyle: _hintStyle,
-                    textEditingController: _nameController,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        AppAssets.stripeIcon,
-                        width: 60,
-                        height: 32,
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        child: Text(
-                          'BeUniverse will never store your card details. Payment infrastructure is provided by Stripe',
-                          style: GoogleFonts.alata(
-                            color: const Color(0xFF9EABB7),
-                            fontSize: 11,
-                          ),
+                      child: Text(
+                        'BeUniverse will never store your card details. Payment infrastructure is provided by Stripe',
+                        style: GoogleFonts.alata(
+                          color: const Color(0xFF9EABB7),
+                          fontSize: 11,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                  AppButtonWidget(
-                    title: 'UPDATE CARD',
-                    onPressed: () async {},
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32),
+                AppButtonWidget(
+                  title: 'UPDATE CARD',
+                  onPressed: () async {},
+                ),
+              ],
             ),
           ),
+
         ),
       ),
     );

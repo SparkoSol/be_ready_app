@@ -30,8 +30,10 @@ class _ExplorePageState extends State<ExplorePage> {
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 30,
-            right: 30,
+            // left: 30,
+            // right: 30,
+            left: 56,
+            right: 56,
             bottom: 20,
             top: MediaQuery.of(context).padding.top + 56,
           ),
