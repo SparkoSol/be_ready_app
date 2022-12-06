@@ -1,19 +1,20 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/home/be_universe_view.dart';
+import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/journey/journey_detail_page.dart';
+import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_universe/src/utils/app_utils.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class JourneyHomePage extends StatefulWidget {
-  const JourneyHomePage({
-    Key? key,
-    required this.therapy,
-  }) : super(key: key);
+  const JourneyHomePage({Key? key, required this.therapy, required this.data})
+      : super(key: key);
 
   final TherapyType therapy;
+  final List<JourneyResponse> data;
 
   @override
   State<JourneyHomePage> createState() => _JourneyHomePageState();
@@ -30,8 +31,23 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
 
     double topContainerHeight = (height * 39) / 100;
 
-    final positionScale = ((height * 61) / 100) / 6;
-
+    final positionScale = ((height * 61) / 100) / widget.data.length;
+    var startColor = const [
+      Color(0xff43355C),
+      Color(0xff7390D5),
+      Color(0xffF0D780),
+      Color(0xffD58874),
+      Color(0xff43355C),
+      Color(0xff2E2340)
+    ];
+    var endColor = const [
+      Color(0xffDFE0A0),
+      Color(0xffDA8C6E),
+      Color(0xffDA8C6E),
+      Color(0xff523071),
+      Color(0xff57538E),
+      Color(0xff2E2340)
+    ];
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarWidget(),
@@ -71,9 +87,11 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
                       fontSize: 18),
                 ),
                 const Spacer(),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Image.asset(AppAssets.playButton),
+                GestureDetector(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Image.asset(AppAssets.playButton),
+                  ),
                 )
               ],
             ),
@@ -83,48 +101,51 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
               fit: StackFit.expand,
               clipBehavior: Clip.none,
               children: [
-                _buildContainer(
-                  colorStart: const Color(0xff43355C),
-                  colorEnd: const Color(0xff57538E),
-                  top: 0,
-                  text: 'Actions vs outcomes',
-                  height: positionScale,
-                ),
-                _buildContainer(
-                  height: positionScale,
-                  colorStart: const Color(0xff7390D5),
-                  colorEnd: const Color(0xffDFE0A0),
-                  top: positionScale,
-                  text: 'Formal/Spoken/Written',
-                ),
-                _buildContainer(
-                  colorStart: const Color(0xffF0D780),
-                  colorEnd: const Color(0xffDA8C6E),
-                  height: positionScale,
-                  top: positionScale * 2,
-                  text: 'Never Assumed',
-                ),
-                _buildContainer(
-                  colorStart: const Color(0xffD58874),
-                  colorEnd: const Color(0xff523071),
-                  height: positionScale,
-                  top: positionScale * 3,
-                  text: 'Voluntary (never coerced)',
-                ),
-                _buildContainer(
-                  colorStart: const Color(0xff43355C),
-                  colorEnd: const Color(0xff57538E),
-                  top: positionScale * 4,
-                  height: positionScale,
-                  text: "Mutual (“our” agreement)",
-                ),
-                _buildContainer(
-                  colorStart: const Color(0xff2E2340),
-                  colorEnd: const Color(0xff2E2340),
-                  height: positionScale,
-                  top: positionScale * 5,
-                  text: 'Renegotiable',
-                ),
+                for (var t = 0; t < widget.data.length; t++) ...[
+                  _buildContainer(
+                      colorStart: startColor[t],
+                      colorEnd: endColor[t],
+                      top: positionScale * t,
+                      text: widget.data[t].title,
+                      height: positionScale,
+                      journeyResponse: widget.data[t])
+                ]
+
+                // _buildContainer(
+                //   height: positionScale,
+                //   colorStart: const Color(0xff7390D5),
+                //   colorEnd: const Color(0xffDFE0A0),
+                //   top: positionScale,
+                //   text: 'Formal/Spoken/Written',
+                // ),
+                // _buildContainer(
+                //   colorStart: const Color(0xffF0D780),
+                //   colorEnd: const Color(0xffDA8C6E),
+                //   height: positionScale,
+                //   top: positionScale * 2,
+                //   text: 'Never Assumed',
+                // ),
+                // _buildContainer(
+                //   colorStart: const Color(0xffD58874),
+                //   colorEnd: const Color(0xff523071),
+                //   height: positionScale,
+                //   top: positionScale * 3,
+                //   text: 'Voluntary (never coerced)',
+                // ),
+                // _buildContainer(
+                //   colorStart: const Color(0xff43355C),
+                //   colorEnd: const Color(0xff57538E),
+                //   top: positionScale * 4,
+                //   height: positionScale,
+                //   text: "Mutual (“our” agreement)",
+                // ),
+                // _buildContainer(
+                //   colorStart: const Color(0xff2E2340),
+                //   colorEnd: const Color(0xff2E2340),
+                //   height: positionScale,
+                //   top: positionScale * 5,
+                //   text: 'Renegotiable',
+                // ),
               ],
             ),
           ),
@@ -133,13 +154,13 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
     );
   }
 
-  Widget _buildContainer({
-    required Color colorStart,
-    required Color colorEnd,
-    required double top,
-    required String text,
-    required double height,
-  }) {
+  Widget _buildContainer(
+      {required Color colorStart,
+      required Color colorEnd,
+      required double top,
+      required String text,
+      required double height,
+      required JourneyResponse journeyResponse}) {
     return Positioned(
       top: top,
       child: GestureDetector(
@@ -165,7 +186,7 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
         onTap: () {
           AppNavigation.to(
             context,
-            JourneyDetailPage(pageTitle: text),
+            JourneyDetailPage(data: journeyResponse),
           );
         },
       ),

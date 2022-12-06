@@ -1,4 +1,6 @@
+import 'package:be_universe/src/utils/extenstions.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/event_page_widget.dart';
 import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
@@ -121,19 +123,29 @@ class _EventsPageState extends State<EventsPage> {
                     return SliverToBoxAdapter(
                       child: Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 30),
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(top: 150),
-                        decoration: BoxDecoration(
-                          color: Colors.orange,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              data.first.imageName.fileUrl,
-                            ),
-                          ),
-                          borderRadius: BorderRadius.circular(20),
+                        child: AppNetworkImage(
+                          url: data.first.imageName.fileUrl,
+                          width: 360,
+                          height: 225,
+                          borderRadius: 30,
                         ),
                       ),
+                      // child: Container(
+                      //   margin: const EdgeInsets.only(top: 5, bottom: 30),
+                      //   width: double.infinity,
+                      //   padding: const EdgeInsets.only(top: 150),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.orange,
+                      //     // image: DecorationImage(
+                      //     //   fit: BoxFit.cover,
+                      //     //   image: NetworkImage(
+                      //     //     data.first.imageName.fileUrl,
+                      //     //   ),
+                      //     // ),
+                      //     borderRadius: BorderRadius.circular(20),
+                      //   ),
+                      //
+                      // ),
                     );
                   },
                 ),
@@ -166,7 +178,7 @@ class _EventsPageState extends State<EventsPage> {
                     return GestureDetector(
                       child: EventsTile(
                         title: data.name,
-                        date: DateTime.parse(data.date).dateFormat,
+                        date: DateTime.parse(data.date).monthDate,
                         path: data.imageName.fileUrl,
                         participants: const [],
                       ),

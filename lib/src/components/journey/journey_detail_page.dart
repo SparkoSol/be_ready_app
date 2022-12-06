@@ -1,18 +1,17 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../base/assets.dart';
 import '../subscription/subscription_page.dart';
 
 class JourneyDetailPage extends StatefulWidget {
-  final String pageTitle;
-
-  const JourneyDetailPage({Key? key, required this.pageTitle})
-      : super(key: key);
-
+  const JourneyDetailPage({Key? key, required this.data}) : super(key: key);
+  final JourneyResponse data;
   @override
   State<JourneyDetailPage> createState() => _JourneyDetailPageState();
 }
@@ -43,20 +42,36 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.pageTitle,
+                        widget.data.title,
                         style: GoogleFonts.oswald(
                             fontSize: 30,
                             fontWeight: FontWeight.w400,
                             color: Colors.white),
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        lorem + lorem + lorem,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white.withOpacity(0.6),
-                        ),
+                      Html(
+                        style: {
+                          "*": Style(color: Colors.white),
+                          "li": Style(
+                            color: Colors.white,
+                          ),
+                          // "ul li::before": Style(
+                          //   color: Colors.red,
+                          //   fontWeight: FontWeight.bold,
+                          //   display: Display.INLINE_BLOCK,
+                          //   width: 1,
+                          //   margin: const EdgeInsets.only(left: 1),
+                          // ),
+                        },
+                        data: widget.data.description,
                       ),
+                      // Text(
+                      //   lorem + lorem + lorem,
+                      //   style: GoogleFonts.poppins(
+                      //     fontWeight: FontWeight.w300,
+                      //     color: Colors.white.withOpacity(0.6),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

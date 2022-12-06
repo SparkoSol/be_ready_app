@@ -174,7 +174,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       await audioPlayer.setSourceUrl(
         Uri.encodeFull(widget.url.fileUrl),
       );
-      if(!mounted) return;
+      if (!mounted) return;
       audioPlayer.resume();
       loading = false;
       setState(() {});

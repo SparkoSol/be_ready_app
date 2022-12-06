@@ -1,3 +1,4 @@
+import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,14 +37,19 @@ class FeelingWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Image.network(
-            path.fileUrl,
-            width: 50,
-            height: 50,
-            color: Colors.white,
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: AppNetworkImage(
+              url: path.fileUrl,
+              width: 50,
+              height: 50,
+            )
+            // Image.network(
+            //   path.fileUrl,
+            //   width: 50,
+            //   height: 50,
+            //   color: Colors.white,
+            // ),
+            ),
         const SizedBox(width: 20),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
