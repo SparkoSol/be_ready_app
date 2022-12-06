@@ -11,13 +11,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
 
 class QuotesPage extends StatefulWidget {
-  const QuotesPage({
-    Key? key,
-    required this.type,
-  }) : super(
+  const QuotesPage({Key? key, required this.type, required this.count})
+      : super(
           key: key,
         );
   final String type;
+  final int count;
 
   @override
   State<QuotesPage> createState() => _QuotesPageState();
@@ -65,6 +64,7 @@ class _QuotesPageState extends State<QuotesPage> {
                   listViewController: listController,
                   baseColor: const Color(0xff2E2340),
                   highLightColor: Colors.white12,
+                  shimmerCount: widget.count,
                   shimmerWidget: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),

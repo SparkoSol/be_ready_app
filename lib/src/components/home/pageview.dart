@@ -11,7 +11,7 @@ class PageViewWidget extends StatefulWidget {
 }
 
 class _PageViewWidgetState extends State<PageViewWidget> {
-  var pages = [SubscriptionPage(), SubscriptionOffersPage()];
+  var pages = [const SubscriptionPage(), const SubscriptionOffersPage()];
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
@@ -24,7 +24,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       appBar: AppBarWidget(),
       body: PageView(
         controller: pageController,
-        children: [SubscriptionPage(), SubscriptionOffersPage()],
+        children: [const SubscriptionPage(), const SubscriptionOffersPage()],
       ),
     );
   }

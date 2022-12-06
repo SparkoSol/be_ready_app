@@ -152,7 +152,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    var result = await ConfirmationDialog(
+                    var result = await const ConfirmationDialog(
                             text: 'Are you sure you want to Logout?')
                         .show(context);
                     if (result) {

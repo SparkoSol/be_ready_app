@@ -1,9 +1,5 @@
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/goals/explore.dart';
 import 'package:be_universe/src/components/journey/journey_detail_page.dart';
-import 'package:be_universe/src/components/journey/journey_page.dart';
-import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/text.dart';

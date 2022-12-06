@@ -9,11 +9,12 @@ import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
 class MediaPage extends StatefulWidget {
-  const MediaPage({Key? key, required this.type})
+  const MediaPage({Key? key, required this.type, required this.count})
       : super(
           key: key,
         );
   final String type;
+  final int count;
 
   @override
   State<MediaPage> createState() => _MediaPageState();
@@ -63,6 +64,7 @@ class _MediaPageState extends State<MediaPage> {
                     listViewController: listController,
                     baseColor: const Color(0xff2E2340),
                     highLightColor: Colors.white12,
+                    shimmerCount: widget.count,
                     shimmerWidget: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

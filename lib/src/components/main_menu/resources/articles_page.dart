@@ -13,13 +13,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/utils/awaiter.dart';
 
 class ArticlesPage extends StatefulWidget {
-  const ArticlesPage({
-    Key? key,
-    this.isBeConnected = false,
-  }) : super(key: key);
+  const ArticlesPage({Key? key, this.isBeConnected = false, this.count})
+      : super(key: key);
 
   final bool isBeConnected;
-
+  final int? count;
   @override
   State<ArticlesPage> createState() => _ArticlesPageState();
 }
@@ -81,6 +79,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                     listViewController: listController,
                     baseColor: const Color(0xff2E2340),
                     highLightColor: Colors.white12,
+                    shimmerCount: widget.count,
                     shimmerWidget: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

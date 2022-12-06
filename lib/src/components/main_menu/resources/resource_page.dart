@@ -159,26 +159,41 @@ class _ResourcePageState extends State<ResourcePage> {
                               dynamic page;
                               switch (item.key) {
                                 case ResourcesCategories.videos:
-                                  page = MediaPage(type: item.key.category);
+                                  page = MediaPage(
+                                    type: item.key.category,
+                                    count: item.value,
+                                  );
                                   break;
                                 case ResourcesCategories.audios:
-                                  page = MediaPage(type: item.key.category);
+                                  page = MediaPage(
+                                    type: item.key.category,
+                                    count: item.value,
+                                  );
 
                                   break;
                                 case ResourcesCategories.quotes:
                                   page = QuotesPage(
                                     type: item.key.category,
+                                    count: item.value,
                                   );
                                   break;
                                 case ResourcesCategories.podcasts:
-                                  page = MediaPage(type: item.key.category);
+                                  page = MediaPage(
+                                    type: item.key.category,
+                                    count: item.value,
+                                  );
 
                                   break;
                                 case ResourcesCategories.articles:
-                                  page = const ArticlesPage();
+                                  page = ArticlesPage(
+                                    count: item.value,
+                                  );
                                   break;
                                 case ResourcesCategories.books:
-                                  page = MediaPage(type: item.key.category);
+                                  page = MediaPage(
+                                    type: item.key.category,
+                                    count: item.value,
+                                  );
 
                                   break;
                               }

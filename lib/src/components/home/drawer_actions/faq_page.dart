@@ -1,4 +1,3 @@
-import 'package:be_universe/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
 import 'package:be_universe/src/utils/const.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -30,8 +29,8 @@ class _FAQPageState extends State<FAQPage> {
             padding: const EdgeInsets.only(
               left: 30,
               right: 30,
-             // left: 46,
-             //  right: 46,
+              // left: 46,
+              //  right: 46,
             ),
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -43,7 +42,10 @@ class _FAQPageState extends State<FAQPage> {
                     fontSize: 30,
                     color: Colors.white,
                   ),
-                ),const SizedBox(height: 10,),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 // const DrawerActionTitleWidget(title: 'FAQ’s'),
                 for (int i = 0; i < _isExpanded.length; i++) ...[
                   GestureDetector(

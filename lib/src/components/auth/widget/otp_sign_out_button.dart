@@ -48,7 +48,7 @@ class _OtpSignOutButtonState extends State<OtpSignOutButton> {
     _isLoading = true;
     setState(() {});
     widget.before();
-    final confirm = await ConfirmationDialog(
+    final confirm = await const ConfirmationDialog(
       text: 'Are you sure, you want to change the account?',
     ).show(context);
     if (!confirm) {

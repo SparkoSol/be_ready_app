@@ -91,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
                   onPressed: dailyCheckInRequest,
-                  text: 'Daily check-In',
+                  text: 'Daily Check-In',
                   path: AppAssets.graphIcon,
                 ),
                 MainMenuWidget(

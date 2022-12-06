@@ -1,4 +1,3 @@
-import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/widgets/activities_page_widget.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';

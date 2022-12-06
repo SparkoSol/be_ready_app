@@ -10,7 +10,6 @@ import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reusables/reusables.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({
