@@ -29,12 +29,13 @@ dependencies:
   flutter_html: ^2.2.1
   appinio_video_player: ^1.2.0
   syncfusion_flutter_pdfviewer: ^20.3.59
-  audioplayers: ^1.1.1
+#  audioplayers: ^1.1.1
   shimmer: ^2.0.0
-  audio_video_progress_bar: ^0.11.0
+#  audio_video_progress_bar: ^0.11.0
   share_plus: ^6.3.0
   cached_network_image: ^3.2.3
   intl:
+  just_audio: ^0.9.30
 
 dev_dependencies:
   flutter_test:

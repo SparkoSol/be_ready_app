@@ -1,5 +1,5 @@
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
+import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/audio_player_sheet.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -101,14 +101,18 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
           ),
           child: Row(
             children: [
-              Text(
-                'Track 987324...',
-                style: GoogleFonts.poppins(
+              Expanded(
+                child: Text(
+                  widget.data.audioName,
+                  style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
-                    fontSize: 17),
+                    fontSize: 17,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              const Spacer(),
               GestureDetector(
                   onTap: () => AudioPlayerWidget(
                         url: [widget.data.audioName],

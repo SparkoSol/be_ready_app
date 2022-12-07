@@ -76,16 +76,16 @@ class _ActivitesPageState extends State<ActivitesPage> {
                   },
                 ),
               ),
-              const SizedBox(height: 30),
+
               // FeelingWidget(
               //   text: 'Meditation',
-              //   path: AppAssets.deltaIcon,
+              //   path: 'AppAssets',
               //   onPressed: () {},
               //   duration: '1 hour',
               // ),
               // FeelingWidget(
               //   text: 'Grounding',
-              //   path: AppAssets.atomIcon,
+              //   path: 'AppAssets.atomIcon',
               //   onPressed: () {},
               //   duration: '1 hour',
               // ),
@@ -95,7 +95,7 @@ class _ActivitesPageState extends State<ActivitesPage> {
               //   onPressed: () {},
               //   duration: '1 hour',
               // ),
-              const Spacer(),
+
               AppButtonWidget(
                 onPressed: () async {
                   $showBottomSheet(context, const ThankYouWidget());

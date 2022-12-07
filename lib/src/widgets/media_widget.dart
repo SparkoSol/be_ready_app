@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
+import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/audio_player_sheet.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/pdf_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/video_player_widget.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
@@ -57,7 +57,7 @@ class _MediaWidgetState extends State<MediaWidget> {
         break;
     }
     return Container(
-      height: 271,
+      height: 264,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
         // image: DecorationImage(
@@ -108,7 +108,7 @@ class _MediaWidgetState extends State<MediaWidget> {
                       ),
                     ),
                     child: Text(
-                      widget.videoTitle,
+                      widget.resource.title,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(
                         color: Colors.white,

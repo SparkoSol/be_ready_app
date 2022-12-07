@@ -66,7 +66,7 @@ typedef _Json = Map<String, dynamic>;
 
 class Api {
   // static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
-  static const _apiUrl = 'https://43b7ad39592267.lhr.life/';
+  static const _apiUrl = 'https://ce84d182fd7b1f.lhr.life/';
 
   static String get apiUl => _apiUrl;
 
