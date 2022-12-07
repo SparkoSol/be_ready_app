@@ -1,6 +1,7 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe/src/utils/app_utils.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,6 +107,7 @@ class _SocialAuthButtonState extends State<SocialAuthButton> {
         onPressed: _isLoading
             ? null
             : () async {
+                AppUtils.unFocus();
                 _isLoading = true;
                 setState(() {});
                 try {

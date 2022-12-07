@@ -1,4 +1,5 @@
 import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -12,6 +13,7 @@ import '../subscription/subscription_page.dart';
 class JourneyDetailPage extends StatefulWidget {
   const JourneyDetailPage({Key? key, required this.data}) : super(key: key);
   final JourneyResponse data;
+
   @override
   State<JourneyDetailPage> createState() => _JourneyDetailPageState();
 }
@@ -107,7 +109,12 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
                     fontSize: 17),
               ),
               const Spacer(),
-              Image.asset(AppAssets.playYellowButton)
+              GestureDetector(
+                  onTap: () => AudioPlayerWidget(
+                        url: [widget.data.audioName],
+                        title: [widget.data.title],
+                      ).show(context),
+                  child: Image.asset(AppAssets.playYellowButton))
             ],
           )),
     );

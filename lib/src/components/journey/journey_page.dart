@@ -2,6 +2,7 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/journey/journey_detail_page.dart';
+import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player_sheet.dart';
 import 'package:be_universe/src/utils/app_utils.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -87,6 +88,22 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
                 ),
                 const Spacer(),
                 GestureDetector(
+                  onTap: () {
+                    var urls = <String>[];
+                    var titles = <String>[];
+                    for (var u in widget.data) {
+                      urls.add(u.audioName);
+                      titles.add(u.title);
+                    }
+                    AudioPlayerWidget(
+                      url: urls,
+                      title: titles,
+                    ).show(context);
+                    // AudioPlayerWidget(
+                    //   url: urls,
+                    //   title: 'Playing Multiple',
+                    // ).show(context);
+                  },
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Image.asset(AppAssets.playButton),

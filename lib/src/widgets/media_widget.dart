@@ -135,17 +135,17 @@ class _MediaWidgetState extends State<MediaWidget> {
                       break;
                     case 'Audios':
                       AudioPlayerWidget(
-                        url: widget.resource.filename,
+                        url: [widget.resource.filename],
                         pic: widget.resource.thumbnail,
-                        title: widget.resource.title,
+                        title: [widget.resource.title],
                       ).show(context);
 
                       break;
                     case 'Podcasts':
                       AudioPlayerWidget(
-                        url: widget.resource.filename,
+                        url: [widget.resource.filename],
                         pic: widget.resource.thumbnail,
-                        title: widget.resource.title,
+                        title: [widget.resource.title],
                       ).show(context);
                       break;
                     case 'Quotes':

@@ -1,17 +1,20 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
+import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
   const AudioPlayerWidget(
-      {Key? key, required this.url, required this.title, required this.pic})
+      {Key? key, required this.url, required this.title, this.pic})
       : super(key: key);
-  final String title;
-  final String url;
-  final String pic;
+  final List<String> title;
+  final List<String> url;
+  final String? pic;
 
   Future<void> show(BuildContext context) async {
     return await showModalBottomSheet(
@@ -37,11 +40,12 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
   bool loading = true;
+  int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    setAudio();
+    setAudio(widget.url[selectedIndex]);
 
     audioPlayer.onPlayerStateChanged.listen((event) {
       if (mounted) {
@@ -62,6 +66,20 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         setState(() {
           position = newPosition;
         });
+      }
+    });
+    audioPlayer.onPlayerComplete.listen((event) {
+      selectedIndex++;
+      setState(() {});
+      if (widget.url.length == selectedIndex) {
+        Navigator.pop(context);
+        audioPlayer.stop();
+        audioPlayer.dispose();
+        return;
+      } else {
+        loading = true;
+        setAudio(widget.url[selectedIndex]);
+        setState(() {});
       }
     });
   }
@@ -107,21 +125,27 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(40),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        widget.pic.fileUrl,
-                      ),
+                if (widget.pic == null) ...[
+                  Container(
+                    padding: const EdgeInsets.all(40),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(AppAssets.apple)),
                     ),
+                  )
+                ] else ...[
+                  AppNetworkImage(
+                    url: widget.pic!.fileUrl,
+                    fit: BoxFit.cover,
+                    width: 80,
+                    height: 80,
                   ),
-                ),
+                ],
                 const SizedBox(height: 10),
                 Text(
-                  widget.title,
+                  widget.title[selectedIndex],
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     color: Colors.black,
@@ -166,20 +190,20 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     );
   }
 
-  Future<void> setAudio() async {
+  Future<void> setAudio(String url) async {
     print('url ================');
-    print(widget.url.fileUrl);
+    print(url.fileUrl);
     try {
       await audioPlayer.setReleaseMode(ReleaseMode.release);
       await audioPlayer.setSourceUrl(
-        Uri.encodeFull(widget.url.fileUrl),
+        Uri.encodeFull(url.fileUrl),
       );
       if (!mounted) return;
       audioPlayer.resume();
       loading = false;
       setState(() {});
     } catch (e) {
-      ErrorDialog(error: e).show(context);
+      ErrorDialog(error: DioException.withDioError(e)).show(context);
     }
   }
 }

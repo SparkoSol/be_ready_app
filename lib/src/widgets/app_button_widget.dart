@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/theme.dart';
+import 'package:be_universe/src/utils/app_utils.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -101,6 +102,7 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
         onPressed: _isLoading || widget.onPressed == null
             ? null
             : () async {
+                AppUtils.unFocus();
                 _isLoading = true;
                 setState(() {});
                 try {
