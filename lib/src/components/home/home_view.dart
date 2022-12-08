@@ -3,8 +3,8 @@ import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/base/theme.dart';
-import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/home/drawer_widget.dart';
+import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
@@ -28,7 +28,17 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => getJourneyPro());
+    super.initState();
+  }
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  double average = 0;
+  int duration = 2;
+  bool loading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +139,12 @@ class _HomeViewState extends State<HomeView> {
             const SliverToBoxAdapter(child: SizedBox(height: 45)),
             SliverToBoxAdapter(
               child: GestureDetector(
-                onTap: () {
-                  AppNavigation.to(
+                onTap: () async {
+                  await AppNavigation.to(
                     context,
                     const BeUniverseView(),
                   );
+                  getJourneyPro();
                 },
                 child: Center(
                   child: Container(
@@ -164,9 +175,9 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       child: GradientProgressIndicator(
-                        value: 50,
+                        value: average,
                         radius: 62,
-                        duration: 2,
+                        duration: duration,
                         strokeWidth: 6,
                         gradientStops: const [0.1, 1.0],
                         gradientColors: const [
@@ -211,6 +222,21 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  Future<void> getJourneyPro() async {
+    try {
+      print('proooooooooooo');
+      final response = await JourneyApi().getJourneyProgress(
+        AppData().readLastUser().userid,
+      );
+      average = (response.mind + response.body + response.spirit) / 3;
+      duration = 1;
+      print(average);
+    } catch (e) {
+      print(e);
+    }
+    setState(() {});
   }
 
   Future<void> dailyCheckInRequest() async {

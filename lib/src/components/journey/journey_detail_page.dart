@@ -115,6 +115,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
               ),
               GestureDetector(
                   onTap: () => AudioPlayerWidget(
+                        id: widget.data.id,
                         url: [widget.data.audioName],
                         title: [widget.data.title],
                       ).show(context),

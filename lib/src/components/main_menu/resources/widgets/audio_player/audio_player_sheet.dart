@@ -1,6 +1,8 @@
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/play_pause_button.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/progress_bar.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +10,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
-  const AudioPlayerWidget({
-    Key? key,
-    required this.title,
-    required this.url,
-    this.pic,
-  }) : super(key: key);
+  const AudioPlayerWidget(
+      {Key? key, required this.title, required this.url, this.pic, this.id})
+      : super(key: key);
 
   final List<String> title;
   final List<String> url;
   final String? pic;
+  final String? id;
 
   Future<void> show(BuildContext context) async {
     await showModalBottomSheet(
@@ -62,13 +62,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
         buffered: _barController.buffered,
         max: _barController.max,
       );
-      print('RRRRRRRRRR');
+
       print(position);
       print(_barController.max.runtimeType);
       if (_barController.max != Duration.zero &&
           position == _barController.max) {
-        // if (_barController.max == Duration.zero) return;
-        print('SSSSSSSSAAAAOOOORRRRr');
+        if (_barController.max == Duration.zero) return;
+
         selectedIndex++;
         setState(() {});
         if (widget.url.length == selectedIndex) {
@@ -105,10 +105,14 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
       _isLoading = true;
       setState(() {});
     }
+
     try {
       print('${widget.url[selectedIndex].fileUrl}');
       await _player.setUrl(Uri.encodeFull(widget.url[selectedIndex].fileUrl));
       _error = null;
+      if (widget.id != null && _error == null) {
+        sendProgress();
+      }
     } catch (e) {
       if (e is PlayerException) {
         _error = e.message ?? 'Audio file is not available';
@@ -235,6 +239,19 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
       padding: const EdgeInsets.all(20),
       child: child,
     );
+  }
+
+  Future<void> sendProgress() async {
+    print('progressing ===========');
+    try {
+      print(AppData().readLastUser().userid);
+      print(widget.id);
+      await JourneyApi().sendJourneyProgress(JourneyProgressRequest(
+          user: AppData().readLastUser().userid, id: widget.id!));
+    } catch (e) {
+      print(e);
+      ErrorDialog(error: DioException.withDioError(e)).show(context);
+    }
   }
 }
 

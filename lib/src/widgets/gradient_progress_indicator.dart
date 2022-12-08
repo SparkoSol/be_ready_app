@@ -40,6 +40,17 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator>
 
   @override
   void initState() {
+    super.initState();
+    _init();
+  }
+
+  @override
+  void didUpdateWidget(covariant GradientProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _init();
+  }
+
+  void _init() {
     _value = widget.value;
     _animationController = AnimationController(
       vsync: this,
@@ -61,8 +72,6 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator>
     });
     _animationRotationController.addListener(() => setState(() {}));
     _animationController.forward();
-
-    super.initState();
   }
 
   @override
@@ -233,4 +242,3 @@ class _GradientCircularProgressPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
-

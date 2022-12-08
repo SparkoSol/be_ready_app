@@ -7,21 +7,22 @@ import 'package:be_universe/src/components/main_menu/resources/widgets/audio_pla
 import 'package:be_universe/src/components/main_menu/resources/widgets/pdf_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/video_player_widget.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
-import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MediaWidget extends StatefulWidget {
-  const MediaWidget(
-      {Key? key,
-      required this.path,
-      required this.type,
-      required this.videoTitle,
-      required this.resource})
-      : super(key: key);
+  const MediaWidget({
+    Key? key,
+    required this.path,
+    required this.type,
+    required this.videoTitle,
+    required this.resource,
+  }) : super(key: key);
+
   final String path;
   final String type;
   final String videoTitle;
@@ -32,6 +33,8 @@ class MediaWidget extends StatefulWidget {
 }
 
 class _MediaWidgetState extends State<MediaWidget> {
+  var _hasNetworkImage = true;
+
   @override
   Widget build(BuildContext context) {
     late String icon;
@@ -56,8 +59,22 @@ class _MediaWidgetState extends State<MediaWidget> {
         icon = AppAssets.quotesIcon;
         break;
     }
+    late ImageProvider image;
+    if (_hasNetworkImage) {
+      image = CachedNetworkImageProvider(
+        widget.resource.thumbnail.fileUrl,
+        errorListener: () {
+          print('RRRRRRR Error while loading image');
+          _hasNetworkImage = false;
+          setState(() {});
+        },
+      );
+    } else {
+      image = const AssetImage(
+        AppAssets.noImage,
+      );
+    }
     return Container(
-      height: 264,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
         // image: DecorationImage(
@@ -67,15 +84,19 @@ class _MediaWidgetState extends State<MediaWidget> {
         //       : NetworkImage(widget.resource.thumbnail.fileUrl)
         //           as ImageProvider,
         // ),
+        image: DecorationImage(
+          image: image,
+          fit: BoxFit.cover,
+        ),
       ),
       child: Stack(
         alignment: Alignment.center,
-        fit: StackFit.expand,
         children: [
-          AppNetworkImage(
-            url: widget.resource.thumbnail.fileUrl,
-            borderRadius: 35,
-          ),
+          // AppNetworkImage(
+          //   url: widget.resource.thumbnail.fileUrl,
+          //   borderRadius: 35,
+          //   fit: BoxFit.contain,
+          // ),
           Column(
             children: [
               ClipRRect(
@@ -92,7 +113,7 @@ class _MediaWidgetState extends State<MediaWidget> {
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 21, vertical: 15),
-                    margin: const EdgeInsets.only(bottom: 1),
+                    margin: const EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
                       color: Colors.transparent.withOpacity(0.4),
                       gradient: const LinearGradient(

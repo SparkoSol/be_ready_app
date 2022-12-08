@@ -68,30 +68,30 @@ class _HomePageState extends State<HomePage> {
         parentScaffoldKey: _scaffoldKey,
         hasDrawer: true,
       ),
-      body: _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(top: 24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _getBottomBarItem(
-              onTap: () => _selectPage(0),
-              icon: AppAssets.homeIcon,
-              color: _selectedPageIndex == 0 ? null : Colors.grey,
-              showContainer: _selectedPageIndex == 0,
-            ),
-            _getBottomBarItem(
-              onTap: () => _selectPage(1),
-              icon: AppAssets.chatIcon,
-              color: _selectedPageIndex == 1 ? null : Colors.grey,
-              showContainer: _selectedPageIndex == 1,
-            ),
-          ],
-        ),
-      ),
+      body: const HomeView(),
+      // bottomNavigationBar: Container(
+      //   padding: const EdgeInsets.only(top: 24),
+      //   decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.circular(40),
+      //   ),
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //     children: [
+      //       _getBottomBarItem(
+      //         onTap: () => _selectPage(0),
+      //         icon: AppAssets.homeIcon,
+      //         color: _selectedPageIndex == 0 ? null : Colors.grey,
+      //         showContainer: _selectedPageIndex == 0,
+      //       ),
+      //       _getBottomBarItem(
+      //         onTap: () => _selectPage(1),
+      //         icon: AppAssets.chatIcon,
+      //         color: _selectedPageIndex == 1 ? null : Colors.grey,
+      //         showContainer: _selectedPageIndex == 1,
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 

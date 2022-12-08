@@ -51,4 +51,5 @@ class AppAssets {
   static const noWifi = '$_path/no_wifi.png';
   static const warning = '$_path/warning.png';
   static const question = '$_path/question.png';
+  static const noImage = '$_path/no-photo.png';
 }

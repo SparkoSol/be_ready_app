@@ -10,4 +10,10 @@ abstract class JourneyApi {
     @Query('page') String page,
     @Query('limit') String limit,
   );
+  @PATCH('journeys/update-progress')
+  Future<void> sendJourneyProgress(
+      @Body() JourneyProgressRequest progressRequest);
+
+  @GET('journeys/progress/{id}')
+  Future<JourneyProgressResponse> getJourneyProgress(@Path() String id);
 }
