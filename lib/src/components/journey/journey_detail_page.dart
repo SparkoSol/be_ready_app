@@ -109,7 +109,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
   Widget _buildContainer() {
     return GestureDetector(
       onTap: () {
-        AppNavigation.to(context, const SubscriptionPage());
+        // AppNavigation.to(context, const SubscriptionPage());
       },
       child: Container(
           width: MediaQuery.of(context).size.width,

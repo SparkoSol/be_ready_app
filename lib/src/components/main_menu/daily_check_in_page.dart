@@ -57,6 +57,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final media = MediaQuery.of(context);
     return AbsorbPointer(
       absorbing: _absorb,
       child: Scaffold(
@@ -67,8 +68,8 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
             padding: EdgeInsets.only(
               left: 58,
               right: 58,
-              bottom: 20,
-              top: MediaQuery.of(context).viewPadding.top + 56,
+              bottom: media.viewPadding.bottom + 20,
+              top: media.viewPadding.top + 56,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

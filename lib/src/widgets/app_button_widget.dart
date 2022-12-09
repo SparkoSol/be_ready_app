@@ -112,8 +112,12 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
                   await widget.onPressed!();
                 } catch (e) {
                   if (!mounted) return;
-                  ErrorDialog(error: DioException.withDioError(e))
-                      .show(context);
+                  if (e is DioException) {
+                    ErrorDialog(error: e).show(context);
+                  } else {
+                    ErrorDialog(error: DioException.withDioError(e))
+                        .show(context);
+                  }
                 }
                 if (!mounted) return;
                 if (widget.after != null) {

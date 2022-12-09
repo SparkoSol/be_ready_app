@@ -62,14 +62,14 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.only(
             left: 20,
             right: 20,
-            top: padding.top + 56,
+            top: padding.top,
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
             // SliverPadding(
             //   padding: const EdgeInsets.only(top: 12),
             SliverPadding(
-              padding: const EdgeInsets.only(top: 33),
+              padding: const EdgeInsets.only(top: 56),
               sliver: SliverToBoxAdapter(
                 child: Text(
                   'Welcome, ${AppData().readLastUser().name}',
@@ -240,23 +240,22 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> dailyCheckInRequest() async {
-    AppNavigation.to(context, const DailyCheckInPage());
-    // try {
-    //   final result = await Awaiter.process(
-    //     future: DailyCheckInService().getDailyCheckIn(),
-    //     context: context,
-    //     arguments: '',
-    //   );
-    //   if (!mounted) return;
-    //   if (result) {
-    //     AppNavigation.to(context, const DailyCheckInPage());
-    //   } else {
-    //     $showSnackBar(context, 'Already Checked In');
-    //   }
-    // } catch (e) {
-    //   ErrorDialog(
-    //     error: DioException.withDioError(e),
-    //   ).show(context);
-    // }
+    try {
+      final result = await Awaiter.process(
+        future: DailyCheckInService().getDailyCheckIn(),
+        context: context,
+        arguments: '',
+      );
+      if (!mounted) return;
+      if (result) {
+        AppNavigation.to(context, const DailyCheckInPage());
+      } else {
+        $showSnackBar(context, 'Already Checked In');
+      }
+    } catch (e) {
+      ErrorDialog(
+        error: DioException.withDioError(e),
+      ).show(context);
+    }
   }
 }

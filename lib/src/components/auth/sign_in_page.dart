@@ -178,8 +178,11 @@ class _SignInPageState extends State<SignInPage> {
       }
     } catch (e) {
       if (e is DioError) {
-        if (e.response!.statusCode == 406) {
-          throw DioException.withDioError('Invalid login credentials');
+        if (e.response?.statusCode == 406) {
+          throw DioException(
+            title: 'Invalid login credentials',
+            description: 'Email or password is incorrect.',
+          );
         }
       }
       rethrow;
