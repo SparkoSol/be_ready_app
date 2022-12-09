@@ -70,59 +70,61 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
               bottom: 20,
               top: MediaQuery.of(context).viewPadding.top + 56,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const GoalsPageTitle(text: 'Daily Check-In'),
-                  const GoalsPageDescription(
-                      text: 'Aware. Acknowledge. Accept.'),
-                  CustomSlider(
-                    value: mindSliderValue,
-                    callback: (v) async {
-                      mindSliderValue = v;
-                      setState(() {});
-                    },
-                    text: 'My Mind Feels',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Wrap(
+                    children: [
+                      const GoalsPageTitle(text: 'Daily Check-In'),
+                      const GoalsPageDescription(
+                          text: 'Aware. Acknowledge. Accept.'),
+                      CustomSlider(
+                        value: mindSliderValue,
+                        callback: (v) async {
+                          mindSliderValue = v;
+                          setState(() {});
+                        },
+                        text: 'My Mind Feels',
+                      ),
+                      CustomSlider(
+                        value: bodySliderValue,
+                        callback: (v) async {
+                          bodySliderValue = v;
+                          setState(() {});
+                        },
+                        text: 'My Body Feels',
+                      ),
+                      CustomSlider(
+                        value: spiritValue,
+                        callback: (v) async {
+                          spiritValue = v;
+                          setState(() {});
+                        },
+                        text: 'My Spirit Feels',
+                      ),
+                    ],
                   ),
-                  CustomSlider(
-                    value: bodySliderValue,
-                    callback: (v) async {
-                      bodySliderValue = v;
-                      setState(() {});
-                    },
-                    text: 'My Body Feels',
-                  ),
+                ),
 
-                  CustomSlider(
-                    value: spiritValue,
-                    callback: (v) async {
-                      spiritValue = v;
-                      setState(() {});
-                    },
-                    text: 'My Spirit Feels',
-                  ),
+                // CustomListView<DailyCheckInResponse>.simpler(
+                //   listViewController: listController,
+                //   builder: (context, data) {
+                //     spiritValue = data.mySpiritFeels.toDouble();
+                //     mindSliderValue = data.myMindFeels.toDouble();
+                //     bodySliderValue = data.myBodyFeels.toDouble();
+                //     return Column(children: []);
+                //   },
+                // ),
 
-                  // CustomListView<DailyCheckInResponse>.simpler(
-                  //   listViewController: listController,
-                  //   builder: (context, data) {
-                  //     spiritValue = data.mySpiritFeels.toDouble();
-                  //     mindSliderValue = data.myMindFeels.toDouble();
-                  //     bodySliderValue = data.myBodyFeels.toDouble();
-                  //     return Column(children: []);
-                  //   },
-                  // ),
-                  const SizedBox(height: 55),
-                  AppButtonWidget(
-                    before: () => setState(() => _absorb = true),
-                    after: () => setState(() => _absorb = false),
-                    onPressed: () => sendDailyCheckIn(
-                        spiritValue, mindSliderValue, bodySliderValue),
-                    title: 'See results',
-                  ),
-                  const SizedBox(height: 55)
-                ],
-              ),
+                AppButtonWidget(
+                  before: () => setState(() => _absorb = true),
+                  after: () => setState(() => _absorb = false),
+                  onPressed: () => sendDailyCheckIn(
+                      spiritValue, mindSliderValue, bodySliderValue),
+                  title: 'See results',
+                ),
+              ],
             ),
           ),
         ),

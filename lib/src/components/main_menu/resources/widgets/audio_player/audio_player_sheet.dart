@@ -1,8 +1,6 @@
 import 'package:be_universe/src/base/assets.dart';
-import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/play_pause_button.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/progress_bar.dart';
-import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
@@ -62,23 +60,32 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
         buffered: _barController.buffered,
         max: _barController.max,
       );
-
+      print('==duration==');
       print(position);
-      print(_barController.max.runtimeType);
-      if (_barController.max != Duration.zero &&
-          position == _barController.max) {
-        if (_barController.max == Duration.zero) return;
+      print(_barController.max);
 
-        selectedIndex++;
-        setState(() {});
-        if (widget.url.length == selectedIndex) {
-          Navigator.pop(context);
-          _player.stop();
-          _player.dispose();
-          return;
-        }
-        _startAudio();
-      }
+      // if (_barController.max != Duration.zero &&
+      //     position == _barController.max) {
+      //   print('check1');
+      //   selectedIndex++;
+      //   setState(() {});
+      //   print(widget.url.length);
+      //   print(selectedIndex);
+      //   if (widget.url.length == selectedIndex) {
+      //     print('checkf');
+      //     Navigator.pop(context);
+      //     _player.stop();
+      //     _player.dispose();
+      //     return;
+      //   }
+      //   _startAudio();
+      // }
+    });
+    _player.sequenceStateStream.listen((sequenceState) {
+      if (sequenceState == null) return;
+      selectedIndex = sequenceState.currentIndex;
+
+      setState(() {});
     });
     _player.bufferedPositionStream.listen((event) {
       _barController.changePosition(
@@ -108,7 +115,21 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
 
     try {
       print('${widget.url[selectedIndex].fileUrl}');
-      await _player.setUrl(Uri.encodeFull(widget.url[selectedIndex].fileUrl));
+      // var list = <String>[
+      //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
+      //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
+      //   'http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme_01.mp3'
+      // ];
+      ConcatenatingAudioSource playlist = ConcatenatingAudioSource(children: [
+        for (var u in widget.url)
+          AudioSource.uri(
+            Uri.parse(u.fileUrl),
+          ),
+      ]);
+      for (int o = 0; o < playlist.length; o++) print(playlist[o]);
+      print('playlist ${playlist.length}');
+      await _player.setAudioSource(playlist);
+      // await _player.setUrl(Uri.encodeFull(widget.url[selectedIndex].fileUrl));
       _error = null;
       if (widget.id != null && _error == null) {
         sendProgress();
@@ -250,7 +271,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
           user: AppData().readLastUser().userid, id: widget.id!));
     } catch (e) {
       print(e);
-      ErrorDialog(error: DioException.withDioError(e)).show(context);
+      rethrow;
     }
   }
 }
