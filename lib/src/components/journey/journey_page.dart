@@ -89,16 +89,21 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
-                    var urls = <String>[];
-                    var titles = <String>[];
-                    for (var u in widget.data) {
-                      urls.add(u.audioName);
-                      titles.add(u.title);
-                    }
-                    AudioPlayerWidget(
-                      url: urls,
-                      title: titles,
-                    ).show(context);
+                    AppNavigation.to(
+                      context,
+                      JourneyDetailPage(
+                          data: widget.data.first, isMainRoute: true, track: 1),
+                    );
+                    // var urls = <String>[];
+                    // var titles = <String>[];
+                    // for (var u in widget.data) {
+                    //   urls.add(u.audioName);
+                    //   titles.add(u.title);
+                    // }
+                    // AudioPlayerWidget(
+                    //   url: urls,
+                    //   title: titles,
+                    // ).show(context);
                     // AudioPlayerWidget(
                     //   url: urls,
                     //   title: 'Playing Multiple',
@@ -124,44 +129,9 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
                       top: positionScale * t,
                       text: widget.data[t].title,
                       height: positionScale,
-                      journeyResponse: widget.data[t])
+                      journeyResponse: widget.data[t],
+                      index: t + 1)
                 ]
-
-                // _buildContainer(
-                //   height: positionScale,
-                //   colorStart: const Color(0xff7390D5),
-                //   colorEnd: const Color(0xffDFE0A0),
-                //   top: positionScale,
-                //   text: 'Formal/Spoken/Written',
-                // ),
-                // _buildContainer(
-                //   colorStart: const Color(0xffF0D780),
-                //   colorEnd: const Color(0xffDA8C6E),
-                //   height: positionScale,
-                //   top: positionScale * 2,
-                //   text: 'Never Assumed',
-                // ),
-                // _buildContainer(
-                //   colorStart: const Color(0xffD58874),
-                //   colorEnd: const Color(0xff523071),
-                //   height: positionScale,
-                //   top: positionScale * 3,
-                //   text: 'Voluntary (never coerced)',
-                // ),
-                // _buildContainer(
-                //   colorStart: const Color(0xff43355C),
-                //   colorEnd: const Color(0xff57538E),
-                //   top: positionScale * 4,
-                //   height: positionScale,
-                //   text: "Mutual (“our” agreement)",
-                // ),
-                // _buildContainer(
-                //   colorStart: const Color(0xff2E2340),
-                //   colorEnd: const Color(0xff2E2340),
-                //   height: positionScale,
-                //   top: positionScale * 5,
-                //   text: 'Renegotiable',
-                // ),
               ],
             ),
           ),
@@ -176,7 +146,8 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
       required double top,
       required String text,
       required double height,
-      required JourneyResponse journeyResponse}) {
+      required JourneyResponse journeyResponse,
+      required int index}) {
     return Positioned(
       top: top,
       child: GestureDetector(
@@ -202,7 +173,8 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
         onTap: () {
           AppNavigation.to(
             context,
-            JourneyDetailPage(data: journeyResponse),
+            JourneyDetailPage(
+                data: journeyResponse, isMainRoute: false, track: index),
           );
         },
       ),

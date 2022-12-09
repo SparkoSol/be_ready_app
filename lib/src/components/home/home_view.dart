@@ -240,22 +240,23 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Future<void> dailyCheckInRequest() async {
-    try {
-      final result = await Awaiter.process(
-        future: DailyCheckInService().getDailyCheckIn(),
-        context: context,
-        arguments: '',
-      );
-      if (!mounted) return;
-      if (result) {
-        AppNavigation.to(context, const DailyCheckInPage());
-      } else {
-        $showSnackBar(context, 'Already Checked In');
-      }
-    } catch (e) {
-      ErrorDialog(
-        error: DioException.withDioError(e),
-      ).show(context);
-    }
+    AppNavigation.to(context, const DailyCheckInPage());
+    // try {
+    //   final result = await Awaiter.process(
+    //     future: DailyCheckInService().getDailyCheckIn(),
+    //     context: context,
+    //     arguments: '',
+    //   );
+    //   if (!mounted) return;
+    //   if (result) {
+    //     AppNavigation.to(context, const DailyCheckInPage());
+    //   } else {
+    //     $showSnackBar(context, 'Already Checked In');
+    //   }
+    // } catch (e) {
+    //   ErrorDialog(
+    //     error: DioException.withDioError(e),
+    //   ).show(context);
+    // }
   }
 }

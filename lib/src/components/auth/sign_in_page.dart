@@ -12,11 +12,13 @@ import 'package:be_universe/src/components/auth/widget/or_widget.dart';
 import 'package:be_universe/src/components/auth/widget/social_auth_button.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/custom_switch_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -174,7 +176,12 @@ class _SignInPageState extends State<SignInPage> {
       } else {
         AppNavigation.navigateRemoveUntil(context, const HomePage());
       }
-    } catch (_) {
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response!.statusCode == 406) {
+          throw DioException.withDioError('Invalid login credentials');
+        }
+      }
       rethrow;
     }
   }

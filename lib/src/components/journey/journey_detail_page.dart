@@ -11,14 +11,36 @@ import '../../base/assets.dart';
 import '../subscription/subscription_page.dart';
 
 class JourneyDetailPage extends StatefulWidget {
-  const JourneyDetailPage({Key? key, required this.data}) : super(key: key);
+  const JourneyDetailPage(
+      {Key? key,
+      required this.data,
+      required this.isMainRoute,
+      required this.track})
+      : super(key: key);
   final JourneyResponse data;
+  final bool isMainRoute;
+  final int track;
 
   @override
   State<JourneyDetailPage> createState() => _JourneyDetailPageState();
 }
 
 class _JourneyDetailPageState extends State<JourneyDetailPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.isMainRoute) {
+        AudioPlayerWidget(
+          url: [widget.data.audioName],
+          title: [widget.data.title],
+          id: widget.data.id,
+        ).show(context);
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
@@ -103,7 +125,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
             children: [
               Expanded(
                 child: Text(
-                  widget.data.audioName,
+                  'Track ${widget.track}',
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,

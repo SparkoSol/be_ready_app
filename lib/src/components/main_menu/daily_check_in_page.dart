@@ -74,36 +74,39 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Wrap(
-                    children: [
-                      const GoalsPageTitle(text: 'Daily Check-In'),
-                      const GoalsPageDescription(
-                          text: 'Aware. Acknowledge. Accept.'),
-                      CustomSlider(
-                        value: mindSliderValue,
-                        callback: (v) async {
-                          mindSliderValue = v;
-                          setState(() {});
-                        },
-                        text: 'My Mind Feels',
-                      ),
-                      CustomSlider(
-                        value: bodySliderValue,
-                        callback: (v) async {
-                          bodySliderValue = v;
-                          setState(() {});
-                        },
-                        text: 'My Body Feels',
-                      ),
-                      CustomSlider(
-                        value: spiritValue,
-                        callback: (v) async {
-                          spiritValue = v;
-                          setState(() {});
-                        },
-                        text: 'My Spirit Feels',
-                      ),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const GoalsPageTitle(text: 'Daily Check-In'),
+                        const GoalsPageDescription(
+                            text: 'Aware. Acknowledge. Accept.'),
+                        CustomSlider(
+                          value: mindSliderValue,
+                          callback: (v) async {
+                            mindSliderValue = v;
+                            setState(() {});
+                          },
+                          text: 'My Mind Feels',
+                        ),
+                        CustomSlider(
+                          value: bodySliderValue,
+                          callback: (v) async {
+                            bodySliderValue = v;
+                            setState(() {});
+                          },
+                          text: 'My Body Feels',
+                        ),
+                        CustomSlider(
+                          value: spiritValue,
+                          callback: (v) async {
+                            spiritValue = v;
+                            setState(() {});
+                          },
+                          text: 'My Spirit Feels',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 

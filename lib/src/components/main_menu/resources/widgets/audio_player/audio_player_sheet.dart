@@ -224,20 +224,26 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
               ),
             ),
             if (widget.pic == null) ...[
-              Container(
-                padding: const EdgeInsets.all(40),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(AppAssets.apple)),
-                ),
+              const SizedBox(
+                height: 50,
+                width: 50,
               )
+              // Container(
+              //   decoration: const BoxDecoration(
+              //     shape: BoxShape.circle,
+              //   ),
+              //   child: Image.asset(
+              //     AppAssets.noImage,
+              //     width: 70,
+              //     height: 70,
+              //   ),
+              // )
             ] else ...[
               AppNetworkImage(
                 url: widget.pic!.fileUrl,
                 fit: BoxFit.cover,
-                width: 80,
-                height: 80,
+                width: 70,
+                height: 70,
               ),
             ],
             const SizedBox(height: 10),
