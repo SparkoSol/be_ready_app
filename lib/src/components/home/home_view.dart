@@ -11,6 +11,7 @@ import 'package:be_universe/src/components/main_menu/resources/articles_page.dar
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/gradient_progress_indicator.dart';
@@ -35,6 +36,12 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant HomeView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    getJourneyPro();
+  }
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   double average = 0;
   int duration = 2;
@@ -46,6 +53,10 @@ class _HomeViewState extends State<HomeView> {
     final padding = mediaQuery.padding;
     return Scaffold(
       key: _scaffoldKey,
+      appBar: AppBarWidget(
+        parentScaffoldKey: _scaffoldKey,
+        hasDrawer: true,
+      ),
       drawer: SizedBox(
         width: mediaQuery.size.width - (mediaQuery.size.width * 0.19),
         child: AppDrawer(parentScaffoldKey: _scaffoldKey),

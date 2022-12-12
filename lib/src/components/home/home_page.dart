@@ -57,17 +57,13 @@ class _HomePageState extends State<HomePage> {
     print(AppData().readLastUser().userid);
     return Scaffold(
       key: _scaffoldKey,
-      drawer: SizedBox(
-        width: 346,
-        child: AppDrawer(parentScaffoldKey: _scaffoldKey),
-      ),
+      // drawer: SizedBox(
+      //   width: 346,
+      //   child: AppDrawer(parentScaffoldKey: _scaffoldKey),
+      // ),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(
-        parentScaffoldKey: _scaffoldKey,
-        hasDrawer: true,
-      ),
       body: const HomeView(),
       // bottomNavigationBar: Container(
       //   padding: const EdgeInsets.only(top: 24),
