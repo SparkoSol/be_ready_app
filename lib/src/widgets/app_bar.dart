@@ -19,11 +19,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
-    print('RRRRRRRRR');
-    print(hasDrawer);
-    print('---------');
     return AppBar(
-      // backgroundColor: Colors.white.withOpacity(0.1),
       leadingWidth: 50,
 
       centerTitle: isCenterTitle,
@@ -46,25 +42,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
           : null,
       // IconButton(icon: Icon(Icons.arrow_back),),
       actions: [
-        Stack(
-          children: [
-            Center(child: Image.asset(AppAssets.bellIcon)),
-            if (showNotificationDot)
-              Positioned(
-                right: 2,
-                top: -15,
-                bottom: 0,
-                child: Container(
-                  height: 8,
-                  width: 8,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF1D681),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-          ],
-        ),
+        // Stack(
+        //   children: [
+        //     Center(child: Image.asset(AppAssets.bellIcon)),
+        //     if (showNotificationDot)
+        //       Positioned(
+        //         right: 2,
+        //         top: -15,
+        //         bottom: 0,
+        //         child: Container(
+        //           height: 8,
+        //           width: 8,
+        //           decoration: const BoxDecoration(
+        //             color: Color(0xFFF1D681),
+        //             shape: BoxShape.circle,
+        //           ),
+        //         ),
+        //       ),
+        //   ],
+        // ),
         GestureDetector(
           onTap: () {
             AppNavigation.to(context, const SettingPage());
