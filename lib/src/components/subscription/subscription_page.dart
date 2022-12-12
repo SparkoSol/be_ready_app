@@ -80,28 +80,30 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   ),
                 ),
                 Container(
-            margin: const EdgeInsets.only(bottom: 20),      width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(vertical: 27, horizontal: 2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.transparent,
                     shape: BoxShape.rectangle,
-                    border:
-                        Border.all(color: const Color(0xFF444A88), width: 0.5),
+                    border: Border.all(
+                      color: const Color(0xFF444A88),
+                      width: 0.5,
+                    ),
                   ),
                   child: Column(
                     children: [
                       Text(
                         '7 days free, then \$59.99/year',
                         style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      const SizedBox(
-                        height: 7,
-                      ),
+                      const SizedBox(height: 7),
                       Text(
                         'only  \$0.16/day',
                         style: GoogleFonts.poppins(
@@ -130,9 +132,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                     child: Text(
                       'Try Free & Subscribe',
                       style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
