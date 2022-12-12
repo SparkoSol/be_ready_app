@@ -49,6 +49,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This application requires Photo permission to allow users to capture profile picture</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This application requries microphone permission to allow users to play resources</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This application requires Photo permission to allow users to select profile picture</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

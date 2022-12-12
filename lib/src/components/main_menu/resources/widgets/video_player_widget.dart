@@ -21,11 +21,17 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.network(widget.url)
-      ..initialize().then((value) => setState(() {}));
+    videoPlayerController = VideoPlayerController.network(
+      widget.url,
+    )..initialize().then((value) => setState(() {}));
     _customVideoPlayerController = CustomVideoPlayerController(
       context: context,
       videoPlayerController: videoPlayerController,
+      customVideoPlayerSettings:  const CustomVideoPlayerSettings(
+        placeholderWidget: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
     _customVideoPlayerController.videoPlayerController.play();
   }
@@ -43,24 +49,11 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       appBar: AppBar(),
       body: BackgroundImageWidget(
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (videoPlayerController.value.isInitialized)
-                AspectRatio(
-                  aspectRatio: MediaQuery.of(context).devicePixelRatio,
-                  child: CustomVideoPlayer(
-                    customVideoPlayerController: _customVideoPlayerController,
-                  ),
-                )
-              else
-                const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                    color: Colors.deepOrange,
-                  ),
-                ),
-            ],
+          child: AspectRatio(
+            aspectRatio: MediaQuery.of(context).devicePixelRatio,
+            child: CustomVideoPlayer(
+              customVideoPlayerController: _customVideoPlayerController,
+            ),
           ),
         ),
       ),
