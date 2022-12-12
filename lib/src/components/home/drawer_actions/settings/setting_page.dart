@@ -2,7 +2,9 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/payment_method/payment_method_page.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
+import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +21,7 @@ class _SettingPageState extends State<SettingPage> {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: AppBar(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(top: padding.top + 56),
@@ -28,36 +30,38 @@ class _SettingPageState extends State<SettingPage> {
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(left: 30, right: 30),
               child: Column(children: [
-                const Text(
-                  'Hello, Laurie!',
-                  style: TextStyle(
+                Text(
+                  'Hello, ${AppData().readLastUser().name}!',
+                  style: const TextStyle(
                     fontSize: 30,
                     color: Colors.white,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 36),
-                  child: Image.asset(
-                    AppAssets.user,
-                    fit: BoxFit.fill,
-                    height: 111,
-                    width: 111,
-                  ),
-                ),
+                    padding: const EdgeInsets.only(top: 20, bottom: 36),
+                    child: AppData().readLastUser().image == null
+                        ? Image.asset(
+                            AppAssets.defaultUser,
+                            fit: BoxFit.fill,
+                            height: 111,
+                            width: 111,
+                          )
+                        : AppNetworkImage(
+                            url: AppData().readLastUser().image!.fileUrl)),
+                // _ProfileDataContainer(
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       _getText(text: '+79183754623'),
+                //       _getTrailing(text: 'Phone Number'),
+                //     ],
+                //   ),
+                // ),
                 _ProfileDataContainer(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _getText(text: '+79183754623'),
-                      _getTrailing(text: 'Phone Number'),
-                    ],
-                  ),
-                ),
-                _ProfileDataContainer(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _getText(text: 'address@address.com'),
+                      _getText(text: AppData().readLastUser().email),
                       _getTrailing(text: 'Email'),
                     ],
                   ),
@@ -77,7 +81,12 @@ class _SettingPageState extends State<SettingPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _getText(text: 'Update Payment Method'),
-                      Image.asset(AppAssets.stripeIcon, width: 50, height: 27,fit: BoxFit.fill,),
+                      Image.asset(
+                        AppAssets.stripeIcon,
+                        width: 50,
+                        height: 27,
+                        fit: BoxFit.fill,
+                      ),
                     ],
                   ),
                 ),

@@ -9,6 +9,8 @@ import 'package:be_universe/src/components/home/drawer_actions/faq_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/settings/setting_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/terms_and_conditions_page.dart';
 import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe/src/widgets/app_network_image.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
@@ -65,11 +67,15 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 46),
-                leading: const CircleAvatar(
-                  backgroundImage: AssetImage(AppAssets.user),
+                leading: CircleAvatar(
+                  backgroundImage: AppData().readLastUser().image == null
+                      ? const AssetImage(AppAssets.defaultUser)
+                      : AppNetworkImage(
+                              url: AppData().readLastUser().image!.fileUrl)
+                          as ImageProvider,
                 ),
                 title: Text(
-                  'Erlan Sadewa',
+                  AppData().readLastUser().name,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -77,7 +83,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
                 subtitle: Text(
-                  '+91-9800000012',
+                  AppData().readLastUser().email,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w300,
                     color: Colors.white,

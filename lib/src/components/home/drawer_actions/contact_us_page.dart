@@ -92,7 +92,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       ),
                     ),
                     Text(
-                      '(Max upload 5mb)',
+                      '(Max upload 5Mb)',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w300,
                         color: Colors.white.withOpacity(0.6),

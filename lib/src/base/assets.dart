@@ -52,4 +52,5 @@ class AppAssets {
   static const warning = '$_path/warning.png';
   static const question = '$_path/question.png';
   static const noImage = '$_path/no-photo.png';
+  static const defaultUser = '$_path/default_user.png';
 }

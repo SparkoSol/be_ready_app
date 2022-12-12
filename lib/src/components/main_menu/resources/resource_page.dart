@@ -150,6 +150,7 @@ class _ResourcePageState extends State<ResourcePage> {
                         final item = _content.entries.elementAt(i);
                         return GestureDetector(
                           child: ResourceWidget(
+                            isBoth: i == 3 ? true : false,
                             isDifferentFromNormal: i == 5 ? true : i % 3 == 0,
                             quantity: item.value,
                             text: item.key.category,

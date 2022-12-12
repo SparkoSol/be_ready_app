@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResourceWidget extends StatelessWidget {
-  const ResourceWidget({
-    Key? key,
-    required this.quantity,
-    required this.text,
-    required this.isDifferentFromNormal,
-  }) : super(key: key);
+  const ResourceWidget(
+      {Key? key,
+      required this.quantity,
+      required this.text,
+      required this.isDifferentFromNormal,
+      required this.isBoth})
+      : super(key: key);
 
   final String text;
   final int quantity;
   final bool isDifferentFromNormal;
-
+  final bool isBoth;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,6 +62,21 @@ class ResourceWidget extends StatelessWidget {
             ),
           ),
         ),
+        if (isBoth) ...[
+          Container(
+            height: 1.5,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                stops: const [0.3, 1],
+                colors: [
+                  Colors.white.withOpacity(0.0),
+                  Colors.white,
+                ],
+              ),
+            ),
+          ),
+        ],
         if (isDifferentFromNormal) ...[
           Expanded(
             child: Container(
@@ -82,7 +98,7 @@ class ResourceWidget extends StatelessWidget {
           ),
         ] else ...[
           Container(
-            height: 1,
+            height: 1.5,
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
