@@ -146,7 +146,7 @@ class _MediaWidgetState extends State<MediaWidget> {
                       AppNavigation.to(
                           context,
                           VideoPlayerWidget(
-                              url: widget.resource.filename.fileUrl));
+                              url: widget.resource.filename.videoFileUrl));
 
                       break;
                     case 'Books':
