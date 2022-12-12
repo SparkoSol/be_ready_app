@@ -96,21 +96,22 @@ class ResourceWidget extends StatelessWidget {
               ),
             ),
           ),
-        ] else ...[
-          Container(
-            height: 1.5,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                stops: const [0.3, 1],
-                colors: [
-                  Colors.white.withOpacity(0.0),
-                  Colors.white,
-                ],
-              ),
-            ),
-          ),
-        ],
+        ]
+        //else ...[
+        //   Container(
+        //     height: 1.5,
+        //     width: double.infinity,
+        //     decoration: BoxDecoration(
+        //       gradient: LinearGradient(
+        //         stops: const [0.3, 1],
+        //         colors: [
+        //           Colors.white.withOpacity(0.0),
+        //           Colors.white,
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ]),
     );
   }

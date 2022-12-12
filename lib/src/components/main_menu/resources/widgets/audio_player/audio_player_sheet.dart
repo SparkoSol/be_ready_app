@@ -1,4 +1,3 @@
-import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/play_pause_button.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/progress_bar.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';

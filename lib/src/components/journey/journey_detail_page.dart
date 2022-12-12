@@ -1,4 +1,3 @@
-import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/main_menu/resources/widgets/audio_player/audio_player_sheet.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../base/assets.dart';
-import '../subscription/subscription_page.dart';
 
 class JourneyDetailPage extends StatefulWidget {
   const JourneyDetailPage(
