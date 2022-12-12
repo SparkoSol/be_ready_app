@@ -27,9 +27,19 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     _customVideoPlayerController = CustomVideoPlayerController(
       context: context,
       videoPlayerController: videoPlayerController,
-      customVideoPlayerSettings:  const CustomVideoPlayerSettings(
+      customVideoPlayerSettings: CustomVideoPlayerSettings(
         placeholderWidget: Center(
-          child: CircularProgressIndicator(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(height: 10),
+              Text(
+                'Video is loading, please wait...',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
