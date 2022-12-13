@@ -5,8 +5,8 @@ import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSize {
-  AppBarWidget({
+class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
+  const AppBarWidget({
     Key? key,
     this.showNotificationDot = true,
     this.isCenterTitle = true,
@@ -20,18 +20,26 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
   final bool hasDrawer;
 
   @override
+  Size get preferredSize => const Size.fromHeight(56);
+
+  @override
+  State<AppBarWidget> createState() => _AppBarWidgetState();
+}
+
+class _AppBarWidgetState extends State<AppBarWidget> {
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       leadingWidth: 50,
 
-      centerTitle: isCenterTitle,
-      leading: hasDrawer
+      centerTitle: widget.isCenterTitle,
+      leading: widget.hasDrawer
           ? Padding(
               padding: const EdgeInsets.only(left: 25),
               child: GestureDetector(
                 onTap: () {
-                  if (parentScaffoldKey != null) {
-                    parentScaffoldKey?.currentState?.openDrawer();
+                  if (widget.parentScaffoldKey != null) {
+                    widget.parentScaffoldKey?.currentState?.openDrawer();
                   }
                 },
                 child: Image.asset(
@@ -64,8 +72,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
         //   ],
         // ),
         GestureDetector(
-          onTap: () {
-            AppNavigation.to(context, const SettingPage());
+          onTap: () async {
+            await AppNavigation.to(context, const SettingPage());
+            setState(() {});
           },
           child: AppData().readLastUser().image == null
               ? Padding(
@@ -73,18 +82,25 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
                   child: CircleAvatar(
                     radius: 15,
                     child: Image.asset(AppAssets.defaultUser),
-                  ))
-              : AppNetworkImage(url: AppData().readLastUser().image!),
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                    left: 10,
+                    top: 10,
+                    bottom: 10,
+                  ),
+                  child: AppNetworkImage(
+                    url: AppData().readLastUser().image!.fileUrl,
+                    borderRadius: 30,
+                    width: 36,
+                    height: 36,
+                    fit: BoxFit.cover,
+                  ),
+                ),
         ),
       ],
     );
   }
-
-  final _appBar = AppBar();
-
-  @override
-  Widget get child => _appBar;
-
-  @override
-  Size get preferredSize => _appBar.preferredSize;
 }

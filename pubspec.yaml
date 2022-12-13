@@ -36,6 +36,7 @@ dependencies:
   cached_network_image: ^3.2.3
   intl:
   just_audio: ^0.9.30
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:

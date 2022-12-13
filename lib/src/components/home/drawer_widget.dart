@@ -14,6 +14,7 @@ import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AppDrawer extends StatefulWidget {
   AppDrawer({
@@ -35,6 +36,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    print(AppData().readLastUser().image);
     final padding = MediaQuery.of(context).padding;
     return Container(
       padding: const EdgeInsets.only(right: 3),
@@ -67,12 +69,26 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Column(mainAxisSize: MainAxisSize.max, children: [
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 46),
-                leading: CircleAvatar(
-                  backgroundImage: AppData().readLastUser().image == null
-                      ? const AssetImage(AppAssets.defaultUser)
-                      : AppNetworkImage(
-                              url: AppData().readLastUser().image!.fileUrl)
-                          as ImageProvider,
+                leading: GestureDetector(
+                  child: AppData().readLastUser().image == null
+                      ? CircleAvatar(
+                          child: Image.asset(AppAssets.defaultUser),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(
+                            right: 5,
+                            left: 5,
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          child: AppNetworkImage(
+                            url: AppData().readLastUser().image!.fileUrl,
+                            borderRadius: 30,
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
                 title: Text(
                   AppData().readLastUser().name,
@@ -108,7 +124,9 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: _getDrawerTile(
                   title: 'Share with a friend',
                   icon: AppAssets.shareIcon,
-                  onTap: () {},
+                  onTap: () async {
+                    await Share.share('Play store url');
+                  },
                 ),
               ),
               _getDrawerTile(
@@ -138,8 +156,9 @@ class _AppDrawerState extends State<AppDrawer> {
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 TextButton(
-                  onPressed: () {
-                    AppNavigation.to(context, const SettingPage());
+                  onPressed: () async {
+                    await AppNavigation.to(context, const SettingPage());
+                    setState(() {});
                   },
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     Image.asset(AppAssets.settingsIcon, height: 18, width: 18),

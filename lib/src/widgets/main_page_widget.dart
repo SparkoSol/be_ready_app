@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainMenuWidget extends StatelessWidget {
@@ -86,8 +87,10 @@ class MainMenuWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Image.asset(path, width: 70, height: 70),
+                  child: SvgPicture.asset(path,
+                      width: 70, height: 70, semanticsLabel: 'Acme Logo'),
                 ),
+
                 Container(
                   height: 1,
                   width: double.infinity,
@@ -109,13 +112,12 @@ class MainMenuWidget extends StatelessWidget {
                         bottomLeft: Radius.circular(22),
                         bottomRight: Radius.circular(22),
                       ),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withOpacity(0),
-                        Colors.white.withOpacity(0.2),
-                      ],
-                    )
-                  ),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.white.withOpacity(0),
+                          Colors.white.withOpacity(0.2),
+                        ],
+                      )),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.fromLTRB(0, 9, 0, 15),
                   child: Text(

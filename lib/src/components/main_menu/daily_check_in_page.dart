@@ -138,16 +138,20 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
 
   Future<void> sendDailyCheckIn(double spirit, double mind, double body) async {
     try {
-      await DailyCheckInService().sendDailyCheckInData(
-        DailyCheckInModel(
-          userId: AppData().readLastUser().userid,
-          myBodyFeels: body.toInt(),
-          myMindFeels: mind.toInt(),
-          mySpiritFeels: spirit.toInt(),
-        ),
-      );
-      if (!mounted) return;
-      if (mindSliderValue < 5 || bodySliderValue < 5 || spiritValue < 5) {
+      if (mindSliderValue > 5 && bodySliderValue > 5 && spiritValue > 5) {
+        await DailyCheckInService().sendDailyCheckInData(
+          DailyCheckInModel(
+            userId: AppData().readLastUser().userid,
+            myBodyFeels: body.toInt(),
+            myMindFeels: mind.toInt(),
+            mySpiritFeels: spirit.toInt(),
+          ),
+        );
+        if (!mounted) return;
+        $showBottomSheet(context, const ThankYouWidget());
+      } else if (mindSliderValue < 5 ||
+          bodySliderValue < 5 ||
+          spiritValue < 5) {
         AppNavigation.toReplace(
           context,
           ExplorePage(
@@ -156,8 +160,6 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
             spiritValue: spiritValue,
           ),
         );
-      } else {
-        $showBottomSheet(context, const ThankYouWidget());
       }
     } catch (_) {
       rethrow;

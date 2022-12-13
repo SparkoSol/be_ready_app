@@ -1,7 +1,8 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/home/drawer_actions/settings/update_password_page.dart';
+import 'package:be_universe/src/components/home/drawer_actions/settings/update_profile_page.dart';
 import 'package:be_universe/src/components/payment_method/payment_method_page.dart';
-import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -40,14 +41,76 @@ class _SettingPageState extends State<SettingPage> {
                 Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 36),
                     child: AppData().readLastUser().image == null
-                        ? Image.asset(
-                            AppAssets.defaultUser,
-                            fit: BoxFit.fill,
-                            height: 111,
-                            width: 111,
+                        ? Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              Image.asset(
+                                AppAssets.defaultUser,
+                                fit: BoxFit.fill,
+                                height: 111,
+                                width: 111,
+                              ),
+                              Positioned(
+                                right: 5,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await AppNavigation.to(
+                                        context, const UpdateProfilePage());
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.indigo,
+                                        shape: BoxShape.circle),
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           )
-                        : AppNetworkImage(
-                            url: AppData().readLastUser().image!.fileUrl)),
+                        : Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 20,
+                                  left: 10,
+                                  top: 10,
+                                  bottom: 10,
+                                ),
+                                child: AppNetworkImage(
+                                  url: AppData().readLastUser().image!.fileUrl,
+                                  borderRadius: 30,
+                                  width: 111,
+                                  height: 111,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                child: GestureDetector(
+                                  onTap: () => AppNavigation.to(
+                                      context, const UpdateProfilePage()),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.indigo,
+                                        shape: BoxShape.circle),
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
                 // _ProfileDataContainer(
                 //   child: Row(
                 //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +130,8 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                 ),
                 _ProfileDataContainer(
-                  onTap: () {},
+                  onTap: () =>
+                      AppNavigation.to(context, const UpdatePasswordPage()),
                   child: Row(children: [
                     _getText(text: 'Change Password'),
                   ]),

@@ -1,5 +1,7 @@
 library be_universe_core;
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -46,6 +48,14 @@ part 'src/events/requests.dart';
 
 part 'src/events/responses.dart';
 
+part 'src/faq/api.dart';
+
+part 'src/faq/models.dart';
+
+part 'src/faq/requests.dart';
+
+part 'src/faq/response.dart';
+
 part 'src/journey/api.dart';
 
 part 'src/journey/models.dart';
@@ -53,6 +63,14 @@ part 'src/journey/models.dart';
 part 'src/journey/requests.dart';
 
 part 'src/journey/responses.dart';
+
+part 'src/profile/api.dart';
+
+part 'src/profile/models.dart';
+
+part 'src/profile/requests.dart';
+
+part 'src/profile/responses.dart';
 
 part 'src/resources/api.dart';
 
@@ -65,8 +83,9 @@ part 'src/resources/responses.dart';
 typedef _Json = Map<String, dynamic>;
 
 class Api {
-  static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
-  // static const _apiUrl = 'https://9e12c4c1b0a5fa.lhr.life/';
+  // static const _apiUrl = 'https://beuniverse-api.sparkosol.com/';
+
+  static const _apiUrl = 'http://192.168.233.228:3000/';
 
   static String get apiUl => _apiUrl;
 
@@ -80,5 +99,6 @@ class Api {
 
 extension ApiExtension on String {
   String get fileUrl => '${Api.apiUl}uploads/$this';
+
   String get videoFileUrl => '${Api.apiUl}get-file/$this';
 }

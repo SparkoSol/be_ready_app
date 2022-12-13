@@ -24,7 +24,7 @@ mixin ProfileMixin {
 
   Future<void> saveUser(ProfileResponse userData) async {
     await clearUsers();
-    _box.add(userData);
+    await _box.add(userData);
     await userData.save();
   }
 }

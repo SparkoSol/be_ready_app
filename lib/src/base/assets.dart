@@ -53,4 +53,5 @@ class AppAssets {
   static const question = '$_path/question.png';
   static const noImage = '$_path/no-photo.png';
   static const defaultUser = '$_path/default_user.png';
+  static const graphSvg = '$_path/graph.svg';
 }

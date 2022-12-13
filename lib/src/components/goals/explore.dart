@@ -1,10 +1,17 @@
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/goals/activites_page.dart';
+import 'package:be_universe/src/components/journey/be_universe_view.dart';
+import 'package:be_universe/src/components/journey/journey_page.dart';
+import 'package:be_universe/src/services/daily_check_in_service.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/text.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage(
@@ -45,21 +52,24 @@ class _ExplorePageState extends State<ExplorePage> {
               const SizedBox(height: 50),
               if (widget.mindValue < 5) ...[
                 const RedText(text: 'Mind'),
-                AppCourseButtonWidget(onTap: () {}),
+                AppCourseButtonWidget(
+                  onTap: () => getJourneys('Mind', TherapyType.mind),
+                ),
               ],
               if (widget.bodyValue < 5) ...[
                 const RedText(text: 'Body'),
-                AppCourseButtonWidget(onTap: () {}),
+                AppCourseButtonWidget(
+                  onTap: () => getJourneys('Body', TherapyType.body),
+                ),
               ],
               if (widget.spiritValue < 5) ...[
                 const RedText(text: 'Spirit'),
-                AppCourseButtonWidget(onTap: () {}),
+                AppCourseButtonWidget(
+                    onTap: () => getJourneys('Spirit', TherapyType.spirit)),
               ],
               const Spacer(),
               AppButtonWidget(
-                onPressed: () async {
-                  AppNavigation.to(context, const ActivitesPage());
-                },
+                onPressed: sendDailyCheckIn,
                 title: 'SUPPORTIVE ACTIVITIES',
               ),
             ],
@@ -67,5 +77,42 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
       ),
     );
+  }
+
+  Future<void> sendDailyCheckIn() async {
+    try {
+      await DailyCheckInService().sendDailyCheckInData(
+        DailyCheckInModel(
+          userId: AppData().readLastUser().userid,
+          myBodyFeels: widget.bodyValue.toInt(),
+          myMindFeels: widget.mindValue.toInt(),
+          mySpiritFeels: widget.spiritValue.toInt(),
+        ),
+      );
+      if (!mounted) return;
+      AppNavigation.toReplace(context, const ActivitesPage());
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> getJourneys(String type, TherapyType tType) async {
+    try {
+      final response = await Awaiter.process(
+          future: JourneyApi()
+              .getPaginatedJourneys(type, 0.toString(), 6.toString()),
+          context: context,
+          arguments: 'saving...');
+      if (!mounted) return;
+      AppNavigation.to(
+        context,
+        JourneyHomePage(
+          therapy: tType,
+          data: response,
+        ),
+      );
+    } catch (e) {
+      ErrorDialog(error: DioException.withDioError(e)).show(context);
+    }
   }
 }

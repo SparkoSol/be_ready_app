@@ -101,33 +101,35 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: AppCourseButtonWidget(
-                title: 'Continue Coursework',
-                onTap: () {},
-                isShadowed: true,
+            if (average > 0)
+              SliverToBoxAdapter(
+                child: AppCourseButtonWidget(
+                  title: 'Continue Coursework',
+                  onTap: () =>
+                      AppNavigation.to(context, const BeUniverseView()),
+                  isShadowed: true,
+                ),
               ),
-            ),
             SliverGrid(
               delegate: SliverChildListDelegate([
                 MainMenuWidget(
                   onPressed: dailyCheckInRequest,
                   text: 'Daily Check-In',
-                  path: AppAssets.graphIcon,
+                  path: AppAssets.graphSvg,
                 ),
                 MainMenuWidget(
                   onPressed: () {
                     AppNavigation.to(context, const ResourcePage());
                   },
                   text: 'Resources',
-                  path: AppAssets.graphIcon,
+                  path: AppAssets.graphSvg,
                 ),
                 MainMenuWidget(
                   onPressed: () {
                     AppNavigation.to(context, const EventsPage());
                   },
                   text: 'Events',
-                  path: AppAssets.calenderIcon,
+                  path: AppAssets.graphSvg,
                 ),
                 MainMenuWidget(
                   onPressed: () {
@@ -138,7 +140,7 @@ class _HomeViewState extends State<HomeView> {
                         ));
                   },
                   text: 'Be Connected',
-                  path: AppAssets.userIcon,
+                  path: AppAssets.graphSvg,
                 ),
               ]),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

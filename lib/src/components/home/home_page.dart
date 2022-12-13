@@ -37,6 +37,8 @@ class _HomePageState extends State<HomePage> {
     try {
       var accessToken = AppData.accessToken;
       final profile = await AuthenticationService().getProfile(accessToken);
+      print('=======================');
+      print(profile.image);
 
       /// Check Verification
       await AppData().saveUser(profile);
