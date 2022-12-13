@@ -28,7 +28,7 @@ class _SettingPageState extends State<SettingPage> {
           child: Center(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.only(left: 52, right: 46),
               child: Column(children: [
                 Text(
                   'Hello, ${AppData().readLastUser().name}!',
@@ -203,8 +203,8 @@ class _ProfileDataContainer extends StatelessWidget {
       borderRadius: BorderRadius.circular(24),
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+        margin: const EdgeInsets.only(bottom: 29),
+        padding: const EdgeInsets.symmetric(vertical: 27, horizontal: 29),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           color: Colors.transparent,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
+import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/utils/default_awaiter.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,7 +41,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Be Universe',
       theme: AppTheme.lightTheme,
-      home: AppData.accessToken.isEmpty ? const SignInPage() : const HomePage(),
+    //  home: const DailyCheckInPage(),
+       home: AppData.accessToken.isEmpty ? const SignInPage() : const HomePage(),
     );
   }
 }

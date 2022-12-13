@@ -56,10 +56,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   padding: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      bottom: 20,
-                      top: media.viewPadding.top + 56),
+                      left: 56, right: 56, top: media.viewPadding.top + 56),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
