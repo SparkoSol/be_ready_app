@@ -42,54 +42,63 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     late dynamic child;
     if (imageFile != null) {
       child = Center(
-          child: Stack(
-        alignment: Alignment.topRight,
-        children: [
-          Image.file(
-            imageFile!,
-            fit: BoxFit.fill,
-            height: 111,
-            width: 111,
-          ),
-          Positioned(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.indigo, shape: BoxShape.circle),
-              padding: const EdgeInsets.all(5.0),
-              child: const Icon(
-                Icons.edit,
-                color: Colors.white,
-                size: 18,
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.file(
+                imageFile!,
+                fit: BoxFit.fill,
+                height: 111,
+                width: 111,
               ),
             ),
-          ),
-        ],
-      ));
+            Positioned(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.indigo,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(5.0),
+                child: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     } else if (user.image == null) {
       child = Center(
-          child: Stack(
-        alignment: Alignment.topRight,
-        children: [
-          Image.asset(
-            AppAssets.defaultUser,
-            fit: BoxFit.fill,
-            height: 111,
-            width: 111,
-          ),
-          Positioned(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.indigo, shape: BoxShape.circle),
-              padding: const EdgeInsets.all(5.0),
-              child: const Icon(
-                Icons.edit,
-                color: Colors.white,
-                size: 18,
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Image.asset(
+              AppAssets.defaultUser,
+              fit: BoxFit.fill,
+              height: 111,
+              width: 111,
+            ),
+            Positioned(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.indigo,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(5.0),
+                child: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ),
             ),
-          ),
-        ],
-      ));
+          ],
+        ),
+      );
     } else {
       child = Center(
         child: Stack(
@@ -115,7 +124,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               child: GestureDetector(
                 child: Container(
                   decoration: const BoxDecoration(
-                      color: Colors.indigo, shape: BoxShape.circle),
+                    color: Colors.indigo,
+                    shape: BoxShape.circle,
+                  ),
                   padding: const EdgeInsets.all(5.0),
                   child: const Icon(
                     Icons.edit,

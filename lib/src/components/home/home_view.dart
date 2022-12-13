@@ -115,32 +115,31 @@ class _HomeViewState extends State<HomeView> {
                 MainMenuWidget(
                   onPressed: dailyCheckInRequest,
                   text: 'Daily Check-In',
-                  path: AppAssets.graphSvg,
+                  path: AppAssets.graphIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
                     AppNavigation.to(context, const ResourcePage());
                   },
                   text: 'Resources',
-                  path: AppAssets.graphSvg,
+                  path: AppAssets.graphIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
                     AppNavigation.to(context, const EventsPage());
                   },
                   text: 'Events',
-                  path: AppAssets.graphSvg,
+                  path: AppAssets.calenderIcon,
                 ),
                 MainMenuWidget(
                   onPressed: () {
                     AppNavigation.to(
-                        context,
-                        const ArticlesPage(
-                          isBeConnected: true,
-                        ));
+                      context,
+                      const ArticlesPage(isBeConnected: true),
+                    );
                   },
                   text: 'Be Connected',
-                  path: AppAssets.graphSvg,
+                  path: AppAssets.userIcon,
                 ),
               ]),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

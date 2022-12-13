@@ -87,8 +87,13 @@ class MainMenuWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: SvgPicture.asset(path,
-                      width: 70, height: 70, semanticsLabel: 'Acme Logo'),
+                  child: Image.asset(path,width: 70,height: 70,),
+                  // child: SvgPicture.asset(
+                  //   path,
+                  //   width: 70,
+                  //   height: 70,
+                  //   // semanticsLabel: 'Acme Logo',
+                  // ),
                 ),
 
                 Container(
