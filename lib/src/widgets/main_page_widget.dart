@@ -9,6 +9,7 @@ class MainMenuWidget extends StatelessWidget {
     required this.text,
     required this.onPressed,
   }) : super(key: key);
+
   final String path;
   final String text;
   final VoidCallback onPressed;
@@ -92,10 +93,8 @@ class MainMenuWidget extends StatelessWidget {
                   //   path,
                   //   width: 70,
                   //   height: 70,
-                  //   // semanticsLabel: 'Acme Logo',
                   // ),
                 ),
-
                 Container(
                   height: 1,
                   width: double.infinity,
@@ -113,16 +112,17 @@ class MainMenuWidget extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(22),
-                        bottomRight: Radius.circular(22),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.white.withOpacity(0),
-                          Colors.white.withOpacity(0.2),
-                        ],
-                      )),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(22),
+                      bottomRight: Radius.circular(22),
+                    ),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0),
+                        Colors.white.withOpacity(0.2),
+                      ],
+                    ),
+                  ),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.fromLTRB(0, 9, 0, 15),
                   child: Text(

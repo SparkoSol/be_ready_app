@@ -1,4 +1,5 @@
 const _path = 'assets/images';
+const _svg = 'assets/svg';
 
 class AppAssets {
   static const backgroundImage = '$_path/bg_image.png';
@@ -53,5 +54,9 @@ class AppAssets {
   static const question = '$_path/question.png';
   static const noImage = '$_path/no-photo.png';
   static const defaultUser = '$_path/default_user.png';
-  static const graphSvg = '$_path/graph.svg';
+
+  static const graphSvg = '$_svg/graph.svg';
+  static const profileSvg = '$_svg/profile.svg';
+  static const calendarSvg = '$_svg/calendar.svg';
+
 }

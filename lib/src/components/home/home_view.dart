@@ -73,19 +73,16 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.only(
             left: 20,
             right: 20,
-            top: padding.top,
+            top: padding.top + 56,
             bottom: padding.bottom,
           ),
           child: CustomScrollView(slivers: [
             // SliverPadding(
             //   padding: const EdgeInsets.only(top: 12),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 56),
-              sliver: SliverToBoxAdapter(
-                child: Text(
-                  'Welcome, ${AppData().readLastUser().name}',
-                  style: const TextStyle(fontSize: 33, color: Colors.white),
-                ),
+            SliverToBoxAdapter(
+              child: Text(
+                'Welcome, ${AppData().readLastUser().name}',
+                style: const TextStyle(fontSize: 33, color: Colors.white),
               ),
             ),
             SliverPadding(
@@ -105,8 +102,10 @@ class _HomeViewState extends State<HomeView> {
               SliverToBoxAdapter(
                 child: AppCourseButtonWidget(
                   title: 'Continue Coursework',
-                  onTap: () =>
-                      AppNavigation.to(context, const BeUniverseView()),
+                  onTap: () => AppNavigation.to(
+                    context,
+                    const BeUniverseView(),
+                  ),
                   isShadowed: true,
                 ),
               ),

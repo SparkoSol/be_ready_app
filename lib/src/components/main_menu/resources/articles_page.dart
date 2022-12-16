@@ -13,11 +13,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/utils/awaiter.dart';
 
 class ArticlesPage extends StatefulWidget {
-  const ArticlesPage({Key? key, this.isBeConnected = false, this.count})
-      : super(key: key);
+  const ArticlesPage({
+    Key? key,
+    this.isBeConnected = false,
+    this.count,
+  }) : super(key: key);
 
   final bool isBeConnected;
   final int? count;
+
   @override
   State<ArticlesPage> createState() => _ArticlesPageState();
 }
@@ -224,10 +228,11 @@ class _ArticlesPageState extends State<ArticlesPage> {
         arguments: 'saving',
       );
       if (widget.isBeConnected) {
-        listController.refresh();
+        await listController.refresh();
+      } else {
+        resource.liked = !(resource.liked ?? false);
+        setState(() {});
       }
-      resource.liked = !(resource.liked ?? false);
-      setState(() {});
     } catch (e) {
       ErrorDialog(error: DioException.withDioError(e));
     }
