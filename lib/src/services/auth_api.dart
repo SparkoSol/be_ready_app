@@ -28,7 +28,7 @@ class AuthenticationService {
       final profile = await _api.signUp(request);
       await signIn(
         UserSignInRequest(
-          username: request.username,
+          username: request.username.toLowerCase().trim(),
           password: request.password,
         ),
         true,

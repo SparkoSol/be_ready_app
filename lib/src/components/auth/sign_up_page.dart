@@ -140,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       await AuthenticationService().signUp(
         UserRegisterRequest(
-          email: _emailController.text.trim().toLowerCase(),
+          email: _emailController.text.toLowerCase().trim(),
           password: _passwordController.text.trim(),
           name: _fullNameController.text.trim(),
           username: _emailController.text.trim(),
