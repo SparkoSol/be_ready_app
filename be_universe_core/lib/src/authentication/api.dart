@@ -33,4 +33,8 @@ abstract class AuthenticationApi {
 
   @PATCH('persons/verification-email')
   Future sendOtp(@Body() SendOtpRequest request);
+
+  @PATCH('/persons/update-password/{id}')
+  Future<ProfileResponse> updatePassword(
+      @Path('id') String id, @Body() UpdatePasswordRequest request);
 }

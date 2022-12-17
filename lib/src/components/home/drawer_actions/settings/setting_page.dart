@@ -1,6 +1,6 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/home/drawer_actions/settings/update_password_page.dart';
+import 'package:be_universe/src/components/auth/update_password_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/settings/update_profile_page.dart';
 import 'package:be_universe/src/components/payment_method/payment_method_page.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
@@ -129,13 +129,14 @@ class _SettingPageState extends State<SettingPage> {
                     ],
                   ),
                 ),
-                _ProfileDataContainer(
-                  onTap: () =>
-                      AppNavigation.to(context, const UpdatePasswordPage()),
-                  child: Row(children: [
-                    _getText(text: 'Change Password'),
-                  ]),
-                ),
+                if (AppData().readLastUser().loginVia == 'Email')
+                  _ProfileDataContainer(
+                    onTap: () =>
+                        AppNavigation.to(context, const UpdatePasswordPage()),
+                    child: Row(children: [
+                      _getText(text: 'Change Password'),
+                    ]),
+                  ),
                 _ProfileDataContainer(
                   onTap: () => AppNavigation.to(
                     context,

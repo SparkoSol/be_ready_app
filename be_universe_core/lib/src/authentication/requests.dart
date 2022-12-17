@@ -27,6 +27,19 @@ class VerifyAccountRequest {
 }
 
 @JsonSerializable(createFactory: false)
+class UpdatePasswordRequest {
+  const UpdatePasswordRequest({
+    required this.newPassword,
+    required this.oldPassword,
+  });
+
+  final String newPassword;
+  final String oldPassword;
+
+  Map<String, dynamic> toJson() => _$UpdatePasswordRequestToJson(this);
+}
+
+@JsonSerializable(createFactory: false)
 class ForgotRequest {
   const ForgotRequest({
     required this.hash,
