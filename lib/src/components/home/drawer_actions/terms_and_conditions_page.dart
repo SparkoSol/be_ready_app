@@ -1,10 +1,13 @@
 import 'package:be_universe/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
-import 'package:be_universe/src/utils/const.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/list_view/custom_list_controller.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../widgets/list_view/custom_list_view.dart';
 
 class TermsAndConditionsPage extends StatefulWidget {
   const TermsAndConditionsPage({Key? key}) : super(key: key);
@@ -14,13 +17,17 @@ class TermsAndConditionsPage extends StatefulWidget {
 }
 
 class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
-  final _clause = List.generate(
-    10,
-    (i) => ClauseModel(
-      clause: kLoremIpsum,
-      clauseNumber: 'Clause ${i + 1}',
-    ),
-  );
+  late CustomListViewController<PoliciesResponse> listController;
+
+  @override
+  void initState() {
+    super.initState();
+    listController = CustomListViewController<PoliciesResponse>(
+      listDataFunction: () => FaqApi().getPolicies(),
+    );
+  }
+
+  late PoliciesResponse policiesResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +36,12 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      appBar: AppBarWidget(),
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: padding.top + 56,
-          ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-            ),
-            physics: const BouncingScrollPhysics(),
+      appBar: const AppBarWidget(),
+      body: SingleChildScrollView(
+        child: BackgroundImageWidget(
+          child: Padding(
+            padding:
+                EdgeInsets.only(top: padding.top + 56, left: 30, right: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,29 +56,51 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                     color: Colors.white.withOpacity(0.6),
                   ),
                 ),
-                const SizedBox(height: 58),
-                for (int i = 0; i < _clause.length; i++) ...[
-                  Text(
-                    '${i + 1}. ${_clause[i].clauseNumber}',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, bottom: 30),
-                    child: Text(
-                      _clause[i].clause,
-                      style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        color: Colors.white.withOpacity(0.6),
+                const SizedBox(height: 30),
+                Expanded(
+                  child: CustomListView<PoliciesResponse>.simpler(
+                    listViewController: listController,
+                    baseColor: const Color(0xff2E2340),
+                    highLightColor: Colors.white12,
+                    shimmerCount: 3,
+                    shimmerWidget: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: const SizedBox(
+                        height: 30,
+                        width: double.infinity,
                       ),
                     ),
+                    builder: (ctx, data) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data.title ?? '',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, bottom: 30),
+                            child: Text(
+                              data.description ?? '',
+                              style: GoogleFonts.poppins(
+                                fontSize: 13,
+                                color: Colors.white.withOpacity(0.6),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    },
                   ),
-                ],
+                ),
                 AppButtonWidget(
-                  onPressed: () async {},
+                  onPressed: () async => Navigator.pop(context),
                   title: 'Accept & Continue',
                 ),
                 const SizedBox(height: 25),

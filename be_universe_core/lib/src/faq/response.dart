@@ -36,3 +36,16 @@ class SaveFileResponse {
   factory SaveFileResponse.fromJson(_Json json) =>
       _$SaveFileResponseFromJson(json);
 }
+
+@JsonSerializable(createToJson: false)
+class PoliciesResponse {
+  PoliciesResponse(
+      {required this.title, required this.description, required this.id});
+
+  String? title;
+  String? id;
+  String? description;
+
+  factory PoliciesResponse.fromJson(_Json json) =>
+      _$PoliciesResponseFromJson(json);
+}

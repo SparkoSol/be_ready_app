@@ -125,7 +125,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   title: 'Share with a friend',
                   icon: AppAssets.shareIcon,
                   onTap: () async {
-                    await Share.share('Play store url');
+                    await Share.share('https:playstore.be_universe',
+                        subject: 'Download the app from app store');
                   },
                 ),
               ),

@@ -8,9 +8,13 @@ abstract class FaqApi {
 
   @GET('faqs')
   Future<List<FaqResponse>> getFaqs();
+
   @POST('contact-us')
   Future<void> sendMessage(@Body() ContactUsRequest request);
 
   @POST('save-file')
   Future<SaveFileResponse> saveFile(@Part() File file);
+
+  @GET('policies')
+  Future<List<PoliciesResponse>> getPolicies();
 }
