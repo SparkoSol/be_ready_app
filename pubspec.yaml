@@ -37,6 +37,7 @@ dependencies:
   intl:
   just_audio: ^0.9.30
   flutter_svg:
+  firebase_storage: ^11.0.9
 
 dev_dependencies:
   flutter_test:

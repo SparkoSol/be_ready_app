@@ -84,7 +84,7 @@ class _SettingPageState extends State<SettingPage> {
                                   bottom: 10,
                                 ),
                                 child: AppNetworkImage(
-                                  url: AppData().readLastUser().image!.fileUrl,
+                                  url: AppData().readLastUser().image!,
                                   borderRadius: 30,
                                   width: 111,
                                   height: 111,
@@ -94,8 +94,11 @@ class _SettingPageState extends State<SettingPage> {
                               Positioned(
                                 right: 10,
                                 child: GestureDetector(
-                                  onTap: () => AppNavigation.to(
-                                      context, const UpdateProfilePage()),
+                                  onTap: () async {
+                                    await AppNavigation.to(
+                                        context, const UpdateProfilePage());
+                                    setState(() {});
+                                  },
                                   child: Container(
                                     decoration: const BoxDecoration(
                                         color: Colors.indigo,

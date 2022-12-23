@@ -113,7 +113,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
     }
 
     try {
-      print('${widget.url[selectedIndex].fileUrl}');
+      print('${widget.url[selectedIndex]}');
       // var list = <String>[
       //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
       //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
@@ -122,7 +122,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
       ConcatenatingAudioSource playlist = ConcatenatingAudioSource(children: [
         for (var u in widget.url)
           AudioSource.uri(
-            Uri.parse(u.fileUrl),
+            Uri.parse(u),
           ),
       ]);
       for (int o = 0; o < playlist.length; o++) print(playlist[o]);
@@ -239,7 +239,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
               // )
             ] else ...[
               AppNetworkImage(
-                url: widget.pic!.fileUrl,
+                url: widget.pic!,
                 fit: BoxFit.cover,
                 width: 70,
                 height: 70,

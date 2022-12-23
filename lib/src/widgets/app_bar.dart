@@ -18,7 +18,6 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final bool showNotificationDot;
   final bool isCenterTitle;
   final bool hasDrawer;
-
   @override
   Size get preferredSize => const Size.fromHeight(56);
 
@@ -73,6 +72,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         // ),
         GestureDetector(
           onTap: () async {
+            print(AppData().readLastUser().image!);
             await AppNavigation.to(context, const SettingPage());
             setState(() {});
           },
@@ -92,7 +92,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     bottom: 10,
                   ),
                   child: AppNetworkImage(
-                    url: AppData().readLastUser().image!.fileUrl,
+                    url: AppData().readLastUser().image!,
                     borderRadius: 30,
                     width: 36,
                     height: 36,

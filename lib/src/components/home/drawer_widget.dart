@@ -82,7 +82,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             bottom: 10,
                           ),
                           child: AppNetworkImage(
-                            url: AppData().readLastUser().image!.fileUrl,
+                            url: AppData().readLastUser().image!,
                             borderRadius: 30,
                             width: 36,
                             height: 36,

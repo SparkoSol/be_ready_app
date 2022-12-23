@@ -123,7 +123,7 @@ class _EventsPageState extends State<EventsPage> {
                       child: Container(
                         margin: const EdgeInsets.only(top: 5, bottom: 30),
                         child: AppNetworkImage(
-                          url: data.first.imageName.fileUrl,
+                          url: data.first.imageName,
                           width: 360,
                           height: 225,
                           borderRadius: 30,
@@ -178,7 +178,7 @@ class _EventsPageState extends State<EventsPage> {
                       child: EventsTile(
                         title: data.name,
                         date: DateTime.parse(data.date).monthDate,
-                        path: data.imageName.fileUrl,
+                        path: data.imageName,
                         participants: const [],
                       ),
                     );

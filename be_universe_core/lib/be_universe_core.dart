@@ -97,8 +97,8 @@ class Api {
     ..interceptors.add(AuthorizationInterceptor());
 }
 
-extension ApiExtension on String {
-  String get fileUrl => '${Api.apiUl}uploads/$this';
-
-  String get videoFileUrl => '${Api.apiUl}get-file/$this';
-}
+// extension ApiExtension on String {
+//   String get fileUrl => '${Api.apiUl}uploads/$this';
+//
+//   String get videoFileUrl => '${Api.apiUl}get-file/$this';
+// }

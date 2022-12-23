@@ -39,7 +39,7 @@ class FeelingWidget extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: AppNetworkImage(
-              url: path.fileUrl,
+              url: path,
               width: 50,
               height: 50,
             )

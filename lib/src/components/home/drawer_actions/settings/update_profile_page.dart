@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/services/fire_storage_service.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
@@ -112,7 +113,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 bottom: 10,
               ),
               child: AppNetworkImage(
-                url: AppData().readLastUser().image!.fileUrl,
+                url: AppData().readLastUser().image!,
                 borderRadius: 30,
                 width: 111,
                 height: 111,
@@ -222,21 +223,35 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       setState(() {});
       return;
     }
-    if (imageFile == null) {
-      $showSnackBar(context, 'Image is required');
-      return;
-    }
+    // if (imageFile == null) {
+    //   $showSnackBar(context, 'Image is required');
+    //   return;
+    // }
     try {
-      final saveResponse = await FaqApi().saveFile(imageFile!);
+      var url = AppData().readLastUser().image;
+      if (imageFile != null) {
+        if (AppData().readLastUser().image != null) {
+          try {
+            await FirebaseStorageService(folder: 'profile')
+                .deleteImage(AppData().readLastUser().image!);
+          } catch (e) {}
+        }
+        url = await FirebaseStorageService(folder: 'profile')
+            .uploadFile(imageFile!);
+        print(url);
+      }
+
+      // final saveResponse = await FaqApi().saveFile(imageFile!);
       await ProfileApi().updateProfile(
         user.userid,
         ProfileUpdateRequest(
-          image: saveResponse.name,
+          image: url!,
           name: nameController.text.trim(),
         ),
       );
       user.name = nameController.text;
-      user.image = saveResponse.name;
+      // user.image = saveResponse.name;
+      user.image = url;
       await AppData().saveUser(user);
       print('=========');
       print(user.image);

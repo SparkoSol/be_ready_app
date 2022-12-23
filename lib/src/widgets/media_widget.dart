@@ -62,7 +62,7 @@ class _MediaWidgetState extends State<MediaWidget> {
     late ImageProvider image;
     if (_hasNetworkImage) {
       image = CachedNetworkImageProvider(
-        widget.resource.thumbnail.fileUrl,
+        widget.resource.thumbnail,
         errorListener: () {
           print('RRRRRRR Error while loading image');
           _hasNetworkImage = false;
@@ -143,15 +143,12 @@ class _MediaWidgetState extends State<MediaWidget> {
                 onTap: () {
                   switch (widget.type) {
                     case 'Videos':
-                      AppNavigation.to(
-                          context,
-                          VideoPlayerWidget(
-                              url: widget.resource.filename.videoFileUrl));
+                      AppNavigation.to(context,
+                          VideoPlayerWidget(url: widget.resource.filename));
 
                       break;
                     case 'Books':
-                      PdfDialog(url: widget.resource.filename.fileUrl)
-                          .show(context);
+                      PdfDialog(url: widget.resource.filename).show(context);
 
                       break;
                     case 'Audios':
@@ -229,8 +226,7 @@ class _MediaWidgetState extends State<MediaWidget> {
                           flex: 2,
                           child: GestureDetector(
                             onTap: () async {
-                              String sharingText =
-                                  widget.resource.filename.fileUrl;
+                              String sharingText = widget.resource.filename;
 
                               await Share.share(sharingText,
                                   subject: 'Check this ${widget.type}');

@@ -122,8 +122,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                                   if (data.thumbnail.isNotEmpty)
                                     CircleAvatar(
                                       radius: 12,
-                                      child:
-                                          Image.network(data.thumbnail.fileUrl),
+                                      child: Image.network(data.thumbnail),
                                     ),
                                   const SizedBox(width: 5),
                                   Expanded(
