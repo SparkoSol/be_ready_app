@@ -18,7 +18,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding:

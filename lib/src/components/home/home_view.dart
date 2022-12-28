@@ -57,6 +57,9 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBarWidget(
         parentScaffoldKey: _scaffoldKey,
         hasDrawer: true,
+        afterSetting: () {
+          setState(() {});
+        },
       ),
       drawer: SizedBox(
         width: mediaQuery.size.width - (mediaQuery.size.width * 0.19),

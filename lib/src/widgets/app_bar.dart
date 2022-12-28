@@ -6,18 +6,21 @@ import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarWidget({
-    Key? key,
-    this.showNotificationDot = true,
-    this.isCenterTitle = true,
-    this.hasDrawer = false,
-    this.parentScaffoldKey,
-  }) : super(key: key);
+  AppBarWidget(
+      {Key? key,
+      this.showNotificationDot = true,
+      this.isCenterTitle = true,
+      this.hasDrawer = false,
+      this.parentScaffoldKey,
+      this.afterSetting})
+      : super(key: key);
 
   final GlobalKey<ScaffoldState>? parentScaffoldKey;
   final bool showNotificationDot;
   final bool isCenterTitle;
   final bool hasDrawer;
+  VoidCallback? afterSetting;
+
   @override
   Size get preferredSize => const Size.fromHeight(56);
 
@@ -74,6 +77,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           onTap: () async {
             await AppNavigation.to(context, const SettingPage());
             setState(() {});
+            if (widget.afterSetting != null) {
+              widget.afterSetting!();
+            }
           },
           child: AppData().readLastUser().image == null
               ? Padding(

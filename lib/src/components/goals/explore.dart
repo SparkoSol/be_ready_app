@@ -35,7 +35,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
