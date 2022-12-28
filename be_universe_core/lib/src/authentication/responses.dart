@@ -37,6 +37,8 @@ class ProfileResponse extends HiveObject {
     required this.name,
     required this.email,
     this.fcmToken,
+    this.isPremium,
+    this.businessId,
     required this.loginVia,
   });
 
@@ -57,6 +59,11 @@ class ProfileResponse extends HiveObject {
   String? image;
   @HiveField(7)
   String? fcmToken;
+
+  @HiveField(8)
+  bool? isPremium;
+  @HiveField(9)
+  String? businessId;
 
   factory ProfileResponse.fromJson(_Json json) {
     return _$ProfileResponseFromJson(json);

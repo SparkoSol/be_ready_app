@@ -62,7 +62,7 @@ class _DailyCheckInPageState extends State<DailyCheckInPage> {
       absorbing: _absorb,
       child: Scaffold(
         extendBodyBehindAppBar: true,
-        appBar: AppBarWidget(),
+        appBar: const AppBarWidget(),
         body: BackgroundImageWidget(
           child: Padding(
             padding: EdgeInsets.only(

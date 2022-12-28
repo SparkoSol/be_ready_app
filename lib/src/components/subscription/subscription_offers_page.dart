@@ -1,3 +1,5 @@
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/payment_method/payment_method_page.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -16,7 +18,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: BackgroundImageWidget(
           child: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 56),
@@ -234,7 +236,8 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage> {
                 padding: const EdgeInsets.only(
                     left: 30, right: 30, top: 50, bottom: 50),
                 child: AppButtonWidget(
-                  onPressed: () async {},
+                  onPressed: () =>
+                      AppNavigation.to(context, const PaymentMethodPage()),
                   isIcon: false,
                   title: 'continue',
                 ),

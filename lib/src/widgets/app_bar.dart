@@ -72,7 +72,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         // ),
         GestureDetector(
           onTap: () async {
-            print(AppData().readLastUser().image!);
             await AppNavigation.to(context, const SettingPage());
             setState(() {});
           },

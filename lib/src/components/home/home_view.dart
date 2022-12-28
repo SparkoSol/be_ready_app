@@ -9,6 +9,7 @@ import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
+import 'package:be_universe/src/components/subscription/subscription_page.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
@@ -98,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            if (average > 0)
+            if (average > 0 && AppData.isPremium)
               SliverToBoxAdapter(
                 child: AppCourseButtonWidget(
                   title: 'Continue Coursework',
@@ -151,10 +152,16 @@ class _HomeViewState extends State<HomeView> {
             SliverToBoxAdapter(
               child: GestureDetector(
                 onTap: () async {
-                  await AppNavigation.to(
-                    context,
-                    const BeUniverseView(),
-                  );
+                  if (AppData.isPremium) {
+                    await AppNavigation.to(
+                      context,
+                      const BeUniverseView(),
+                    );
+                  } else {
+                    $showSnackBar(
+                        context, 'You need to purchase exclusive context');
+                    AppNavigation.to(context, const SubscriptionPage());
+                  }
                   getJourneyPro();
                 },
                 child: Center(

@@ -35,7 +35,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
             right: 31,
             top: padding.top + 56,
           ),
-          child:             SingleChildScrollView(
+          child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +136,6 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
               ],
             ),
           ),
-
         ),
       ),
     );

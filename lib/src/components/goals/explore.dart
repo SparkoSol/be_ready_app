@@ -1,8 +1,10 @@
+import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/goals/activites_page.dart';
 import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/journey/journey_page.dart';
+import 'package:be_universe/src/components/subscription/subscription_page.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
@@ -33,7 +35,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
@@ -53,19 +55,42 @@ class _ExplorePageState extends State<ExplorePage> {
               if (widget.mindValue < 5) ...[
                 const RedText(text: 'Mind'),
                 AppCourseButtonWidget(
-                  onTap: () => getJourneys('Mind', TherapyType.mind),
+                  onTap: () {
+                    if (AppData.isPremium) {
+                      getJourneys('Mind', TherapyType.mind);
+                    } else {
+                      $showSnackBar(
+                          context, 'You need to purchase exclusive context');
+                      AppNavigation.to(context, const SubscriptionPage());
+                    }
+                  },
                 ),
               ],
               if (widget.bodyValue < 5) ...[
                 const RedText(text: 'Body'),
                 AppCourseButtonWidget(
-                  onTap: () => getJourneys('Body', TherapyType.body),
+                  onTap: () {
+                    if (AppData.isPremium) {
+                      getJourneys('Body', TherapyType.body);
+                    } else {
+                      $showSnackBar(
+                          context, 'You need to purchase exclusive context');
+                      AppNavigation.to(context, const SubscriptionPage());
+                    }
+                  },
                 ),
               ],
               if (widget.spiritValue < 5) ...[
                 const RedText(text: 'Spirit'),
-                AppCourseButtonWidget(
-                    onTap: () => getJourneys('Spirit', TherapyType.spirit)),
+                AppCourseButtonWidget(onTap: () {
+                  if (AppData.isPremium) {
+                    getJourneys('Spirit', TherapyType.spirit);
+                  } else {
+                    $showSnackBar(
+                        context, 'You need to purchase exclusive context');
+                    AppNavigation.to(context, const SubscriptionPage());
+                  }
+                }),
               ],
               const Spacer(),
               AppButtonWidget(

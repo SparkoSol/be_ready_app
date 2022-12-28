@@ -17,6 +17,8 @@ class AppData with ProfileMixin {
     await _preferences.setString(_accessTokenKey, token);
   }
 
+  static bool get isPremium => AppData().readLastUser().isPremium ?? false;
+
   static String get accessToken =>
       _preferences.getString(_accessTokenKey) ?? '';
 
