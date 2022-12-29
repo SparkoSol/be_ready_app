@@ -1,6 +1,6 @@
 import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/components/subscription/subscription_offers_page.dart';
+import 'package:be_universe/src/components/subscription/offers/subscription_offers_page.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +145,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 ),
                 TextButton(
                   onPressed: () =>
-                      AppNavigation.to(context, const SubscriptionOffersPage()),
+                      AppNavigation.to(context, SubscriptionOffersPage()),
                   child: Text(
                     'View other plans',
                     style: GoogleFonts.poppins(

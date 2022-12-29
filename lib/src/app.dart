@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:be_universe/src/components/auth/sign_in_page.dart';
 import 'package:be_universe/src/components/home/home_page.dart';
-import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
+import 'package:be_universe/src/services/purchase_service.dart';
 import 'package:be_universe/src/utils/default_awaiter.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +27,7 @@ class MyApp extends StatefulWidget {
         await AppData.clearLocalData();
       }
     }
+    PurchaseService.instance.init();
     return runApp(const MyApp._());
   }
 
@@ -36,13 +37,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  void dispose() {
+    PurchaseService.instance.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Be Universe',
       theme: AppTheme.lightTheme,
-    //  home: const DailyCheckInPage(),
-       home: AppData.accessToken.isEmpty ? const SignInPage() : const HomePage(),
+      //  home: const DailyCheckInPage(),
+      home: AppData.accessToken.isEmpty ? const SignInPage() : const HomePage(),
     );
   }
 }
