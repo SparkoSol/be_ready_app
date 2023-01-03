@@ -168,7 +168,7 @@ class AuthService {
     }
   }
 
-  static Future<UserCredential> signInWithApple() async {
+  static Future<MapEntry<UserCredential, String>> signInWithApple() async {
     try {
       await signOut();
       final appleCredentials = await SignInWithApple.getAppleIDCredential(
@@ -187,10 +187,11 @@ class AuthService {
       if (authResult.user == null) {
         throw 'Apple login failed';
       }
-      return authResult;
+      return MapEntry(authResult,
+          '${appleCredentials.givenName} ${appleCredentials.familyName}');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        throw'Account with this email already exists';
+        throw 'Account with this email already exists';
       }
       throw e.code;
     } catch (e) {

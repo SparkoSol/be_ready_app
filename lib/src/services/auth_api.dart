@@ -109,14 +109,15 @@ class AuthenticationService {
   Future<void> signInWithApple(State state) async {
     try {
       final response = await AuthService.signInWithApple();
-      final token = await response.user!.getIdToken();
+      final user = response.key.user!;
+      final token = await user.getIdToken();
       await AuthenticationService().socialSignIn(
         SocialSignInRequest(
-          username: response.user?.email ?? 'none',
+          username: user.email ?? 'none',
           idToken: token,
-          name: response.user?.displayName ?? 'default mail',
-          email: response.user?.email ?? 'default mail',
-          image: response.user?.photoURL ?? '',
+          name: response.value,
+          email: user.email ?? 'default mail',
+          image: user.photoURL ?? '',
           loginVia: 'Apple',
         ),
       );
