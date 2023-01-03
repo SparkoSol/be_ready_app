@@ -121,6 +121,11 @@ class PurchaseService {
 
   Future<void> buyProduct(ProductDetails product, String userId) async {
     try {
+      final paymentWrapper = SKPaymentQueueWrapper();
+      final transactions = await paymentWrapper.transactions();
+      for (final tr in transactions) {
+        await paymentWrapper.finishTransaction(tr);
+      }
       await _purchase.buyNonConsumable(
         purchaseParam: PurchaseParam(
           productDetails: product,

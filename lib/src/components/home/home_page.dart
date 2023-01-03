@@ -3,6 +3,7 @@ import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe/src/widgets/premium/premium_controller.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    PremiumController.instance.fetchUser();
     _pages = [
       {'page': const HomeView()},
       {'page': const Text('Second View')},

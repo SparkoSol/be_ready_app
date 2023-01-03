@@ -9,7 +9,7 @@ import 'package:be_universe/src/components/main_menu/daily_check_in_page.dart';
 import 'package:be_universe/src/components/main_menu/events/events.dart';
 import 'package:be_universe/src/components/main_menu/resources/articles_page.dart';
 import 'package:be_universe/src/components/main_menu/resources/resource_page.dart';
-import 'package:be_universe/src/components/subscription/subscription_page.dart';
+import 'package:be_universe/src/components/subscription/offers/subscription_offers_page.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
@@ -116,7 +116,10 @@ class _HomeViewState extends State<HomeView> {
                     } else {
                       $showSnackBar(
                           context, 'You need to purchase exclusive context');
-                      AppNavigation.to(context, const SubscriptionPage());
+                      AppNavigation.to(
+                        context,
+                        SubscriptionOffersPage(),
+                      );
                     }
                   },
                   isShadowed: true,
@@ -172,7 +175,7 @@ class _HomeViewState extends State<HomeView> {
                   } else {
                     $showSnackBar(
                         context, 'You need to purchase exclusive context');
-                    AppNavigation.to(context, const SubscriptionPage());
+                    AppNavigation.to(context, SubscriptionOffersPage());
                   }
                   getJourneyPro();
                 },

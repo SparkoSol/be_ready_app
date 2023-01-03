@@ -83,8 +83,8 @@ part 'src/resources/responses.dart';
 typedef _Json = Map<String, dynamic>;
 
 class Api {
-  // static const _apiUrl = 'https://api.be-universe.com/';
-  static const _apiUrl = 'http://192.168.18.45:3000/';
+  static const _apiUrl = 'https://api.be-universe.com/';
+  // static const _apiUrl = 'http://192.168.18.45:3000/';
 
   static String get apiUl => _apiUrl;
 

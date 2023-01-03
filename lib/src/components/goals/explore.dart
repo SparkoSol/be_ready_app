@@ -4,7 +4,7 @@ import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/goals/activites_page.dart';
 import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/journey/journey_page.dart';
-import 'package:be_universe/src/components/subscription/subscription_page.dart';
+import 'package:be_universe/src/components/subscription/offers/subscription_offers_page.dart';
 import 'package:be_universe/src/services/daily_check_in_service.dart';
 import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
@@ -62,7 +62,7 @@ class _ExplorePageState extends State<ExplorePage> {
                     } else {
                       $showSnackBar(
                           context, 'You need to purchase exclusive context');
-                      AppNavigation.to(context, const SubscriptionPage());
+                      AppNavigation.to(context, SubscriptionOffersPage());
                     }
                   },
                 ),
@@ -76,7 +76,7 @@ class _ExplorePageState extends State<ExplorePage> {
                     } else {
                       $showSnackBar(
                           context, 'You need to purchase exclusive context');
-                      AppNavigation.to(context, const SubscriptionPage());
+                      AppNavigation.to(context, SubscriptionOffersPage());
                     }
                   },
                 ),
@@ -89,7 +89,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   } else {
                     $showSnackBar(
                         context, 'You need to purchase exclusive context');
-                    AppNavigation.to(context, const SubscriptionPage());
+                    AppNavigation.to(context, SubscriptionOffersPage());
                   }
                 }),
               ],

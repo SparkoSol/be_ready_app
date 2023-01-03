@@ -40,6 +40,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage>
 
   @override
   Widget build(BuildContext context) {
+    widget.controller.bindContext(context);
     return WillPopScope(
       onWillPop: () async => !widget.controller.isPending,
       child: AbsorbPointer(
@@ -84,38 +85,41 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage>
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SliverPadding(
-                        padding: const EdgeInsets.symmetric(vertical: 46),
-                        sliver: SliverToBoxAdapter(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 10,
-                                width: 10,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white30,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Container(
-                                height: 10,
-                                width: 10,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFF6272E4),
-                                      Color(0xFFF09793),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 40),
                       ),
+                      // SliverPadding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 46),
+                      //   sliver: SliverToBoxAdapter(
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: [
+                      //         Container(
+                      //           height: 10,
+                      //           width: 10,
+                      //           decoration: const BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             color: Colors.white30,
+                      //           ),
+                      //         ),
+                      //         const SizedBox(width: 8),
+                      //         Container(
+                      //           height: 10,
+                      //           width: 10,
+                      //           decoration: const BoxDecoration(
+                      //             shape: BoxShape.circle,
+                      //             gradient: LinearGradient(
+                      //               colors: [
+                      //                 Color(0xFF6272E4),
+                      //                 Color(0xFFF09793),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                       // Container(
                       //   padding: const EdgeInsets.symmetric(
                       //     vertical: 26,
