@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:be_universe/src/components/subscription/offers/sub_config.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
@@ -14,6 +15,8 @@ class PurchaseService {
 
   final _monthly = 'monthly';
   final _yearly = 'yearly';
+
+  // final _iosPassword = '217d5130db2d4392932140d5b07231ee';
 
   String get monthlyId => _monthly;
 
@@ -34,55 +37,64 @@ class PurchaseService {
       for (final tr in transactions) {
         await paymentWrapper.finishTransaction(tr);
       }
-      print('RRRRRRRRRRRRRRR: Listener Started');
       _subscription = _purchase.purchaseStream.listen(
         (event) async {
-          print('RRRRRRRRRRRRRRR: Event');
           for (final detail in event) {
             switch (detail.status) {
               case PurchaseStatus.pending:
-                print('RRRRRRRRRRRRRRR: Pending');
                 SubConfig.instance.isPending = true;
                 break;
               case PurchaseStatus.error:
-                print('RRRRRRRRRRRRRRR: There was an error while purchasing');
                 SubConfig.instance.isPending = false;
                 break;
               case PurchaseStatus.purchased:
               case PurchaseStatus.restored:
-                print('RRRRRRRRRRRRRRR: Purchased');
                 if (Platform.isAndroid) {
                   final InAppPurchaseAndroidPlatformAddition androidAddition =
                       _purchase.getPlatformAddition<
                           InAppPurchaseAndroidPlatformAddition>();
                   await androidAddition.consumePurchase(detail);
                 }
+                await _verifyPurchase(detail);
                 if (detail.pendingCompletePurchase) {
-                  print(detail.verificationData.serverVerificationData);
-                  print(detail.verificationData.localVerificationData);
-                  print(detail.verificationData.source);
                   await _purchase.completePurchase(detail);
                 }
                 SubConfig.instance.isPending = false;
                 break;
               case PurchaseStatus.canceled:
-                print('RRRRRRRRRRRRRRR: Canceled');
                 SubConfig.instance.isPending = false;
                 break;
             }
           }
         },
-        onDone: () {
-          print('RRRRRRRRRRRRRRR: Done');
-        },
-        onError: (error) {
-          print('RRRRRRRRRRRRRRR: Error');
-          print(error);
-        },
+        onDone: () {},
+        onError: (error) {},
       );
       await loadProducts();
+    } catch (_) {}
+  }
+
+  final _api = ProfileApi();
+
+  Future<dynamic> _verifyPurchase(PurchaseDetails detail) async {
+    try {
+      final lastUser = AppData().readLastUser();
+      _api.updateReceipt(
+        lastUser.userid,
+        UpdateReceiptRequest(
+          receiptToken: detail.verificationData.serverVerificationData,
+        ),
+      );
+      // await Dio().post(
+      //   'https://sandbox.itunes.apple.com/verifyReceipt',
+      //   data: {
+      //     'receipt-data': detail.verificationData.serverVerificationData,
+      //     'password': _iosPassword,
+      //     'exclude-old-transactions': true,
+      //   },
+      // );
     } catch (_) {
-      print('RRRRRRRRRRRRRRR: In Error');
+      rethrow;
     }
   }
 

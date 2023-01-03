@@ -98,14 +98,17 @@ class _CustomSliderState extends State<CustomSlider> {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
-              '${widget.value.toInt()}',
-              style: GoogleFonts.poppins(
-                fontSize: 13,
-                color: Colors.white.withOpacity(0.7),
-                letterSpacing: 1,
+            SizedBox(
+              width: 15,
+              child: Text(
+                '${widget.value.toInt()}',
+                style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  color: Colors.white.withOpacity(0.7),
+                  letterSpacing: 1,
+                ),
               ),
-            ),
+            )
           ],
         ),
       ],
