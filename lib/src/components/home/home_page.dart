@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     print(AppData.accessToken);
-    print(AppData().readLastUser().userid);
+    // print(AppData().readLastUser().userid);
     return Scaffold(
       key: _scaffoldKey,
       // drawer: SizedBox(

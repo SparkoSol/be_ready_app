@@ -1,3 +1,4 @@
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
 
 class PremiumController extends ChangeNotifier {
@@ -7,5 +8,14 @@ class PremiumController extends ChangeNotifier {
 
   var _isPremium = false;
 
-  void fetchUser() async {}
+  bool get isPremiumUser => _isPremium;
+
+  void fetchUser() async {
+    try {
+      var profile =
+          await ProfileApi().getProfile(AppData().readLastUser().userid);
+      _isPremium = profile.isPremium ?? false;
+      notifyListeners();
+    } catch (_) {}
+  }
 }

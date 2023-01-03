@@ -17,6 +17,7 @@ import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe/src/widgets/gradient_progress_indicator.dart';
 import 'package:be_universe/src/widgets/main_page_widget.dart';
+import 'package:be_universe/src/widgets/premium/premium_controller.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -102,14 +103,22 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            if (average > 0 && AppData.isPremium)
+            if (average > 0)
               SliverToBoxAdapter(
                 child: AppCourseButtonWidget(
                   title: 'Continue Coursework',
-                  onTap: () => AppNavigation.to(
-                    context,
-                    const BeUniverseView(),
-                  ),
+                  onTap: () {
+                    if (PremiumController.instance.isPremiumUser) {
+                      AppNavigation.to(
+                        context,
+                        const BeUniverseView(),
+                      );
+                    } else {
+                      $showSnackBar(
+                          context, 'You need to purchase exclusive context');
+                      AppNavigation.to(context, const SubscriptionPage());
+                    }
+                  },
                   isShadowed: true,
                 ),
               ),
@@ -155,7 +164,7 @@ class _HomeViewState extends State<HomeView> {
             SliverToBoxAdapter(
               child: GestureDetector(
                 onTap: () async {
-                  if (AppData.isPremium) {
+                  if (PremiumController.instance.isPremiumUser) {
                     await AppNavigation.to(
                       context,
                       const BeUniverseView(),

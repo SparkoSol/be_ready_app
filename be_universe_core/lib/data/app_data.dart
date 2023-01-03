@@ -10,6 +10,8 @@ class AppData with ProfileMixin {
     _preferences = await SharedPreferences.getInstance();
     await Hive.initFlutter();
     Hive.registerAdapter(ProfileResponseAdapter());
+    Hive.registerAdapter(PurchaseModelAdapter());
+    Hive.registerAdapter(LatestReceiptInfoAdapter());
     await ProfileMixin.initialize();
   }
 

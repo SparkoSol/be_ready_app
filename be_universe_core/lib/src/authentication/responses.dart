@@ -40,7 +40,7 @@ class ProfileResponse extends HiveObject {
     this.isPremium,
     this.businessId,
     required this.loginVia,
-    // this.purchase,
+    this.purchase,
   });
 
   @HiveField(0)
@@ -65,8 +65,8 @@ class ProfileResponse extends HiveObject {
   bool? isPremium;
   @HiveField(9)
   String? businessId;
-  // @HiveField(10)
-  // PurchaseModel? purchase;
+  @HiveField(10)
+  PurchaseModel? purchase;
 
   factory ProfileResponse.fromJson(_Json json) {
     return _$ProfileResponseFromJson(json);

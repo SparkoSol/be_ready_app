@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:be_universe/src/components/subscription/offers/sub_config.dart';
+import 'package:be_universe/src/widgets/premium/premium_controller.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
@@ -66,6 +67,7 @@ class PurchaseService {
                 break;
             }
           }
+          PremiumController.instance.fetchUser();
         },
         onDone: () {},
         onError: (error) {},

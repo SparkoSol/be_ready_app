@@ -8,6 +8,7 @@ import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -138,6 +139,7 @@ class _SettingPageState extends State<SettingPage> {
                         AppNavigation.to(context, const UpdatePasswordPage()),
                     child: Row(children: [
                       _getText(text: 'Change Password'),
+                      _getTrailing(text: 'Account'),
                     ]),
                   ),
                 _ProfileDataContainer(
@@ -158,6 +160,72 @@ class _SettingPageState extends State<SettingPage> {
                     ],
                   ),
                 ),
+                if (AppData().readLastUser().purchase != null)
+                  _ProfileDataContainer(
+                    child: Column(
+                      children: [
+                        Text(
+                          'Subscription Details',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _getText(
+                                text: DateTime.fromMillisecondsSinceEpoch(
+                                        int.parse(AppData()
+                                            .readLastUser()
+                                            .purchase!
+                                            .latestReceiptInfo!
+                                            .first
+                                            .purchaseDateMs!))
+                                    .dateFormat
+                                    .toString()),
+                            _getTrailing(text: 'Purchase Date'),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _getText(
+                                text: DateTime.fromMillisecondsSinceEpoch(
+                                        int.parse(AppData()
+                                            .readLastUser()
+                                            .purchase!
+                                            .latestReceiptInfo!
+                                            .first
+                                            .expiresDateMs!))
+                                    .dateFormat
+                                    .toString()),
+                            _getTrailing(text: '  Expire Date'),
+                          ],
+                        ),
+                        if (AppData()
+                                .readLastUser()
+                                .purchase!
+                                .latestReceiptInfo!
+                                .first
+                                .isTrialPeriod! ==
+                            'true')
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _getText(
+                                text: 'Yes',
+                              ),
+                              _getTrailing(text: 'Trial Period'),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
               ]),
             ),
           ),

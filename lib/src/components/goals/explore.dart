@@ -10,6 +10,7 @@ import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
+import 'package:be_universe/src/widgets/premium/premium_controller.dart';
 import 'package:be_universe/src/widgets/text.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 const RedText(text: 'Mind'),
                 AppCourseButtonWidget(
                   onTap: () {
-                    if (AppData.isPremium) {
+                    if (PremiumController.instance.isPremiumUser) {
                       getJourneys('Mind', TherapyType.mind);
                     } else {
                       $showSnackBar(
@@ -70,7 +71,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 const RedText(text: 'Body'),
                 AppCourseButtonWidget(
                   onTap: () {
-                    if (AppData.isPremium) {
+                    if (PremiumController.instance.isPremiumUser) {
                       getJourneys('Body', TherapyType.body);
                     } else {
                       $showSnackBar(
@@ -83,7 +84,7 @@ class _ExplorePageState extends State<ExplorePage> {
               if (widget.spiritValue < 5) ...[
                 const RedText(text: 'Spirit'),
                 AppCourseButtonWidget(onTap: () {
-                  if (AppData.isPremium) {
+                  if (PremiumController.instance.isPremiumUser) {
                     getJourneys('Spirit', TherapyType.spirit);
                   } else {
                     $showSnackBar(
