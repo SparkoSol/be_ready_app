@@ -175,7 +175,7 @@ class _HomeViewState extends State<HomeView> {
                   } else {
                     $showSnackBar(
                         context, 'You need to purchase exclusive context');
-                    AppNavigation.to(context, SubscriptionOffersPage());
+                    await AppNavigation.to(context, SubscriptionOffersPage());
                   }
                   getJourneyPro();
                 },
@@ -259,16 +259,12 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> getJourneyPro() async {
     try {
-      print('proooooooooooo');
       final response = await JourneyApi().getJourneyProgress(
         AppData().readLastUser().userid,
       );
       average = (response.mind + response.body + response.spirit) / 3;
       duration = 1;
-      print(average);
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
     setState(() {});
   }
 

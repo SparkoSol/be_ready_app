@@ -24,7 +24,7 @@ class _BeUniverseViewState extends State<BeUniverseView> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: BackgroundImageWidget(
         child: SingleChildScrollView(
           child: Padding(

@@ -8,7 +8,7 @@ class PurchaseModel extends HiveObject {
     required this.receiptToken,
   });
 
-  factory PurchaseModel.fromJson(_Json json) {
+  factory PurchaseModel.fromJson(Json json) {
     return _$PurchaseModelFromJson(json);
   }
 
@@ -30,7 +30,7 @@ class LatestReceiptInfo extends HiveObject {
       this.transactionId,
       this.purchaseDateMs});
 
-  factory LatestReceiptInfo.fromJson(_Json json) {
+  factory LatestReceiptInfo.fromJson(Json json) {
     return _$LatestReceiptInfoFromJson(json);
   }
 

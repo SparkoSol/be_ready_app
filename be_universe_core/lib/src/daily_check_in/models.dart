@@ -18,8 +18,8 @@ class DailyCheckInModel {
   @JsonKey(name: 'my_spirit_feels')
   final int mySpiritFeels;
 
-  _Json toJson() => _$DailyCheckInModelToJson(this);
+  Json toJson() => _$DailyCheckInModelToJson(this);
 
-  factory DailyCheckInModel.fromJson(_Json json) =>
+  factory DailyCheckInModel.fromJson(Json json) =>
       _$DailyCheckInModelFromJson(json);
 }

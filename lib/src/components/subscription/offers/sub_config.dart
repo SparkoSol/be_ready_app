@@ -15,14 +15,28 @@ class SubConfig extends ChangeNotifier {
   void bindContext(BuildContext context) => this.context ??= context;
 
   var _isPending = false;
+  var _isFailed = false;
+
+  set isFailed(bool value) => _isFailed = true;
 
   set isPending(bool value) {
     _isPending = value;
     notifyListeners();
     if (context != null) {
       if (!value) {
-        $showSnackBar(context!, 'Purchase successful!');
-        AppNavigation.navigateRemoveUntil(context!, const HomePage());
+        if (_isFailed) {
+          _isFailed = false;
+          try {
+            $showSnackBar(context!, 'Purchased failed');
+          } catch (_) {}
+          return;
+        }
+        try {
+          $showSnackBar(context!, 'Purchased successful!');
+        } catch (_) {}
+        try {
+          AppNavigation.navigateRemoveUntil(context!, const HomePage());
+        } catch (_) {}
       }
     }
   }

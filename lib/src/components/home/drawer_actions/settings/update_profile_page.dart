@@ -234,11 +234,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           try {
             await FirebaseStorageService(folder: 'profile')
                 .deleteImage(AppData().readLastUser().image!);
-          } catch (e) {}
+          } catch (_) {}
         }
         url = await FirebaseStorageService(folder: 'profile')
             .uploadFile(imageFile!);
-        print(url);
+        // print(url);
       }
 
       // final saveResponse = await FaqApi().saveFile(imageFile!);
@@ -253,8 +253,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       // user.image = saveResponse.name;
       user.image = url;
       await AppData().saveUser(user);
-      print('=========');
-      print(user.image);
+      // print('=========');
+      // print(user.image);
       nameController.clear();
       if (!mounted) return;
       $showSnackBar(context, 'updated successfully');

@@ -157,123 +157,123 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
         ),
       ),
     );
-    Scaffold(
-      appBar: AppBar(),
-      extendBodyBehindAppBar: true,
-      body: BackgroundImageWidget(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 34,
-            right: 34,
-            top: padding.top + 56,
-          ),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 74),
-                  child: Text(
-                    'Payment Method',
-                    style: TextStyle(fontSize: 33, color: Colors.white),
-                  ),
-                ),
-                _getTitleText(title: 'Card number'),
-                AppTextField(
-                  textEditingController: _cardNumberController,
-                  hintStyle: _hintStyle,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 14,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(18.59, 18.59),
-                      blurRadius: 37.17,
-                      spreadRadius: 0,
-                      color: const Color(0xFFD3D1D8).withOpacity(0.25),
-                    ),
-                  ],
-                  keyboardType: TextInputType.number,
-                  hint: '****     ****     ****     1234',
-                  suffix: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Image.asset(
-                      AppAssets.visaIcon,
-                      height: 50,
-                      width: 50,
-                    ),
-                  ),
-                ),
-                Row(children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _getTitleText(title: 'Expiry date'),
-                        AppTextField(
-                          contentPadding: EdgeInsets.zero,
-                          hint: '11/24',
-                          keyboardType: TextInputType.number,
-                          hintStyle: _hintStyle,
-                          textEditingController: _expiryController,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _getTitleText(title: 'CVV'),
-                        AppTextField(
-                          keyboardType: TextInputType.number,
-                          hint: '***',
-                          hintStyle: _hintStyle,
-                          textEditingController: _cvvController,
-                        ),
-                      ],
-                    ),
-                  ),
-                ]),
-                _getTitleText(title: 'Name on card'),
-                AppTextField(
-                  hint: 'Laurie Powell',
-                  hintStyle: _hintStyle,
-                  textEditingController: _nameController,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(AppAssets.stripeIcon),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        child: Text(
-                          'BeUniverse will never store your card details. Payment infrastructure is provided by Stripe',
-                          style: GoogleFonts.alata(
-                            color: const Color(0xFF9EABB7),
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 32),
-                AppButtonWidget(
-                  title: 'UPDATE CARD',
-                  onPressed: () async {},
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+    // Scaffold(
+    //   appBar: AppBar(),
+    //   extendBodyBehindAppBar: true,
+    //   body: BackgroundImageWidget(
+    //     child: Padding(
+    //       padding: EdgeInsets.only(
+    //         left: 34,
+    //         right: 34,
+    //         top: padding.top + 56,
+    //       ),
+    //       child: SingleChildScrollView(
+    //         physics: const BouncingScrollPhysics(),
+    //         child: Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             const Padding(
+    //               padding: EdgeInsets.only(top: 16, bottom: 74),
+    //               child: Text(
+    //                 'Payment Method',
+    //                 style: TextStyle(fontSize: 33, color: Colors.white),
+    //               ),
+    //             ),
+    //             _getTitleText(title: 'Card number'),
+    //             AppTextField(
+    //               textEditingController: _cardNumberController,
+    //               hintStyle: _hintStyle,
+    //               contentPadding: const EdgeInsets.symmetric(
+    //                 vertical: 16,
+    //                 horizontal: 14,
+    //               ),
+    //               boxShadow: [
+    //                 BoxShadow(
+    //                   offset: const Offset(18.59, 18.59),
+    //                   blurRadius: 37.17,
+    //                   spreadRadius: 0,
+    //                   color: const Color(0xFFD3D1D8).withOpacity(0.25),
+    //                 ),
+    //               ],
+    //               keyboardType: TextInputType.number,
+    //               hint: '****     ****     ****     1234',
+    //               suffix: Padding(
+    //                 padding: const EdgeInsets.only(right: 8.0),
+    //                 child: Image.asset(
+    //                   AppAssets.visaIcon,
+    //                   height: 50,
+    //                   width: 50,
+    //                 ),
+    //               ),
+    //             ),
+    //             Row(children: [
+    //               Expanded(
+    //                 child: Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: [
+    //                     _getTitleText(title: 'Expiry date'),
+    //                     AppTextField(
+    //                       contentPadding: EdgeInsets.zero,
+    //                       hint: '11/24',
+    //                       keyboardType: TextInputType.number,
+    //                       hintStyle: _hintStyle,
+    //                       textEditingController: _expiryController,
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ),
+    //               const SizedBox(width: 16),
+    //               Expanded(
+    //                 child: Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: [
+    //                     _getTitleText(title: 'CVV'),
+    //                     AppTextField(
+    //                       keyboardType: TextInputType.number,
+    //                       hint: '***',
+    //                       hintStyle: _hintStyle,
+    //                       textEditingController: _cvvController,
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ]),
+    //             _getTitleText(title: 'Name on card'),
+    //             AppTextField(
+    //               hint: 'Laurie Powell',
+    //               hintStyle: _hintStyle,
+    //               textEditingController: _nameController,
+    //             ),
+    //             Padding(
+    //               padding: const EdgeInsets.symmetric(horizontal: 26),
+    //               child: Row(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Image.asset(AppAssets.stripeIcon),
+    //                   const SizedBox(width: 24),
+    //                   Expanded(
+    //                     child: Text(
+    //                       'BeUniverse will never store your card details. Payment infrastructure is provided by Stripe',
+    //                       style: GoogleFonts.alata(
+    //                         color: const Color(0xFF9EABB7),
+    //                         fontSize: 11,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //             const SizedBox(height: 32),
+    //             AppButtonWidget(
+    //               title: 'UPDATE CARD',
+    //               onPressed: () async {},
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   final _contentPadding = const EdgeInsets.symmetric(

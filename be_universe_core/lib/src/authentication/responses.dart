@@ -9,7 +9,7 @@ class UserSignInResponse {
   @JsonKey(name: 'access_token')
   final String signInToken;
 
-  factory UserSignInResponse.fromJson(_Json json) {
+  factory UserSignInResponse.fromJson(Json json) {
     return _$UserSignInResponseFromJson(json);
   }
 }
@@ -21,7 +21,7 @@ class SocialSignInResponse {
   @JsonKey(name: 'access_token')
   final String socialToken;
 
-  factory SocialSignInResponse.fromJson(_Json json) {
+  factory SocialSignInResponse.fromJson(Json json) {
     return _$SocialSignInResponseFromJson(json);
   }
 }
@@ -68,7 +68,7 @@ class ProfileResponse extends HiveObject {
   @HiveField(10)
   PurchaseModel? purchase;
 
-  factory ProfileResponse.fromJson(_Json json) {
+  factory ProfileResponse.fromJson(Json json) {
     return _$ProfileResponseFromJson(json);
   }
 }

@@ -105,13 +105,32 @@ class _SubscriptionViewState extends State<SubscriptionView>
                         ],
                       ),
                       Text(
-                        '${product.currencySymbol}${product.rawPrice.toStringAsFixed(2)}',
+                        'Start your 3 days free trial then',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text.rich(TextSpan(
+                        text:
+                            '${product.currencySymbol}${product.rawPrice.toStringAsFixed(2)}',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w300,
                         ),
-                      ),
+                        children: [
+                          TextSpan(
+                            text: ' per ${product.per}',
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      )),
                     ],
                   ),
                 ),
@@ -148,113 +167,6 @@ class _SubscriptionViewState extends State<SubscriptionView>
         childCount: _products.length,
       ),
     );
-    return ListView.builder(
-      itemBuilder: (_, index) {
-        // Container(
-        //   margin: const EdgeInsets.symmetric(vertical: 24),
-        //   padding: const EdgeInsets.fromLTRB(31, 37, 24, 17),
-        //   decoration: const BoxDecoration(
-        //     shape: BoxShape.rectangle,
-        //     borderRadius: BorderRadius.all(Radius.circular(20)),
-        //     gradient: LinearGradient(
-        //       colors: [
-        //         Color(0xFFD2876F),
-        //         Color(0xFF523072),
-        //       ],
-        //     ),
-        //   ),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             'Premium',
-        //             style: GoogleFonts.poppins(
-        //               fontSize: 16,
-        //               color: Colors.white,
-        //               fontWeight: FontWeight.bold,
-        //             ),
-        //           ),
-        //           Text(
-        //             '\$${data.first.price}',
-        //             style: GoogleFonts.poppins(
-        //               fontSize: 16,
-        //               color: Colors.white,
-        //               fontWeight: FontWeight.w300,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //       Text(
-        //         '\$0.33/day',
-        //         style: GoogleFonts.poppins(
-        //           fontSize: 16,
-        //           color: Colors.white,
-        //           fontWeight: FontWeight.w300,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        // Stack(fit: StackFit.loose, children: [
-        // Container(
-        // padding: const EdgeInsets.only(
-        // top: 40,
-        // right: 5,
-        // left: 20,
-        // bottom: 30,
-        // ),
-        // decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(25),
-        // color: Colors.transparent,
-        // shape: BoxShape.rectangle,
-        // border: Border.all(
-        // color: const Color(0xFF444A88),
-        // width: 0.5,
-        // ),
-        // ),
-        // child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // children: [
-        // Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        // children: [
-        // Text(
-        // 'Annual (27% off!)',
-        // style: GoogleFonts.poppins(
-        // fontSize: 16,
-        // color: Colors.white,
-        // fontWeight: FontWeight.bold,
-        // ),
-        // ),
-        // Text(
-        // '\$87.52',
-        // style: GoogleFonts.poppins(
-        // fontSize: 18,
-        // color: Colors.white,
-        // fontWeight: FontWeight.normal,
-        // ),
-        // ),
-        // ],
-        // ),
-        // Text(
-        // '\$0.23/day',
-        // style: GoogleFonts.poppins(
-        // fontSize: 15,
-        // color: Colors.white54,
-        // ),
-        // ),
-        // ],
-        // ),
-        // ),
-        // ]);
-        return const Text('');
-      },
-    );
   }
 }
 
@@ -265,9 +177,15 @@ extension _Format on ProductDetails {
 
   bool get isMonthly => id == PurchaseService.instance.monthlyId;
 
+  String get per {
+    if (isMonthly) return 'Month';
+    if (isYearly) return 'Year';
+    return '';
+  }
+
   String appTitle(double mPrice) {
     if (isMonthly) {
-      return 'Premium';
+      return 'Monthly';
     } else if (isYearly) {
       final off = '(${(100 - (rawPrice / (mPrice * 12)) * 100).toInt()}% off)';
       return 'Annual $off';

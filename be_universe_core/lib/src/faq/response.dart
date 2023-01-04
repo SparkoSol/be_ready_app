@@ -7,7 +7,7 @@ class FaqResponse {
     required this.description,
   });
 
-  factory FaqResponse.fromJson(_Json json) => _$FaqResponseFromJson(json);
+  factory FaqResponse.fromJson(Json json) => _$FaqResponseFromJson(json);
 
   final String description;
   final String title;
@@ -33,7 +33,7 @@ class SaveFileResponse {
 
   final String path;
 
-  factory SaveFileResponse.fromJson(_Json json) =>
+  factory SaveFileResponse.fromJson(Json json) =>
       _$SaveFileResponseFromJson(json);
 }
 
@@ -46,6 +46,6 @@ class PoliciesResponse {
   String? id;
   String? description;
 
-  factory PoliciesResponse.fromJson(_Json json) =>
+  factory PoliciesResponse.fromJson(Json json) =>
       _$PoliciesResponseFromJson(json);
 }

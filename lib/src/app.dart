@@ -27,7 +27,6 @@ class MyApp extends StatefulWidget {
         await AppData.clearLocalData();
       }
     }
-    PurchaseService.instance.init();
     return runApp(const MyApp._());
   }
 

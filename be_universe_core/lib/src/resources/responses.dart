@@ -49,7 +49,7 @@ class ResourceResponse {
   @JsonKey(name: 'author_name')
   final String? authorName;
 
-  factory ResourceResponse.fromJson(_Json json) {
+  factory ResourceResponse.fromJson(Json json) {
     return _$ResourceResponseFromJson(json);
   }
 }
@@ -77,7 +77,7 @@ class ResourceCountResponse {
   @JsonKey(name: 'Quote')
   final int? quotes;
 
-  factory ResourceCountResponse.fromJson(_Json json) {
+  factory ResourceCountResponse.fromJson(Json json) {
     return _$ResourceCountResponseFromJson(json);
   }
 }

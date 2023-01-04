@@ -46,7 +46,7 @@ class _JourneyDetailPageState extends State<JourneyDetailPage> {
     return Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
-        appBar: AppBarWidget(),
+        appBar: const AppBarWidget(),
         body: BackgroundImageWidget(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

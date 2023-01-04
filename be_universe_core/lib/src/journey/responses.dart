@@ -17,7 +17,7 @@ class JourneyResponse {
   @JsonKey(name: 'audio_name')
   final String audioName;
 
-  factory JourneyResponse.fromJson(_Json json) =>
+  factory JourneyResponse.fromJson(Json json) =>
       _$JourneyResponseFromJson(json);
 }
 
@@ -30,6 +30,6 @@ class JourneyProgressResponse {
   final double body;
   final double spirit;
 
-  factory JourneyProgressResponse.fromJson(_Json json) =>
+  factory JourneyProgressResponse.fromJson(Json json) =>
       _$JourneyProgressResponseFromJson(json);
 }

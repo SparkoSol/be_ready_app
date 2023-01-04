@@ -49,7 +49,7 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
     ];
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       backgroundColor: Colors.black,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

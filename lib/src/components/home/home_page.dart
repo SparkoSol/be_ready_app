@@ -1,8 +1,8 @@
 import 'package:be_universe/src/base/nav.dart';
-import 'package:be_universe/src/base/theme.dart';
 import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
 import 'package:be_universe/src/services/auth_api.dart';
+import 'package:be_universe/src/services/purchase_service.dart';
 import 'package:be_universe/src/widgets/premium/premium_controller.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
@@ -15,23 +15,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<Map<String, Widget>> _pages;
-  int _selectedPageIndex = 0;
+  // late List<Map<String, Widget>> _pages;
+  // int _selectedPageIndex = 0;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _selectPage(int index) {
-    _selectedPageIndex = index;
-    setState(() {});
-  }
+  // void _selectPage(int index) {
+  //   _selectedPageIndex = index;
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
+    PurchaseService.instance.init();
     PremiumController.instance.fetchUser();
-    _pages = [
-      {'page': const HomeView()},
-      {'page': const Text('Second View')},
-    ];
+    // _pages = [
+    //   {'page': const HomeView()},
+    //   {'page': const Text('Second View')},
+    // ];
     getProfileData();
   }
 
@@ -39,8 +40,8 @@ class _HomePageState extends State<HomePage> {
     try {
       var accessToken = AppData.accessToken;
       final profile = await AuthenticationService().getProfile(accessToken);
-      print('=======================');
-      print(profile.image);
+      // print('=======================');
+      // print(profile.image);
 
       /// Check Verification
       await AppData().saveUser(profile);
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(AppData.accessToken);
+    // print(AppData.accessToken);
     // print(AppData().readLastUser().userid);
     return Scaffold(
       key: _scaffoldKey,
@@ -92,44 +93,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getBottomBarItem({
-    required Function() onTap,
-    required String icon,
-    Color? color,
-    required bool showContainer,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            icon,
-            height: 23,
-            width: 23,
-            color: color,
-          ),
-          const SizedBox(height: 23),
-          if (showContainer)
-            Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.elliptical(100, 50),
-                  topLeft: Radius.elliptical(100, 50),
-                  bottomRight: Radius.circular(25),
-                  bottomLeft: Radius.circular(25),
-                ),
-                gradient: LinearGradient(
-                  colors: AppColors.buttonGradient,
-                ),
-              ),
-              height: 9,
-              width: 28,
-            )
-          else
-            const SizedBox(height: 9),
-        ],
-      ),
-    );
-  }
+  // Widget _getBottomBarItem({
+  //   required Function() onTap,
+  //   required String icon,
+  //   Color? color,
+  //   required bool showContainer,
+  // }) {
+  //   return InkWell(
+  //     onTap: onTap,
+  //     child: Column(
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         Image.asset(
+  //           icon,
+  //           height: 23,
+  //           width: 23,
+  //           color: color,
+  //         ),
+  //         const SizedBox(height: 23),
+  //         if (showContainer)
+  //           Container(
+  //             decoration: const BoxDecoration(
+  //               borderRadius: BorderRadius.only(
+  //                 topRight: Radius.elliptical(100, 50),
+  //                 topLeft: Radius.elliptical(100, 50),
+  //                 bottomRight: Radius.circular(25),
+  //                 bottomLeft: Radius.circular(25),
+  //               ),
+  //               gradient: LinearGradient(
+  //                 colors: AppColors.buttonGradient,
+  //               ),
+  //             ),
+  //             height: 9,
+  //             width: 28,
+  //           )
+  //         else
+  //           const SizedBox(height: 9),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

@@ -80,7 +80,7 @@ part 'src/resources/requests.dart';
 
 part 'src/resources/responses.dart';
 
-typedef _Json = Map<String, dynamic>;
+typedef Json = Map<String, dynamic>;
 
 class Api {
   static const _apiUrl = 'https://api.be-universe.com/';

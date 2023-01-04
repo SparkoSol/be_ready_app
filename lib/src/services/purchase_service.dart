@@ -32,6 +32,7 @@ class PurchaseService {
   final _purchase = InAppPurchase.instance;
 
   Future<void> init() async {
+    // getPurchases();
     try {
       final paymentWrapper = SKPaymentQueueWrapper();
       final transactions = await paymentWrapper.transactions();
@@ -46,6 +47,7 @@ class PurchaseService {
                 SubConfig.instance.isPending = true;
                 break;
               case PurchaseStatus.error:
+                SubConfig.instance.isFailed = true;
                 SubConfig.instance.isPending = false;
                 break;
               case PurchaseStatus.purchased:
@@ -76,12 +78,30 @@ class PurchaseService {
     } catch (_) {}
   }
 
+  // Future<void> getPurchases() async {
+  //   try {
+  //     await FlutterInappPurchase.instance.initialize();
+  //     final history = await FlutterInappPurchase.instance.getPurchaseHistory();
+  //     print('RRRRRRRRRRRRRRRRRRRRRRRRRRR');
+  //     print(history?.length ?? 'Null');
+  //     if (history == null) return;
+  //     for (var element in history) {
+  //       print('====');
+  //       print(element.originalTransactionIdentifierIOS);
+  //       print('----');
+  //     }
+  //   } catch (e) {
+  //     print('EEEEEEEEE');
+  //     print(e);
+  //   }
+  // }
+
   final _api = ProfileApi();
 
   Future<dynamic> _verifyPurchase(PurchaseDetails detail) async {
     try {
       final lastUser = AppData().readLastUser();
-      _api.updateReceipt(
+      await _api.updateReceipt(
         lastUser.userid,
         UpdateReceiptRequest(
           receiptToken: detail.verificationData.serverVerificationData,

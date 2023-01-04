@@ -36,7 +36,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: SingleChildScrollView(
         child: BackgroundImageWidget(
           child: Padding(

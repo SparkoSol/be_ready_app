@@ -21,6 +21,6 @@ class DailyCheckInResponse {
   final String createdAt;
   final String date;
 
-  factory DailyCheckInResponse.fromJson(_Json json) =>
+  factory DailyCheckInResponse.fromJson(Json json) =>
       _$DailyCheckInResponseFromJson(json);
 }

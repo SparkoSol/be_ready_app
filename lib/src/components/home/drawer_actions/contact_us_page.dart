@@ -49,7 +49,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      appBar: AppBarWidget(),
+      appBar: const AppBarWidget(),
       body: SingleChildScrollView(
         child: AbsorbPointer(
           absorbing: _absorb,

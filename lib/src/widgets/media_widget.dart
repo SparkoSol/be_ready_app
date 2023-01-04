@@ -64,7 +64,7 @@ class _MediaWidgetState extends State<MediaWidget> {
       image = CachedNetworkImageProvider(
         widget.resource.thumbnail,
         errorListener: () {
-          print('RRRRRRR Error while loading image');
+          // print('RRRRRRR Error while loading image');
           _hasNetworkImage = false;
           setState(() {});
         },

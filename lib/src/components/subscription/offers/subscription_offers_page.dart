@@ -47,7 +47,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage>
         absorbing: _absorb || widget.controller.isPending,
         child: Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: AppBarWidget(),
+          appBar: const AppBarWidget(),
           body: Stack(
             children: [
               BackgroundImageWidget(
@@ -68,6 +68,19 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage>
                           style: GoogleFonts.oswald(
                             fontSize: 30,
                             color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 5),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Text(
+                          '3 days free trial on all subscriptions',
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            color: Colors.white60,
                           ),
                           textAlign: TextAlign.center,
                         ),

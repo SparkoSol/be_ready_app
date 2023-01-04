@@ -59,9 +59,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
         buffered: _barController.buffered,
         max: _barController.max,
       );
-      print('==duration==');
-      print(position);
-      print(_barController.max);
+      // print('==duration==');
+      // print(position);
+      // print(_barController.max);
 
       // if (_barController.max != Duration.zero &&
       //     position == _barController.max) {
@@ -113,7 +113,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
     }
 
     try {
-      print('${widget.url[selectedIndex]}');
+      // print('${widget.url[selectedIndex]}');
       // var list = <String>[
       //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3',
       //   'http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3',
@@ -125,8 +125,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
             Uri.parse(u),
           ),
       ]);
-      for (int o = 0; o < playlist.length; o++) print(playlist[o]);
-      print('playlist ${playlist.length}');
+      for (int o = 0; o < playlist.length; o++) {
+        debugPrint(playlist[o].toString());
+      }
+      // print('playlist ${playlist.length}');
       await _player.setAudioSource(playlist);
       // await _player.setUrl(Uri.encodeFull(widget.url[selectedIndex].fileUrl));
       _error = null;
@@ -268,14 +270,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget>
   }
 
   Future<void> sendProgress() async {
-    print('progressing ===========');
     try {
-      print(AppData().readLastUser().userid);
-      print(widget.id);
       await JourneyApi().sendJourneyProgress(JourneyProgressRequest(
           user: AppData().readLastUser().userid, id: widget.id!));
-    } catch (e) {
-      print(e);
+    } catch (_) {
       rethrow;
     }
   }

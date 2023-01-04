@@ -92,7 +92,7 @@ class UserRegisterRequest {
   final String username;
   final String loginVia;
 
-  _Json toJson() => _$UserRegisterRequestToJson(this);
+  Json toJson() => _$UserRegisterRequestToJson(this);
 }
 
 @JsonSerializable(createFactory: false)
@@ -113,5 +113,5 @@ class SocialSignInRequest {
   final String idToken;
   final String image;
 
-  _Json toJson() => _$SocialSignInRequestToJson(this);
+  Json toJson() => _$SocialSignInRequestToJson(this);
 }

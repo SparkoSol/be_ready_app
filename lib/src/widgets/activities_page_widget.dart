@@ -1,5 +1,4 @@
 import 'package:be_universe/src/widgets/app_network_image.dart';
-import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

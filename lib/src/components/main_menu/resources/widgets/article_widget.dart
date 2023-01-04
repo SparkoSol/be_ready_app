@@ -21,12 +21,12 @@ class _ArticleDetailWidgetState extends State<ArticleDetailWidget> {
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
 
-    print(widget.description);
+    // print(widget.description);
 
     return Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
-        appBar: AppBarWidget(),
+        appBar: const AppBarWidget(),
         body: BackgroundImageWidget(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

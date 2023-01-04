@@ -6,7 +6,7 @@ import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
-  AppBarWidget(
+  const AppBarWidget(
       {Key? key,
       this.showNotificationDot = true,
       this.isCenterTitle = true,
@@ -19,7 +19,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final bool showNotificationDot;
   final bool isCenterTitle;
   final bool hasDrawer;
-  VoidCallback? afterSetting;
+  final VoidCallback? afterSetting;
 
   @override
   Size get preferredSize => const Size.fromHeight(56);

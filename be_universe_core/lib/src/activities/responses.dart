@@ -12,6 +12,6 @@ class ActivitiesResponse {
   final String duration;
   final String icon;
 
-  factory ActivitiesResponse.fromJson(_Json json) =>
+  factory ActivitiesResponse.fromJson(Json json) =>
       _$ActivitiesResponseFromJson(json);
 }

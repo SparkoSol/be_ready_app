@@ -17,7 +17,7 @@ import 'package:reusables/reusables.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AppDrawer extends StatefulWidget {
-  AppDrawer({
+  const AppDrawer({
     Key? key,
     required this.parentScaffoldKey,
   }) : super(key: key);
@@ -36,7 +36,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    print(AppData().readLastUser().image);
+    // print(AppData().readLastUser().image);
     final padding = MediaQuery.of(context).padding;
     return Container(
       padding: const EdgeInsets.only(right: 3),

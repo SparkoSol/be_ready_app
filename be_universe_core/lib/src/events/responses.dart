@@ -20,7 +20,7 @@ class EventsResponse {
   // @JsonKey(name: 'participate_by')
   // final List<String> participants;
 
-  factory EventsResponse.fromJson(_Json json) => _$EventsResponseFromJson(json);
+  factory EventsResponse.fromJson(Json json) => _$EventsResponseFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
@@ -35,5 +35,5 @@ class BannerResponse {
 
   final String title;
 
-  factory BannerResponse.fromJson(_Json json) => _$BannerResponseFromJson(json);
+  factory BannerResponse.fromJson(Json json) => _$BannerResponseFromJson(json);
 }
