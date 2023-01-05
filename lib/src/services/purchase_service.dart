@@ -65,6 +65,7 @@ class PurchaseService {
                 SubConfig.instance.isPending = false;
                 break;
               case PurchaseStatus.canceled:
+                SubConfig.instance.isFailed = true;
                 SubConfig.instance.isPending = false;
                 break;
             }

@@ -47,9 +47,7 @@ class _FAQPageState extends State<FAQPage> {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 30),
               Expanded(
                 child: CustomListView<List<FaqResponse>>.simpler(
                   listViewController: listController,
@@ -97,6 +95,7 @@ class _ListViewBuildState extends State<ListViewBuild> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: widget.data.length,
+      padding: EdgeInsets.zero,
       itemBuilder: (BuildContext context, int index) {
         var faq = widget.data[index];
         var isExpanded = _expanded.contains(faq);

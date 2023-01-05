@@ -123,12 +123,15 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
               Expanded(
                 child: ListView.builder(
                   controller: widget.controller.scrollController,
+                  padding: EdgeInsets.zero,
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: widget.controller.listData.length,
                   itemBuilder: (ctx, index) {
                     return widget.builder(
-                        ctx, widget.controller.listData[index]);
+                      ctx,
+                      widget.controller.listData[index],
+                    );
                   },
                 ),
               ),
@@ -165,6 +168,7 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
           crossAxisSpacing: 17,
           mainAxisExtent: 185,
         ),
+        padding: EdgeInsets.zero,
         itemCount: widget.shimmerCount ?? 6,
         itemBuilder: (_, index) {
           if (widget.shimmerWidget != null) {
@@ -179,6 +183,7 @@ class _CustomListViewState<T> extends State<CustomListView<T>>
       );
     } else {
       child = ListView.builder(
+        padding: EdgeInsets.zero,
         itemBuilder: _cardBuilder,
         itemCount: widget.shimmerCount ?? 5,
       );

@@ -265,7 +265,9 @@ class _HomeViewState extends State<HomeView> {
       average = (response.mind + response.body + response.spirit) / 3;
       duration = 1;
     } catch (_) {}
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> dailyCheckInRequest() async {

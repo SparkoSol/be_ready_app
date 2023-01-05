@@ -17,9 +17,17 @@ class SubConfig extends ChangeNotifier {
   var _isPending = false;
   var _isFailed = false;
 
+  void reset() {
+    _isFailed = false;
+    _isPending = false;
+  }
+
   set isFailed(bool value) => _isFailed = true;
 
   set isPending(bool value) {
+    print('RRRRRRRRR');
+    print('Is Pending: $_isPending');
+    print('Is Failed: $_isFailed');
     _isPending = value;
     notifyListeners();
     if (context != null) {
@@ -36,7 +44,10 @@ class SubConfig extends ChangeNotifier {
         } catch (_) {}
         try {
           AppNavigation.navigateRemoveUntil(context!, const HomePage());
-        } catch (_) {}
+        } catch (_) {
+          print('EEEEEERRRRROOORRRR');
+          print(_);
+        }
       }
     }
   }

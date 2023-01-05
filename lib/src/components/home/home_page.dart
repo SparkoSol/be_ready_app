@@ -1,6 +1,7 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
+import 'package:be_universe/src/components/subscription/offers/sub_config.dart';
 import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/services/purchase_service.dart';
 import 'package:be_universe/src/widgets/premium/premium_controller.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     PurchaseService.instance.init();
     PremiumController.instance.fetchUser();
+    SubConfig.instance.reset();
     // _pages = [
     //   {'page': const HomeView()},
     //   {'page': const Text('Second View')},

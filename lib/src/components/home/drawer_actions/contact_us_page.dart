@@ -56,10 +56,14 @@ class _ContactUsPageState extends State<ContactUsPage> {
           child: BackgroundImageWidget(
             child: Padding(
               padding: EdgeInsets.only(
-                  left: 30, right: 30, top: padding.top + 56, bottom: 30),
-              child: Column(
-                children: [
-                  Expanded(
+                left: 30,
+                right: 30,
+                top: padding.top + 56,
+                bottom: 30,
+              ),
+              child: Column(children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Form(
                       key: key,
                       autovalidateMode: validationMode,
@@ -134,14 +138,14 @@ class _ContactUsPageState extends State<ContactUsPage> {
                       ),
                     ),
                   ),
-                  AppButtonWidget(
-                    onPressed: submit,
-                    before: () => setState(() => _absorb = true),
-                    after: () => setState(() => _absorb = false),
-                    title: 'Send',
-                  ),
-                ],
-              ),
+                ),
+                AppButtonWidget(
+                  onPressed: submit,
+                  before: () => setState(() => _absorb = true),
+                  after: () => setState(() => _absorb = false),
+                  title: 'Send',
+                ),
+              ]),
             ),
           ),
         ),
@@ -162,14 +166,16 @@ class _ContactUsPageState extends State<ContactUsPage> {
 
     try {
       final saveResponse = await FaqApi().saveFile(_imageFile!);
-      await FaqApi().sendMessage(ContactUsRequest(
+      await FaqApi().sendMessage(
+        ContactUsRequest(
           email: _emailController.text.trim(),
           subject: _subjectController.text.trim(),
           message: _messageController.text.trim(),
-          attachment: saveResponse.name));
-
+          attachment: saveResponse.name,
+        ),
+      );
       if (!mounted) return;
-      $showSnackBar(context, 'sended successfully');
+      $showSnackBar(context, 'Sent successfully');
       Navigator.pop(context);
     } catch (e) {
       rethrow;

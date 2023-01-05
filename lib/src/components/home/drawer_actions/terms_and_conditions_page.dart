@@ -75,6 +75,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                     builder: (ctx, data) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             data.title ?? '',
