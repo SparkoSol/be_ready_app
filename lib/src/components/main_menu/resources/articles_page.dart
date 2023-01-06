@@ -75,9 +75,11 @@ class _ArticlesPageState extends State<ArticlesPage> {
                   )
                 else ...[
                   const GoalsPageTitle(text: 'Be Connected '),
+                  const SizedBox(height: 6),
                   const GoalsPageDescription(
                     text: 'Aware. Acknowledge. Accept.',
                   ),
+                  const SizedBox(height: 36),
                 ],
                 Expanded(
                   child: CustomListView<ResourceResponse>.simpler(

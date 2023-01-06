@@ -72,7 +72,10 @@ class _HomeViewState extends State<HomeView> with ControlledStateMixin {
       ),
       drawer: SizedBox(
         width: mediaQuery.size.width - (mediaQuery.size.width * 0.19),
-        child: AppDrawer(parentScaffoldKey: _scaffoldKey),
+        child: AppDrawer(
+          parentScaffoldKey: _scaffoldKey,
+          onRefresh: widget.controller.notify,
+        ),
       ),
       resizeToAvoidBottomInset: false,
       extendBody: true,

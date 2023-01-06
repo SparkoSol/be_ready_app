@@ -20,9 +20,11 @@ class AppDrawer extends StatefulWidget {
   const AppDrawer({
     Key? key,
     required this.parentScaffoldKey,
+    required this.onRefresh,
   }) : super(key: key);
 
   final GlobalKey<ScaffoldState> parentScaffoldKey;
+  final VoidCallback onRefresh;
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -162,6 +164,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   onPressed: () async {
                     await AppNavigation.to(context, const SettingPage());
                     setState(() {});
+                    widget.onRefresh();
                   },
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
                     Image.asset(AppAssets.settingsIcon, height: 18, width: 18),
