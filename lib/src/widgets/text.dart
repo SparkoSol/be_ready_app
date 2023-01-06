@@ -18,6 +18,7 @@ class RedText extends StatelessWidget {
     );
   }
 }
+
 class GoalsPageTitle extends StatelessWidget {
   final String text;
 
@@ -46,9 +47,10 @@ class GoalsPageDescription extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.poppins(
-          fontSize: 18,
-          color: Colors.white.withOpacity(0.6),
-          fontWeight: FontWeight.w300),
+        fontSize: 18,
+        color: Colors.white.withOpacity(0.6),
+        fontWeight: FontWeight.w300,
+      ),
     );
   }
 }

@@ -34,18 +34,17 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(
-            // left: 30,
-            // right: 30,
             left: 56,
             right: 56,
-            bottom: 20,
-            top: MediaQuery.of(context).padding.top + 56,
+            bottom: padding.bottom + 20,
+            top: padding.top + 56,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +115,7 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
       );
       if (!mounted) return;
-      AppNavigation.toReplace(context, const ActivitesPage());
+      AppNavigation.toReplace(context, const ActivitiesPage());
     } catch (_) {
       rethrow;
     }

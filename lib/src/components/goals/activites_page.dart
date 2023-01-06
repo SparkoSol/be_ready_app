@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/thank_you_widget.dart';
 
-class ActivitesPage extends StatefulWidget {
-  const ActivitesPage({Key? key}) : super(key: key);
+class ActivitiesPage extends StatefulWidget {
+  const ActivitiesPage({Key? key}) : super(key: key);
 
   @override
-  State<ActivitesPage> createState() => _ActivitesPageState();
+  State<ActivitiesPage> createState() => _ActivitiesPageState();
 }
 
-class _ActivitesPageState extends State<ActivitesPage> {
+class _ActivitiesPageState extends State<ActivitiesPage> {
   late CustomListViewController<ActivitiesResponse> listViewController;
 
   @override
@@ -31,6 +31,7 @@ class _ActivitesPageState extends State<ActivitesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const AppBarWidget(),
@@ -41,17 +42,20 @@ class _ActivitesPageState extends State<ActivitesPage> {
             // right: 30,
             left: 58,
             right: 58,
-            bottom: 20,
-            top: MediaQuery.of(context).padding.top + 56,
+            bottom: padding.bottom + 20,
+            top: padding.top + 56,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20),
               const GoalsPageTitle(text: 'Activities'),
+              const SizedBox(height: 10),
               const GoalsPageDescription(
                 text: 'Based on your results we want to help you improve how '
                     'you’re feeling',
               ),
+              const SizedBox(height: 60),
               Expanded(
                 child: CustomListView<ActivitiesResponse>.simpler(
                   listViewController: listViewController,

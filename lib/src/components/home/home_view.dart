@@ -23,19 +23,27 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reusables/reusables.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class HomeViewController extends ChangeNotifier {
+  void notify() => notifyListeners();
+}
+
+class HomeView extends ControlledWidget<HomeViewController> {
+  const HomeView({
+    Key? key,
+    required this.viewController,
+  }) : super(key: key, controller: viewController);
+
+  final HomeViewController viewController;
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with ControlledStateMixin {
   @override
   void initState() {
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => getJourneyPro());
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => getJourneyPro());
   }
 
   @override

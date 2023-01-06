@@ -3,7 +3,7 @@ import 'package:be_universe/src/components/auth/widget/auth_title_widget.dart';
 import 'package:be_universe/src/components/auth/widget/new_password_page.dart';
 import 'package:be_universe/src/components/auth/widget/otp_sign_out_button.dart';
 import 'package:be_universe/src/components/auth/widget/timed_widget.dart';
-import 'package:be_universe/src/components/home/home_view.dart';
+import 'package:be_universe/src/components/home/home_page.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -253,7 +253,7 @@ class _OtpPageState extends State<OtpPage> {
           ),
         );
         if (!mounted) return;
-        AppNavigation.navigateRemoveUntil(context, const HomeView());
+        AppNavigation.navigateRemoveUntil(context, const HomePage());
       }
     } catch (e) {
       if (e is DioError && ((e.response?.statusCode ?? 0) == 406)) {

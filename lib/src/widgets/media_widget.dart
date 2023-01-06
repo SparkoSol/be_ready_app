@@ -97,190 +97,184 @@ class _MediaWidgetState extends State<MediaWidget> {
           //   borderRadius: 35,
           //   fit: BoxFit.contain,
           // ),
-          Column(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(35),
-                  topRight: Radius.circular(35),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 10,
-                    sigmaY: 10,
-                  ),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 21, vertical: 15),
-                    margin: const EdgeInsets.only(bottom: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(0.4),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromRGBO(210, 135, 111, 1),
-                          Color.fromRGBO(82, 48, 114, 1),
-                        ],
-                      ),
-                      shape: BoxShape.rectangle,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                    child: Text(
-                      widget.resource.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
+          Column(children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(35),
+                topRight: Radius.circular(35),
               ),
-              GestureDetector(
-                onTap: () {
-                  switch (widget.type) {
-                    case 'Videos':
-                      AppNavigation.to(context,
-                          VideoPlayerWidget(url: widget.resource.filename));
-
-                      break;
-                    case 'Books':
-                      PdfDialog(url: widget.resource.filename).show(context);
-
-                      break;
-                    case 'Audios':
-                      AudioPlayerWidget(
-                        url: [widget.resource.filename],
-                        pic: widget.resource.thumbnail,
-                        title: [widget.resource.title],
-                      ).show(context);
-
-                      break;
-                    case 'Podcasts':
-                      AudioPlayerWidget(
-                        url: [widget.resource.filename],
-                        pic: widget.resource.thumbnail,
-                        title: [widget.resource.title],
-                      ).show(context);
-                      break;
-                    case 'Quotes':
-                      break;
-                  }
-                },
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 10,
+                  sigmaY: 10,
+                ),
                 child: Container(
-                  width: 63,
-                  height: 63,
-                  margin: const EdgeInsets.symmetric(vertical: 40),
-                  padding: const EdgeInsets.all(15),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      stops: [0.1, 0.8],
-                      end: Alignment.bottomRight,
-                      begin: Alignment.centerLeft,
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 21, vertical: 15),
+                  margin: const EdgeInsets.only(bottom: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent.withOpacity(0.4),
+                    gradient: const LinearGradient(
                       colors: [
-                        Color(0xFFF0D781),
-                        Color(0xFFDA8B6D),
-                        // Color(0xff56528E),
+                        Color.fromRGBO(210, 135, 111, 1),
+                        Color.fromRGBO(82, 48, 114, 1),
                       ],
                     ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
                   ),
-                  child: Image.asset(
-                    icon,
-                    color: Colors.white,
+                  child: Text(
+                    widget.resource.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(35),
-                  bottomLeft: Radius.circular(35),
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 10,
-                    sigmaY: 10,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(21, 5, 21, 5),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(0.4),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromRGBO(210, 135, 111, 1),
-                          Color.fromRGBO(82, 48, 114, 1),
-                        ],
-                      ),
-                      shape: BoxShape.rectangle,
-                      borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(35),
-                        bottomLeft: Radius.circular(35),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: GestureDetector(
-                            onTap: () async {
-                              String sharingText = widget.resource.filename;
+            ),
+            GestureDetector(
+              onTap: () {
+                switch (widget.type) {
+                  case 'Videos':
+                    AppNavigation.to(context,
+                        VideoPlayerWidget(url: widget.resource.filename));
 
-                              await Share.share(sharingText,
-                                  subject: 'Check this ${widget.type}');
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              child: Text(
-                                'Share with a Friend',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 11,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 30,
-                          width: 1,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              stops: const [0.5, 1],
-                              colors: [
-                                Colors.white.withOpacity(0.1),
-                                Colors.white,
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => like(widget.resource.id),
-                            child: Padding(
-                              // color: Colors.red,
-                              padding: const EdgeInsets.fromLTRB(30, 10, 0, 10),
-                              child: Text(
-                                widget.resource.liked == true
-                                    ? 'Unlike'
-                                    : 'Like',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 11,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                    break;
+                  case 'Books':
+                    PdfDialog(url: widget.resource.filename).show(context);
+
+                    break;
+                  case 'Audios':
+                    AudioPlayerWidget(
+                      url: [widget.resource.filename],
+                      pic: widget.resource.thumbnail,
+                      title: [widget.resource.title],
+                    ).show(context);
+
+                    break;
+                  case 'Podcasts':
+                    AudioPlayerWidget(
+                      url: [widget.resource.filename],
+                      pic: widget.resource.thumbnail,
+                      title: [widget.resource.title],
+                    ).show(context);
+                    break;
+                  case 'Quotes':
+                    break;
+                }
+              },
+              child: Container(
+                width: 63,
+                height: 63,
+                margin: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.all(15),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    stops: [0.1, 0.8],
+                    end: Alignment.bottomRight,
+                    begin: Alignment.centerLeft,
+                    colors: [
+                      Color(0xFFF0D781),
+                      Color(0xFFDA8B6D),
+                      // Color(0xff56528E),
+                    ],
+                  ),
+                ),
+                child: Image.asset(
+                  icon,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(35),
+                bottomLeft: Radius.circular(35),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 10,
+                  sigmaY: 10,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent.withOpacity(0.4),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromRGBO(210, 135, 111, 1),
+                        Color.fromRGBO(82, 48, 114, 1),
                       ],
                     ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(35),
+                      bottomLeft: Radius.circular(35),
+                    ),
                   ),
+                  child: Row(children: [
+                    Expanded(
+                      flex: 2,
+                      child: GestureDetector(
+                        onTap: () async {
+                          String sharingText = widget.resource.filename;
+
+                          await Share.share(sharingText,
+                              subject: 'Check this ${widget.type}');
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Share with a Friend',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      width: 1,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          stops: const [0.5, 1],
+                          colors: [
+                            Colors.white.withOpacity(0.1),
+                            Colors.white,
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => like(widget.resource.id),
+                        child: Container(
+                          color: Colors.transparent,
+                          padding: const EdgeInsets.fromLTRB(25, 15, 0, 15),
+                          child: Text(
+                            widget.resource.liked == true ? 'Unlike' : 'Like',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ]),
         ],
       ),
     );

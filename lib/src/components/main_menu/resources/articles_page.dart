@@ -64,11 +64,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
             top: MediaQuery.of(context).padding.top + 56,
           ),
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 52,
-              right: 46,
-              bottom: 20,
-            ),
+            padding: const EdgeInsets.fromLTRB(52, 0, 46, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +76,8 @@ class _ArticlesPageState extends State<ArticlesPage> {
                 else ...[
                   const GoalsPageTitle(text: 'Be Connected '),
                   const GoalsPageDescription(
-                      text: 'Aware. Acknowledge. Accept.'),
+                    text: 'Aware. Acknowledge. Accept.',
+                  ),
                 ],
                 Expanded(
                   child: CustomListView<ResourceResponse>.simpler(
@@ -115,65 +112,57 @@ class _ArticlesPageState extends State<ArticlesPage> {
                             borderRadius: BorderRadius.circular(30),
                             color: const Color(0xff2E2340),
                           ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  if (data.thumbnail.isNotEmpty)
-                                    CircleAvatar(
-                                      radius: 12,
-                                      child: Image.network(data.thumbnail),
-                                    ),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child: Text(
-                                      data.title,
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xffF0D781),
-                                      ),
-                                    ),
+                          child: Column(children: [
+                            Row(children: [
+                              if (data.thumbnail.isNotEmpty)
+                                CircleAvatar(
+                                  radius: 12,
+                                  child: Image.network(data.thumbnail),
+                                ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  data.title,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xffF0D781),
                                   ),
-                                  GestureDetector(
-                                    onTap: () => like(data),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xff241B32),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 6,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            data.liked == true
-                                                ? 'Unlike'
-                                                : 'Like',
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          Icon(
-                                            Icons.favorite,
-                                            color: data.liked == true
-                                                ? Colors.red
-                                                : Colors.white,
-                                            size: 12,
-                                          )
-                                        ],
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => like(data),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff241B32),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 8,
+                                  ),
+                                  child: Row(children: [
+                                    Text(
+                                      data.liked == true ? 'Unlike' : 'Like',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                                    const SizedBox(width: 5),
+                                    Icon(
+                                      Icons.favorite,
+                                      color: data.liked == true
+                                          ? Colors.red
+                                          : Colors.white,
+                                      size: 12,
+                                    )
+                                  ]),
+                                ),
+                              )
+                            ]),
+                          ]),
                         ),
                       );
                     },

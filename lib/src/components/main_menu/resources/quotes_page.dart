@@ -93,62 +93,57 @@ class _QuotesPageState extends State<QuotesPage> {
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Row(children: [
+                          const SizedBox(height: 10),
+                          Row(children: [
+                            Text(
+                              'Author:',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              data.authorName!,
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
+                            )
+                          ]),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () => like(data),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff241B32),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              child: Row(children: [
                                 Text(
-                                  'Author:',
+                                  data.liked == true ? 'Unlike' : 'Like',
                                   style: GoogleFonts.poppins(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
                                     color: Colors.white,
                                   ),
                                 ),
                                 const SizedBox(width: 5),
-                                Text(
-                                  data.authorName!,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white,
-                                  ),
+                                Icon(
+                                  Icons.favorite,
+                                  color: data.liked == true
+                                      ? Colors.red
+                                      : Colors.white,
+                                  size: 12,
                                 )
                               ]),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () => like(data),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xff241B32),
-                                      borderRadius: BorderRadius.circular(12)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 6),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        data.liked == true ? 'Unlike' : 'Like',
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Icon(
-                                        Icons.favorite,
-                                        color: data.liked == true
-                                            ? Colors.red
-                                            : Colors.white,
-                                        size: 12,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
+                            ),
                           )
                         ],
                       ),

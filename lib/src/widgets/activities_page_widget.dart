@@ -22,7 +22,7 @@ class FeelingWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         gradient: const LinearGradient(
           stops: [0.1, 0.8],
           end: Alignment.bottomRight,
@@ -33,7 +33,7 @@ class FeelingWidget extends StatelessWidget {
           ],
         ),
       ),
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 38),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

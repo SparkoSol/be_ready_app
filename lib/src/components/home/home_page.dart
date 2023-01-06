@@ -43,8 +43,6 @@ class _HomePageState extends State<HomePage> {
     try {
       var accessToken = AppData.accessToken;
       var profile = await AuthenticationService().getProfile(accessToken);
-      // print('=======================');
-      // print(profile.image);
       if (!mounted) return;
       if (profile.name == 'Unknown') {
         final updatedProfile = await NameInputSheet(profile: profile).show(
@@ -57,6 +55,7 @@ class _HomePageState extends State<HomePage> {
 
       /// Check Verification
       await AppData().saveUser(profile);
+      _homeViewController.notify();
       if (!mounted) return;
       if (profile.loginVia == 'Email' && profile.isVerified != true) {
         AppNavigation.to(context, const OtpPage(isTimer: false));
@@ -64,6 +63,8 @@ class _HomePageState extends State<HomePage> {
       setState(() {});
     } catch (_) {}
   }
+
+  final _homeViewController = HomeViewController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,9 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       extendBodyBehindAppBar: true,
-      body: const HomeView(),
+      body: HomeView(
+        viewController: _homeViewController,
+      ),
       // bottomNavigationBar: Container(
       //   padding: const EdgeInsets.only(top: 24),
       //   decoration: BoxDecoration(

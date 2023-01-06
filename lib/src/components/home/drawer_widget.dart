@@ -125,8 +125,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   title: 'Share with a friend',
                   icon: AppAssets.shareIcon,
                   onTap: () async {
-                    await Share.share('https:playstore.be_universe',
-                        subject: 'Download the app from app store');
+                    await Share.share(
+                      'https://apps.apple.com/us/app/beuniverse/id6444751165',
+                      subject: 'Download the app from app store',
+                    );
                   },
                 ),
               ),
@@ -179,12 +181,10 @@ class _AppDrawerState extends State<AppDrawer> {
                 TextButton(
                   onPressed: () async {
                     var result = await const ConfirmationDialog(
-                            text: 'Are you sure you want to Logout?')
-                        .show(context);
+                      text: 'Are you sure you want to Logout?',
+                    ).show(context);
                     if (result) {
                       _signOut();
-                    } else {
-                      return;
                     }
                   },
                   child: Text(
