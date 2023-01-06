@@ -31,8 +31,9 @@ class PurchaseService {
 
   final _purchase = InAppPurchase.instance;
 
+  var _isRestored = false;
+
   Future<void> init() async {
-    // getPurchases();
     try {
       final paymentWrapper = SKPaymentQueueWrapper();
       final transactions = await paymentWrapper.transactions();
@@ -42,6 +43,7 @@ class PurchaseService {
       _subscription = _purchase.purchaseStream.listen(
         (event) async {
           for (final detail in event) {
+            print('Event Status:: ${detail.status}');
             switch (detail.status) {
               case PurchaseStatus.pending:
                 SubConfig.instance.isPending = true;
@@ -52,13 +54,18 @@ class PurchaseService {
                 break;
               case PurchaseStatus.purchased:
               case PurchaseStatus.restored:
+                if (_isRestored) return;
+                _isRestored = detail.status == PurchaseStatus.restored;
                 if (Platform.isAndroid) {
                   final InAppPurchaseAndroidPlatformAddition androidAddition =
                       _purchase.getPlatformAddition<
                           InAppPurchaseAndroidPlatformAddition>();
                   await androidAddition.consumePurchase(detail);
                 }
-                await _verifyPurchase(detail);
+                await _verifyPurchase(
+                  detail,
+                  detail.status == PurchaseStatus.restored,
+                );
                 if (detail.pendingCompletePurchase) {
                   await _purchase.completePurchase(detail);
                 }
@@ -99,13 +106,17 @@ class PurchaseService {
 
   final _api = ProfileApi();
 
-  Future<dynamic> _verifyPurchase(PurchaseDetails detail) async {
+  Future<dynamic> _verifyPurchase(
+    PurchaseDetails detail,
+    bool isRestored,
+  ) async {
     try {
       final lastUser = AppData().readLastUser();
       await _api.updateReceipt(
         lastUser.userid,
         UpdateReceiptRequest(
           receiptToken: detail.verificationData.serverVerificationData,
+          transfer: isRestored,
         ),
       );
       // await Dio().post(
@@ -152,6 +163,21 @@ class PurchaseService {
           productDetails: product,
           applicationUserName: userId,
         ),
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> restorePurchase(String userId) async {
+    try {
+      final paymentWrapper = SKPaymentQueueWrapper();
+      final transactions = await paymentWrapper.transactions();
+      for (final tr in transactions) {
+        await paymentWrapper.finishTransaction(tr);
+      }
+      await _purchase.restorePurchases(
+        applicationUserName: userId,
       );
     } catch (_) {
       rethrow;

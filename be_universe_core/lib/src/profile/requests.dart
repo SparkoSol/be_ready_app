@@ -19,9 +19,11 @@ class ProfileUpdateRequest {
 class UpdateReceiptRequest {
   UpdateReceiptRequest({
     required this.receiptToken,
+    required this.transfer,
   });
 
   String receiptToken;
+  bool transfer;
 
   Map<String, dynamic> toJson() => _$UpdateReceiptRequestToJson(this);
 }

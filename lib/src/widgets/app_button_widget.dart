@@ -109,6 +109,7 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
                   if (widget.before != null) {
                     widget.before!();
                   }
+                  if (!mounted) return;
                   await widget.onPressed!();
                 } catch (e) {
                   if (!mounted) return;
@@ -123,6 +124,7 @@ class _AppButtonWidgetState extends State<AppButtonWidget> {
                 if (widget.after != null) {
                   widget.after!();
                 }
+                if (!mounted) return;
                 _isLoading = false;
                 setState(() {});
               },

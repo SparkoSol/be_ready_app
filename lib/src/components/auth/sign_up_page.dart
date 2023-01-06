@@ -98,7 +98,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   AppButtonWidget(
                     before: () => setState(() => _absorb = true),
-                    after: () => setState(() => _absorb = false),
+                    after: () {
+                      if (!mounted) return;
+                      setState(() => _absorb = false);
+                    },
                     onPressed: submit,
                     title: 'SIGN UP',
                   ),

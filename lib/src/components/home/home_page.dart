@@ -1,6 +1,7 @@
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/otp_page.dart';
 import 'package:be_universe/src/components/home/home_view.dart';
+import 'package:be_universe/src/components/home/name_input_sheet.dart';
 import 'package:be_universe/src/components/subscription/offers/sub_config.dart';
 import 'package:be_universe/src/services/auth_api.dart';
 import 'package:be_universe/src/services/purchase_service.dart';
@@ -41,9 +42,18 @@ class _HomePageState extends State<HomePage> {
   Future<void> getProfileData() async {
     try {
       var accessToken = AppData.accessToken;
-      final profile = await AuthenticationService().getProfile(accessToken);
+      var profile = await AuthenticationService().getProfile(accessToken);
       // print('=======================');
       // print(profile.image);
+      if (!mounted) return;
+      if (profile.name == 'Unknown') {
+        final updatedProfile = await NameInputSheet(profile: profile).show(
+          context,
+        );
+        if (updatedProfile != null) {
+          profile = updatedProfile;
+        }
+      }
 
       /// Check Verification
       await AppData().saveUser(profile);
@@ -95,44 +105,44 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget _getBottomBarItem({
-  //   required Function() onTap,
-  //   required String icon,
-  //   Color? color,
-  //   required bool showContainer,
-  // }) {
-  //   return InkWell(
-  //     onTap: onTap,
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Image.asset(
-  //           icon,
-  //           height: 23,
-  //           width: 23,
-  //           color: color,
-  //         ),
-  //         const SizedBox(height: 23),
-  //         if (showContainer)
-  //           Container(
-  //             decoration: const BoxDecoration(
-  //               borderRadius: BorderRadius.only(
-  //                 topRight: Radius.elliptical(100, 50),
-  //                 topLeft: Radius.elliptical(100, 50),
-  //                 bottomRight: Radius.circular(25),
-  //                 bottomLeft: Radius.circular(25),
-  //               ),
-  //               gradient: LinearGradient(
-  //                 colors: AppColors.buttonGradient,
-  //               ),
-  //             ),
-  //             height: 9,
-  //             width: 28,
-  //           )
-  //         else
-  //           const SizedBox(height: 9),
-  //       ],
-  //     ),
-  //   );
-  // }
+// Widget _getBottomBarItem({
+//   required Function() onTap,
+//   required String icon,
+//   Color? color,
+//   required bool showContainer,
+// }) {
+//   return InkWell(
+//     onTap: onTap,
+//     child: Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         Image.asset(
+//           icon,
+//           height: 23,
+//           width: 23,
+//           color: color,
+//         ),
+//         const SizedBox(height: 23),
+//         if (showContainer)
+//           Container(
+//             decoration: const BoxDecoration(
+//               borderRadius: BorderRadius.only(
+//                 topRight: Radius.elliptical(100, 50),
+//                 topLeft: Radius.elliptical(100, 50),
+//                 bottomRight: Radius.circular(25),
+//                 bottomLeft: Radius.circular(25),
+//               ),
+//               gradient: LinearGradient(
+//                 colors: AppColors.buttonGradient,
+//               ),
+//             ),
+//             height: 9,
+//             width: 28,
+//           )
+//         else
+//           const SizedBox(height: 9),
+//       ],
+//     ),
+//   );
+// }
 }

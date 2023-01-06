@@ -187,8 +187,17 @@ class AuthService {
       if (authResult.user == null) {
         throw 'Apple login failed';
       }
-      return MapEntry(authResult,
-          '${appleCredentials.givenName} ${appleCredentials.familyName}');
+      var name = '';
+      if (appleCredentials.givenName != null) {
+        name += appleCredentials.givenName ?? '';
+      }
+      if (appleCredentials.familyName != null) {
+        name += appleCredentials.familyName ?? '';
+      }
+      if(name.isEmpty) {
+        name = 'Unknown';
+      }
+      return MapEntry(authResult, name);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
         throw 'Account with this email already exists';
