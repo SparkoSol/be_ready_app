@@ -1,4 +1,3 @@
-import 'package:be_universe/src/utils/extenstions.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -176,10 +175,11 @@ class _EventsPageState extends State<EventsPage> {
                   builder: (ctx, data) {
                     return GestureDetector(
                       child: EventsTile(
-                        title: data.name,
-                        date: DateTime.parse(data.date).monthDate,
-                        path: data.imageName,
-                        participants: const [],
+                        event: data,
+                        // title: data.name,
+                        // date: DateTime.parse(data.date).monthDate,
+                        // path: data.imageName,
+                        // participants: const [],
                       ),
                     );
                   },

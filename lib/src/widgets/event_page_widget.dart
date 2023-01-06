@@ -1,26 +1,32 @@
+import 'package:be_universe/src/utils/extenstions.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
+import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EventsTile extends StatelessWidget {
   const EventsTile({
     Key? key,
-    required this.title,
-    required this.date,
-    required this.participants,
-    required this.path,
+    // required this.title,
+    // required this.date,
+    // required this.participants,
+    // required this.path,
+    required this.event,
   }) : super(key: key);
 
-  final String title;
-  final String date;
-  final String path;
-  final List<String> participants;
+  final EventsResponse event;
+
+  // final String title;
+  // final String date;
+  // final String path;
+  // final List<String> participants;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.fromLTRB(12, 12, 18, 12),
+      height: 120,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20),
@@ -31,7 +37,7 @@ class EventsTile extends StatelessWidget {
         children: [
           // Expanded(child: Image.network(path, fit: BoxFit.fill)),
           AppNetworkImage(
-            url: path,
+            url: event.imageName,
             width: 96,
             height: 96,
             fit: BoxFit.cover,
@@ -40,22 +46,49 @@ class EventsTile extends StatelessWidget {
 
           const SizedBox(width: 14),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 11),
-              child: Text(
-                title,
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 11),
+                Expanded(
+                  child: Text(
+                    event.name,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 15),
+                  child: Row(children: [
+                    const Icon(
+                      Icons.location_on_outlined,
+                      color: Colors.white60,
+                      size: 17,
+                    ),
+                    const SizedBox(width: 7),
+                    Expanded(
+                      child: Text(
+                        event.location,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Colors.white60,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ]),
+                ),
+              ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Text(
-              date,
+              DateTime.parse(event.date).monthDate,
               style: GoogleFonts.poppins(
                 fontSize: 10,
                 color: const Color(0xffFFFFFF).withOpacity(0.6),
