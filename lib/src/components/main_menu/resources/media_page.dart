@@ -44,7 +44,7 @@ class _MediaPageState extends State<MediaPage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(

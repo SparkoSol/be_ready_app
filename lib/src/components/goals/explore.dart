@@ -37,7 +37,7 @@ class _ExplorePageState extends State<ExplorePage> {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       body: BackgroundImageWidget(
         child: Padding(
           padding: EdgeInsets.only(

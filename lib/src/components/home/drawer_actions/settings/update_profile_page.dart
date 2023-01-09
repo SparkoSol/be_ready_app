@@ -4,6 +4,7 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/services/fire_storage_service.dart';
+import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
@@ -268,6 +269,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       // user.image = saveResponse.name;
       user.image = url;
       await AppData().saveUser(user);
+      AppBarController.instance.notify();
       // print('=========');
       // print(user.image);
       nameController.clear();

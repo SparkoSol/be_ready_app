@@ -26,7 +26,7 @@ class _ArticleDetailWidgetState extends State<ArticleDetailWidget> {
     return Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
-        appBar: const AppBarWidget(),
+        appBar: AppBarWidget(),
         body: BackgroundImageWidget(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -47,7 +47,7 @@ class _SubscriptionOffersPageState extends State<SubscriptionOffersPage>
         absorbing: _absorb || widget.controller.isPending,
         child: Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: const AppBarWidget(),
+          appBar: AppBarWidget(),
           body: Stack(children: [
             BackgroundImageWidget(
               child: Padding(

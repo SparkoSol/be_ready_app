@@ -2,7 +2,6 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/auth/update_password_page.dart';
 import 'package:be_universe/src/components/home/drawer_actions/settings/update_profile_page.dart';
-import 'package:be_universe/src/components/payment_method/payment_method_page.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
@@ -142,24 +141,24 @@ class _SettingPageState extends State<SettingPage> {
                       _getTrailing(text: 'Account'),
                     ]),
                   ),
-                _ProfileDataContainer(
-                  onTap: () => AppNavigation.to(
-                    context,
-                    const PaymentMethodPage(),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _getText(text: 'Update Payment Method'),
-                      Image.asset(
-                        AppAssets.stripeIcon,
-                        width: 50,
-                        height: 27,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
-                ),
+                // _ProfileDataContainer(
+                //   onTap: () => AppNavigation.to(
+                //     context,
+                //     const PaymentMethodPage(),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       _getText(text: 'Update Payment Method'),
+                //       Image.asset(
+                //         AppAssets.stripeIcon,
+                //         width: 50,
+                //         height: 27,
+                //         fit: BoxFit.fill,
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 if (AppData().readLastUser().purchase != null)
                   _ProfileDataContainer(
                     child: Column(

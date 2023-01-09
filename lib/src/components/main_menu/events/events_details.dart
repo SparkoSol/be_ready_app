@@ -32,7 +32,7 @@ class _EventsDetailsPageState extends State<EventsDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       // persistentFooterButtons: [
       //   AppButtonWidget(
       //     onPressed: () async {},

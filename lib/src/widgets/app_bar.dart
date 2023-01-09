@@ -4,16 +4,28 @@ import 'package:be_universe/src/components/home/drawer_actions/settings/setting_
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
-class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarWidget(
-      {Key? key,
-      this.showNotificationDot = true,
-      this.isCenterTitle = true,
-      this.hasDrawer = false,
-      this.parentScaffoldKey,
-      this.afterSetting})
-      : super(key: key);
+class AppBarController extends ChangeNotifier {
+  AppBarController._();
+
+  static final _instance = AppBarController._();
+
+  static AppBarController get instance => _instance;
+
+  void notify() => notifyListeners();
+}
+
+class AppBarWidget extends ControlledWidget<AppBarController>
+    implements PreferredSizeWidget {
+  AppBarWidget({
+    Key? key,
+    this.showNotificationDot = true,
+    this.isCenterTitle = true,
+    this.hasDrawer = false,
+    this.parentScaffoldKey,
+    this.afterSetting,
+  }) : super(key: key, controller: AppBarController._instance);
 
   final GlobalKey<ScaffoldState>? parentScaffoldKey;
   final bool showNotificationDot;
@@ -28,7 +40,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   State<AppBarWidget> createState() => _AppBarWidgetState();
 }
 
-class _AppBarWidgetState extends State<AppBarWidget> {
+class _AppBarWidgetState extends State<AppBarWidget> with ControlledStateMixin {
   @override
   Widget build(BuildContext context) {
     return AppBar(
