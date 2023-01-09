@@ -11,6 +11,7 @@ import 'package:be_universe/src/widgets/background_image_widget.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reusables/utils/input_validator.dart';
 
@@ -216,13 +217,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   Future<void> pickImage({required ImageSource imageSource}) async {
-    XFile? pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    } else {
-      debugPrint('No Image Selected');
+    try {
+      XFile? pickedFile = await ImagePicker().pickImage(source: imageSource);
+      if (pickedFile != null) {
+        setState(() {
+          imageFile = File(pickedFile.path);
+        });
+      } else {
+        debugPrint('No Image Selected');
+      }
+    } on PlatformException catch (e) {
+      $showSnackBar(context, e.code);
+    } catch (_) {
+      $showSnackBar(context, 'Failed');
     }
   }
 
@@ -239,7 +246,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     try {
       var url = AppData().readLastUser().image;
       if (imageFile != null) {
-        if (AppData().readLastUser().image != null) {
+        if (url != null) {
           try {
             await FirebaseStorageService(folder: 'profile')
                 .deleteImage(AppData().readLastUser().image!);
@@ -253,7 +260,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       await ProfileApi().updateProfile(
         user.userid,
         ProfileUpdateRequest(
-          image: url!,
+          image: url,
           name: nameController.text.trim(),
         ),
       );
