@@ -61,6 +61,20 @@ class EventsTile extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Expanded(
+                  child: Text(
+                    event.description,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 15),
                   child: Row(children: [

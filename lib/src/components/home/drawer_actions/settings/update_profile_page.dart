@@ -143,24 +143,31 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     }
 
     return Scaffold(
+      // bottomSheet: AppButtonWidget(
+      //
+      //   onPressed: submit,
+      //   before: () => setState(() => absorb = true),
+      //   after: () => setState(() => absorb = false),
+      //   title: 'Save',
+      // ),
       extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: true,
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: AbsorbPointer(
-          absorbing: absorb,
-          child: BackgroundImageWidget(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(30, padding.top + 56, 30, 20),
-              // padding: EdgeInsets.only(
-              //   top: padding.top + 56,
-              //   left: 30,
-              //   right: 30,
-              //   bottom: 20,
-              // ),
-              child: Column(
-                children: [
-                  Expanded(
+      body: AbsorbPointer(
+        absorbing: absorb,
+        child: BackgroundImageWidget(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(30, padding.top + 56, 30, 20),
+            // padding: EdgeInsets.only(
+            //   top: padding.top + 56,
+            //   left: 30,
+            //   right: 30,
+            //   bottom: 20,
+            // ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Form(
                       key: key,
                       autovalidateMode: validationMode,
@@ -184,6 +191,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             textEditingController: nameController,
                             hint: 'Enter new name',
                             keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.go,
                             validator: InputValidator.required(
                               message: 'Name is required',
                             ),
@@ -192,14 +200,14 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       ),
                     ),
                   ),
-                  AppButtonWidget(
-                    onPressed: submit,
-                    before: () => setState(() => absorb = true),
-                    after: () => setState(() => absorb = false),
-                    title: 'Save',
-                  ),
-                ],
-              ),
+                ),
+                AppButtonWidget(
+                  onPressed: submit,
+                  before: () => setState(() => absorb = true),
+                  after: () => setState(() => absorb = false),
+                  title: 'Save',
+                )
+              ],
             ),
           ),
         ),

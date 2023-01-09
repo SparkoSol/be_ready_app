@@ -1,3 +1,5 @@
+import 'package:be_universe/src/base/nav.dart';
+import 'package:be_universe/src/components/main_menu/events/events_details.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_network_image.dart';
 import 'package:be_universe/src/widgets/background_image_widget.dart';
@@ -174,6 +176,15 @@ class _EventsPageState extends State<EventsPage> {
                   ),
                   builder: (ctx, data) {
                     return GestureDetector(
+                      onTap: () => AppNavigation.to(
+                        context,
+                        EventsDetailsPage(
+                            title: data.name,
+                            date: data.date,
+                            description: data.description,
+                            imagePath: data.imageName,
+                            location: data.location),
+                      ),
                       child: EventsTile(
                         event: data,
                         // title: data.name,

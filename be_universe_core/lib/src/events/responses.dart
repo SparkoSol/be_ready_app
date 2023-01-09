@@ -2,12 +2,12 @@ part of be_universe_core;
 
 @JsonSerializable(createToJson: false)
 class EventsResponse {
-  EventsResponse({
-    required this.name,
-    required this.date,
-    required this.imageName,
-    required this.location,
-  });
+  EventsResponse(
+      {required this.name,
+      required this.date,
+      required this.imageName,
+      required this.location,
+      required this.description});
 
   @JsonKey(name: 'image_name')
   final String imageName;
@@ -17,6 +17,7 @@ class EventsResponse {
   final String location;
   @JsonKey(name: 'date')
   final String date;
+  final String description;
   // @JsonKey(name: 'participate_by')
   // final List<String> participants;
 
