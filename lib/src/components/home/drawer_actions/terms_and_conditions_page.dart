@@ -100,10 +100,15 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                     },
                   ),
                 ),
-                AppButtonWidget(
-                  onPressed: () async => Navigator.pop(context),
-                  title: 'Accept & Continue',
-                ),
+                if (!AppData.isTermsAccepted)
+                  AppButtonWidget(
+                    onPressed: () async {
+                      await AppData.saveTermsAndConditionToken();
+                      if (!mounted) return;
+                      Navigator.pop(context);
+                    },
+                    title: 'Accept & Continue',
+                  ),
                 const SizedBox(height: 25),
               ],
             ),

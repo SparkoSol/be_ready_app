@@ -144,6 +144,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: AbsorbPointer(
@@ -238,7 +239,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         }
         url = await FirebaseStorageService(folder: 'profile')
             .uploadFile(imageFile!);
-        // print(url);
       }
 
       // final saveResponse = await FaqApi().saveFile(imageFile!);

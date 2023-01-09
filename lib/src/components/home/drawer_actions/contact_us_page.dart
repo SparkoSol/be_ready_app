@@ -4,6 +4,7 @@ import 'package:be_universe/src/base/assets.dart';
 import 'package:be_universe/src/base/modals/app_snackbar.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/home/drawer_actions/widget/drawer_action_title_widget.dart';
+import 'package:be_universe/src/services/fire_storage_service.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe/src/widgets/app_button_widget.dart';
 import 'package:be_universe/src/widgets/app_text_field.dart';
@@ -159,19 +160,24 @@ class _ContactUsPageState extends State<ContactUsPage> {
       setState(() {});
       return;
     }
-    if (_imageFile == null) {
-      $showSnackBar(context, 'File is required');
-      return;
-    }
+    // if (_imageFile == null) {
+    //   $showSnackBar(context, 'File is required');
+    //   return;
+    // }
 
     try {
-      final saveResponse = await FaqApi().saveFile(_imageFile!);
+      String? saveResponse;
+      if (_imageFile != null) {
+        // saveResponse = await FaqApi().saveFile(_imageFile!);
+        saveResponse = await FirebaseStorageService(folder: 'Contact-Us')
+            .uploadFile(_imageFile!);
+      }
       await FaqApi().sendMessage(
         ContactUsRequest(
           email: _emailController.text.trim(),
           subject: _subjectController.text.trim(),
           message: _messageController.text.trim(),
-          attachment: saveResponse.name,
+          attachment: saveResponse,
         ),
       );
       if (!mounted) return;

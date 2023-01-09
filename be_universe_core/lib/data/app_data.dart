@@ -5,6 +5,7 @@ class AppData with ProfileMixin {
 
   static const _accessTokenKey = 'access_token';
   static const _rememberKey = 'remember_me';
+  static const _termsAndCondition = 'term_condition';
 
   static Future<void> initialize() async {
     _preferences = await SharedPreferences.getInstance();
@@ -19,7 +20,13 @@ class AppData with ProfileMixin {
     await _preferences.setString(_accessTokenKey, token);
   }
 
+  static Future<void> saveTermsAndConditionToken() async {
+    await _preferences.setBool(_termsAndCondition, true);
+  }
+
   static bool get isPremium => AppData().readLastUser().isPremium ?? false;
+  static bool get isTermsAccepted =>
+      _preferences.getBool(_termsAndCondition) ?? false;
 
   static String get accessToken =>
       _preferences.getString(_accessTokenKey) ?? '';

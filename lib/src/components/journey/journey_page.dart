@@ -1,12 +1,15 @@
 import 'package:be_universe/src/base/assets.dart';
+import 'package:be_universe/src/base/modals/dialogs/error_dialog.dart';
 import 'package:be_universe/src/base/nav.dart';
 import 'package:be_universe/src/components/journey/be_universe_view.dart';
 import 'package:be_universe/src/components/journey/journey_detail_page.dart';
 import 'package:be_universe/src/utils/app_utils.dart';
+import 'package:be_universe/src/utils/dio_exception.dart';
 import 'package:be_universe/src/widgets/app_bar.dart';
 import 'package:be_universe_core/be_universe_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reusables/reusables.dart';
 
 class JourneyHomePage extends StatefulWidget {
   const JourneyHomePage({Key? key, required this.therapy, required this.data})
@@ -169,14 +172,41 @@ class _JourneyHomePageState extends State<JourneyHomePage> {
             ),
           ),
         ),
-        onTap: () {
-          AppNavigation.to(
-            context,
-            JourneyDetailPage(
-                data: journeyResponse, isMainRoute: false, track: index),
-          );
-        },
+        onTap: () => getJourneys(widget.therapy, index, widget.data),
       ),
     );
+  }
+
+  Future<void> getJourneys(
+      TherapyType tType, int index, List<JourneyResponse> data) async {
+    debugPrint(tType.name);
+    String type = '';
+    switch (tType) {
+      case TherapyType.mind:
+        type = 'Mind';
+        break;
+      case TherapyType.body:
+        type = 'Body';
+        break;
+      case TherapyType.spirit:
+        type = 'Spirit';
+        break;
+    }
+    try {
+      data = await Awaiter.process(
+          future: JourneyApi()
+              .getPaginatedJourneys(type, 0.toString(), 6.toString()),
+          context: context,
+          arguments: 'loading...');
+      if (!mounted) return;
+      setState(() {});
+      AppNavigation.to(
+        context,
+        JourneyDetailPage(
+            data: data[index - 1], isMainRoute: false, track: index),
+      );
+    } catch (e) {
+      ErrorDialog(error: DioException.withDioError(e)).show(context);
+    }
   }
 }
