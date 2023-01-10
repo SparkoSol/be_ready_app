@@ -63,7 +63,9 @@ class _EventsDetailsPageState extends State<EventsDetailsPage> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          DateTime.parse(widget.events.date).dateTimeFormat,
+                          DateTime.parse(widget.events.date)
+                              .toLocal()
+                              .dateTimeFormat,
                           style: GoogleFonts.poppins(fontSize: 10),
                         ),
                       ),
@@ -92,6 +94,14 @@ class _EventsDetailsPageState extends State<EventsDetailsPage> {
                         ],
                       ),
                       const SizedBox(height: 10),
+                      Text(
+                        'Description',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
                       Text(
                         widget.events.description,
                         style: GoogleFonts.poppins(

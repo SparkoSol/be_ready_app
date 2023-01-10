@@ -90,7 +90,7 @@ class EventsTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Text(
-              DateTime.parse(event.date).monthDate,
+              DateTime.parse(event.date).toLocal().monthDate,
               style: GoogleFonts.poppins(
                 fontSize: 10,
                 color: const Color(0xffFFFFFF).withOpacity(0.6),

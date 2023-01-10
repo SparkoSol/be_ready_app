@@ -75,6 +75,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                           AppTextField(
                             keyboardType: TextInputType.emailAddress,
                             textEditingController: _emailController,
+                            textInputAction: TextInputAction.next,
                             prefix: Image.asset(AppAssets.messageIcon),
                             hint: 'Contact Email',
                             validator: InputValidator.email(
@@ -83,12 +84,14 @@ class _ContactUsPageState extends State<ContactUsPage> {
                           AppTextField(
                             textEditingController: _subjectController,
                             hint: 'Add Subject',
+                            textInputAction: TextInputAction.next,
                             validator: InputValidator.required(
                                 message: 'Subject is required'),
                           ),
                           AppTextField(
                             textEditingController: _messageController,
                             hint: 'Message',
+                            textInputAction: TextInputAction.go,
                             validator: InputValidator.required(
                                 message: 'Message is required'),
                             maxLines: 5,
