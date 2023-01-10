@@ -7,19 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 class EventsTile extends StatelessWidget {
   const EventsTile({
     Key? key,
-    // required this.title,
-    // required this.date,
-    // required this.participants,
-    // required this.path,
     required this.event,
   }) : super(key: key);
 
   final EventsResponse event;
-
-  // final String title;
-  // final String date;
-  // final String path;
-  // final List<String> participants;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +26,6 @@ class EventsTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Expanded(child: Image.network(path, fit: BoxFit.fill)),
           AppNetworkImage(
             url: event.imageName,
             width: 96,
@@ -43,7 +33,6 @@ class EventsTile extends StatelessWidget {
             fit: BoxFit.cover,
             borderRadius: 8,
           ),
-
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -61,9 +50,7 @@ class EventsTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 3,
-                ),
+                const SizedBox(height: 3),
                 Expanded(
                   child: Text(
                     event.description,
@@ -87,6 +74,7 @@ class EventsTile extends StatelessWidget {
                     Expanded(
                       child: Text(
                         event.location,
+                        overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           color: Colors.white60,

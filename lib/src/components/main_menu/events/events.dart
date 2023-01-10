@@ -178,20 +178,9 @@ class _EventsPageState extends State<EventsPage> {
                     return GestureDetector(
                       onTap: () => AppNavigation.to(
                         context,
-                        EventsDetailsPage(
-                            title: data.name,
-                            date: data.date,
-                            description: data.description,
-                            imagePath: data.imageName,
-                            location: data.location),
+                        EventsDetailsPage(events: data),
                       ),
-                      child: EventsTile(
-                        event: data,
-                        // title: data.name,
-                        // date: DateTime.parse(data.date).monthDate,
-                        // path: data.imageName,
-                        // participants: const [],
-                      ),
+                      child: EventsTile(event: data),
                     );
                   },
                 ),

@@ -25,6 +25,7 @@ class AppData with ProfileMixin {
   }
 
   static bool get isPremium => AppData().readLastUser().isPremium ?? false;
+
   static bool get isTermsAccepted =>
       _preferences.getBool(_termsAndCondition) ?? false;
 
@@ -38,7 +39,11 @@ class AppData with ProfileMixin {
   static bool get rememberMe => _preferences.getBool(_rememberKey) ?? true;
 
   static Future<void> clearLocalData() async {
+    var flag = isTermsAccepted;
     await _preferences.clear();
+    if (flag) {
+      await saveTermsAndConditionToken();
+    }
     await ProfileMixin.clearUsers();
   }
 }
